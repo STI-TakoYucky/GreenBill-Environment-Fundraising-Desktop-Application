@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GreenBill.Core
+namespace GreenBill.MVVM.ViewModel
 {
-    public class ViewModel
+    public class MainWindowViewModel : Core.ViewModel
     {
+
+        public MainWindowViewModel() { }
     }
 }

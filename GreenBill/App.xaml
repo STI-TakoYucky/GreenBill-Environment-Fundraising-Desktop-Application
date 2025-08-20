@@ -15,6 +15,11 @@
             <DataTemplate DataType="{x:Type viewModel:SigninViewModel}">
                 <view:Signin/>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:SignupViewModel}">
+                <view:Signup/>
+            </DataTemplate>
+            
             <DataTemplate DataType="{x:Type viewModel:HomePageViewModel}">
                 <view:HomePage/>
             </DataTemplate>

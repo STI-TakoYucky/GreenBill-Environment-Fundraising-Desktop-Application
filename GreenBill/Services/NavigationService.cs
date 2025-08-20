@@ -16,7 +16,7 @@ namespace GreenBill.Services
     }
     public class NavigationService : ObservableObject, INavigationService
     {
-        private ViewModel _currentView = new SigninViewModel();
+        private ViewModel _currentView = new HomePageViewModel();
         private readonly Func<Type, ViewModel> viewModelFactory;
         public ViewModel CurrentView
         {

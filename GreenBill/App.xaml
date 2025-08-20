@@ -15,7 +15,9 @@
             <DataTemplate DataType="{x:Type viewModel:SigninViewModel}">
                 <view:Signin/>
             </DataTemplate>
-
+            <DataTemplate DataType="{x:Type viewModel:HomePageViewModel}">
+                <view:HomePage/>
+            </DataTemplate>
 
             <Style TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>

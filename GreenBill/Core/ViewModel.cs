@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GreenBill.Core
 {
-    public class ViewModel
+    public class ViewModel : ObservableObject
     {
     }
 }

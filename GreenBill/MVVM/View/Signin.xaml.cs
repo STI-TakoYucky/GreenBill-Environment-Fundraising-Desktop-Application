@@ -18,7 +18,7 @@ namespace GreenBill.MVVM.View
     /// <summary>
     /// Interaction logic for Signin.xaml
     /// </summary>
-    public partial class Signin : Page
+    public partial class Signin : UserControl
     {
         public Signin()
         {

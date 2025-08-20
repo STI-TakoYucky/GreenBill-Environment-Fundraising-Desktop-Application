@@ -9,6 +9,6 @@
         Height="900" Width="1400"
         Background="#F5F5F5">
     <Grid>
-        
+        <ContentControl Content="{Binding Navigation.CurrentView}"/>
     </Grid>
 </Window>

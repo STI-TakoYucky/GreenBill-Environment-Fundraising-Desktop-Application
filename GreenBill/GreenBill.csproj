@@ -78,6 +78,9 @@
     <Compile Include="MVVM\View\FundraisingDetails.xaml.cs">
       <DependentUpon>FundraisingDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\FundraisingSteps\FirstStep.xaml.cs">
+      <DependentUpon>FirstStep.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -89,6 +92,10 @@
     </Compile>
     <Compile Include="Services\NavigationService.cs" />
     <Page Include="MVVM\View\FundraisingDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\FundraisingSteps\FirstStep.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

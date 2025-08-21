@@ -1,0 +1,249 @@
+﻿<UserControl x:Class="GreenBill.MVVM.View.FundraisingSteps.FifthPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GreenBill.MVVM.View.FundraisingSteps"
+             mc:Ignorable="d" 
+             d:DesignHeight="900" d:DesignWidth="1400"
+             Background="#F5F5F5">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Side - Content -->
+        <StackPanel Grid.Column="0" 
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center"
+                    Margin="50">
+
+            <!-- Logo/Icon placeholder -->
+            <Image Source="/Assets/Images/logo.png"
+                   Height="100"
+                   Margin="0,0,0,0"/>
+
+            <!-- Step indicator -->
+            <TextBlock Text="5 of 5"
+                       FontSize="14"
+                       Foreground="#666666"
+                       TextAlignment="Center"
+                       Margin="0,0,0,0"/>
+
+            <TextBlock Text="You're ready to start fundraising"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#333333"
+                       TextWrapping="Wrap"
+                       TextAlignment="Center"
+                       Margin="0,0,0,20"/>
+
+            <TextBlock Text="Preview what your fundraiser will look like to donors or revise any details."
+                       FontSize="16"
+                       Foreground="#666666"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"
+                       LineHeight="24"
+                       Margin="0,0,0,40"/>
+
+            <!-- Navigation Buttons -->
+         
+        </StackPanel>
+
+        <!-- Right Side - Preview Section -->
+        <Border Grid.Column="1" 
+                Background="White"
+                CornerRadius="12"
+                Margin="50,50,100,50"
+                Padding="30">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="AUto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <!-- Preview Header -->
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Preview/Edit Toggle -->
+
+
+                        <!-- Edit Button -->
+
+                    </Grid>
+
+                    <!-- Live Preview Indicator -->
+                    <StackPanel Orientation="Horizontal" 
+                HorizontalAlignment="Center"
+                Margin="0,0,0,20">
+                        <Ellipse Width="8" Height="8" 
+                 Fill="#22C55E" 
+                 Margin="0,0,8,0"/>
+                        <TextBlock Text="You are viewing a live preview"
+                    FontSize="12"
+                    Foreground="#666666"/>
+                    </StackPanel>
+
+                    <!-- Mock GoFundMe Interface -->
+                    <Border Background="#F8F9FA"
+             CornerRadius="8"
+             Padding="20"
+             Margin="0,0,0,20">
+
+                        <!-- Mock Header with Logo -->
+                        <Grid Margin="0,0,0,20">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Ellipse Grid.Column="0" 
+                     Width="6" Height="6" 
+                     Fill="#22C55E"
+                     Margin="0,0,8,0"/>
+                            <TextBlock Grid.Column="1"
+                        Text="GreenBill"
+                        FontSize="16"
+                        FontWeight="Bold"
+                        Foreground="#22C55E"
+                        HorizontalAlignment="Center"/>
+                            <Button Grid.Column="2"
+                     Content="↗"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     FontSize="16"
+                     Margin="0,0,10,0"/>
+                            <Button Grid.Column="3"
+                     Content="☰"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     FontSize="16"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Fundraiser Preview Card -->
+                    <Border Background="White"
+             BorderBrush="#E0E0E0"
+             BorderThickness="1"
+             CornerRadius="8">
+                        <StackPanel>
+                            <!-- Image Placeholder -->
+                            <Border Height="200"
+                     Background="LightGray"
+                     CornerRadius="8,8,0,0">
+                                <Image Source="/Assets/Images/pollutedwater.jpg"
+                        Stretch="UniformToFill"/>
+                            </Border>
+
+                            <!-- Fundraiser Content -->
+                            <StackPanel>
+                                <!-- Title -->
+                                <TextBlock Text="Help The Comet's Get The Gear They Need"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Foreground="#333333"
+                            TextWrapping="Wrap"
+                            Margin="0,0,0,15"/>
+
+                                <!-- Goal Amount -->
+                                <StackPanel Orientation="Horizontal" 
+                            Margin="0,0,0,20">
+                                    <TextBlock Text="$1,000"
+                                FontSize="18"
+                                FontWeight="SemiBold"
+                                Foreground="#333333"/>
+                                    <TextBlock Text=" goal"
+                                FontSize="14"
+                                Foreground="#666666"
+                                VerticalAlignment="Bottom"
+                                Margin="5,0,0,2"/>
+                                </StackPanel>
+
+                                <!-- Progress Bar -->
+                                <Border Height="8"
+                         Background="#FFD700"
+                         CornerRadius="4"
+                         Margin="0,0,0,20"/>
+
+                                <!-- Sample Story Preview -->
+                                <TextBlock Text="Hi, my name is Sarah and I'm fundraising for our local youth soccer team, The Comets. These amazing kids have been working so hard this season..."
+                            FontSize="14"
+                            Foreground="#666666"
+                            TextWrapping="Wrap"
+                            LineHeight="20"
+                            MaxHeight="60"
+                            TextTrimming="CharacterEllipsis"/>
+                            </StackPanel>
+                        </StackPanel>
+
+
+                    </Border>
+
+
+                </StackPanel>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Back Button -->
+                    <Button Grid.Column="0"
+               Width="50"
+               Height="50"
+               Background="White"
+               BorderBrush="#E0E0E0"
+               BorderThickness="1"
+               HorizontalAlignment="Left">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      CornerRadius="25">
+                                                <Path Data="M15,12 L9,6 L10.4,4.6 L18,12 L10.4,19.4 L9,18 Z"
+                                         Fill="#666666"
+                                         RenderTransformOrigin="0.5,0.5"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center">
+                                                    <Path.RenderTransform>
+                                                        <RotateTransform Angle="180"/>
+                                                    </Path.RenderTransform>
+                                                </Path>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <!-- Continue Button -->
+                    <Button Grid.Column="2"
+               Content="Continue"
+               Style="{StaticResource PrimaryButton}"
+               HorizontalAlignment="Right"/>
+                </Grid>
+            </Grid>
+            
+            
+            
+            
+        </Border>
+        
+        
+    </Grid>
+</UserControl>

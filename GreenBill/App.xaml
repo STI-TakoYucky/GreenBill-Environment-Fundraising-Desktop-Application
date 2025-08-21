@@ -24,6 +24,10 @@
                 <view:HomePage/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:FundraisingDetailsViewModel}">
+                <view:FundraisingDetails/>
+            </DataTemplate>
+
             <Style TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>
             </Style>

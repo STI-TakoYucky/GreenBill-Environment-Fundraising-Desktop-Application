@@ -1,4 +1,5 @@
-﻿using GreenBill.Services;
+﻿using GreenBill.Core;
+using GreenBill.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,12 @@ namespace GreenBill.MVVM.ViewModel
 
         public SigninViewModel() { }
 
+        public RelayCommand NavigateToHome {  get; set; }
+
         public SigninViewModel(INavigationService navService)
         {
             Navigation = navService;
-        }
+            NavigateToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
+        }   
     }
 }

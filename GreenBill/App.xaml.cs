@@ -1,4 +1,5 @@
-﻿using GreenBill.MVVM.ViewModel;
+﻿using GreenBill.Core;
+using GreenBill.MVVM.ViewModel;
 using GreenBill.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -29,9 +30,11 @@ namespace GreenBill
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<SigninViewModel>();
             services.AddSingleton<HomePageViewModel>();
+            services.AddSingleton<SignupViewModel>();
+            services.AddSingleton<FundraisingDetailsViewModel>();
 
             services.AddSingleton<INavigationService, NavigationService>();
-            services.AddSingleton<Func<Type, Core.ViewModel>>(ServiceProvider => viewModelType => (Core.ViewModel)ServiceProvider.GetRequiredService(viewModelType));
+            services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
 
             serviceProvider = services.BuildServiceProvider();
         }

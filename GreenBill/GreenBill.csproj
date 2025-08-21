@@ -70,16 +70,28 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MVVM\ViewModel\FundraisingDetailsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\HomePageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainWindowViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SigninViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\SignupViewModel.cs" />
+    <Compile Include="MVVM\View\FundraisingDetails.xaml.cs">
+      <DependentUpon>FundraisingDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Signin.xaml.cs">
       <DependentUpon>Signin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\Signup.xaml.cs">
+      <DependentUpon>Signup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\NavigationService.cs" />
+    <Page Include="MVVM\View\FundraisingDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -100,6 +112,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MVVM\View\Signin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Signup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

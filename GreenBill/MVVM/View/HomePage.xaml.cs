@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreenBill.MVVM.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace GreenBill.MVVM.View
         public HomePage()
         {
             InitializeComponent();
+        }
+
+        private void Card_Click(object sender, MouseButtonEventArgs e)
+        {
+            MainContent.Visibility = Visibility.Collapsed;
+
+            var fundraisingPage = new FundraisingDetails();
+            MainFrame.Navigate(fundraisingPage);
+
+            MainFrame.Visibility = Visibility.Visible;
         }
     }
 }

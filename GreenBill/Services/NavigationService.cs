@@ -16,7 +16,7 @@ namespace GreenBill.Services
     }
     public class NavigationService : ObservableObject, INavigationService
     {
-        private ViewModel _currentView = new HomePageViewModel();
+        private ViewModel _currentView;
         private readonly Func<Type, ViewModel> viewModelFactory;
         public ViewModel CurrentView
         {
@@ -30,7 +30,7 @@ namespace GreenBill.Services
 
         public NavigationService(Func<Type, ViewModel> viewModelFactory)
         {
-            this.viewModelFactory = viewModelFactory;
+            this.viewModelFactory = viewModelFactory; 
         }
 
         public void NavigateTo<TViewModel>() where TViewModel : ViewModel

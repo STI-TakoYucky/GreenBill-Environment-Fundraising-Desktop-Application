@@ -1,9 +1,12 @@
-﻿using GreenBill.Services;
+﻿using GreenBill.Core;
+using GreenBill.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace GreenBill.MVVM.ViewModel
 {
@@ -21,11 +24,18 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        public HomePageViewModel() { }
+        public ICommand NavigateToHome { get; set; }
 
-        public HomePageViewModel(INavigationService navService)
+        public FundraisingDetailsViewModel() { }
+
+        public FundraisingDetailsViewModel(INavigationService navService)
         {
             Navigation = navService;
+            NavigateToHome = new RelayCommand(o =>
+            {
+                Debug.WriteLine("et");
+                Navigation.NavigateTo<HomePageViewModel>();
+            });
         }
     }
 }

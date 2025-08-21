@@ -5,10 +5,254 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GreenBill.MVVM.View"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="FundraisingDetails">
+        d:DesignHeight="900" d:DesignWidth="1400"
+  Title="FundraisingDetails"
+  Background="#F5F5F5">
 
     <Grid>
-        
+        <!-- Header -->
+
+
+        <!-- Back Button -->
+        <Button x:Name="BackButton"
+            Content="← Back"
+            Command="{Binding NavigateToHome}"
+            Style="{StaticResource SecondaryButton}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Margin="100,20,0,0"
+            Panel.ZIndex="15"/>
+
+        <!-- Main Content -->
+        <ScrollViewer Margin="10,60,0,0" 
+                  VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled">
+            <Grid Margin="100,20,100,40">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Content -->
+                <StackPanel Grid.Column="0">
+                    <!-- Title -->
+                    <TextBlock Text="Help Stop Deforestation and Protect Our Forests"
+                           FontFamily="./Assets/Fonts/#Poppins"
+                           FontSize="28"
+                           FontWeight="Bold"
+                           Foreground="#333333"
+                           Margin="0,0,0,20"
+                           TextWrapping="Wrap"/>
+
+                    <!-- Main Image -->
+                    <Border Background="White"
+                       CornerRadius="8"
+                       Margin="0,0,0,20">
+                        <Grid>
+                            <Image Source="/Assets/Images/deforestation.jpg" 
+                               Height="350"
+                                Stretch="UniformToFill"/>
+
+                        </Grid>
+                    </Border>
+
+                    <!-- Organizer Info -->
+                    <StackPanel Orientation="Horizontal" 
+                           Margin="0,0,0,20">
+                        <Ellipse Width="30" 
+                            Height="30" 
+                            Fill="#CCCCCC"/>
+                        <TextBlock Text="Green Earth Initiative is organizing this fundraiser"
+                              FontFamily="./Assets/Fonts/#Poppins"
+                              FontSize="14"
+                              Foreground="#666666"
+                              VerticalAlignment="Center"
+                              Margin="10,0,0,0"/>
+                    </StackPanel>
+
+                    <!-- Donation Protected Badge -->
+                    <Border Background="#E8F5E8"
+                       CornerRadius="15"
+                       HorizontalAlignment="Left"
+                       Padding="12,6"
+                       Margin="0,0,0,20">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Width="12" 
+                                Height="12" 
+                                Fill="#00A651"
+                                VerticalAlignment="Center"/>
+                            <TextBlock Text="Donation protected"
+                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  FontSize="12"
+                                  FontWeight="SemiBold"
+                                  Foreground="#00A651"
+                                  Margin="8,0,0,0"
+                                  VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Description -->
+                    <TextBlock TextWrapping="Wrap"
+                           FontFamily="./Assets/Fonts/#Poppins"
+                           FontSize="15"
+                           LineHeight="24"
+                           Foreground="#555555"
+                           Margin="0,0,0,20">
+                    <Run Text="Our forests are disappearing at an alarming rate due to illegal logging, fires, and unsustainable practices. Every second, an area the size of a football field is destroyed."/>
+                    <LineBreak/><LineBreak/>
+                    <Run Text="Deforestation not only threatens countless animal species but also accelerates climate change by reducing the Earth's ability to absorb carbon dioxide."/>
+                    <LineBreak/><LineBreak/>
+                    <Run Text="With your support, we can fund reforestation projects, protect endangered habitats, and work with local communities to create sustainable alternatives."/>
+                    </TextBlock>
+                    <!-- Read More Button -->
+                    <Button Content="Read more"
+                       Style="{StaticResource PrimaryButton}"
+                       HorizontalAlignment="Left" Height="35" Width="107"/>
+                </StackPanel>
+
+                <!-- Right Sidebar -->
+                <Border Grid.Column="2"
+                   Background="White"
+                   CornerRadius="12"
+                   Padding="24"
+                   VerticalAlignment="Top">
+                    <StackPanel>
+                        <!-- Donation Amount -->
+                        <TextBlock Text="$45,665 USD raised"
+                              FontFamily="./Assets/Fonts/#Poppins"
+                              FontSize="24"
+                              FontWeight="Bold"
+                              Foreground="#333333"
+                              Margin="0,0,0,8"/>
+
+                        <!-- Progress Info -->
+                        <StackPanel Orientation="Horizontal" 
+                               Margin="0,0,0,12">
+                            <TextBlock Text="220k goal"
+                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  FontSize="14"
+                                  Foreground="#888888"/>
+                            <TextBlock Text=" • "
+                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  FontSize="14"
+                                  Foreground="#888888"/>
+                            <TextBlock Text="980 donations"
+                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  FontSize="14"
+                                  Foreground="#888888"/>
+                        </StackPanel>
+
+                        <!-- Progress Bar -->
+                        <ProgressBar
+                                Value="20.7"
+                                Maximum="100"
+                                Margin="0,0,0,20"/>
+
+
+                        <Button Content="Donate now"
+                           Style="{StaticResource SecondaryButton}"
+                           Width="111"
+                           HorizontalAlignment="Stretch"
+                           Margin="0,0,0,20"/>
+
+                        <!-- Recent Donation -->
+                        <StackPanel Orientation="Horizontal" 
+                               Margin="0,0,0,16">
+                            <Ellipse Width="16" 
+                                Height="16" 
+                                Fill="#E8B4FF"
+                                VerticalAlignment="Top"
+                                Margin="0,2,0,0"/>
+                            <TextBlock Text="715 people just donated"
+                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  FontSize="14"
+                                  Foreground="#8B5FBF"
+                                  Margin="8,0,0,0"/>
+                        </StackPanel>
+
+                        <!-- Organizer Info -->
+                        <StackPanel Margin="0,0,0,16">
+                            <StackPanel Orientation="Horizontal" 
+                                   Margin="0,0,0,8">
+                                <Ellipse Width="20" 
+                                    Height="20" 
+                                    Fill="#CCCCCC"/>
+                                <StackPanel Margin="8,0,0,0">
+                                    <TextBlock Text="Eric Welmiar"
+                                          FontFamily="./Assets/Fonts/#Poppins"
+                                          FontSize="13"
+                                          FontWeight="SemiBold"
+                                          Foreground="#333333"/>
+                                    <TextBlock Text="$50 • Recent donation"
+                                          FontFamily="./Assets/Fonts/#Poppins"
+                                          FontSize="11"
+                                          Foreground="#888888"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Anonymous Donations -->
+                        <StackPanel Margin="0,0,0,16">
+                            <StackPanel Orientation="Horizontal" 
+                                   Margin="0,0,0,8">
+                                <Ellipse Width="20" 
+                                    Height="20" 
+                                    Fill="#CCCCCC"/>
+                                <StackPanel Margin="8,0,0,0">
+                                    <TextBlock Text="Anonymous"
+                                          FontFamily="./Assets/Fonts/#Poppins"
+                                          FontSize="13"
+                                          FontWeight="SemiBold"
+                                          Foreground="#333333"/>
+                                    <TextBlock Text="$1,800 • Top donation"
+                                          FontFamily="./Assets/Fonts/#Poppins"
+                                          FontSize="11"
+                                          Foreground="#888888"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,0,0,20">
+                            <StackPanel Orientation="Horizontal" 
+                                   Margin="0,0,0,8">
+                                <Ellipse Width="20" 
+                                    Height="20" 
+                                    Fill="#CCCCCC"/>
+                                <StackPanel Margin="8,0,0,0">
+                                    <TextBlock Text="Anonymous"
+                                          FontFamily="./Assets/Fonts/#Poppins"
+                                          FontSize="13"
+                                          FontWeight="SemiBold"
+                                          Foreground="#333333"/>
+                                    <TextBlock Text="$50 • First donation"
+                                          FontFamily="./Assets/Fonts/#Poppins"
+                                          FontSize="11"
+                                          Foreground="#888888"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- See All / See Top Links -->
+                        <StackPanel Orientation="Horizontal" 
+                               HorizontalAlignment="Center">
+                            <TextBlock Text="See all"
+                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  FontSize="14"
+                                  Foreground="#00A651"
+                                  TextDecorations="Underline"
+                                  Cursor="Hand"
+                                  Margin="0,0,16,0"/>
+                            <TextBlock Text="See top"
+                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  FontSize="14"
+                                  Foreground="#00A651"
+                                  TextDecorations="Underline"
+                                  Cursor="Hand"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

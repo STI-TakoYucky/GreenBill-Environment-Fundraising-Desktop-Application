@@ -13,6 +13,8 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
+        <Border Grid.Column="0" Background="White" CornerRadius="0, 20, 20, 0"/>
+
         <!-- Left Side - Welcome Content -->
         <StackPanel Grid.Column="0" 
                     VerticalAlignment="Center" 
@@ -21,7 +23,7 @@
 
             <!-- Logo/Icon placeholder -->
             <Image Source="/Assets/Images/logo.png"
-                Height="60"
+                Height="100"
             />
 
             <TextBlock Text="Let's begin your fundraising journey"
@@ -143,6 +145,7 @@
             <Button Content="Continue"
                     Style="{StaticResource PrimaryButton}"
                     HorizontalAlignment="Right"
+                     Command="{Binding GoToStep2}"
                     Margin="0,20,0,0"/>
         </StackPanel>
     </Grid>

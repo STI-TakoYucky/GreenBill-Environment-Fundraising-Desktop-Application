@@ -36,8 +36,13 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
         public ICommand NavigateToSignin { get; }
-  
+
+        public ICommand GoToStep1 { get; }
+
+
         public MainWindowViewModel() { }
+
+        
 
         public MainWindowViewModel(INavigationService navService)
         {
@@ -50,7 +55,13 @@ namespace GreenBill.MVVM.ViewModel
                 Navigation.NavigateTo<SigninViewModel>();
             });
 
-         
+            GoToStep1 = new RelayCommand(o =>
+            {
+                ShowNavigation = false;
+                Navigation.NavigateTo<FundraisingStepsViewModel>();
+            });
+
+
         }
     }
 }

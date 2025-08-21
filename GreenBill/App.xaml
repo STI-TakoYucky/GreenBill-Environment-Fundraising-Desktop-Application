@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:GreenBill"
              xmlns:view="clr-namespace:GreenBill.MVVM.View"
+             xmlns:stepsView="clr-namespace:GreenBill.MVVM.View.FundraisingSteps"
+              xmlns:converters="clr-namespace:GreenBill.Converters"
             xmlns:viewModel="clr-namespace:GreenBill.MVVM.ViewModel">
     <Application.Resources>
         <ResourceDictionary>
@@ -14,6 +16,12 @@
             </ResourceDictionary.MergedDictionaries>
 
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <converters:StepVisibilityConverter x:Key="StepVisibilityConverter"/>
+
+            <DataTemplate DataType="{x:Type viewModel:FundraisingStepsViewModel}">
+                <stepsView:FundraisingStepsContainer/>
+            </DataTemplate>
+
 
             <DataTemplate DataType="{x:Type viewModel:SigninViewModel}">
                 <view:Signin/>
@@ -30,6 +38,9 @@
             <DataTemplate DataType="{x:Type viewModel:FundraisingDetailsViewModel}">
                 <view:FundraisingDetails/>
             </DataTemplate>
+
+
+  
 
             <Style TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>

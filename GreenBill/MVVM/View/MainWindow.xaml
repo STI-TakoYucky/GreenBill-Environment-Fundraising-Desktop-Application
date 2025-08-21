@@ -39,8 +39,9 @@
                     
                    Margin="0,0,15,0"/>
                 <Button Content="Start a Change"
-                Height="30"
-                Style="{StaticResource PrimaryButton}"/>
+                         Height="30"
+                        Command="{Binding GoToStep1}"
+                         Style="{StaticResource PrimaryButton}"/>
             </StackPanel>
         </DockPanel>
         <ContentControl Grid.Row="1" Content="{Binding Navigation.CurrentView}"/>

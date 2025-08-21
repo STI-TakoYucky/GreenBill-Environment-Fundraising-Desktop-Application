@@ -70,7 +70,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\StepVisibilityConverter.cs" />
     <Compile Include="MVVM\ViewModel\FundraisingDetailsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\FundraisingStepsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\HomePageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainWindowViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SigninViewModel.cs" />
@@ -78,8 +80,23 @@
     <Compile Include="MVVM\View\FundraisingDetails.xaml.cs">
       <DependentUpon>FundraisingDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\FundraisingSteps\FifthPage.xaml.cs">
+      <DependentUpon>FifthPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\FundraisingSteps\FirstStep.xaml.cs">
       <DependentUpon>FirstStep.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\FundraisingSteps\FourthStep.xaml.cs">
+      <DependentUpon>FourthStep.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\FundraisingSteps\FundraisingStepsContainer.xaml.cs">
+      <DependentUpon>FundraisingStepsContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\FundraisingSteps\SecondStep.xaml.cs">
+      <DependentUpon>SecondStep.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\FundraisingSteps\ThirdStep.xaml.cs">
+      <DependentUpon>ThirdStep.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -95,7 +112,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\FundraisingSteps\FifthPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\FundraisingSteps\FirstStep.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\FundraisingSteps\FourthStep.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\FundraisingSteps\FundraisingStepsContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\FundraisingSteps\SecondStep.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\FundraisingSteps\ThirdStep.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -129,6 +166,10 @@
     <Page Include="Styles\Buttons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\CategoryButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ComboBox.xaml">
       <Generator>MSBuild:Compile</Generator>

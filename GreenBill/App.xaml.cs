@@ -32,6 +32,7 @@ namespace GreenBill
             services.AddSingleton<HomePageViewModel>();
             services.AddSingleton<SignupViewModel>();
             services.AddSingleton<FundraisingDetailsViewModel>();
+            services.AddSingleton<FundraisingStepsViewModel>();
 
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));

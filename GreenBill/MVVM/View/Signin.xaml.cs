@@ -24,7 +24,6 @@ namespace GreenBill.MVVM.View
         public Signin()
         {
             InitializeComponent();
-            DataContext = new SigninViewModel();
         }
     }
 }

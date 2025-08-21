@@ -25,15 +25,15 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        public ICommand NavigateToSignin {  get; set; }
         public HomePageViewModel() 
         {
+
         }
 
         public HomePageViewModel(INavigationService navService)
         {
             Navigation = navService;
-            NavigateToSignin = new RelayCommand(o => Navigation.NavigateTo<SigninViewModel>());
+
         }
     }
 }

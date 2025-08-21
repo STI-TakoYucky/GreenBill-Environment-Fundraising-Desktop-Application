@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using System.Windows;
 namespace GreenBill.MVVM.ViewModel
 {
     public class FundraisingDetailsViewModel : Core.ViewModel
@@ -26,16 +26,15 @@ namespace GreenBill.MVVM.ViewModel
 
         public ICommand NavigateToHome { get; set; }
 
-        public FundraisingDetailsViewModel() { }
+        public FundraisingDetailsViewModel() {
+           
+        }
 
         public FundraisingDetailsViewModel(INavigationService navService)
         {
             Navigation = navService;
-            NavigateToHome = new RelayCommand(o =>
-            {
-                Debug.WriteLine("et");
-                Navigation.NavigateTo<HomePageViewModel>();
-            });
+            NavigateToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
         }
+
     }
 }

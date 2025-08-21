@@ -24,7 +24,6 @@ namespace GreenBill.MVVM.View
         public FundraisingDetails()
         {
             InitializeComponent();
-            DataContext = new FundraisingDetailsViewModel();
         }
     }
 }

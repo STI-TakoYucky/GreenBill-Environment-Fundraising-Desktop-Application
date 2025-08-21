@@ -198,6 +198,7 @@
 
                 <!-- Back link -->
                 <Button Name="BackButton"
+                        Command="{Binding NavigateToHome}"
                Content="Back"
                Background="Transparent"
                BorderThickness="0"

@@ -24,7 +24,6 @@ namespace GreenBill
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel();
         }
     }
 }

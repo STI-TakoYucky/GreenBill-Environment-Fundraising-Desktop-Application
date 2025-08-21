@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GreenBill.MVVM.ViewModel
 {
@@ -26,10 +27,20 @@ namespace GreenBill.MVVM.ViewModel
 
         public RelayCommand NavigateToHome {  get; set; }
 
+
+
         public SigninViewModel(INavigationService navService)
         {
             Navigation = navService;
-            NavigateToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
+            NavigateToHome = new RelayCommand(o =>
+            {
+                var mainWindow = Application.Current.MainWindow;
+                if (mainWindow?.DataContext is MainWindowViewModel mainVM)
+                {
+                    mainVM.ShowNavigation = true;
+                }
+                Navigation.NavigateTo<HomePageViewModel>();
+            });
         }   
     }
 }

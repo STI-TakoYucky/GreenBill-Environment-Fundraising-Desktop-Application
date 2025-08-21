@@ -9,6 +9,40 @@
         Height="900" Width="1400"
         Background="#F5F5F5">
     <Grid>
-        <ContentControl Content="{Binding Navigation.CurrentView}"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0"
+            Visibility="{Binding ShowNavigation, Converter={StaticResource BooleanToVisibilityConverter}}"
+            VerticalAlignment="Top"
+            Background="White">
+            <Image Source="/Assets/Images/logo.png"
+            Height="60"
+            DockPanel.Dock="Left"
+            Margin="100,0,0,0"
+            VerticalAlignment="Center"/>
+            <StackPanel DockPanel.Dock="Right" 
+                Orientation="Horizontal"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                Margin="0,0,100,0">
+                <Button Content="Sign In"
+                   FontFamily="./Assets/Fonts/#Poppins"
+                   FontSize="15"
+                 Command="{Binding NavigateToSignin}"
+                 Background="Transparent"
+                   Foreground="#6E6A6A"
+                   VerticalAlignment="Center"
+                 BorderThickness="0"
+                   FontWeight="Bold"
+                    
+                   Margin="0,0,15,0"/>
+                <Button Content="Start a Change"
+                Height="30"
+                Style="{StaticResource PrimaryButton}"/>
+            </StackPanel>
+        </DockPanel>
+        <ContentControl Grid.Row="1" Content="{Binding Navigation.CurrentView}"/>
     </Grid>
 </Window>

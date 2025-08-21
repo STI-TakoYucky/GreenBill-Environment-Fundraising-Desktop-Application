@@ -10,45 +10,16 @@
      <Grid>
      <!-- Header -->
      
-     
-     <DockPanel Height="80" 
-                VerticalAlignment="Top"
-                Background="White">
-         <Image Source="/Assets/Images/logo.png"
-                Height="60"
-                DockPanel.Dock="Left"
-                Margin="100,0,0,0"
-                VerticalAlignment="Center"/>
-         <StackPanel DockPanel.Dock="Right" 
-                    Orientation="Horizontal"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    Margin="0,0,100,0">
-             <Button Content="Sign In"
-                       FontFamily="./Assets/Fonts/#Poppins"
-                       FontSize="15"
-                     Command="{Binding NavigateToSignin}"
-                     Background="Transparent"
-                       Foreground="#6E6A6A"
-                       VerticalAlignment="Center"
-                     BorderThickness="0"
-                       FontWeight="Bold"
-                        
-                       Margin="0,0,15,0"/>
-             <Button Content="Start a Change"
-                    Height="30"
-                    Style="{StaticResource PrimaryButton}"/>
-         </StackPanel>
-     </DockPanel>
+    
 
      <!-- Navigation Frame for Page Content -->
      <Frame x:Name="MainFrame" 
-            Margin="0,80,0,0"
+            Margin="0,0,0,0"
             NavigationUIVisibility="Hidden"/>
 
      <!-- Main Content (initially visible) -->
      <ScrollViewer x:Name="MainContent"
-                  Margin="100,100,100,20" 
+                  Margin="100,40,100,20" 
                   VerticalAlignment="Stretch"
                   VerticalScrollBarVisibility="Auto">
          <StackPanel>

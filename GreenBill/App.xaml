@@ -12,6 +12,8 @@
                 <ResourceDictionary Source="/Styles/ComboBoxItem.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
             <DataTemplate DataType="{x:Type viewModel:SigninViewModel}">
                 <view:Signin/>
             </DataTemplate>

@@ -82,9 +82,9 @@
                          </Grid.RowDefinitions>
 
                          <!-- Large Image Area -->
-                         <Border Grid.Row="0" 
+                         <Button Grid.Row="0" 
                                 Background="#E0E0E0"
-                                CornerRadius="8,8,0,0">
+                                Command="{Binding NavigateToFundraisingDetails}">
                              <Grid>
                                  <Image Source="/Assets/Images/deforestation.jpg" 
                                         Stretch="UniformToFill"/>
@@ -96,7 +96,7 @@
                                           VerticalAlignment="Bottom"
                                           HorizontalAlignment="Left"/>
                              </Grid>
-                         </Border>
+                         </Button>
 
                          <!-- Large Content Area -->
                          <StackPanel Grid.Row="1" 

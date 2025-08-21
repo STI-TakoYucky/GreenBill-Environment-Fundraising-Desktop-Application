@@ -21,6 +21,7 @@
         CornerRadius="16"
         Padding="40"
         MaxWidth="420"
+                Width="700"
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
             <Border.Effect>
@@ -169,23 +170,9 @@
                       Margin="0,4,0,0"
                       Visibility="Collapsed"/>
                 </StackPanel>
+        
 
                 <!-- Terms and conditions text -->
-                <TextBlock FontSize="14"
-                  Foreground="#666"
-                  TextWrapping="Wrap"
-                  LineHeight="20"
-                  Margin="0,8,0,0">
-            <Run Text="By clicking the Sign in button below, you agree to the GoFundMe "/>
-            <Hyperlink Foreground="#00A651" TextDecorations="Underline">
-                <Run Text="Terms of Service"/>
-            </Hyperlink>
-            <Run Text=" and acknowledge the "/>
-            <Hyperlink Foreground="#00A651" TextDecorations="Underline">
-                <Run Text="Privacy Notice"/>
-            </Hyperlink>
-            <Run Text="."/>
-                </TextBlock>
 
                 <!-- Sign in button -->
                 <Button Name="SignUpButton"
@@ -194,7 +181,14 @@
                Height="50"
                FontSize="16"
                FontWeight="SemiBold"
-               Margin="0,16,0,0"/>
+               Margin="0,0,0,0"/>
+
+                <Button FontSize="14"
+                        Command="{Binding NavigateToSignup}"
+          Foreground="#666"
+                BorderThickness="0"
+           Background="Transparent"
+          Width="340" Content="Don't have an account?"/>
 
                 <!-- Back link -->
                 <Button Name="BackButton"

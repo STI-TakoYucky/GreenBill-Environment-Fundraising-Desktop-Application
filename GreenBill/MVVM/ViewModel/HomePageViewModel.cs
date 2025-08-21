@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using GreenBill.Core;
+using System.Diagnostics;
 
 namespace GreenBill.MVVM.ViewModel
 {
@@ -25,6 +26,8 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
+        public ICommand NavigateToFundraisingDetails { get; }
+
         public HomePageViewModel() 
         {
 
@@ -33,7 +36,11 @@ namespace GreenBill.MVVM.ViewModel
         public HomePageViewModel(INavigationService navService)
         {
             Navigation = navService;
-
+            NavigateToFundraisingDetails = new RelayCommand(o =>
+            {
+                Navigation.NavigateTo<FundraisingDetailsViewModel>();
+                Debug.WriteLine("CLICKED");
+            });
         }
     }
 }

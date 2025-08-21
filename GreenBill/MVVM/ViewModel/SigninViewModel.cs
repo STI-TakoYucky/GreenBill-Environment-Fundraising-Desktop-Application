@@ -26,12 +26,12 @@ namespace GreenBill.MVVM.ViewModel
         public SigninViewModel() { }
 
         public RelayCommand NavigateToHome {  get; set; }
-
-
+        public RelayCommand NavigateToSignup { get; set; }
 
         public SigninViewModel(INavigationService navService)
         {
             Navigation = navService;
+            
             NavigateToHome = new RelayCommand(o =>
             {
                 var mainWindow = Application.Current.MainWindow;
@@ -40,6 +40,16 @@ namespace GreenBill.MVVM.ViewModel
                     mainVM.ShowNavigation = true;
                 }
                 Navigation.NavigateTo<HomePageViewModel>();
+            });
+
+            NavigateToSignup = new RelayCommand(o =>
+            {
+                var mainWindow = Application.Current.MainWindow;
+                if (mainWindow?.DataContext is MainWindowViewModel mainVM)
+                {
+                    mainVM.ShowNavigation = false;
+                }
+                Navigation.NavigateTo<SignupViewModel>();
             });
         }   
     }

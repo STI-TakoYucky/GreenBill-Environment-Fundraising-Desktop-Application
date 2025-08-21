@@ -19,7 +19,7 @@ namespace GreenBill.MVVM.View
     /// <summary>
     /// Interaction logic for FundraisingDetails.xaml
     /// </summary>
-    public partial class FundraisingDetails : Page
+    public partial class FundraisingDetails : UserControl
     {
         public FundraisingDetails()
         {

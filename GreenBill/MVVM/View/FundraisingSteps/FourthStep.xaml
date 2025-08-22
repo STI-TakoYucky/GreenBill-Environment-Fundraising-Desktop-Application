@@ -13,6 +13,8 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
+        <Border Grid.Column="0" Background="White" CornerRadius="0, 20, 20, 0"/>
+
         <!-- Left Side - Welcome Content -->
         <StackPanel Grid.Column="0" 
                     VerticalAlignment="Center" 
@@ -105,6 +107,7 @@
                         <TextBox Name="TitleTextBox"
                                 FontSize="16"
                                 BorderThickness="0"
+                                        Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 Background="Transparent"
                                 VerticalContentAlignment="Center"
                                 Padding="0"/>
@@ -150,6 +153,7 @@
                     <Grid>
                         <TextBox Name="StoryTextBox"
                                 FontSize="16"
+                                Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 BorderThickness="0"
                                 Background="Transparent"
                                 TextWrapping="Wrap"
@@ -197,6 +201,7 @@
                 <Button Grid.Column="0"
                         Width="50"
                         Height="50"
+                         Command="{Binding GoToPreviousStep}"
                         Background="White"
                         BorderBrush="#E0E0E0"
                         BorderThickness="1"
@@ -230,6 +235,7 @@
                 <!-- Continue Button -->
                 <Button Grid.Column="2"
                         Content="Review"
+                        Command="{Binding GoToStep5}"
                         Style="{StaticResource PrimaryButton}"
                         HorizontalAlignment="Right"/>
             </Grid>

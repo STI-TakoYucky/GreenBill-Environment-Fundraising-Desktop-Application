@@ -13,6 +13,8 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
+        <Border Grid.Column="0" Background="White" CornerRadius="0, 20, 20, 0"/>
+
         <!-- Left Side - Welcome Content -->
         <StackPanel Grid.Column="0" 
                     VerticalAlignment="Center" 
@@ -168,6 +170,7 @@
                 <Button Grid.Column="0"
                         Width="50"
                         Height="50"
+                        Command="{Binding GoToPreviousStep}"
                         Background="White"
                         BorderBrush="#E0E0E0"
                         BorderThickness="1"
@@ -201,6 +204,7 @@
                 <!-- Continue Button -->
                 <Button Grid.Column="2"
                         Content="Continue"
+                        Command="{Binding GoToStep4}"
                         Style="{StaticResource PrimaryButton}"
                         HorizontalAlignment="Right"/>
             </Grid>

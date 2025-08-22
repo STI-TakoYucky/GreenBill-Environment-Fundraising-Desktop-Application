@@ -6,13 +6,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using System.Windows;
+using GreenBill.MVVM.Model;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Diagnostics;
 namespace GreenBill.MVVM.ViewModel
 {
+    public class CategoryItem : INotifyPropertyChanged
+    {
+        private bool _isSelected;
+
+        public string Name { get; set; }
+
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set
+            {
+                _isSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
     public class FundraisingStepsViewModel : Core.ViewModel
     {
+        public ObservableCollection<CategoryItem> CategoryItems { get; set; }
         private INavigationService _navigationService;
+        private Campaign _currentCampaign;
         private int _currentStep = 1;
+
 
         public INavigationService Navigation
         {
@@ -34,30 +65,247 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
+        public Campaign CurrentCampaign
+        {
+            get => _currentCampaign;
+            set
+            {
+                _currentCampaign = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string SelectedCountry
+        {
+            get => CurrentCampaign?.Country;
+            set
+            {
+                if (CurrentCampaign != null)
+                {
+                    CurrentCampaign.Country = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string ZipCode
+        {
+            get => CurrentCampaign?.ZipCode;
+            set
+            {
+                if (CurrentCampaign != null)
+                {
+                    CurrentCampaign.ZipCode = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string SelectedCategory
+        {
+            get => CurrentCampaign?.Category;
+            set
+            {
+                if (CurrentCampaign != null)
+                {
+                    CurrentCampaign.Category = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public decimal DonationGoal
+        {
+            get => CurrentCampaign.DonationGoal;
+            set
+            {
+                if (CurrentCampaign != null)
+                {
+                    CurrentCampaign.DonationGoal = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Title
+        {
+            get => CurrentCampaign.Title;
+            set
+            {
+                if (CurrentCampaign != null)
+                {
+                    CurrentCampaign.Title = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Description
+        {
+            get => CurrentCampaign.Description;
+            set
+            {
+                if (CurrentCampaign != null)
+                {
+                    CurrentCampaign.Description = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
+
+
         public ICommand GoToStep2 { get; set; }
         public ICommand GoToStep3 { get; set; }
         public ICommand GoToStep4 { get; set; }
         public ICommand GoToStep5 { get; set; }
         public ICommand GoToPreviousStep { get; set; }
+        public ICommand GoToHome { get; set; }
+        public ICommand SelectCategoryCommand { get; set; }
+        public ICommand Test {  get; set; }
+
+        public ObservableCollection<string> Countries { get; set; }
+        public ObservableCollection<string> Categories { get; set; }
 
         public FundraisingStepsViewModel()
         {
+            InitializeCampaign();
+            InitializeCollections();
             InitializeCommands();
         }
+
+
 
         public FundraisingStepsViewModel(INavigationService navService)
         {
             Navigation = navService;
+            InitializeCampaign();
+            InitializeCollections();
             InitializeCommands();
+        }
+
+        private void InitializeCampaign()
+        {
+            CurrentCampaign = new Campaign();
+            // Set default values
+            CurrentCampaign.Country = "United States";
+        }
+
+        private void InitializeCollections()
+        {
+            Countries = new ObservableCollection<string>
+            {
+                "United States",
+                "Canada",
+                "United Kingdom",
+                "Australia",
+                "Germany",
+                "France",
+                "Other"
+            };
+
+            Categories = new ObservableCollection<string>
+            {
+                "Happening worldwide",
+                "Local projects",
+                "Emergency relief",
+                "Medical fundraisers",
+                "Environmental causes"
+            };
+
+            CategoryItems = new ObservableCollection<CategoryItem>
+    {
+        new CategoryItem { Name = "Happening worldwide" },
+        new CategoryItem { Name = "Local projects" },
+        new CategoryItem { Name = "Emergency relief" },
+        new CategoryItem { Name = "Medical fundraisers" },
+        new CategoryItem { Name = "Environmental causes" }
+    };
         }
 
         private void InitializeCommands()
         {
-            GoToStep2 = new RelayCommand(o => CurrentStep = 2);
+            GoToStep2 = new RelayCommand(o =>
+            {
+                if (ValidateStep1())
+                {
+                    CurrentStep = 2;
+                }
+            });
+
             GoToStep3 = new RelayCommand(o => CurrentStep = 3);
             GoToStep4 = new RelayCommand(o => CurrentStep = 4);
             GoToStep5 = new RelayCommand(o => CurrentStep = 5);
+            Test = new RelayCommand(o =>
+            {
+                Debug.WriteLine(CurrentCampaign.Title);
+                Debug.WriteLine(CurrentCampaign.Country);
+                Debug.WriteLine(CurrentCampaign.ZipCode);
+            });
+            GoToHome = new RelayCommand(o =>
+            {
+                var mainWindow = Application.Current.MainWindow;
+                if (mainWindow?.DataContext is MainWindowViewModel mainVM)
+                {
+                    mainVM.ShowNavigation = true;
+                }
+                Navigation.NavigateTo<HomePageViewModel>();
+            });
+
             GoToPreviousStep = new RelayCommand(o => { if (CurrentStep > 1) CurrentStep--; });
+
+            SelectCategoryCommand = new RelayCommand(parameter =>
+            {
+                if (parameter is string categoryName)
+                {
+                    foreach (var item in CategoryItems)
+                    {
+                        item.IsSelected = false;
+                    }
+
+                    var selectedItem = CategoryItems.FirstOrDefault(c => c.Name == categoryName);
+                    if (selectedItem != null)
+                    {
+                        selectedItem.IsSelected = true;
+                        SelectedCategory = categoryName;
+                    }
+                }
+            });
+        }
+
+        private bool ValidateStep1()
+        {
+            if (string.IsNullOrWhiteSpace(SelectedCountry))
+            {
+                MessageBox.Show("Please select a country.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(ZipCode))
+            {
+                MessageBox.Show("Please enter a zip code.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(SelectedCategory))
+            {
+                MessageBox.Show("Please select a fundraising category.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
+        public Campaign GetCompletedCampaign()
+        {
+            return CurrentCampaign;
+        }
+
+
+        public async Task SaveCampaignAsync()
+        {
+
         }
     }
 }

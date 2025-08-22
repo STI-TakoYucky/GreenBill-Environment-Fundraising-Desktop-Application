@@ -13,6 +13,8 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
 
+        <Border Grid.Column="0" Background="White" CornerRadius="0, 20, 20, 0"/>
+
         <!-- Left Side - Welcome Content -->
         <StackPanel Grid.Column="0" 
                     VerticalAlignment="Center" 
@@ -78,29 +80,21 @@
                                Margin="0,0,10,0"/>
 
                     <!-- Amount TextBox -->
+
                     <TextBox Grid.Column="1"
                             FontSize="24"
                             BorderThickness="0"
                             Background="Transparent"
                             VerticalContentAlignment="Center"
                             Padding="0"
-                            Text="Your starting goal"
-                            Foreground="#CCCCCC">
+                            Text="{Binding DonationGoal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Foreground="#CCCCCC">
                         <TextBox.Style>
                             <Style TargetType="TextBox">
                                 <Style.Triggers>
                                     <Trigger Property="IsFocused" Value="True">
-                                        <Setter Property="Foreground" Value="#333333"/>
+                                        <Setter Property="Foreground" Value="#000000"/>
                                     </Trigger>
-                                    <EventTrigger RoutedEvent="GotFocus">
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Text">
-                                                    <DiscreteObjectKeyFrame KeyTime="0" Value=""/>
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </EventTrigger>
                                 </Style.Triggers>
                             </Style>
                         </TextBox.Style>
@@ -175,6 +169,7 @@
                 <!-- Back Button -->
                 <Button Grid.Column="0"
                         Width="50"
+                        Command="{Binding GoToPreviousStep}"
                         Height="50"
                         Background="White"
                         BorderBrush="#E0E0E0"
@@ -210,7 +205,8 @@
                 <Button Grid.Column="2"
                         Content="Continue"
                         Style="{StaticResource PrimaryButton}"
-                        HorizontalAlignment="Right"/>
+                        HorizontalAlignment="Right"
+                        Command="{Binding GoToStep3}"/>
             </Grid>
         </StackPanel>
     </Grid>

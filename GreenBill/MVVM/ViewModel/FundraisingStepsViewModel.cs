@@ -349,7 +349,11 @@ namespace GreenBill.MVVM.ViewModel
                 await collection.InsertOneAsync(CurrentCampaign);
 
                 MessageBox.Show("Campaign saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                var mainWindow = Application.Current.MainWindow;
+                if (mainWindow?.DataContext is MainWindowViewModel mainVM)
+                {
+                    mainVM.ShowNavigation = true;
+                }
                 // Optionally navigate back to home or campaigns list
                 Navigation?.NavigateTo<HomePageViewModel>();
             }

@@ -207,6 +207,8 @@
     <Compile Include="MVVM\View\Signup.xaml.cs">
       <DependentUpon>Signup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\CampaignService.cs" />
+    <Compile Include="Services\ICampaignService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Page Include="MVVM\View\FundraisingDetails.xaml">
       <SubType>Designer</SubType>

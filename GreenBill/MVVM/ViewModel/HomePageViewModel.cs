@@ -9,12 +9,17 @@ using System.Windows.Input;
 using System.Windows;
 using GreenBill.Core;
 using System.Diagnostics;
+using GreenBill.MVVM.Model;
+using System.Collections.ObjectModel;
+using MongoDB.Driver;
 
 namespace GreenBill.MVVM.ViewModel
 {
     public class HomePageViewModel : Core.ViewModel
     {
         private INavigationService _navigationService;
+        private ObservableCollection<Campaign> _campaigns;
+        private ICampaignService _campaignService;
 
         public INavigationService Navigation
         {
@@ -26,21 +31,61 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
+        public ObservableCollection<Campaign> Campaigns
+        {
+            get => _campaigns;
+            set
+            {
+                _campaigns = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand NavigateToFundraisingDetails { get; }
+        public ICommand LoadCampaignsCommand { get; }
 
         public HomePageViewModel() 
         {
-
+            Campaigns = new ObservableCollection<Campaign>();
+            LoadCampaignsCommand = new RelayCommand(async o => await LoadCampaignsAsync());
+            Debug.WriteLine("No parameters");
         }
 
-        public HomePageViewModel(INavigationService navService)
+        public HomePageViewModel(INavigationService navService, ICampaignService campaignService)
         {
+            Debug.WriteLine("With parameters");
             Navigation = navService;
+            _campaignService = campaignService;
+            Campaigns = new ObservableCollection<Campaign>();
+
             NavigateToFundraisingDetails = new RelayCommand(o =>
             {
                 Navigation.NavigateTo<FundraisingDetailsViewModel>();
-                Debug.WriteLine("CLICKED");
             });
+
+            LoadCampaignsCommand = new RelayCommand(async o => await LoadCampaignsAsync());
+
+            _ = LoadCampaignsAsync();
+        }
+
+        private async Task LoadCampaignsAsync()
+        {
+            Debug.WriteLine("Load campagins");
+            try
+            {
+                var campaigns = await _campaignService.GetAllCampaignsAsync();
+
+                Campaigns.Clear();
+                foreach (var campaign in campaigns)
+                {
+                    Campaigns.Add(campaign);
+                    Debug.WriteLine(campaign.Country);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading campaigns: {ex.Message}");
+            }
         }
     }
 }

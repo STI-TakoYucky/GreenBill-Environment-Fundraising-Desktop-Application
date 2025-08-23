@@ -14,7 +14,7 @@
 
      <!-- Navigation Frame for Page Content -->
      <Frame x:Name="MainFrame" 
-            Margin="0,0,0,0"
+            Margin="0,0,0,-62"
             NavigationUIVisibility="Hidden"/>
 
      <!-- Main Content (initially visible) -->
@@ -360,7 +360,29 @@
                  </Border>
 
              </Grid>
+
+                <StackPanel Margin="0, 70, 0, 0" Background="#00695C">
+                    <TextBlock Text="We’ve got you covered." 
+                        FontWeight="Bold"
+                        FontSize="28"
+                        Padding="30, 30, 30, 0"
+                        Foreground="White"
+                        FontFamily="./Assets/Fonts/#Poppins"
+                        Margin="0,0,0,30"
+                        TextWrapping="Wrap"/>
+
+                    <TextBlock Text="GoFundMe is a trusted leader in online fundraising. With simple pricing and a team of Trust and Safety experts in your corner, you can raise money or make a donation with peace of mind." 
+                               FontSize="35"
+                               FontWeight="Medium"
+                               Padding="30, 0, 30, 30"
+                               Foreground="White"
+                               FontFamily="./Assets/Fonts/#Poppins"
+                               Margin="0,0,0,30"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
          </StackPanel>
+
+          
      </ScrollViewer>
  </Grid>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace GreenBill.MVVM.Model
 {
     public class Campaign
     {
+        public ObjectId Id { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; } 
         public string Category { get; set; }
@@ -15,7 +17,7 @@ namespace GreenBill.MVVM.Model
         public byte[] Image { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-
+         public DateTime CreatedAt { get; set; }
         public Campaign()
         {
         }

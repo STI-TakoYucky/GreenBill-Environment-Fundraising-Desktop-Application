@@ -220,7 +220,7 @@
                 <!-- Continue Button -->
                 <Button Grid.Column="2"
                         Content="Continue"
-                        Command="{Binding Test}"
+                        Command="{Binding SaveCampaign}"
                         Style="{StaticResource PrimaryButton}"
                         HorizontalAlignment="Right"/>
             </Grid>

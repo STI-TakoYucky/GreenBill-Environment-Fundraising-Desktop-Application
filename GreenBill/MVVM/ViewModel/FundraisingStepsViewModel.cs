@@ -11,7 +11,8 @@ using GreenBill.MVVM.Model;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Diagnostics;
+using MongoDB.Driver;
+
 namespace GreenBill.MVVM.ViewModel
 {
     public class CategoryItem : INotifyPropertyChanged
@@ -154,6 +155,19 @@ namespace GreenBill.MVVM.ViewModel
         }
 
 
+        public byte[] Image
+        {
+            get => CurrentCampaign?.Image;
+            set
+            {
+                if (CurrentCampaign != null)
+                {
+                    CurrentCampaign.Image = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
 
 
         public ICommand GoToStep2 { get; set; }
@@ -163,7 +177,8 @@ namespace GreenBill.MVVM.ViewModel
         public ICommand GoToPreviousStep { get; set; }
         public ICommand GoToHome { get; set; }
         public ICommand SelectCategoryCommand { get; set; }
-        public ICommand Test {  get; set; }
+        public ICommand SaveCampaign {  get; set; }
+
 
         public ObservableCollection<string> Countries { get; set; }
         public ObservableCollection<string> Categories { get; set; }
@@ -237,12 +252,10 @@ namespace GreenBill.MVVM.ViewModel
             GoToStep3 = new RelayCommand(o => CurrentStep = 3);
             GoToStep4 = new RelayCommand(o => CurrentStep = 4);
             GoToStep5 = new RelayCommand(o => CurrentStep = 5);
-            Test = new RelayCommand(o =>
+            SaveCampaign = new RelayCommand(async o =>
             {
-                Debug.WriteLine(CurrentCampaign.Title);
-                Debug.WriteLine(CurrentCampaign.Country);
-                Debug.WriteLine(CurrentCampaign.ZipCode);
-            });
+                await SaveCampaignAsync();
+            }, o => CurrentCampaign != null);
             GoToHome = new RelayCommand(o =>
             {
                 var mainWindow = Application.Current.MainWindow;
@@ -305,7 +318,87 @@ namespace GreenBill.MVVM.ViewModel
 
         public async Task SaveCampaignAsync()
         {
+            try
+            {
+                // Validate campaign data
+                if (CurrentCampaign == null)
+                {
+                    MessageBox.Show("No campaign data to save.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
+                // Validate required fields
+                if (!ValidateCampaignForSaving())
+                {
+                    return; // Validation messages are shown in the method
+                }
+
+                // Get connection string from config (you should move this to a service or config)
+                string connectionString = "mongodb://localhost:27017"; // Consider moving to app.config
+
+                var client = new MongoClient(connectionString);
+                var database = client.GetDatabase("GreenBill");
+                var collection = database.GetCollection<Campaign>("Campaigns");
+
+                // Set creation date if not already set
+                if (CurrentCampaign.CreatedAt == default(DateTime))
+                {
+                    CurrentCampaign.CreatedAt = DateTime.UtcNow;
+                }
+
+                await collection.InsertOneAsync(CurrentCampaign);
+
+                MessageBox.Show("Campaign saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Optionally navigate back to home or campaigns list
+                Navigation?.NavigateTo<HomePageViewModel>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while saving: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private bool ValidateCampaignForSaving()
+        {
+            if (string.IsNullOrWhiteSpace(CurrentCampaign.Title))
+            {
+                MessageBox.Show("Please enter a campaign title.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(CurrentCampaign.Description))
+            {
+                MessageBox.Show("Please enter a campaign description.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (CurrentCampaign.DonationGoal <= 0)
+            {
+                MessageBox.Show("Please enter a valid donation goal.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(CurrentCampaign.Country))
+            {
+                MessageBox.Show("Please select a country.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(CurrentCampaign.Category))
+            {
+                MessageBox.Show("Please select a category.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            // Optional: Validate that an image is uploaded
+            if (CurrentCampaign.Image == null || CurrentCampaign.Image.Length == 0)
+            {
+                MessageBox.Show("Please upload an image for your campaign.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -59,8 +59,7 @@
                     CornerRadius="8"
                     Height="250"
                     Margin="10"
-                    Cursor="Hand"
-                    MouseLeftButtonUp="Card_Click">
+                    Cursor="Hand">
                                 <Border.Effect>
                                     <DropShadowEffect Color="Gray" 
                                     BlurRadius="10" 
@@ -77,7 +76,8 @@
                                     <Button Grid.Row="0" 
                             Background="#E0E0E0"
                             Command="{Binding DataContext.NavigateToFundraisingDetails, 
-                                     RelativeSource={RelativeSource AncestorType=UserControl}}">
+                                     RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                       CommandParameter="{Binding Id}">
                                         <Grid>
                                             <Image Source="/Assets/Images/deforestation.jpg" 
                                    Stretch="UniformToFill"/>

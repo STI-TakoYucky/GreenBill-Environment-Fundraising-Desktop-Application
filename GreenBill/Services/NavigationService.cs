@@ -13,6 +13,9 @@ namespace GreenBill.Services
         ViewModel CurrentView { get; }
 
         void NavigateTo<T>() where T : ViewModel;
+        void NavigateTo<T>(object parameter) where T : ViewModel;
+
+
     }
     public class NavigationService : ObservableObject, INavigationService
     {
@@ -33,9 +36,23 @@ namespace GreenBill.Services
             this.viewModelFactory = viewModelFactory; 
         }
 
+
+
         public void NavigateTo<TViewModel>() where TViewModel : ViewModel
         {
             ViewModel viewModel = viewModelFactory.Invoke(typeof(TViewModel));
+            CurrentView = viewModel;
+        }
+
+        public void NavigateTo<TViewModel>(object parameter) where TViewModel : ViewModel
+        {
+            ViewModel viewModel = viewModelFactory.Invoke(typeof(TViewModel));
+
+            if (viewModel is INavigatableService navigatableVm)
+            {
+                navigatableVm.ApplyNavigationParameter(parameter);
+            }
+
             CurrentView = viewModel;
         }
     }

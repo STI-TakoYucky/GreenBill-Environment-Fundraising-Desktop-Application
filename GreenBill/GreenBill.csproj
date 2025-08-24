@@ -209,6 +209,7 @@
     </Compile>
     <Compile Include="Services\CampaignService.cs" />
     <Compile Include="Services\ICampaignService.cs" />
+    <Compile Include="Services\INavigatableService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Page Include="MVVM\View\FundraisingDetails.xaml">
       <SubType>Designer</SubType>

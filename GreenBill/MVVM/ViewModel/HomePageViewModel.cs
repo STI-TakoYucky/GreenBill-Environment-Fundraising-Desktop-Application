@@ -60,7 +60,10 @@ namespace GreenBill.MVVM.ViewModel
 
             NavigateToFundraisingDetails = new RelayCommand(o =>
             {
-                Navigation.NavigateTo<FundraisingDetailsViewModel>();
+                if (o != null)
+                {
+                    Navigation.NavigateTo<FundraisingDetailsViewModel>(o.ToString());
+                }
             });
 
             LoadCampaignsCommand = new RelayCommand(async o => await LoadCampaignsAsync());

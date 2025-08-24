@@ -1,4 +1,5 @@
 ﻿using GreenBill.MVVM.Model;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,8 @@ namespace GreenBill.Services
 
         public async Task<Campaign> GetCampaignByIdAsync(string id)
         {
-            return await _collection.Find(c => c.Id.Equals(id)).FirstOrDefaultAsync();
+            var objectId = ObjectId.Parse(id);
+            return await _collection.Find(c => c.Id == objectId).FirstOrDefaultAsync();
         }
     }
 }

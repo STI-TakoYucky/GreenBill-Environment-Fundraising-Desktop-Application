@@ -1,9 +1,5 @@
 ﻿using MongoDB.Bson;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GreenBill.MVVM.Model
 {
@@ -14,6 +10,7 @@ namespace GreenBill.MVVM.Model
         public string ZipCode { get; set; } 
         public string Category { get; set; }
         public decimal DonationGoal { get; set; }
+        public decimal DonationRaised { get; set; }
         public byte[] Image { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

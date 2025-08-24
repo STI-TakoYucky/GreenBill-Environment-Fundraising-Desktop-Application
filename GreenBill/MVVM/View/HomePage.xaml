@@ -79,7 +79,7 @@
                                      RelativeSource={RelativeSource AncestorType=UserControl}}"
                                        CommandParameter="{Binding Id}">
                                         <Grid>
-                                            <Image Source="/Assets/Images/deforestation.jpg" 
+                                            <Image Source="{Binding Image, Converter={StaticResource ImageConverter}}"
                                    Stretch="UniformToFill"/>
                                             <TextBlock Text="975 donations"
                                       Foreground="White"

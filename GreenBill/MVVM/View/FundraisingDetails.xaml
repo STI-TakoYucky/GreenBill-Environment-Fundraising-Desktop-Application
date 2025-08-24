@@ -36,7 +36,7 @@
                 <!-- Left Content -->
                 <StackPanel Grid.Column="0">
                     <!-- Title -->
-                    <TextBlock Text="Help Stop Deforestation and Protect Our Forests"
+                    <TextBlock Text="{Binding SelectedCampaign.Title}"
                            FontFamily="./Assets/Fonts/#Poppins"
                            FontSize="28"
                            FontWeight="Bold"
@@ -49,7 +49,7 @@
                        CornerRadius="8"
                        Margin="0,0,0,20">
                         <Grid>
-                            <Image Source="/Assets/Images/deforestation.jpg" 
+                            <Image Source="{Binding SelectedCampaign.Image, Converter={StaticResource ImageConverter}}"
                                Height="350"
                                 Stretch="UniformToFill"/>
 
@@ -97,13 +97,9 @@
                            FontSize="15"
                            LineHeight="24"
                            Foreground="#555555"
-                           Margin="0,0,0,20">
-                    <Run Text="Our forests are disappearing at an alarming rate due to illegal logging, fires, and unsustainable practices. Every second, an area the size of a football field is destroyed."/>
-                    <LineBreak/><LineBreak/>
-                    <Run Text="Deforestation not only threatens countless animal species but also accelerates climate change by reducing the Earth's ability to absorb carbon dioxide."/>
-                    <LineBreak/><LineBreak/>
-                    <Run Text="With your support, we can fund reforestation projects, protect endangered habitats, and work with local communities to create sustainable alternatives."/>
-                    </TextBlock>
+                           Margin="0,0,0,20"
+                               Text="{Binding SelectedCampaign.Description}"/>
+
                     <!-- Read More Button -->
                     <Button Content="Read more"
                        Style="{StaticResource PrimaryButton}"
@@ -128,7 +124,7 @@
                         <!-- Progress Info -->
                         <StackPanel Orientation="Horizontal" 
                                Margin="0,0,0,12">
-                            <TextBlock Text="220k goal"
+                            <TextBlock Text="{Binding SelectedCampaign.DonationGoal}"
                                   FontFamily="./Assets/Fonts/#Poppins"
                                   FontSize="14"
                                   Foreground="#888888"/>

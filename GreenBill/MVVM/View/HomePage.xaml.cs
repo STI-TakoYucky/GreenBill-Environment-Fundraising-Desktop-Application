@@ -14,16 +14,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GreenBill
+namespace GreenBill.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for HomePage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class HomePage : UserControl
     {
-        public MainWindow()
+        public HomePage()
         {
             InitializeComponent();
+        }
+
+        private void Card_Click(object sender, MouseButtonEventArgs e)
+        {
+            MainContent.Visibility = Visibility.Collapsed;
+
+            var fundraisingPage = new FundraisingDetails();
+            MainFrame.Navigate(fundraisingPage);
+
+            MainFrame.Visibility = Visibility.Visible;
         }
     }
 }

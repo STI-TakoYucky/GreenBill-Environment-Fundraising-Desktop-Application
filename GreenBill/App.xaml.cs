@@ -1,4 +1,8 @@
-﻿using System;
+﻿using GreenBill.Core;
+using GreenBill.MVVM.ViewModel;
+using GreenBill.Services;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +17,33 @@ namespace GreenBill
     /// </summary>
     public partial class App : Application
     {
+           private readonly IServiceProvider serviceProvider;
+
+        public App()
+        {
+            IServiceCollection services = new ServiceCollection();
+            services.AddSingleton<MainWindow>(provider => new MainWindow
+            {
+                DataContext = provider.GetRequiredService<MainWindowViewModel>()
+            });
+
+            services.AddSingleton<MainWindowViewModel>();
+            services.AddSingleton<SigninViewModel>();
+            services.AddSingleton<HomePageViewModel>();
+            services.AddSingleton<SignupViewModel>();
+            services.AddSingleton<FundraisingDetailsViewModel>();
+
+            services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
+
+            serviceProvider = services.BuildServiceProvider();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+            mainWindow.Show();
+            base.OnStartup(e);
+        }
     }
 }

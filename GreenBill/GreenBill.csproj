@@ -170,7 +170,9 @@
     </ApplicationDefinition>
     <Compile Include="Converters\StepVisibilityConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
+    <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="MVVM\Model\Campaign.cs" />
+    <Compile Include="MVVM\Model\User.cs" />
     <Compile Include="MVVM\ViewModel\FundraisingDetailsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\FundraisingStepsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\HomePageViewModel.cs" />
@@ -211,7 +213,9 @@
     <Compile Include="Services\CampaignService.cs" />
     <Compile Include="Services\ICampaignService.cs" />
     <Compile Include="Services\INavigatableService.cs" />
+    <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Page Include="MVVM\View\FundraisingDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

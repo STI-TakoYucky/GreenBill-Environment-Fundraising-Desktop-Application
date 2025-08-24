@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:GreenBill"
              xmlns:view="clr-namespace:GreenBill.MVVM.View"
              xmlns:stepsView="clr-namespace:GreenBill.MVVM.View.FundraisingSteps"
-              xmlns:converters="clr-namespace:GreenBill.Converters"
+             xmlns:helpers="clr-namespace:GreenBill.Helpers"
+             xmlns:converters="clr-namespace:GreenBill.Converters"
             xmlns:viewModel="clr-namespace:GreenBill.MVVM.ViewModel">
     <Application.Resources>
         <ResourceDictionary>

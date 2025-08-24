@@ -36,6 +36,7 @@ namespace GreenBill
 
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ICampaignService, CampaignService>();
+            services.AddSingleton<IUserService, UserService>();
 
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
 

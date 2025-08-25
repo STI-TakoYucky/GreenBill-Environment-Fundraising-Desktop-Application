@@ -68,59 +68,58 @@
                 <!-- Country ComboBox -->
 
                 <!-- Country ComboBox -->
-                <ComboBox Grid.Column="0"
-                          Height="40"
-                          Margin="0,0,15,0"
-                          ItemsSource="{Binding Countries}"
-                          SelectedItem="{Binding SelectedCountry, Mode=TwoWay}"
-                          Style="{StaticResource ComboBox}"
-                          ItemContainerStyle="{StaticResource ComboBoxItem}"/>
+
 
                 <!-- Zip Code TextBox -->
-               <!-- Country ComboBox -->
-<ComboBox Grid.Column="0"
-         Height="40"
-         Margin="0,0,15,0"
-         ItemsSource="{Binding Countries}"
-         SelectedItem="{Binding SelectedCountry, Mode=TwoWay}"
-         Style="{StaticResource ComboBox}"
-         ItemContainerStyle="{StaticResource ComboBoxItem}"/>
+                <!-- Country ComboBox -->
 
-<!-- Zip Code TextBox -->
-                <TextBox Grid.Column="1"
-        Height="40"
-        Text="{Binding ZipCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-        VerticalContentAlignment="Center"
-        Padding="10,0"
-        BorderBrush="#CCCCCC"
-        BorderThickness="1"
-        Background="White">
-                    <TextBox.Style>
-                        <Style TargetType="TextBox">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate TargetType="TextBox">
-                                        <Border Background="{TemplateBinding Background}"
-                               BorderBrush="{TemplateBinding BorderBrush}"
-                               BorderThickness="{TemplateBinding BorderThickness}"
-                               CornerRadius="4">
-                                            <Grid>
-                                                <TextBlock Text="Zip code"
-                                          Foreground="#999999"
-                                          Margin="10,0"
-                                          VerticalAlignment="Center"
-                                          Visibility="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToVisibilityConverter}}"/>
-                                                <ScrollViewer x:Name="PART_ContentHost"
-                                             VerticalAlignment="Center"/>
-                                            </Grid>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </TextBox.Style>
-                </TextBox>
+                <StackPanel  Margin="0,0,15,0" Grid.Column="0">
+                    <ComboBox 
+                              Height="40"
+                              ItemsSource="{Binding Countries}"
+                              SelectedItem="{Binding SelectedCountry, Mode=TwoWay}"
+                              Style="{StaticResource ComboBox}"
+                              ItemContainerStyle="{StaticResource ComboBoxItem}"/>
+                   
+                </StackPanel>
 
+
+                <StackPanel Grid.Column="1">
+                    <TextBox 
+                             Height="40"
+                             Text="{Binding ZipCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             VerticalContentAlignment="Center"
+                             Padding="10,0"
+                             BorderBrush="#CCCCCC"
+                             BorderThickness="1"
+                             Background="White">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TextBox">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="4">
+                                                <Grid>
+                                                    <TextBlock Text="Zip code"
+                                                               Foreground="#999999"
+                                                               Margin="10,0"
+                                                               VerticalAlignment="Center"
+                                                               Visibility="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToVisibilityConverter}}"/>
+                                                    <ScrollViewer x:Name="PART_ContentHost"
+                                                                  VerticalAlignment="Center"/>
+                                                </Grid>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                    <TextBlock Text="{Binding ZipCodeError}" FontWeight="Light" FontStyle="Normal" Foreground="Red"/>
+                </StackPanel>
                 <!-- Category Buttons -->
 
             </Grid>
@@ -133,42 +132,47 @@
                        Margin="0,0,0,20"/>
 
             <!-- Category Buttons - Row 1 -->
-            <ItemsControl ItemsSource="{Binding CategoryItems}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Margin="0,0,0,15"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <ToggleButton Content="{Binding Name}" 
-                          IsChecked="{Binding IsSelected}"
-                          Command="{Binding DataContext.SelectCategoryCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                          CommandParameter="{Binding Name}"
-                          Style="{StaticResource CategoryToggleButton}"
-                          Margin="0,0,10,10"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <StackPanel Margin="0,0,0,10">
+                <ItemsControl ItemsSource="{Binding CategoryItems}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Margin="0,0,0,5"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ToggleButton Content="{Binding Name}" 
+               IsChecked="{Binding IsSelected}"
+               Command="{Binding DataContext.SelectCategoryCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+               CommandParameter="{Binding Name}"
+               Style="{StaticResource CategoryToggleButton}"
+               Margin="0,0,10,10"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <TextBlock Text="{Binding CategoryError}" FontWeight="Light" FontStyle="Normal" Foreground="Red"/>
+            </StackPanel>
 
 
             <!-- Continue Button -->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="67*"/>
+                    <ColumnDefinition Width="131*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Back Button -->
-                <Button Grid.Column="0"
+                <Button
              Width="50"
              Command="{Binding GoToHome}"
              Height="50"
              Background="White"
              BorderBrush="#E0E0E0"
              BorderThickness="1"
-             HorizontalAlignment="Left">
+             HorizontalAlignment="Center">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Template">
@@ -196,10 +200,10 @@
                 </Button>
 
                 <!-- Continue Button -->
-                <Button Grid.Column="2"
+                <Button Grid.Column="3"
              Content="Continue"
              Style="{StaticResource PrimaryButton}"
-             HorizontalAlignment="Right"
+             HorizontalAlignment="Center"
              Command="{Binding GoToStep2}"/>
             </Grid>
         </StackPanel>

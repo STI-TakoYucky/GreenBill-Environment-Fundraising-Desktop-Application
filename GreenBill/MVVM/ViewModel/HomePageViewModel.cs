@@ -15,8 +15,9 @@ using MongoDB.Driver;
 
 namespace GreenBill.MVVM.ViewModel
 {
-    public class HomePageViewModel : Core.ViewModel
+    public class HomePageViewModel : Core.ViewModel, INavigationAware
     {
+        public bool ShowNavigation => true;
         private INavigationService _navigationService;
         private ObservableCollection<Campaign> _campaigns;
         private ICampaignService _campaignService;

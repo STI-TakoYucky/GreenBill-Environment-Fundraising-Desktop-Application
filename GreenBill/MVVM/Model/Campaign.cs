@@ -15,19 +15,5 @@ namespace GreenBill.MVVM.Model
         public string Title { get; set; }
         public string Description { get; set; }
          public DateTime CreatedAt { get; set; }
-        public Campaign()
-        {
-        }
-
-        public Campaign(string country, string zipCode, string category, decimal donationGoal, byte[] image, string title, string description)
-        {
-            Country = country;
-            ZipCode = zipCode;
-            Category = category;
-            DonationGoal = donationGoal;
-            Image = image;
-            Title = title;
-            Description = description;
-        }
     }
 }

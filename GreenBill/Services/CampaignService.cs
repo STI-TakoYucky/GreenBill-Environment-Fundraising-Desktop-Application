@@ -31,5 +31,16 @@ namespace GreenBill.Services
             var objectId = ObjectId.Parse(id);
             return await _collection.Find(c => c.Id == objectId).FirstOrDefaultAsync();
         }
+
+        public async void Create(Campaign campaign)
+        {
+            if (campaign.CreatedAt == default(DateTime))
+            {
+                campaign.CreatedAt = DateTime.UtcNow;
+            }
+
+            await _collection.InsertOneAsync(campaign);
+
+        }
     }
 }

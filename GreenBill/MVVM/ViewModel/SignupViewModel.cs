@@ -15,11 +15,9 @@ namespace GreenBill.MVVM.ViewModel
 {
     public class SignupViewModel : Core.ViewModel
     {
-        private INavigationService _navigationService;
-        private IUserService _userService;
-        private User NewUser { get; set; }
-        public ICommand CreateAccount { get; set; }
 
+        private IUserService _userService;
+        private INavigationService _navigationService;
         public INavigationService Navigation
         {
             get => _navigationService;
@@ -30,7 +28,7 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-
+        private User NewUser { get; set; }
         public string Username
         {
             get => NewUser?.Username;
@@ -43,7 +41,6 @@ namespace GreenBill.MVVM.ViewModel
                 }
             }
         }
-
         public string Email
         {
             get => NewUser?.Email;
@@ -56,7 +53,6 @@ namespace GreenBill.MVVM.ViewModel
                 }
             }
         }
-
         public string Password
         {
             get => NewUser?.Password;
@@ -69,8 +65,7 @@ namespace GreenBill.MVVM.ViewModel
                 }
             }
         }
-
-        public SignupViewModel() { }
+        public ICommand CreateAccount { get; set; }
 
         public RelayCommand NavigateToHome { get; set; }
 

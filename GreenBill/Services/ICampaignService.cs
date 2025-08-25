@@ -11,5 +11,6 @@ namespace GreenBill.Services
     {
         Task<List<Campaign>> GetAllCampaignsAsync();
         Task<Campaign> GetCampaignByIdAsync(string id);
+        void Create(Campaign user);
     }
 }

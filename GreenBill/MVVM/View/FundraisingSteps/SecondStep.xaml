@@ -61,7 +61,7 @@
                     BorderThickness="1"
                     CornerRadius="8"
                     Padding="20"
-                    Margin="0,0,0,30">
+                    Margin="0,0,0,10">
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -110,6 +110,8 @@
                                Margin="10,0,0,0"/>
                 </Grid>
             </Border>
+
+            <TextBlock Text="{Binding DonationGoalError}" FontWeight="Light" FontStyle="Normal" Foreground="Red" Margin="0,0,0,20"/>
 
             <!-- Information Text -->
             <TextBlock Text="Keep in mind that transaction fees, including credit and debit charges, are deducted from each donation."

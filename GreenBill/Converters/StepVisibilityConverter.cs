@@ -9,7 +9,6 @@ using System.Windows;
 
 namespace GreenBill.Converters
 {
-
         public class StepVisibilityConverter : IValueConverter
         {
             public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

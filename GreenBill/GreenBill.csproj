@@ -216,6 +216,7 @@
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Validators\CampaignValidator.cs" />
     <Page Include="MVVM\View\FundraisingDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

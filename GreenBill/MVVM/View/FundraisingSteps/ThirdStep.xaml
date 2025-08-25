@@ -20,6 +20,7 @@
                     VerticalAlignment="Center" 
                     HorizontalAlignment="Center"
                     Margin="50">
+            
 
             <!-- Logo/Icon placeholder -->
             <Image Source="/Assets/Images/logo.png"
@@ -54,32 +55,36 @@
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="50,50,100,50">
 
             <!-- Upload Area -->
-            <Border x:Name="UploadArea"
-                    Background="White"
-                    BorderBrush="#CCCCCC"
-                    BorderThickness="2"
-                    CornerRadius="8"
-                    Height="400"
-                    Margin="0,0,0,30"
-                    Cursor="Hand"
-                    AllowDrop="True"
-                    MouseLeftButtonUp="UploadArea_MouseLeftButtonUp"
-                    DragEnter="UploadArea_DragEnter"
-                    Drop="UploadArea_Drop">
+            <StackPanel>
+                <Border x:Name="UploadArea"
+         Background="White"
+         BorderBrush="#CCCCCC"
+         BorderThickness="2"
+         CornerRadius="8"
+         Height="400"
+         Margin="0,0,0,10"
+         Cursor="Hand"
+         AllowDrop="True"
+         MouseLeftButtonUp="UploadArea_MouseLeftButtonUp"
+         DragEnter="UploadArea_DragEnter"
+         Drop="UploadArea_Drop">
 
-                <Grid>
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="UploadPlaceholder">
-                        <Border Width="60" Height="60" Background="#F0F0F0" CornerRadius="8" Margin="0,0,0,20">
-                            <Path Data="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
-                                  Fill="#999999" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <TextBlock Text="Drag or upload your photo here" FontSize="16" Foreground="#999999" TextAlignment="Center"/>
-                    </StackPanel>
+                    <Grid>
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="UploadPlaceholder">
+                            <Border Width="60" Height="60" Background="#F0F0F0" CornerRadius="8" Margin="0,0,0,20">
+                                <Path Data="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"
+                       Fill="#999999" Width="24" Height="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <TextBlock Text="Drag or upload your photo here" FontSize="16" Foreground="#999999" TextAlignment="Center"/>
+                        </StackPanel>
 
-                    <!-- Display uploaded image -->
-                    <Image x:Name="PreviewImage" Stretch="Uniform" Visibility="Collapsed"/>
-                </Grid>
-            </Border>
+                        <!-- Display uploaded image -->
+                        <Image x:Name="PreviewImage" Stretch="Uniform" Visibility="Collapsed"/>
+                    </Grid>
+                </Border>
+
+                <TextBlock Text="{Binding ImageError}" FontWeight="Light" FontStyle="Normal" Foreground="Red" Margin="0,0,0,30"/>
+            </StackPanel>
 
             <!-- Navigation Buttons -->
             <Grid>

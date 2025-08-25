@@ -98,42 +98,46 @@
                            Foreground="#333333"
                            Margin="0,0,0,15"/>
 
-                <Border Background="White"
-                        BorderBrush="#E0E0E0"
-                        BorderThickness="1"
-                        CornerRadius="8"
-                        Padding="20">
-                    <Grid>
-                        <TextBox Name="TitleTextBox"
-                                FontSize="16"
-                                BorderThickness="0"
-                                        Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                Background="Transparent"
-                                VerticalContentAlignment="Center"
-                                Padding="0"/>
-                        <TextBlock Text="Donate to help..."
-                                  FontSize="16"
-                                  Foreground="#CCCCCC"
-                                  IsHitTestVisible="False"
-                                  VerticalAlignment="Center">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Text, ElementName=TitleTextBox}" Value="">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                        <TextBlock Text="50"
-                                  FontSize="14"
-                                  Foreground="#999999"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Right"/>
-                    </Grid>
-                </Border>
+                <StackPanel>
+                    <Border Background="White"
+           BorderBrush="#E0E0E0"
+           BorderThickness="1"
+           CornerRadius="8"
+           Padding="20">
+                        <Grid>
+                            <TextBox Name="TitleTextBox"
+                   FontSize="16"
+                   BorderThickness="0"
+                           Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                   Background="Transparent"
+                   VerticalContentAlignment="Center"
+                   Padding="0"/>
+                            <TextBlock Text="Donate to help..."
+                     FontSize="16"
+                     Foreground="#CCCCCC"
+                     IsHitTestVisible="False"
+                     VerticalAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=TitleTextBox}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock Text="50"
+                     FontSize="14"
+                     Foreground="#999999"
+                     VerticalAlignment="Center"
+                     HorizontalAlignment="Right"/>
+                        </Grid>
+                    </Border>
+
+                    <TextBlock Text="{Binding TitleError}" FontWeight="Light" FontStyle="Normal" Foreground="Red"/>
+                </StackPanel>
             </StackPanel>
 
             <!-- Story Input Section -->
@@ -144,41 +148,45 @@
                            Foreground="#333333"
                            Margin="0,0,0,15"/>
 
-                <Border Background="White"
-                        BorderBrush="#E0E0E0"
-                        BorderThickness="1"
-                        CornerRadius="8"
-                        Padding="20"
-                        Height="200">
-                    <Grid>
-                        <TextBox Name="StoryTextBox"
-                                FontSize="16"
-                                Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                BorderThickness="0"
-                                Background="Transparent"
-                                TextWrapping="Wrap"
-                                AcceptsReturn="True"
-                                VerticalScrollBarVisibility="Auto"
-                                VerticalContentAlignment="Top"
-                                Padding="0"/>
-                        <TextBlock Text="Hi, my name is Jane and I'm fundraising for..."
-                                  FontSize="16"
-                                  Foreground="#CCCCCC"
-                                  IsHitTestVisible="False"
-                                  VerticalAlignment="Top">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Text, ElementName=StoryTextBox}" Value="">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </Grid>
-                </Border>
+                <StackPanel>
+                    <Border Background="White"
+         BorderBrush="#E0E0E0"
+         BorderThickness="1"
+         CornerRadius="8"
+         Padding="20"
+         Height="200">
+                        <Grid>
+                            <TextBox Name="StoryTextBox"
+                 FontSize="16"
+                 Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 BorderThickness="0"
+                 Background="Transparent"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 VerticalScrollBarVisibility="Auto"
+                 VerticalContentAlignment="Top"
+                 Padding="0"/>
+                            <TextBlock Text="Hi, my name is Jane and I'm fundraising for..."
+                   FontSize="16"
+                   Foreground="#CCCCCC"
+                   IsHitTestVisible="False"
+                   VerticalAlignment="Top">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Text, ElementName=StoryTextBox}" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+
+                    <TextBlock Text="{Binding DescriptionError}" FontWeight="Light" FontStyle="Normal" Foreground="Red"/>
+                </StackPanel>
             </StackPanel>
 
             <!-- Information Text -->

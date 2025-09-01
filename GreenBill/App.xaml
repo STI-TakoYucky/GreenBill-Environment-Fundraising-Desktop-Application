@@ -20,6 +20,7 @@
             <converters:StepVisibilityConverter x:Key="StepVisibilityConverter"/>
             <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
             <converters:ByteArrayToImageConverter x:Key="ImageConverter"/>
+            <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
 
             <DataTemplate DataType="{x:Type viewModel:FundraisingStepsViewModel}">
                 <stepsView:FundraisingStepsContainer/>

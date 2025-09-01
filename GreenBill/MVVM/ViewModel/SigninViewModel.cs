@@ -44,7 +44,6 @@ namespace GreenBill.MVVM.ViewModel
                 {
                     NewUser.Email = value;
                     OnPropertyChanged();
-                    // Clear error when user starts typing
                     if (!string.IsNullOrEmpty(ErrorMessage))
                     {
                         ErrorMessage = string.Empty;
@@ -62,7 +61,6 @@ namespace GreenBill.MVVM.ViewModel
                 {
                     NewUser.Password = value;
                     OnPropertyChanged();
-                    // Clear error when user starts typing
                     if (!string.IsNullOrEmpty(ErrorMessage))
                     {
                         ErrorMessage = string.Empty;
@@ -102,7 +100,6 @@ namespace GreenBill.MVVM.ViewModel
             _userService = userService;
             NewUser = new User();
 
-            // Initialize MongoDB connection
             InitializeDatabase();
 
             NavigateToHome = new RelayCommand(o =>
@@ -167,14 +164,12 @@ namespace GreenBill.MVVM.ViewModel
                 IsLoading = true;
                 ErrorMessage = string.Empty;
 
-                // Validate input
                 if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
                 {
                     ErrorMessage = "Please enter both email and password.";
                     return;
                 }
 
-                // Find user by email
                 var filter = Builders<User>.Filter.Eq(u => u.Email, Email.Trim().ToLowerInvariant());
                 var user = await _collection.Find(filter).FirstOrDefaultAsync();
 
@@ -185,25 +180,21 @@ namespace GreenBill.MVVM.ViewModel
                     return;
                 }
 
-                // Verify password (assuming you have password hashing)
                 if (!VerifyPassword(Password, user.Password))
                 {
                     ErrorMessage = "Invalid email or password.";
                     return;
                 }
 
-                // Login successful - store user session
-
-                // Navigate to home page
                 var mainWindow = Application.Current.MainWindow;
                 if (mainWindow?.DataContext is MainWindowViewModel mainVM)
                 {
                     mainVM.ShowNavigation = true;
+                    mainVM.IsUserLoggedIn = true;
                 }
 
                 Navigation.NavigateTo<HomePageViewModel>();
 
-                // Clear form
                 ClearForm();
             }
             catch (Exception ex)
@@ -219,15 +210,6 @@ namespace GreenBill.MVVM.ViewModel
 
         private bool VerifyPassword(string enteredPassword, string storedPassword)
         {
-            // If passwords are stored as plain text (NOT RECOMMENDED for production)
-            // return enteredPassword == storedPassword;
-
-            // If using password hashing (RECOMMENDED)
-            // You should use a proper password hashing library like BCrypt
-            // Example with BCrypt:
-            // return BCrypt.Net.BCrypt.Verify(enteredPassword, storedPassword);
-
-            // For now, using simple comparison (change this in production!)
             return enteredPassword == storedPassword;
         }
 

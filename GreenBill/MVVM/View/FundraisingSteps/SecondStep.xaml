@@ -171,6 +171,7 @@
                 <!-- Back Button -->
                 <Button Grid.Column="0"
                         Width="50"
+                           Cursor="Hand"
                         Command="{Binding GoToPreviousStep}"
                         Height="50"
                         Background="White"

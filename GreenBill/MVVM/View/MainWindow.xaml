@@ -27,21 +27,37 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"
                 Margin="0,0,100,0">
-                <Button Content="Sign In"
-                   FontFamily="./Assets/Fonts/#Poppins"
-                   FontSize="15"
-                 Command="{Binding NavigateToSignin}"
-                 Background="Transparent"
-                   Foreground="#6E6A6A"
-                   VerticalAlignment="Center"
-                 BorderThickness="0"
-                   FontWeight="Bold"
-                    
-                   Margin="0,0,15,0"/>
+
                 <Button Content="Start a Change"
-                         Height="30"
-                        Command="{Binding GoToStep1}"
-                         Style="{StaticResource PrimaryButton}"/>
+             Height="30"
+            Command="{Binding GoToStep1}"
+             Style="{StaticResource PrimaryButton}"/>
+
+                <Image Source="/Assets/Images/defaultProfile.jpg"
+       Width="40"
+       Height="40"
+       HorizontalAlignment="Center"
+       Stretch="UniformToFill"
+       Margin="15,0,0,0"
+       Visibility="{Binding IsUserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Image.Clip>
+                        <EllipseGeometry Center="20,20" RadiusX="20" RadiusY="20"/>
+                    </Image.Clip>
+                </Image>
+
+                <Button Content="Sign In"
+        FontFamily="./Assets/Fonts/#Poppins"
+        FontSize="15"
+        Command="{Binding NavigateToSignin}"
+        Background="Transparent"
+        Foreground="#6E6A6A"
+        VerticalAlignment="Center"
+        BorderThickness="0"
+        FontWeight="Bold"
+        Margin="15,0,0,0"
+        Visibility="{Binding IsUserLoggedIn, 
+                     Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
+
             </StackPanel>
         </DockPanel>
         <ContentControl Grid.Row="1" Content="{Binding Navigation.CurrentView}"/>

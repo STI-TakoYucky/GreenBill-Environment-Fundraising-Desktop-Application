@@ -167,6 +167,7 @@
                 <!-- Back Button -->
                 <Button
              Width="50"
+                    Cursor="Hand"
              Command="{Binding GoToHome}"
              Height="50"
              Background="White"

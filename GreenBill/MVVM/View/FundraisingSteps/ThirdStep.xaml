@@ -95,6 +95,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="0"
+                           Cursor="Hand"
            Width="50"
            Command="{Binding GoToPreviousStep}"
            Height="50"

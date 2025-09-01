@@ -13,6 +13,17 @@ namespace GreenBill.MVVM.ViewModel
     public class MainWindowViewModel : Core.ViewModel
     {
         private bool _showNavigation = true;
+        private bool _isUserLoggedIn;
+
+        public bool IsUserLoggedIn
+        {
+            get => _isUserLoggedIn;
+            set
+            {
+                _isUserLoggedIn = value;
+                OnPropertyChanged();
+            }
+        }
 
         private INavigationService _navigationService;
 

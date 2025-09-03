@@ -22,11 +22,17 @@
                    Background="White">
 
             <!-- Logo -->
-            <Image Source="/Assets/Images/logo.png"
-                   Height="60"
-                   DockPanel.Dock="Left"
-                   Margin="100,0,0,0"
-                   VerticalAlignment="Center"/>
+            <Button BorderThickness="0"
+            Height="60"
+            Cursor="Hand"
+            Margin="100,0,0,0"
+            Command="{Binding GoToHome}"
+Background="Transparent">
+                <Image Source="/Assets/Images/logo.png"
+   Height="60"
+   VerticalAlignment="Center"/>
+            </Button>
+
 
             <!-- Right Side Controls -->
             <StackPanel DockPanel.Dock="Right" 

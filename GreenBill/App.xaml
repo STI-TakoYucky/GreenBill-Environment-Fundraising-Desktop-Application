@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:GreenBill"
              xmlns:view="clr-namespace:GreenBill.MVVM.View"
-            xmlns:viewModel="clr-namespace:GreenBill.MVVM.ViewModel">
+            xmlns:viewModel="clr-namespace:GreenBill.MVVM.ViewModel"
+             StartupUri="MVVM/View/Admin/AdminWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -30,9 +31,7 @@
                 <view:FundraisingDetails/>
             </DataTemplate>
 
-            <Style TargetType="TextBlock">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>
-            </Style>
+       
 
             <Style TargetType="TextBox">
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>

@@ -183,6 +183,7 @@
     <Compile Include="MVVM\ViewModel\MainWindowViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SigninViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SignupViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\UserCampaignsViewModel.cs" />
     <Compile Include="MVVM\View\FundraisingDetails.xaml.cs">
       <DependentUpon>FundraisingDetails.xaml</DependentUpon>
     </Compile>
@@ -214,6 +215,9 @@
       <DependentUpon>Signup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\ByteArrayToImageConverter.cs" />
+    <Compile Include="MVVM\View\UserCampaigns.xaml.cs">
+      <DependentUpon>UserCampaigns.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\CampaignService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\UserService.cs" />
@@ -271,6 +275,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Signup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\UserCampaigns.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -43,8 +43,12 @@
                 <view:FundraisingDetails/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:UserCampaignsViewModel}">
+                <view:UserCampaigns/>
+            </DataTemplate>
 
-  
+
+
 
             <Style TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>

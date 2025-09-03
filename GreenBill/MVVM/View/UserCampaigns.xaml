@@ -234,6 +234,7 @@
                                    BorderThickness="0,1,0,0"
                                    FontWeight="SemiBold"
                                    Padding="20,15"
+                                   Command="{Binding ViewDetails}"
                                    Margin="0"
                                    Cursor="Hand">
                                 <Button.Style>

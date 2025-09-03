@@ -184,6 +184,7 @@
     <Compile Include="MVVM\Model\Campaign.cs" />
     <Compile Include="MVVM\Model\User.cs" />
     <Compile Include="MVVM\ViewModel\CampaignAnalyticsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CampaignDetailsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\FundraisingDetailsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\FundraisingStepsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\HomePageViewModel.cs" />
@@ -195,6 +196,9 @@
       <DependentUpon>CampaignAnalytics.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\CampaignData.cs" />
+    <Compile Include="MVVM\View\CampaignDetails.xaml.cs">
+      <DependentUpon>CampaignDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\FundraisingDetails.xaml.cs">
       <DependentUpon>FundraisingDetails.xaml</DependentUpon>
     </Compile>
@@ -235,6 +239,10 @@
     <Compile Include="Services\UserSessionService.cs" />
     <Compile Include="Validators\CampaignValidator.cs" />
     <Page Include="MVVM\View\CampaignAnalytics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\CampaignDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

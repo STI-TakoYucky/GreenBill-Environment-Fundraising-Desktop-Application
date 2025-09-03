@@ -104,15 +104,7 @@ namespace GreenBill.MVVM.ViewModel
             NewUser = new User();
 
 
-            NavigateToHome = new RelayCommand(o =>
-            {
-                var mainWindow = Application.Current.MainWindow;
-                if (mainWindow?.DataContext is MainWindowViewModel mainVM)
-                {
-                    mainVM.ShowNavigation = true;
-                }
-                Navigation.NavigateTo<HomePageViewModel>();
-            });
+            NavigateToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
 
             NavigateToSignup = new RelayCommand(o =>
             {

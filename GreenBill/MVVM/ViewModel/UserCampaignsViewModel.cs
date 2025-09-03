@@ -1,4 +1,5 @@
-﻿using GreenBill.Services;
+﻿using GreenBill.Core;
+using GreenBill.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,25 @@ namespace GreenBill.MVVM.ViewModel
 {
     public class UserCampaignsViewModel : Core.ViewModel, INavigationAware
     {
+        private INavigationService _navigationService;
+
+        public INavigationService Navigation
+        {
+            get => _navigationService;
+            set
+            {
+                _navigationService = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool ShowNavigation => true;
+
+        public RelayCommand ViewDetails { get; set; }
+        public UserCampaignsViewModel(INavigationService navService)
+        {
+            Navigation = navService;
+            ViewDetails = new RelayCommand(o => Navigation.NavigateTo<CampaignDetailsViewModel>());
+        }
     }
 }

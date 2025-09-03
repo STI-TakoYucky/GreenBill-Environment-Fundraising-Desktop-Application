@@ -51,6 +51,10 @@
                 <view:CampaignAnalytics/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:CampaignDetailsViewModel}">
+                <view:CampaignDetails/>
+            </DataTemplate>
+
 
 
 

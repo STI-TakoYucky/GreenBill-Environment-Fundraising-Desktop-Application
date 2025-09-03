@@ -39,6 +39,7 @@ namespace GreenBill
             services.AddSingleton<FundraisingStepsViewModel>();
             services.AddSingleton<UserCampaignsViewModel>();
             services.AddSingleton<CampaignAnalyticsViewModel>();
+            services.AddSingleton<CampaignDetailsViewModel>();
 
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ICampaignService, CampaignService>();

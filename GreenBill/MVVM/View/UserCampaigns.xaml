@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1400"
              Background="#F5F5F5">
-    <Grid Margin="20">
+    <Grid Margin="100, 50, 100, 50">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>

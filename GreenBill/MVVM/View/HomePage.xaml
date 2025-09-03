@@ -88,7 +88,7 @@
 
                 <!-- Hero Section -->
                 <Grid Background="#FAFAFA" Margin="0,0,0,60">
-                    <StackPanel Margin="80,60,80,60">
+                    <StackPanel Margin="80,30,80,30">
                         <!-- Hero Title -->
                         <TextBlock FontWeight="Bold"
                                   FontSize="42"

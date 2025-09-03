@@ -15,6 +15,7 @@ using MongoDB.Driver;
 using GreenBill.Validators;
 using System.Diagnostics;
 using System.Collections;
+using GreenBill.IServices;
 
 namespace GreenBill.MVVM.ViewModel
 {
@@ -42,8 +43,9 @@ namespace GreenBill.MVVM.ViewModel
         }
     }
 
-    public class FundraisingStepsViewModel : Core.ViewModel
+    public class FundraisingStepsViewModel : Core.ViewModel, INavigationAware
     {
+        public bool ShowNavigation => false;
         private ICampaignService _campaignService;
         private Dictionary<String, String> _errorsList; 
 
@@ -396,10 +398,6 @@ namespace GreenBill.MVVM.ViewModel
         {
             _errorsList.Clear();
             _errorsList = CampaignValidator.Validate(CurrentCampaign);
-
-            // Notify UI that error properties might have changed
-            OnPropertyChanged(nameof(ZipCodeError));
-
             return _errorsList.ToList().Any();
         }
     }

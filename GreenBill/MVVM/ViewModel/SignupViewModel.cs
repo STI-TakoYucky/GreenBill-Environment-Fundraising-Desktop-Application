@@ -9,13 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using GreenBill.IServices;
 
 
 namespace GreenBill.MVVM.ViewModel
 {
-    public class SignupViewModel : Core.ViewModel
+    public class SignupViewModel : Core.ViewModel, INavigationAware
     {
-
+        public bool ShowNavigation => false;
         private IUserService _userService;
         private INavigationService _navigationService;
         public INavigationService Navigation
@@ -74,34 +75,27 @@ namespace GreenBill.MVVM.ViewModel
             Navigation = navService;
             _userService = userService;
             NewUser = new User();
-            NavigateToHome = new RelayCommand(o =>
-            {
-                var mainWindow = Application.Current.MainWindow;
-                if (mainWindow?.DataContext is MainWindowViewModel mainVM)
-                {
-                    mainVM.ShowNavigation = true;
-                }
-                Navigation.NavigateTo<HomePageViewModel>();
-            });
+            InitializeCommands();
+        }
+
+
+        public void InitializeCommands()
+        {
+            NavigateToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
 
             CreateAccount = new RelayCommand(o =>
             {
                 try
                 {
                     _userService.Create(NewUser);
-                    MessageBox.Show("Campaign saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    var mainWindow = Application.Current.MainWindow;
-                    if (mainWindow?.DataContext is MainWindowViewModel mainVM)
-                    {
-                        mainVM.ShowNavigation = true;
-                    }
+                    MessageBox.Show("Account created successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     Navigation?.NavigateTo<HomePageViewModel>();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"An error occurred while saving: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"An error occurred while creating an account: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-               
+
             }, o => NewUser != null);
         }
 

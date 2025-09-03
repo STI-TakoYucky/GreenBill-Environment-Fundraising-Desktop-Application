@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using GreenBill.IServices;
 
 namespace GreenBill.MVVM.ViewModel
 {
@@ -19,6 +20,7 @@ namespace GreenBill.MVVM.ViewModel
         private INavigationService _navigationService;
         private IMongoCollection<User> _collection;
         private IUserService _userService;
+        private IUserSessionService _sessionService; 
         private string _errorMessage;
         private bool _isLoading;
 
@@ -94,13 +96,13 @@ namespace GreenBill.MVVM.ViewModel
         public RelayCommand NavigateToHome { get; set; }
         public RelayCommand NavigateToSignup { get; set; }
 
-        public SigninViewModel(INavigationService navService, IUserService userService)
+        public SigninViewModel(INavigationService navService, IUserService userService, IUserSessionService sessionService)
         {
             Navigation = navService;
             _userService = userService;
+            _sessionService = sessionService;
             NewUser = new User();
 
-            InitializeDatabase();
 
             NavigateToHome = new RelayCommand(o =>
             {
@@ -128,22 +130,6 @@ namespace GreenBill.MVVM.ViewModel
             }, o => CanLogin());
         }
 
-        private void InitializeDatabase()
-        {
-            try
-            {
-                string connectionString = "mongodb://localhost:27017";
-                var client = new MongoClient(connectionString);
-                var database = client.GetDatabase("GreenBill");
-                _collection = database.GetCollection<User>("Users");
-            }
-            catch (Exception ex)
-            {
-                ErrorMessage = "Database connection failed. Please check if MongoDB is running.";
-                Debug.WriteLine($"Database initialization error: {ex.Message}");
-            }
-        }
-
         private bool CanLogin()
         {
             return !IsLoading &&
@@ -153,11 +139,14 @@ namespace GreenBill.MVVM.ViewModel
 
         private async Task LoginAsync()
         {
-            if (_collection == null)
+          
+            if (_userService.Collection  == null)
             {
                 ErrorMessage = "Database connection not available.";
                 return;
             }
+
+            _collection = _userService.Collection;
 
             try
             {
@@ -186,6 +175,8 @@ namespace GreenBill.MVVM.ViewModel
                     return;
                 }
 
+                _sessionService.SetCurrentUser(user);
+
                 var mainWindow = Application.Current.MainWindow;
                 if (mainWindow?.DataContext is MainWindowViewModel mainVM)
                 {
@@ -194,6 +185,8 @@ namespace GreenBill.MVVM.ViewModel
                 }
 
                 Navigation.NavigateTo<HomePageViewModel>();
+
+                Debug.WriteLine("Current User: " + _sessionService.CurrentUser.Username);
 
                 ClearForm();
             }

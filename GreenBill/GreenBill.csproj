@@ -172,6 +172,9 @@
     <Compile Include="Converters\StepVisibilityConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
+    <Compile Include="IServices\ICampaignService.cs" />
+    <Compile Include="IServices\INavigatableService.cs" />
+    <Compile Include="IServices\IUserService.cs" />
     <Compile Include="MVVM\Model\Campaign.cs" />
     <Compile Include="MVVM\Model\User.cs" />
     <Compile Include="MVVM\ViewModel\FundraisingDetailsViewModel.cs" />
@@ -212,11 +215,9 @@
     </Compile>
     <Compile Include="Converters\ByteArrayToImageConverter.cs" />
     <Compile Include="Services\CampaignService.cs" />
-    <Compile Include="Services\ICampaignService.cs" />
-    <Compile Include="Services\INavigatableService.cs" />
-    <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\UserSessionService.cs" />
     <Compile Include="Validators\CampaignValidator.cs" />
     <Page Include="MVVM\View\FundraisingDetails.xaml">
       <SubType>Designer</SubType>

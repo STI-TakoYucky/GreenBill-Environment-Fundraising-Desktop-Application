@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GreenBill.Services
+namespace GreenBill.IServices
 {
     public interface ICampaignService
     {

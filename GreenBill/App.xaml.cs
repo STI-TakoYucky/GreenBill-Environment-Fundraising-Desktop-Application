@@ -53,8 +53,12 @@ namespace GreenBill
             services.AddSingleton<SettingsViewModel>();
 
             services.AddSingleton<INavigationService, NavigationService>();
+
+ 
             services.AddSingleton<ICampaignService, CampaignService>();
             services.AddSingleton<IUserService, UserService>();
+
+            services.AddTransient<ITabNavigationService, TabNavigationService>();
 
             services.AddSingleton<IUserSessionService>(UserSessionService.Instance);
  
@@ -73,7 +77,7 @@ namespace GreenBill
 
             CheckSavedSession();
 
-            var mainWindow = serviceProvider.GetRequiredService<AdminWindow>();
+            var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
         }
 

@@ -24,6 +24,7 @@
             <!-- Logo -->
             <Button BorderThickness="0"
             Height="60"
+                     Style="{StaticResource TransparentButton}"
             Cursor="Hand"
             Margin="100,0,0,0"
             Command="{Binding GoToHome}"

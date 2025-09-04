@@ -24,8 +24,7 @@
 
             <DataTemplate DataType="{x:Type viewModel:FundraisingStepsViewModel}">
                 <stepsView:FundraisingStepsContainer/>
-            </DataTemplate>
-
+            </DataTemplate>                                                     
 
             <DataTemplate DataType="{x:Type viewModel:SigninViewModel}">
                 <view:Signin/>

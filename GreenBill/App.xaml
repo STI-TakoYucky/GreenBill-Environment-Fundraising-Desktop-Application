@@ -1,19 +1,30 @@
-﻿<Application x:Class="GreenBill.App"
+<Application x:Class="GreenBill.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:GreenBill"
              xmlns:view="clr-namespace:GreenBill.MVVM.View"
-            xmlns:viewModel="clr-namespace:GreenBill.MVVM.ViewModel"
-             StartupUri="MVVM/View/Admin/AdminWindow.xaml">
+             xmlns:stepsView="clr-namespace:GreenBill.MVVM.View.FundraisingSteps"
+             xmlns:helpers="clr-namespace:GreenBill.Helpers"
+             xmlns:converters="clr-namespace:GreenBill.Converters"
+            xmlns:viewModel="clr-namespace:GreenBill.MVVM.ViewModel">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/Buttons.xaml"/>
                 <ResourceDictionary Source="/Styles/ComboBox.xaml"/>
                 <ResourceDictionary Source="/Styles/ComboBoxItem.xaml"/>
+                <ResourceDictionary Source="/Styles/CategoryButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+            <converters:StepVisibilityConverter x:Key="StepVisibilityConverter"/>
+            <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+            <converters:ByteArrayToImageConverter x:Key="ImageConverter"/>
+            <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+
+            <DataTemplate DataType="{x:Type viewModel:FundraisingStepsViewModel}">
+                <stepsView:FundraisingStepsContainer/>
+            </DataTemplate>                                                     
 
             <DataTemplate DataType="{x:Type viewModel:SigninViewModel}">
                 <view:Signin/>
@@ -31,7 +42,24 @@
                 <view:FundraisingDetails/>
             </DataTemplate>
 
-       
+            <DataTemplate DataType="{x:Type viewModel:UserCampaignsViewModel}">
+                <view:UserCampaigns/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:CampaignAnalyticsViewModel}">
+                <view:CampaignAnalytics/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:CampaignDetailsViewModel}">
+                <view:CampaignDetails/>
+            </DataTemplate>
+
+
+
+
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>
+            </Style>
 
             <Style TargetType="TextBox">
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>

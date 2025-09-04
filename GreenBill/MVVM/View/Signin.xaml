@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GreenBill.MVVM.View"
+              xmlns:helpers="clr-namespace:GreenBill.Helpers"
       mc:Ignorable="d" 
         d:DesignHeight="900" d:DesignWidth="1400"
  Background="#F5F5F5">
@@ -50,127 +51,107 @@
 
                 <!-- Username field -->
                 <StackPanel Margin="0,0,0,24">
-                    <TextBox Name="UsernameTextBox"
-                    Height="50"
-                    Padding="16,12"
-                    FontSize="16"
-                    BorderBrush="#E0E0E0"
-                    BorderThickness="1"
-                    Background="White"
-                    Foreground="#2C2C2C">
-                        <TextBox.Style>
-                            <Style TargetType="TextBox">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="TextBox">
-                                            <Border Background="{TemplateBinding Background}"
-                                           BorderBrush="{TemplateBinding BorderBrush}"
-                                           BorderThickness="{TemplateBinding BorderThickness}"
-                                           CornerRadius="8">
-                                                <Grid>
-                                                    <ScrollViewer x:Name="PART_ContentHost" 
-                                                         VerticalAlignment="Center"
-                                                         Margin="16,0"/>
-                                                    <TextBlock Text="Username"
-                                                      Foreground="#999"
-                                                      VerticalAlignment="Center"
-                                                      Margin="16,0"
-                                                      IsHitTestVisible="False">
-                                                        <TextBlock.Style>
-                                                            <Style TargetType="TextBlock">
-                                                                <Setter Property="Visibility" Value="Collapsed"/>
-                                                                <Style.Triggers>
-                                                                    <DataTrigger Binding="{Binding Text, ElementName=UsernameTextBox}" Value="">
-                                                                        <Setter Property="Visibility" Value="Visible"/>
-                                                                    </DataTrigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                        </TextBlock.Style>
-                                                    </TextBlock>
-                                                </Grid>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </TextBox.Style>
-                    </TextBox>
+                    <Grid>
+                        <TextBox Name="EmailTextBox"
+            Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Height="50"
+            Padding="16,12"
+            FontSize="16"
+            BorderBrush="#E0E0E0"
+            BorderThickness="1"
+            Background="White"
+            Foreground="#2C2C2C"/>
+
+                        <TextBlock Text="Email Address"
+                  Foreground="#999"
+                  VerticalAlignment="Center"
+                  Margin="18,0"
+                  IsHitTestVisible="False">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=EmailTextBox}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
 
                     <!-- Validation message -->
-                    <TextBlock Name="UsernameValidation"
-                      Text="Please fill out this field."
-                      FontSize="14"
-                      Foreground="Red"
-                      Margin="0,4,0,0"
-                      Visibility="Collapsed"/>
+                    <TextBlock Name="EmailValidation"
+          Text="Please fill out this field."
+          FontSize="14"
+          Foreground="Red"
+          Margin="0,4,0,0"
+          Visibility="Collapsed"/>
                 </StackPanel>
-
                 <!-- Password field -->
                 <StackPanel Margin="0,0,0,24">
                     <Grid>
+                        <!-- PasswordBox (hidden password) -->
                         <PasswordBox Name="PasswordBox"
-                            Height="50"
-                            Padding="16,12"
-                            FontSize="16"
-                            BorderBrush="#E0E0E0"
-                            BorderThickness="1"
-                            Background="White"
-                            Foreground="#2C2C2C">
-                            <PasswordBox.Style>
-                                <Style TargetType="PasswordBox">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="PasswordBox">
-                                                <Border Background="{TemplateBinding Background}"
-                                               BorderBrush="{TemplateBinding BorderBrush}"
-                                               BorderThickness="{TemplateBinding BorderThickness}"
-                                               CornerRadius="8">
-                                                    <Grid>
-                                                        <ScrollViewer x:Name="PART_ContentHost" 
-                                                             VerticalAlignment="Center"
-                                                             Margin="16,0,50,0"/>
-                                                        <TextBlock Text="Password"
-                                                          Foreground="#999"
-                                                          VerticalAlignment="Center"
-                                                          Margin="16,0,50,0"
-                                                          IsHitTestVisible="False"
-                                                          Name="PasswordPlaceholder"/>
-                                                    </Grid>
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </PasswordBox.Style>
-                        </PasswordBox>
+                     helpers:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay}"
+                     helpers:PasswordBoxHelper.BindPassword="True"
+                     PasswordChanged="PasswordBox_PasswordChanged"
+                     Height="50"
+                     Padding="16,12"
+                     FontSize="16"
+                     BorderBrush="#E0E0E0"
+                     BorderThickness="1"
+                     Background="White"
+                     Foreground="#2C2C2C"/>
+
+                        <!-- TextBox (visible password) -->
+                        <TextBox Name="PasswordTextBox"
+                 Text=""
+                 TextChanged="PasswordTextBox_TextChanged"
+                 Height="50"
+                 Padding="16,12"
+                 FontSize="16"
+                 BorderBrush="#E0E0E0"
+                 BorderThickness="1"
+                 Background="White"
+                 Foreground="#2C2C2C"
+                 Visibility="Collapsed"/>
+
+                        <!-- Placeholder for password -->
+                        <TextBlock Name="PasswordPlaceholder"
+                   Text="Password"
+                   Foreground="#999"
+                   VerticalAlignment="Center"
+                   Margin="18,0,50,0"
+                   IsHitTestVisible="False"/>
 
                         <!-- Show/Hide password button -->
                         <Button Name="ShowPasswordButton"
-                       Width="24"
-                       Height="24"
-                       HorizontalAlignment="Right"
-                       VerticalAlignment="Center"
-                       Margin="0,0,16,0"
-                       Background="Transparent"
-                       BorderThickness="0"
-                       Cursor="Hand">
-                            <Path Data="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"
-                         Fill="#999"
-                         Stretch="Uniform"
-                         Width="16"
-                         Height="16"/>
+            Width="24"
+            Height="24"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Margin="0,0,16,0"
+            Background="Transparent"
+            BorderThickness="0"
+            Cursor="Hand"
+            Click="ShowPasswordButton_Click">
+                            <Path Name="EyeIcon"
+                  Data="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"
+                  Fill="#999"
+                  Stretch="Uniform"
+                  Width="16"
+                  Height="16"/>
                         </Button>
                     </Grid>
 
                     <!-- Validation message -->
                     <TextBlock Name="PasswordValidation"
-                      Text="Please fill out this field."
-                      FontSize="14"
-                      Foreground="Red"
-                      Margin="0,4,0,0"
-                      Visibility="Collapsed"/>
+           Text="{Binding ErrorMessage, Mode=TwoWay}"
+           FontSize="14"
+           Foreground="Red"
+           Margin="0,4,0,0"/>
                 </StackPanel>
-        
 
                 <!-- Terms and conditions text -->
 
@@ -178,15 +159,18 @@
                 <Button Name="SignUpButton"
                Style="{StaticResource PrimaryButton}"
                Content="Sign in"
+                        Command="{Binding Login}"
                Height="50"
                FontSize="16"
                FontWeight="SemiBold"
                Margin="0,0,0,0"/>
 
                 <Button FontSize="14"
+                        Style="{StaticResource TransparentButton}"
                         Command="{Binding NavigateToSignup}"
           Foreground="#666"
                 BorderThickness="0"
+                        Cursor="Hand"
            Background="Transparent"
           Width="340" Content="Don't have an account?"/>
 

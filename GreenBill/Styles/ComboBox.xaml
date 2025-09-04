@@ -17,6 +17,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
                     <Grid>
+                        <!-- Main Border -->
                         <Border x:Name="Border"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
@@ -30,38 +31,38 @@
                                     <ColumnDefinition Width="40"/>
                                 </Grid.ColumnDefinitions>
 
-                                <!-- Content Presenter -->
+                                <!-- Selected Item -->
                                 <ContentPresenter Grid.Column="0"
-                                                Name="ContentSite"
-                                                IsHitTestVisible="False"
-                                                Content="{TemplateBinding SelectionBoxItem}"
-                                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
-                                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                                                Margin="{TemplateBinding Padding}"
-                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                                                  Name="ContentSite"
+                                                  Margin="{TemplateBinding Padding}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  Content="{TemplateBinding SelectionBoxItem}"
+                                                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                  IsHitTestVisible="False"/>
 
-                                <!-- Dropdown Arrow -->
-                                <Border Grid.Column="1" 
-                                       x:Name="DropDownButton"
-                                       Background="Transparent"
-                                       BorderThickness="0">
+                                <!-- Toggle Button with Arrow -->
+                                <ToggleButton Grid.Column="1"
+                                              x:Name="ToggleButton"
+                                              Style="{x:Null}"
+                                              Focusable="False"
+                                              IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
                                     <Path x:Name="Arrow"
-                                         Fill="#666666"
-                                         HorizontalAlignment="Center"
-                                         VerticalAlignment="Center"
-                                         Data="M 0 0 L 4 4 L 8 0 Z"
-                                         RenderTransformOrigin="0.5,0.5">
+                                          Fill="#666666"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="M 0 0 L 4 4 L 8 0 Z">
                                         <Path.RenderTransform>
                                             <RotateTransform x:Name="ArrowRotation" Angle="0"/>
                                         </Path.RenderTransform>
                                     </Path>
-                                </Border>
+                                </ToggleButton>
                             </Grid>
                         </Border>
 
                         <!-- Popup -->
-                        <Popup Name="Popup"
+                        <Popup x:Name="PART_Popup"
                                Placement="Bottom"
                                IsOpen="{TemplateBinding IsDropDownOpen}"
                                AllowsTransparency="True"
@@ -72,49 +73,50 @@
                                   MinWidth="{TemplateBinding ActualWidth}"
                                   MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border x:Name="DropDownBorder"
-                                       Background="White"
-                                       BorderBrush="#D0D0D0"
-                                       BorderThickness="1"
-                                       CornerRadius="6"
-                                       Margin="0,2,0,0">
+                                        Background="White"
+                                        BorderBrush="#D0D0D0"
+                                        BorderThickness="1"
+                                        CornerRadius="6"
+                                        Margin="0,2,0,0">
                                     <Border.Effect>
-                                        <DropShadowEffect Color="Black" 
-                                                        Opacity="0.15" 
-                                                        ShadowDepth="4" 
-                                                        BlurRadius="8"/>
+                                        <DropShadowEffect Color="Black"
+                                                          Opacity="0.15"
+                                                          ShadowDepth="4"
+                                                          BlurRadius="8"/>
                                     </Border.Effect>
-                                    <ScrollViewer Margin="4,6,4,6" 
-                                                SnapsToDevicePixels="True">
-                                        <StackPanel IsItemsHost="True" 
-                                                  KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    <ScrollViewer Margin="4,6,4,6"
+                                                  SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True"
+                                                    KeyboardNavigation.DirectionalNavigation="Contained"/>
                                     </ScrollViewer>
                                 </Border>
                             </Grid>
                         </Popup>
                     </Grid>
 
+                    <!-- Triggers -->
                     <ControlTemplate.Triggers>
-                        <!-- Hover Effect -->
+                        <!-- Hover -->
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Border" Property="BorderBrush" Value="#999999"/>
                             <Setter TargetName="Arrow" Property="Fill" Value="#333333"/>
                         </Trigger>
 
-                        <!-- Focus Effect -->
+                        <!-- Focus -->
                         <Trigger Property="IsFocused" Value="True">
                             <Setter TargetName="Border" Property="BorderBrush" Value="#00695C"/>
                         </Trigger>
 
-                        <!-- Dropdown Open Effect -->
+                        <!-- Open dropdown -->
                         <Trigger Property="IsDropDownOpen" Value="True">
                             <Setter TargetName="Border" Property="BorderBrush" Value="#00695C"/>
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="ArrowRotation"
-                                                       Storyboard.TargetProperty="Angle"
-                                                       To="180"
-                                                       Duration="0:0:0.2"/>
+                                                         Storyboard.TargetProperty="Angle"
+                                                         To="180"
+                                                         Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
@@ -122,15 +124,15 @@
                                 <BeginStoryboard>
                                     <Storyboard>
                                         <DoubleAnimation Storyboard.TargetName="ArrowRotation"
-                                                       Storyboard.TargetProperty="Angle"
-                                                       To="0"
-                                                       Duration="0:0:0.2"/>
+                                                         Storyboard.TargetProperty="Angle"
+                                                         To="0"
+                                                         Duration="0:0:0.2"/>
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.ExitActions>
                         </Trigger>
 
-                        <!-- Disabled Effect -->
+                        <!-- Disabled -->
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter TargetName="Border" Property="Background" Value="#F5F5F5"/>
                             <Setter TargetName="Border" Property="BorderBrush" Value="#E0E0E0"/>
@@ -144,6 +146,6 @@
     </Style>
 
 
-    
+
 
 </ResourceDictionary>

@@ -13,6 +13,17 @@ namespace GreenBill.MVVM.ViewModel
     public class MainWindowViewModel : Core.ViewModel
     {
         private bool _showNavigation = true;
+        private bool _isUserLoggedIn;
+
+        public bool IsUserLoggedIn
+        {
+            get => _isUserLoggedIn;
+            set
+            {
+                _isUserLoggedIn = value;
+                OnPropertyChanged();
+            }
+        }
 
         private INavigationService _navigationService;
 
@@ -36,21 +47,27 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
         public ICommand NavigateToSignin { get; }
-  
+
+        public ICommand GoToStep1 { get; }
+        public ICommand GoToDashboard { get; }
+        public ICommand GoToHome { get; }
+
+
         public MainWindowViewModel() { }
+
+        
 
         public MainWindowViewModel(INavigationService navService)
         {
             Navigation = navService;
             Navigation.NavigateTo<HomePageViewModel>();
 
-            NavigateToSignin = new RelayCommand(o =>
-            {
-                ShowNavigation = false;
-                Navigation.NavigateTo<SigninViewModel>();
-            });
+            NavigateToSignin = new RelayCommand(o => Navigation.NavigateTo<SigninViewModel>());
+            GoToStep1 = new RelayCommand(o => Navigation.NavigateTo<FundraisingStepsViewModel>());
+            GoToDashboard = new RelayCommand(o => Navigation.NavigateTo<UserCampaignsViewModel>());
+            GoToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
 
-         
+
         }
     }
 }

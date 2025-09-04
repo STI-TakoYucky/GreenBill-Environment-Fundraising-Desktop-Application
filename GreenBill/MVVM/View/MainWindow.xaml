@@ -8,41 +8,92 @@
         Title="MainWindow"
         Height="900" Width="1400"
         Background="#F5F5F5">
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+        <!-- Top Navigation Bar -->
         <DockPanel Grid.Row="0"
-            Visibility="{Binding ShowNavigation, Converter={StaticResource BooleanToVisibilityConverter}}"
-            VerticalAlignment="Top"
-            Background="White">
-            <Image Source="/Assets/Images/logo.png"
+                   Visibility="{Binding ShowNavigation, Converter={StaticResource BooleanToVisibilityConverter}}"
+                   VerticalAlignment="Top"
+                   Background="White">
+
+            <!-- Logo -->
+            <Button BorderThickness="0"
             Height="60"
-            DockPanel.Dock="Left"
+                     Style="{StaticResource TransparentButton}"
+            Cursor="Hand"
             Margin="100,0,0,0"
-            VerticalAlignment="Center"/>
+            Command="{Binding GoToHome}"
+Background="Transparent">
+                <Image Source="/Assets/Images/logo.png"
+   Height="60"
+   VerticalAlignment="Center"/>
+            </Button>
+
+
+            <!-- Right Side Controls -->
             <StackPanel DockPanel.Dock="Right" 
-                Orientation="Horizontal"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Right"
-                Margin="0,0,100,0">
-                <Button Content="Sign In"
-                   FontFamily="./Assets/Fonts/#Poppins"
-                   FontSize="15"
-                 Command="{Binding NavigateToSignin}"
-                 Background="Transparent"
-                   Foreground="#6E6A6A"
-                   VerticalAlignment="Center"
-                 BorderThickness="0"
-                   FontWeight="Bold"
-                    
-                   Margin="0,0,15,0"/>
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Margin="0,0,100,0">
+
+                <!-- Start a Change Button -->
                 <Button Content="Start a Change"
-                Height="30"
-                Style="{StaticResource PrimaryButton}"/>
+                        Height="30"
+                        Command="{Binding GoToStep1}"
+                        Style="{StaticResource PrimaryButton}"/>
+
+                <!-- Profile Image with Dropdown -->
+                <Button Width="40"
+                        Height="40"
+                        Margin="15,0,0,0"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Cursor="Hand"
+                        Click="ProfileButton_Click"
+                        Visibility="{Binding IsUserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                    <Image Source="/Assets/Images/defaultProfile.jpg"
+                           Width="40"
+                           Height="40"
+                           Stretch="UniformToFill">
+                        <Image.Clip>
+                            <EllipseGeometry Center="20,20" RadiusX="20" RadiusY="20"/>
+                        </Image.Clip>
+                    </Image>
+
+                    <!-- Dropdown Menu -->
+                    <Button.ContextMenu>
+                        <ContextMenu x:Name="ProfileMenu">
+                            <MenuItem Header="Dashboard" Command="{Binding GoToDashboard}" />
+                            <MenuItem Header="Logout" Command="{Binding LogoutCommand}" />
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+
+                <!-- Sign In Button (shown when not logged in) -->
+                <Button Content="Sign In"
+                        FontFamily="./Assets/Fonts/#Poppins"
+                        FontSize="15"
+                        Style="{StaticResource TransparentButton}"
+                        Cursor="Hand"
+                        Command="{Binding NavigateToSignin}"
+                        Background="Transparent"
+                        Foreground="#6E6A6A"
+                        VerticalAlignment="Center"
+                        BorderThickness="0"
+                        FontWeight="Bold"
+                        Margin="15,0,0,0"
+                        Visibility="{Binding IsUserLoggedIn, Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
             </StackPanel>
         </DockPanel>
+
+        <!-- Main Content Area -->
         <ContentControl Grid.Row="1" Content="{Binding Navigation.CurrentView}"/>
     </Grid>
 </Window>

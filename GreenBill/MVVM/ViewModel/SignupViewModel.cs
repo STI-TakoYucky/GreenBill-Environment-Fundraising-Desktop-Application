@@ -1,19 +1,24 @@
 ﻿using GreenBill.Core;
+using GreenBill.MVVM.Model;
 using GreenBill.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using GreenBill.IServices;
 
 
 namespace GreenBill.MVVM.ViewModel
 {
-    public class SignupViewModel : Core.ViewModel
+    public class SignupViewModel : Core.ViewModel, INavigationAware
     {
+        public bool ShowNavigation => false;
+        private IUserService _userService;
         private INavigationService _navigationService;
-
         public INavigationService Navigation
         {
             get => _navigationService;
@@ -24,22 +29,76 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        public SignupViewModel() { }
+        private User NewUser { get; set; }
+        public string Username
+        {
+            get => NewUser?.Username;
+            set
+            {
+                if (NewUser != null)
+                {
+                    NewUser.Username = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string Email
+        {
+            get => NewUser?.Email;
+            set
+            {
+                if (NewUser != null)
+                {
+                    NewUser.Email = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string Password
+        {
+            get => NewUser?.Password;
+            set
+            {
+                if (NewUser != null)
+                {
+                    NewUser.Password = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public ICommand CreateAccount { get; set; }
 
         public RelayCommand NavigateToHome { get; set; }
 
-        public SignupViewModel(INavigationService navService)
+        public SignupViewModel(INavigationService navService, IUserService userService)
         {
             Navigation = navService;
-            NavigateToHome = new RelayCommand(o =>
-            {
-                var mainWindow = Application.Current.MainWindow;
-                if (mainWindow?.DataContext is MainWindowViewModel mainVM)
-                {
-                    mainVM.ShowNavigation = true;
-                }
-                Navigation.NavigateTo<HomePageViewModel>();
-            });
+            _userService = userService;
+            NewUser = new User();
+            InitializeCommands();
         }
+
+
+        public void InitializeCommands()
+        {
+            NavigateToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
+
+            CreateAccount = new RelayCommand(o =>
+            {
+                try
+                {
+                    _userService.Create(NewUser);
+                    MessageBox.Show("Account created successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Navigation?.NavigateTo<HomePageViewModel>();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred while creating an account: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+            }, o => NewUser != null);
+        }
+
+
     }
 }

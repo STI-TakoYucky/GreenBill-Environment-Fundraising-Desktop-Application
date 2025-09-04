@@ -1,20 +1,21 @@
-﻿using GreenBill.MVVM.View;
-using GreenBill.Services;
+﻿using GreenBill.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Windows;
 using GreenBill.Core;
 using System.Diagnostics;
+using GreenBill.MVVM.Model;
+using System.Collections.ObjectModel;
+using GreenBill.IServices;
 
 namespace GreenBill.MVVM.ViewModel
 {
-    public class HomePageViewModel : Core.ViewModel
+    public class HomePageViewModel : Core.ViewModel, INavigationAware
     {
+        public bool ShowNavigation => true;
         private INavigationService _navigationService;
+        private ObservableCollection<Campaign> _campaigns;
+        private ICampaignService _campaignService;
 
         public INavigationService Navigation
         {
@@ -26,21 +27,54 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        public ICommand NavigateToFundraisingDetails { get; }
-
-        public HomePageViewModel() 
+        public ObservableCollection<Campaign> Campaigns
         {
-
+            get => _campaigns;
+            set
+            {
+                _campaigns = value;
+                OnPropertyChanged();
+            }
         }
 
-        public HomePageViewModel(INavigationService navService)
+        public ICommand NavigateToFundraisingDetails { get; }
+        public ICommand LoadCampaignsCommand { get; }
+
+        public HomePageViewModel(INavigationService navService, ICampaignService campaignService)
         {
             Navigation = navService;
-            NavigateToFundraisingDetails = new RelayCommand(o =>
+            _campaignService = campaignService;
+            Campaigns = new ObservableCollection<Campaign>();
+
+            NavigateToFundraisingDetails = new RelayCommand(campaign_id =>
             {
-                Navigation.NavigateTo<FundraisingDetailsViewModel>();
-                Debug.WriteLine("CLICKED");
+                if (campaign_id != null)
+                {
+                    Navigation.NavigateTo<FundraisingDetailsViewModel>(campaign_id.ToString());
+                }
             });
+
+            LoadCampaignsCommand = new RelayCommand(async o => await LoadCampaignsAsync());
+
+            _ = LoadCampaignsAsync();
+        }
+
+        private async Task LoadCampaignsAsync()
+        {
+            try
+            {
+                var campaigns = await _campaignService.GetAllCampaignsAsync();
+
+                Campaigns.Clear();
+                foreach (var campaign in campaigns)
+                {
+                    Campaigns.Add(campaign);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading campaigns: {ex.Message}");
+            }
         }
     }
 }

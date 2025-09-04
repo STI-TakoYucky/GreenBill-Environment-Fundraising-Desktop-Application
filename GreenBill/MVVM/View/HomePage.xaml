@@ -6,361 +6,418 @@
              xmlns:local="clr-namespace:GreenBill.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1400"
-             Background="#F5F5F5">
-     <Grid>
-     <!-- Header -->
-     
-    
+             Background="White">
 
-     <!-- Navigation Frame for Page Content -->
-     <Frame x:Name="MainFrame" 
-            Margin="0,0,0,0"
-            NavigationUIVisibility="Hidden"/>
+    <UserControl.Resources>
+        <!-- Modern Card Style -->
+        <Style x:Key="ModernCard" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" 
+                                    BlurRadius="20" 
+                                    Opacity="0.08" 
+                                    ShadowDepth="0"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="Black" 
+                                            BlurRadius="30" 
+                                            Opacity="0.15" 
+                                            ShadowDepth="5"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
-     <!-- Main Content (initially visible) -->
-     <ScrollViewer x:Name="MainContent"
-                  Margin="100,40,100,20" 
-                  VerticalAlignment="Stretch"
-                  VerticalScrollBarVisibility="Auto">
-         <StackPanel>
-             <!-- Header Text -->
-             <TextBlock Text="Discover projects inspired by your passion for protecting the planet" 
-                       FontWeight="Bold"
-                       FontSize="28"
-                       FontFamily="./Assets/Fonts/#Poppins"
-                       Margin="0,0,0,30"
-                       TextWrapping="Wrap"/>
+        <!-- Gradient Button Style -->
+        <Style x:Key="GradientButton" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="24,12"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#00BCD4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="25">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#0097A7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
-             <!-- Filter Dropdown -->
-             <ComboBox Width="250"
-                 HorizontalAlignment="Left"
-                 Margin="0,0,0,30"
-                 Height="40"
-                 Style="{StaticResource ComboBox}"
-                 ItemContainerStyle="{StaticResource ComboBoxItem}">
-                 <ComboBoxItem Content="Happening worldwide" IsSelected="True"/>
-                 <ComboBoxItem Content="Local projects"/>
-                 <ComboBoxItem Content="Emergency relief"/>
-                 <ComboBoxItem Content="Medical fundraisers"/>
-                 <ComboBoxItem Content="Environmental causes"/>
-             </ComboBox>
+        <!-- Modern ComboBox Style -->
+        <Style x:Key="ModernComboBox" TargetType="ComboBox">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Padding" Value="16,12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+    </UserControl.Resources>
 
-             <!-- Cards Grid with Asymmetric Layout -->
-             <Grid>
-                 <Grid.ColumnDefinitions>
-                     <ColumnDefinition Width="2*"/>
-                     <ColumnDefinition Width="15"/>
-                     <ColumnDefinition Width="1*"/>
-                     <ColumnDefinition Width="15"/>
-                     <ColumnDefinition Width="1*"/>
-                 </Grid.ColumnDefinitions>
-                 <Grid.RowDefinitions>
-                     <RowDefinition Height="Auto"/>
-                     <RowDefinition Height="15"/>
-                     <RowDefinition Height="Auto"/>
-                 </Grid.RowDefinitions>
+    <Grid>
+        <!-- Navigation Frame for Page Content -->
+        <Frame x:Name="MainFrame" 
+               Margin="0,0,0,-62"
+               NavigationUIVisibility="Hidden"/>
 
-                 <!-- Large Card - Takes up 2 rows on the left -->
-                 <Border Grid.Column="0" 
-                        Grid.Row="0" 
-                        Grid.RowSpan="3"
-                        Background="White"
-                        CornerRadius="8"
-                        Height="400"
-                        Cursor="Hand"
-                        MouseLeftButtonUp="Card_Click">
-                     <Border.Effect>
-                         <DropShadowEffect Color="Gray" 
-                                         BlurRadius="10" 
-                                         Opacity="0.1" 
-                                         ShadowDepth="2"/>
-                     </Border.Effect>
-                     <Grid>
-                         <Grid.RowDefinitions>
-                             <RowDefinition Height="2.5*"/>
-                             <RowDefinition Height="1*"/>
-                         </Grid.RowDefinitions>
+        <!-- Main Content -->
+        <ScrollViewer x:Name="MainContent"
+                     Margin="0"
+                     VerticalAlignment="Stretch"
+                     VerticalScrollBarVisibility="Auto">
+            <StackPanel>
 
-                         <!-- Large Image Area -->
-                         <Button Grid.Row="0" 
-                                Background="#E0E0E0"
-                                Command="{Binding NavigateToFundraisingDetails}">
-                             <Grid>
-                                 <Image Source="/Assets/Images/deforestation.jpg" 
-                                        Stretch="UniformToFill"/>
-                                 <TextBlock Text="975 donations"
-                                          Foreground="White"
-                                          FontWeight="Bold"
-                                          FontSize="14"
-                                          Margin="15"
-                                          VerticalAlignment="Bottom"
-                                          HorizontalAlignment="Left"/>
-                             </Grid>
-                         </Button>
+                <!-- Hero Section -->
+                <Grid Background="#FAFAFA" Margin="0,0,0,60">
+                    <StackPanel Margin="80,30,80,30">
+                        <!-- Hero Title -->
+                        <TextBlock FontWeight="Bold"
+                                  FontSize="42"
+                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  Margin="0,0,0,20"
+                                  TextWrapping="Wrap"
+                                  Foreground="#333333">
+                            <Run Text="Discover impactful projects"/>
+                            <LineBreak/>
+                            <Run Text="inspired by your passion for protecting our planet"/>
+                        </TextBlock>
 
-                         <!-- Large Content Area -->
-                         <StackPanel Grid.Row="1" 
-                                    Margin="20">
-                             <TextBlock Text="Deforestation"
-                                       FontWeight="Bold"
-                                       FontSize="18"
-                                       FontFamily="./Assets/Fonts/#Poppins"
-                                       TextWrapping="Wrap"
-                                       Margin="0,0,0,15"/>
+                        <!-- Subtitle -->
+                        <TextBlock Text="Join thousands of changemakers making a real difference in environmental conservation and sustainability"
+                                  FontSize="18"
+                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  Foreground="#666666"
+                                  Margin="0,0,0,30"
+                                  TextWrapping="Wrap"/>
 
-                             <!-- Progress Bar -->
-                             <ProgressBar Value="75" 
-                                        Height="8"
-                                        Background="#E0E0E0"
-                                        Foreground="#4CAF50"
-                                        Margin="0,0,0,8"/>
+                     
+                        <!-- Filter Section -->
+                        <ComboBox Width="250"
+          HorizontalAlignment="Left"
+          Margin="0,0,0,30"
+          Height="40"
+          Style="{StaticResource ComboBox}"
+          ItemContainerStyle="{StaticResource ComboBoxItem}">
+                            <ComboBoxItem Content="Happening worldwide" IsSelected="True"/>
+                            <ComboBoxItem Content="Local projects"/>
+                            <ComboBoxItem Content="Emergency relief"/>
+                            <ComboBoxItem Content="Medical fundraisers"/>
+                            <ComboBoxItem Content="Environmental causes"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
 
-                             <TextBlock Text="$45,555 raised"
-                                       FontWeight="Bold"
-                                       FontSize="16"
-                                       Foreground="#333"/>
-                         </StackPanel>
-                     </Grid>
-                 </Border>
+             
 
-                 <!-- Small Card 1 - Top Left -->
-                 <Border Grid.Column="2" 
-                        Grid.Row="0"
-                        Background="White"
-                        CornerRadius="8"
-                        Height="192"
-                        Cursor="Hand"
-                        MouseLeftButtonUp="Card_Click">
-                     <Border.Effect>
-                         <DropShadowEffect Color="Gray" 
-                                         BlurRadius="10" 
-                                         Opacity="0.1" 
-                                         ShadowDepth="2"/>
-                     </Border.Effect>
-                     <Grid>
-                         <Grid.RowDefinitions>
-                             <RowDefinition Height="2*"/>
-                             <RowDefinition Height="1*"/>
-                         </Grid.RowDefinitions>
+                <!-- Featured Projects Section -->
+                <StackPanel Margin="80,0,80,60">
+                    <Grid Margin="0,0,0,40">
+                        <TextBlock Text="Trending Projects"
+                                  FontWeight="Bold"
+                                  FontSize="28"
+                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center"/>
+                        <Button Content="View All"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               Background="Transparent"
+                               BorderThickness="0"
+                               Foreground="#00BCD4"
+                               FontSize="16"
+                               FontWeight="Medium"
+                               Cursor="Hand"/>
+                    </Grid>
 
-                         <Border Grid.Row="0" 
-                                Background="#E0E0E0"
-                                CornerRadius="8,8,0,0">
-                             <Grid>
-                                 <Image Source="/Assets/Images/flooding.jpg" 
-                                         Stretch="UniformToFill"/>
-                                 <TextBlock Text="100% donations"
-                                          Foreground="White"
-                                          FontWeight="Bold"
-                                          FontSize="10"
-                                          Margin="10"
-                                          VerticalAlignment="Bottom"
-                                          HorizontalAlignment="Left"/>
-                             </Grid>
-                         </Border>
+                    <!-- Modern Cards Grid -->
+                    <ItemsControl ItemsSource="{Binding Campaigns}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="3"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource ModernCard}"
+                                       Height="320"
+                                       Margin="15">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="180"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
 
-                         <StackPanel Grid.Row="1" 
-                                    Margin="12">
-                             <TextBlock Text="Flooding"
-                                       FontWeight="Bold"
-                                       FontSize="11"
-                                       FontFamily="./Assets/Fonts/#Poppins"
-                                       TextWrapping="Wrap"
-                                       Margin="0,0,0,5"/>
+                                        <!-- Image Area -->
+                                        <Button Grid.Row="0"
+                                               Background="#F5F5F5"
+                                               Command="{Binding DataContext.NavigateToFundraisingDetails, 
+                                                        RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                               CommandParameter="{Binding Id}"
+                                               BorderThickness="0"
+                                               Cursor="Hand">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border CornerRadius="16,16,0,0"
+                                                           Background="{TemplateBinding Background}">
+                                                        <Grid>
+                                                            <Image Source="{Binding Image, Converter={StaticResource ImageConverter}}"
+                                                                  Stretch="UniformToFill"/>
 
-                             <ProgressBar Value="90" 
-                                        Height="4"
-                                        Background="#E0E0E0"
-                                        Foreground="#4CAF50"
-                                        Margin="0,0,0,3"/>
+                                                            <!-- Donation Badge -->
+                                                            <Border Background="#00BCD4"
+                                                                   CornerRadius="15"
+                                                                   Padding="12,6"
+                                                                   HorizontalAlignment="Left"
+                                                                   VerticalAlignment="Bottom"
+                                                                   Margin="16">
+                                                                <TextBlock Text="975 donations"
+                                                                          Foreground="White"
+                                                                          FontWeight="SemiBold"
+                                                                          FontSize="11"/>
+                                                            </Border>
 
-                             <TextBlock Text="$709,769 raised"
-                                       FontWeight="Bold"
-                                       FontSize="10"
-                                       Foreground="#333"/>
-                         </StackPanel>
-                     </Grid>
-                 </Border>
+                                                            <!-- Category Tag -->
+                                                            <Border Background="White"
+                                                                   CornerRadius="12"
+                                                                   Padding="8,4"
+                                                                   HorizontalAlignment="Right"
+                                                                   VerticalAlignment="Top"
+                                                                   Margin="16">
+                                                                <TextBlock Text="Environment"
+                                                                          Foreground="#333333"
+                                                                          FontWeight="Medium"
+                                                                          FontSize="10"/>
+                                                            </Border>
+                                                        </Grid>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
 
-                 <!-- Small Card 2 - Top Right -->
-                 <Border Grid.Column="4" 
-                        Grid.Row="0"
-                        Background="White"
-                        CornerRadius="8"
-                        Height="192"
-                        Cursor="Hand"
-                        MouseLeftButtonUp="Card_Click">
-                     <Border.Effect>
-                         <DropShadowEffect Color="Gray" 
-                                         BlurRadius="10" 
-                                         Opacity="0.1" 
-                                         ShadowDepth="2"/>
-                     </Border.Effect>
-                     <Grid>
-                         <Grid.RowDefinitions>
-                             <RowDefinition Height="2*"/>
-                             <RowDefinition Height="1*"/>
-                         </Grid.RowDefinitions>
+                                        <!-- Content Area -->
+                                        <StackPanel Grid.Row="1" 
+                                                   Margin="20,16,20,20">
+                                            <TextBlock Text="{Binding Title}"
+                                                      FontWeight="SemiBold"
+                                                      FontSize="16"
+                                                      FontFamily="./Assets/Fonts/#Poppins"
+                                                      TextWrapping="Wrap"
+                                                      Foreground="#333333"
+                                                      Margin="0,0,0,12"/>
 
-                         <Border Grid.Row="0" 
-                                Background="#E0E0E0"
-                                CornerRadius="8,8,0,0">
-                             <Grid>
-                                 <Image Source="/Assets/Images/wildfire.jpg" 
-     Stretch="UniformToFill"/>
-                                 <TextBlock Text="1K donations"
-                                          Foreground="White"
-                                          FontWeight="Bold"
-                                          FontSize="10"
-                                          Margin="10"
-                                          VerticalAlignment="Bottom"
-                                          HorizontalAlignment="Left"/>
-                             </Grid>
-                         </Border>
+                                            <!-- Progress Section -->
+                                            <Grid Margin="0,0,0,8">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
 
-                         <StackPanel Grid.Row="1" 
-                                    Margin="12">
-                             <TextBlock Text="Wildfire"
-                                       FontWeight="Bold"
-                                       FontSize="11"
-                                       FontFamily="./Assets/Fonts/#Poppins"
-                                       TextWrapping="Wrap"
-                                       Margin="0,0,0,5"/>
+                                                <TextBlock Grid.Column="0"
+                                                          Text="$45,555 raised"
+                                                          FontWeight="Bold"
+                                                          FontSize="14"
+                                                          Foreground="#333333"
+                                                          VerticalAlignment="Center"/>
 
-                             <ProgressBar Value="60" 
-                                        Height="4"
-                                        Background="#E0E0E0"
-                                        Foreground="#4CAF50"
-                                        Margin="0,0,0,3"/>
+                                                <TextBlock Grid.Column="1"
+                                                          Text="75% funded"
+                                                          FontSize="12"
+                                                          Foreground="#4CAF50"
+                                                          FontWeight="Medium"
+                                                          VerticalAlignment="Center"/>
+                                            </Grid>
 
-                             <TextBlock Text="€25,791 raised"
-                                       FontWeight="Bold"
-                                       FontSize="10"
-                                       Foreground="#333"/>
-                         </StackPanel>
-                     </Grid>
-                 </Border>
+                                            <!-- Progress Bar -->
+                                            <Border Background="#F0F0F0"
+                                                   CornerRadius="10"
+                                                   Height="8">
+                                                <Border Background="#4CAF50"
+                                                       CornerRadius="10"
+                                                       HorizontalAlignment="Left"
+                                                       Width="200"/>
+                                            </Border>
 
-                 <!-- Small Card 3 - Bottom Left -->
-                 <Border Grid.Column="2" 
-                        Grid.Row="2"
-                        Background="White"
-                        CornerRadius="8"
-                        Height="192"
-                        Cursor="Hand"
-                        MouseLeftButtonUp="Card_Click">
-                     <Border.Effect>
-                         <DropShadowEffect Color="Gray" 
-                                         BlurRadius="10" 
-                                         Opacity="0.1" 
-                                         ShadowDepth="2"/>
-                     </Border.Effect>
-                     <Grid>
-                         <Grid.RowDefinitions>
-                             <RowDefinition Height="2*"/>
-                             <RowDefinition Height="1*"/>
-                         </Grid.RowDefinitions>
+                                            <!-- Time Remaining -->
+                                            <TextBlock Text="12 days left"
+                                                      FontSize="12"
+                                                      Foreground="#666666"
+                                                      Margin="0,8,0,0"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
 
-                         <Border Grid.Row="0" 
-                                Background="#E0E0E0"
-                                CornerRadius="8,8,0,0">
-                             <Grid>
-                                 <Image Source="/Assets/Images/pollutedwater.jpg" 
-                                         Stretch="UniformToFill"/>
-                                 <TextBlock Text="8.4K donations"
-                                          Foreground="White"
-                                          FontWeight="Bold"
-                                          FontSize="10"
-                                          Margin="10"
-                                          VerticalAlignment="Bottom"
-                                          HorizontalAlignment="Left"/>
-                             </Grid>
-                         </Border>
+                <!-- Stats Section -->
+                <Grid Margin="80,0,80,60">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                         <StackPanel Grid.Row="1" 
-                                    Margin="12">
-                             <TextBlock Text="Polluted Ocean"
-                                       FontWeight="Bold"
-                                       FontSize="11"
-                                       FontFamily="./Assets/Fonts/#Poppins"
-                                       TextWrapping="Wrap"
-                                       Margin="0,0,0,5"/>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                        <TextBlock Text="2.5M+"
+                     FontSize="32"
+                     FontWeight="Bold"
+                     Foreground="#00BCD4"
+                     HorizontalAlignment="Center"/>
+                        <TextBlock Text="Projects Funded"
+                     FontSize="14"
+                     Foreground="#666666"
+                     HorizontalAlignment="Center"/>
+                    </StackPanel>
 
-                             <ProgressBar Value="85" 
-                                        Height="4"
-                                        Background="#E0E0E0"
-                                        Foreground="#4CAF50"
-                                        Margin="0,0,0,3"/>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                        <TextBlock Text="$15B+"
+                     FontSize="32"
+                     FontWeight="Bold"
+                     Foreground="#4CAF50"
+                     HorizontalAlignment="Center"/>
+                        <TextBlock Text="Raised"
+                     FontSize="14"
+                     Foreground="#666666"
+                     HorizontalAlignment="Center"/>
+                    </StackPanel>
 
-                             <TextBlock Text="€531,684 raised"
-                                       FontWeight="Bold"
-                                       FontSize="10"
-                                       Foreground="#333"/>
-                         </StackPanel>
-                     </Grid>
-                 </Border>
+                    <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                        <TextBlock Text="100M+"
+                     FontSize="32"
+                     FontWeight="Bold"
+                     Foreground="#FF9800"
+                     HorizontalAlignment="Center"/>
+                        <TextBlock Text="Donors"
+                     FontSize="14"
+                     Foreground="#666666"
+                     HorizontalAlignment="Center"/>
+                    </StackPanel>
 
-                 <!-- Small Card 4 - Bottom Right -->
-                 <Border Grid.Column="4" 
-                        Grid.Row="2"
-                        Background="White"
-                        CornerRadius="8"
-                        Height="192"
-                        Cursor="Hand"
-                        MouseLeftButtonUp="Card_Click">
-                     <Border.Effect>
-                         <DropShadowEffect Color="Gray" 
-                                         BlurRadius="10" 
-                                         Opacity="0.1" 
-                                         ShadowDepth="2"/>
-                     </Border.Effect>
-                     <Grid>
-                         <Grid.RowDefinitions>
-                             <RowDefinition Height="2*"/>
-                             <RowDefinition Height="1*"/>
-                         </Grid.RowDefinitions>
+                    <StackPanel Grid.Column="3" HorizontalAlignment="Center">
+                        <TextBlock Text="190+"
+                     FontSize="32"
+                     FontWeight="Bold"
+                     Foreground="#E91E63"
+                     HorizontalAlignment="Center"/>
+                        <TextBlock Text="Countries"
+                     FontSize="14"
+                     Foreground="#666666"
+                     HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
 
-                         <Border Grid.Row="0" 
-                                Background="#E0E0E0"
-                                CornerRadius="8,8,0,0">
-                             <Grid>
-                                 <Image Source="/Assets/Images/pollution.jpg" 
-     Stretch="UniformToFill"/>
-                                 <TextBlock Text="10K donations"
-                                          Foreground="White"
-                                          FontWeight="Bold"
-                                          FontSize="10"
-                                          Margin="10"
-                                          VerticalAlignment="Bottom"
-                                          HorizontalAlignment="Left"/>
-                             </Grid>
-                         </Border>
+                <!-- Trust Section -->
+                <Grid Margin="0,40,0,0" Background="#00695C">
+                    <Grid Margin="80,60,80,60">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
 
-                         <StackPanel Grid.Row="1" 
-                                    Margin="12">
-                             <TextBlock Text="Pollutioin"
-                                       FontWeight="Bold"
-                                       FontSize="11"
-                                       FontFamily="./Assets/Fonts/#Poppins"
-                                       TextWrapping="Wrap"
-                                       Margin="0,0,0,5"/>
+                        <!-- Left Content -->
+                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                            <TextBlock Text="We've got you covered."
+                                      FontWeight="Bold"
+                                      FontSize="32"
+                                      Foreground="White"
+                                      FontFamily="./Assets/Fonts/#Poppins"
+                                      Margin="0,0,0,20"/>
 
-                             <ProgressBar Value="70" 
-                                        Height="4"
-                                        Background="#E0E0E0"
-                                        Foreground="#4CAF50"
-                                        Margin="0,0,0,3"/>
+                            <Button Style="{StaticResource GradientButton}"
+                                   Content="Learn More About Trust and Safety"
+                                   Background="White"
+                                   Foreground="#00695C"
+                                   Margin="0,0,0,0"/>
+                        </StackPanel>
 
-                             <TextBlock Text="€201,160 raised"
-                                       FontWeight="Bold"
-                                       FontSize="10"
-                                       Foreground="#333"/>
-                         </StackPanel>
-                     </Grid>
-                 </Border>
+                        <!-- Right Content -->
+                        <StackPanel Grid.Column="1" 
+                                   Margin="40,0,0,0"
+                                   VerticalAlignment="Center">
+                            <TextBlock Text="GreenBill is a trusted leader in online fundraising. With transparent pricing and a dedicated team of Trust and Safety experts in your corner, you can raise money or make a donation with complete peace of mind."
+                                      FontSize="18"
+                                      FontWeight="Normal"
+                                      Foreground="White"
+                                      FontFamily="./Assets/Fonts/#Poppins"
+                                      TextWrapping="Wrap"
+                                      Opacity="0.95"/>
 
-             </Grid>
-         </StackPanel>
-     </ScrollViewer>
- </Grid>
+                            <!-- Trust Features -->
+                            <StackPanel Margin="0,30,0,0">
+                                <Grid Margin="0,0,0,15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="✓" 
+                                              FontSize="18" 
+                                              Foreground="#4CAF50" 
+                                              FontWeight="Bold"
+                                              Margin="0,0,12,0"/>
+                                    <TextBlock Grid.Column="1" 
+                                              Text="24/7 expert support team"
+                                              FontSize="14" 
+                                              Foreground="White" 
+                                              VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid Margin="0,0,0,15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="✓" 
+                                              FontSize="18" 
+                                              Foreground="#4CAF50" 
+                                              FontWeight="Bold"
+                                              Margin="0,0,12,0"/>
+                                    <TextBlock Grid.Column="1" 
+                                              Text="Simple, transparent pricing"
+                                              FontSize="14" 
+                                              Foreground="White" 
+                                              VerticalAlignment="Center"/>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="✓" 
+                                              FontSize="18" 
+                                              Foreground="#4CAF50" 
+                                              FontWeight="Bold"
+                                              Margin="0,0,12,0"/>
+                                    <TextBlock Grid.Column="1" 
+                                              Text="Secure payment processing"
+                                              FontSize="14" 
+                                              Foreground="White" 
+                                              VerticalAlignment="Center"/>
+                                </Grid>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

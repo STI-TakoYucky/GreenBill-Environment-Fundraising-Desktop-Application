@@ -165,6 +165,14 @@ public class ViewModel : Core.ViewModel
 
 ---
 
+## Hiding Navigation Bar
 
+Go to the view model of the view and extend the INavigationAware
 
+```csharp
+public class ViewModel : INavigationAware
+{
+      public bool ShowNavigation => false;
+}
 
+---

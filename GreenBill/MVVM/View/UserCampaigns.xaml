@@ -32,8 +32,6 @@
                           Foreground="#666666"
                           Margin="0,0,0,20"/>
             </StackPanel>
-
-         
         </Grid>
 
         <!-- Tab Header -->
@@ -146,125 +144,155 @@
 
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" 
                          Margin="20,20,20,20">
-                <UniformGrid Columns="3" Margin="0,0,0,0">
 
-                    <!-- Campaign Card 1 -->
-                    <Border Background="#FAFAFA" 
-                           CornerRadius="12"
-                           Margin="0,0,15,20"
-                           Cursor="Hand">
-                        <Border.Effect>
-                            <DropShadowEffect Color="#000000" Opacity="0.08" BlurRadius="8" ShadowDepth="1"/>
-                        </Border.Effect>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="160"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
+                <!-- Dynamic Campaigns List -->
+                <ItemsControl ItemsSource="{Binding Campaigns}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="3" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
-                            <!-- Campaign Image -->
-                            <Border Grid.Row="0" CornerRadius="12,12,0,0" Background="#E8F5E8">
-                                <TextBlock Text="🌊" FontSize="48" 
-                                          HorizontalAlignment="Center" 
-                                          VerticalAlignment="Center"/>
-                            </Border>
-
-                            <!-- Status Badge -->
-                            <Border Background="#00A86B" 
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <!-- Campaign Card -->
+                            <Border Background="#FAFAFA" 
                                    CornerRadius="12"
-                                   Padding="8,4"
-                                   HorizontalAlignment="Right"
-                                   VerticalAlignment="Top"
-                                   Margin="0,12,12,0"
-                                   Grid.Row="0"
-                                   Panel.ZIndex="1">
-                                <StackPanel Orientation="Horizontal">
-                                    <Ellipse Width="6" Height="6" Fill="White" Margin="0,0,4,0"/>
-                                    <TextBlock Text="Verified" 
-                                              FontSize="11" 
-                                              FontWeight="SemiBold"
-                                              Foreground="White"/>
-                                </StackPanel>
-                            </Border>
-
-                            <!-- Campaign Details -->
-                            <StackPanel Grid.Row="1" Margin="20,15">
-                                <TextBlock Text="Clean Ocean Initiative" 
-                                          FontSize="18" 
-                                          FontWeight="SemiBold" 
-                                          Foreground="#2D2D2D"
-                                          Margin="0,0,0,8"/>
-
-                                <TextBlock FontSize="24" 
-                                          FontWeight="Bold" 
-                                          Foreground="#00A86B"
-                                          Margin="0,0,0,5">
-                                    <Run Text="$45,665"/>
-                                    <Run Text=" USD raised" FontSize="16" FontWeight="Normal" Foreground="#666666"/>
-                                </TextBlock>
-
-                                <TextBlock Text="42,342 • 980 donations" 
-                                          FontSize="14" 
-                                          Foreground="#999999"
-                                          Margin="0,0,0,10"/>
-
-                                <!-- Progress Bar -->
-                                <Border Background="#F0F0F0" Height="6" CornerRadius="3" Margin="0,0,0,10">
-                                    <Border Background="#00A86B" 
-                                           Width="180" 
-                                           HorizontalAlignment="Left" 
-                                           CornerRadius="3"/>
-                                </Border>
-
-                                <StackPanel Orientation="Horizontal">
-                                    <Ellipse Width="8" Height="8" Fill="#9B59B6" Margin="0,0,8,0"/>
-                                    <TextBlock Text="715 people just donated" 
-                                              FontSize="12" 
-                                              Foreground="#666666"/>
-                                </StackPanel>
-                            </StackPanel>
-
-                            <!-- Action Button -->
-                            <Button Grid.Row="2" 
-                                   Content="View Details" 
-                                   Background="Transparent" 
-                                   Foreground="#00A86B"
-                                   BorderBrush="#E0E0E0"
-                                   BorderThickness="0,1,0,0"
-                                   FontWeight="SemiBold"
-                                   Padding="20,15"
-                                   Command="{Binding ViewDetails}"
-                                   Margin="0"
+                                   Margin="0,0,15,20"
                                    Cursor="Hand">
-                                <Button.Style>
-                                    <Style TargetType="Button">
-                                        <Setter Property="Template">
-                                            <Setter.Value>
-                                                <ControlTemplate TargetType="Button">
-                                                    <Border Background="{TemplateBinding Background}" 
-                                                           BorderBrush="{TemplateBinding BorderBrush}"
-                                                           BorderThickness="{TemplateBinding BorderThickness}"
-                                                           CornerRadius="0,0,12,12"
-                                                           Padding="{TemplateBinding Padding}">
-                                                        <ContentPresenter HorizontalAlignment="Center" 
-                                                                        VerticalAlignment="Center"/>
-                                                    </Border>
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter Property="Background" Value="#F0F8F5"/>
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-                        </Grid>
-                    </Border>
+                                <Border.Effect>
+                                    <DropShadowEffect Color="#000000" Opacity="0.08" BlurRadius="8" ShadowDepth="1"/>
+                                </Border.Effect>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="160"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
 
-                </UniformGrid>
+                                    <!-- Campaign Image -->
+                                    <Border Grid.Row="0" CornerRadius="12,12,0,0" Background="#E8F5E8">
+                                        <!-- Display campaign image or default emoji -->
+                                        <Grid>
+                                            <Image Source="{Binding Image, Converter={StaticResource ImageConverter}}"
+                                                   Stretch="UniformToFill"/>
+                                        </Grid>
+                                    </Border>
+
+                                    <!-- Status Badge -->
+                                    <Border Grid.Row="0"
+                                           Panel.ZIndex="1"
+                                           CornerRadius="12"
+                                           Padding="8,4"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Top"
+                                           Margin="0,12,12,0">
+                                        <Border.Background>
+                                            <MultiBinding Converter="{StaticResource StatusToColorValueConverter}">
+                                                <Binding Path="Status"/>
+                                            </MultiBinding>
+                                        </Border.Background>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Ellipse Width="6" Height="6" Fill="White" Margin="0,0,4,0"/>
+                                            <TextBlock Text="{Binding Status}" 
+                                                      FontSize="11" 
+                                                      FontWeight="SemiBold"
+                                                      Foreground="White"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <!-- Campaign Details -->
+                                    <StackPanel Grid.Row="1" Margin="20,15">
+                                        <TextBlock Text="{Binding Title}" 
+                                                  FontSize="18" 
+                                                  FontWeight="SemiBold" 
+                                                  Foreground="#2D2D2D"
+                                                  Margin="0,0,0,8"
+                                                  TextTrimming="CharacterEllipsis"/>
+
+                                        <TextBlock FontSize="24" 
+                                                  FontWeight="Bold" 
+                                                  Foreground="#00A86B"
+                                                  Margin="0,0,0,5">
+                                            <Run Text="100"/>
+                                            <Run Text=" raised" FontSize="16" FontWeight="Normal" Foreground="#666666"/>
+                                        </TextBlock>
+
+                                        <TextBlock FontSize="14" 
+                                                  Foreground="#999999"
+                                                  Margin="0,0,0,10">
+                                            <Run Text="100"/>
+                                            <Run Text=" • "/>
+                                            <Run Text="100"/>
+                                            <Run Text=" donations"/>
+                                        </TextBlock>
+
+                                        <!-- Progress Bar -->
+                                        <Border Background="#F0F0F0" Height="6" CornerRadius="3" Margin="0,0,0,10">
+                                            <Border Background="#F0F0F0"
+                                                    CornerRadius="10"
+                                                    Height="8">
+                                                <Border Background="#4CAF50"
+                                                        CornerRadius="10"
+                                                        HorizontalAlignment="Left"
+                                                        Width="200"/>
+                                            </Border>
+                                        </Border>
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <Ellipse Width="8" Height="8" Fill="#9B59B6" Margin="0,0,8,0"/>
+                                            <TextBlock FontSize="12" 
+                                                      Foreground="#666666">
+                                                <Run Text="100"/>
+                                                <Run Text=" people just donated"/>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <!-- Action Button -->
+                                    <Button Grid.Row="2" 
+                                           Content="View Details" 
+                                           Background="Transparent" 
+                                           Foreground="#00A86B"
+                                           BorderBrush="#E0E0E0"
+                                           BorderThickness="0,1,0,0"
+                                           FontWeight="SemiBold"
+                                           Padding="20,15"
+                                           Command="{Binding DataContext.ViewDetails, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                           CommandParameter="{Binding Id}"
+                                           Margin="0"
+                                           Cursor="Hand">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="Button">
+                                                            <Border Background="{TemplateBinding Background}" 
+                                                                   BorderBrush="{TemplateBinding BorderBrush}"
+                                                                   BorderThickness="{TemplateBinding BorderThickness}"
+                                                                   CornerRadius="0,0,12,12"
+                                                                   Padding="{TemplateBinding Padding}">
+                                                                <ContentPresenter HorizontalAlignment="Center" 
+                                                                                VerticalAlignment="Center"/>
+                                                            </Border>
+                                                            <ControlTemplate.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="#F0F8F5"/>
+                                                                </Trigger>
+                                                            </ControlTemplate.Triggers>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+              
             </ScrollViewer>
         </Border>
     </Grid>

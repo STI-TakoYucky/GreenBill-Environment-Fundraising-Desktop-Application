@@ -23,6 +23,8 @@
             <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
             <converters:ByteArrayToImageConverter x:Key="ImageConverter"/>
             <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
+            <converters:StatusToColorValueConverter x:Key="StatusToColorValueConverter"/>
+            <converters:ProgressWidthValueConverter x:Key="ProgressWidthValueConverter"/>
 
             <DataTemplate DataType="{x:Type viewModel:FundraisingStepsViewModel}">
                 <stepsView:FundraisingStepsContainer/>

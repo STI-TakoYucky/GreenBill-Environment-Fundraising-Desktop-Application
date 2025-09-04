@@ -22,10 +22,8 @@ namespace GreenBill.MVVM.ViewModel
 
         public CampaignDetailsViewModel()
         {
-            // Initialize with Details tab
             _currentTabContent = _detailsTab;
 
-            // Initialize commands
             SelectDetailsCommand = new RelayCommand(o => SelectTab("DETAILS"));
             SelectDonorsCommand = new RelayCommand(o => SelectTab("DONORS"));
         }

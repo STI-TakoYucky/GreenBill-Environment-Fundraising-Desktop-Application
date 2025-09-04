@@ -55,6 +55,7 @@ Background="Transparent">
                         BorderThickness="0"
                         Background="Transparent"
                         Cursor="Hand"
+                        Style="{StaticResource TransparentButton}"
                         Click="ProfileButton_Click"
                         Visibility="{Binding IsUserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
 

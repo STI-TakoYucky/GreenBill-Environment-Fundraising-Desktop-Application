@@ -6,6 +6,7 @@ namespace GreenBill.MVVM.Model
     public class Campaign
     {
         public ObjectId Id { get; set; }
+        public ObjectId UserId { get; set; }
         public string Country { get; set; }
         public string ZipCode { get; set; } 
         public string Category { get; set; }
@@ -15,5 +16,7 @@ namespace GreenBill.MVVM.Model
         public string Title { get; set; }
         public string Description { get; set; }
          public DateTime CreatedAt { get; set; }
+        public string Status { get; set; } = "verified";
+
     }
 }

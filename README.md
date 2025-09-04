@@ -146,3 +146,24 @@ public class ViewModel : Core.ViewModel
 * **App.xaml DataTemplate** automatically loads `HomePage.xaml` for display.
 
 ---
+
+## 🔀 Changing Current View
+
+Go to MainWindowViewModel.cs
+```csharp
+ public MainWindowViewModel(INavigationService navService)
+ {
+     Navigation = navService;
+     // Change to the ViewModel of the first view you want to display
+     Navigation.NavigateTo<HomePageViewModel>();
+
+     NavigateToSignin = new RelayCommand(o =>
+     {
+         ShowNavigation = false;
+         Navigation.NavigateTo<SigninViewModel>();
+     });
+
+  
+ }
+
+

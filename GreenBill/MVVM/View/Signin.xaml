@@ -166,9 +166,11 @@
                Margin="0,0,0,0"/>
 
                 <Button FontSize="14"
+                        Style="{StaticResource TransparentButton}"
                         Command="{Binding NavigateToSignup}"
           Foreground="#666"
                 BorderThickness="0"
+                        Cursor="Hand"
            Background="Transparent"
           Width="340" Content="Don't have an account?"/>
 

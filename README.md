@@ -174,7 +174,7 @@ public class ViewModel : INavigationAware
 {
       public bool ShowNavigation => false;
 }
-
+```
 ---
 
 ## Navigation with parameter

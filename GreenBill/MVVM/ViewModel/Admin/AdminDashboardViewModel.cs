@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 ﻿using System;
 using System.Collections.ObjectModel;
+=======
+﻿using LiveChartsCore.Defaults;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore;
+using System;
+using System.Collections.ObjectModel;
+using LiveChartsCore.Kernel.Sketches;
+>>>>>>> 3c78753372bd1e2fd5f9825f5267bfa36b3d0956
 
 namespace GreenBill.MVVM.ViewModel
 {
@@ -13,6 +22,27 @@ namespace GreenBill.MVVM.ViewModel
 
     public class AdminDashboardViewModel
     {
+<<<<<<< HEAD
+=======
+        public ISeries[] Series { get; set; } = [
+          new LineSeries<DateTimePoint>
+        {
+            Values = [
+                new() { DateTime = new(2021, 1, 1), Value = 3 },
+                new() { DateTime = new(2021, 1, 2), Value = 6 },
+                new() { DateTime = new(2021, 1, 3), Value = 5 },
+                new() { DateTime = new(2021, 1, 4), Value = 3 },
+                new() { DateTime = new(2021, 1, 5), Value = 5 },
+                new() { DateTime = new(2021, 1, 6), Value = 8 },
+                new() { DateTime = new(2021, 1, 7), Value = 6 }
+            ]
+        }
+      ];
+
+        public ICartesianAxis[] XAxes { get; set; } = [
+            new DateTimeAxis(TimeSpan.FromDays(1), date => date.ToString("MMMM dd"))
+        ];
+>>>>>>> 3c78753372bd1e2fd5f9825f5267bfa36b3d0956
 
         // ✅ Add campaigns here
         public ObservableCollection<Campaign> Campaigns { get; set; }

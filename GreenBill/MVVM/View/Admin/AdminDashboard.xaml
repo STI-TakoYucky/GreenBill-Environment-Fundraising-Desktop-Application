@@ -2,7 +2,12 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+<<<<<<< HEAD
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+=======
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+>>>>>>> 3c78753372bd1e2fd5f9825f5267bfa36b3d0956
              mc:Ignorable="d" 
              Background="White"
              d:DesignHeight="900" d:DesignWidth="1400">
@@ -60,6 +65,7 @@
 
                 <StackPanel Margin="0, 40, 0, 0">
                     <TextBlock Text="New Users" FontSize="24"></TextBlock>
+<<<<<<< HEAD
                     <lvc:CartesianChart Height="300" AnimationsSpeed="0:0:0.5">
                         <lvc:CartesianChart.Series>
                             <lvc:LineSeries Title="New Users" 
@@ -69,6 +75,13 @@
                               StrokeThickness="3"
                               PointGeometrySize="8"/>
                         </lvc:CartesianChart.Series>
+=======
+                    <lvc:CartesianChart
+                Height="280"
+                Series="{Binding Series}"
+                 XAxes="{Binding XAxes}"
+                TooltipPosition="Top">
+>>>>>>> 3c78753372bd1e2fd5f9825f5267bfa36b3d0956
                     </lvc:CartesianChart>
                 </StackPanel>
 

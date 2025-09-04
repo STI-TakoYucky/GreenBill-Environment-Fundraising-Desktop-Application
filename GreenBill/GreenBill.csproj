@@ -242,6 +242,7 @@
       <DependentUpon>UserCampaigns.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\CampaignService.cs" />
+    <Compile Include="Services\ITabNavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserSessionService.cs" />

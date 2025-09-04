@@ -42,8 +42,12 @@ namespace GreenBill
             services.AddSingleton<CampaignDetailsViewModel>();
 
             services.AddSingleton<INavigationService, NavigationService>();
+
+ 
             services.AddSingleton<ICampaignService, CampaignService>();
             services.AddSingleton<IUserService, UserService>();
+
+            services.AddTransient<ITabNavigationService, TabNavigationService>();
 
             services.AddSingleton<IUserSessionService>(UserSessionService.Instance);
  

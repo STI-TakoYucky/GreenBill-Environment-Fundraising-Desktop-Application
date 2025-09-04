@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GreenBill
+namespace GreenBill.MVVM.View.Admin
 {
     /// <summary>
     /// Interaction logic for AdminDashboard.xaml/
     /// </summary>
-    public partial class AdminDashboard : Window
+    public partial class AdminDashboard : UserControl
     {
         public AdminDashboard()
         {

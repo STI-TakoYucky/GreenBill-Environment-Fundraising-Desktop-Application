@@ -7,7 +7,7 @@
              Background="White"
              d:DesignHeight="900" d:DesignWidth="1400">
     <Grid>
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Padding="30 0 30 0">
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="30 0 30 0">
             <StackPanel>
                 <TextBlock  Margin="0 20 0 0" Text="Dashboard" FontSize="24" FontWeight="SemiBold"/>
 
@@ -60,7 +60,7 @@
 
                 <StackPanel Margin="0, 40, 0, 0">
                     <TextBlock Text="New Users" FontSize="24"></TextBlock>
-                    <lvc:CartesianChart Height="300" AnimationsSpeed="0:0:0.5">
+                    <lvc:CartesianChart Width="Auto" Height="300" AnimationsSpeed="0:0:0.5">
                         <lvc:CartesianChart.Series>
                             <lvc:LineSeries Title="New Users" 
                               Values="15,25,30,22,35,42,38,45,52,48,55,60" 
@@ -94,12 +94,13 @@
                   CanUserAddRows="False"
                   BorderThickness="0"
                   RowHeight="40"
+                        AutoGenerateColumns="False"
                   GridLinesVisibility="None"
                   AlternatingRowBackground="#f7f9fa"
                   Background="White"
                   Grid.Row="1"
                   HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch" ColumnWidth="180">
+                  VerticalAlignment="Stretch" ColumnWidth="*">
 
                         <!-- Header Style -->
                         <DataGrid.ColumnHeaderStyle>
@@ -140,10 +141,10 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Button Content="Approve" 
-            Background="#4CAF50"
-            Foreground="White"
-            Padding="6,2"
-            BorderThickness="0"/>
+                                            Background="#4CAF50"
+                                            Foreground="White"
+                                            Padding="6,2"
+                                            BorderThickness="0"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

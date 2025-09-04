@@ -90,7 +90,7 @@ public App()
     });
 
     // Add this line
-    services.AddTransient<PageViewModel>();
+    services.AddSingleton<PageViewModel>();
    
  
     services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));

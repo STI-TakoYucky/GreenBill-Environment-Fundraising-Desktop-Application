@@ -176,3 +176,31 @@ public class ViewModel : INavigationAware
 }
 
 ---
+
+## Navigation with parameter
+
+.xaml
+
+```xml
+ <Button Grid.Row="0"
+        Background="#F5F5F5"
+        Command="{Binding CommandThatAcceptsParameters, 
+                 RelativeSource={RelativeSource AncestorType=UserControl}}"
+        CommandParameter="{Binding ParameterToBind}"
+        BorderThickness="0"
+        Cursor="Hand">
+```
+
+View Model of the next user control
+
+```csharp
+public class ViewModel : Core.ViewModel, INavigatableService
+{
+      public async void ApplyNavigationParameter(object parameter)
+  {
+      if (parameter == null) return;
+      // Get and set the parameter passed
+      var id = parameter.ToString();
+      SelectedCampaign = await _campaignService.GetCampaignByIdAsync(id);
+  }
+}

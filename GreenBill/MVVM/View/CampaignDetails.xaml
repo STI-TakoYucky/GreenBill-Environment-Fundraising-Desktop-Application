@@ -70,8 +70,14 @@
         </Style>
 
         <!-- Active Tab Style -->
-        <Style x:Key="ActiveTabButtonStyle" TargetType="Button" BasedOn="{StaticResource TabButtonStyle}">
+        <Style x:Key="ActiveTabButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#4CAF50"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="20,15"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -173,10 +179,56 @@
         <!-- Navigation Tabs -->
         <Border Grid.Row="1" Background="White" CornerRadius="12,12,0,0" Margin="0,0,0,0">
             <StackPanel Orientation="Horizontal" Margin="0">
-                <Button Content="DETAILS" Style="{StaticResource ActiveTabButtonStyle}"/>
-                <Button Content="DONORS" Style="{StaticResource TabButtonStyle}"/>
-                <Button Content="COMMENTS" Style="{StaticResource TabButtonStyle}"/>
-                <Button Content="UPDATES" Style="{StaticResource TabButtonStyle}"/>
+                <Button Content="DETAILS" 
+                        Command="{Binding SelectDetailsCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource TabButtonStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsDetailsSelected}" Value="True">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="#4CAF50"
+                                                        BorderThickness="0,0,0,2"
+                                                        Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                                    VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Foreground" Value="#4CAF50"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Content="DONORS" 
+                        Command="{Binding SelectDonorsCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource TabButtonStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsDonorsSelected}" Value="True">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                        BorderBrush="#4CAF50"
+                                                        BorderThickness="0,0,0,2"
+                                                        Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                                    VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Foreground" Value="#4CAF50"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </StackPanel>
         </Border>
 
@@ -185,32 +237,8 @@
                 Background="White" 
                 CornerRadius="0,0,12,12">
             <Grid Margin="40">
-                <!-- Content Control Placeholder -->
-                <Border Background="#FAFAFA" 
-                        CornerRadius="8" 
-                        MinHeight="400">
-                    <TextBlock Text="CONTENT CONTROL" 
-                             FontSize="24" 
-                             FontWeight="Bold" 
-                             Foreground="#CCCCCC"
-                             HorizontalAlignment="Center" 
-                             VerticalAlignment="Center"/>
-                </Border>
-
-                <!-- You can replace the above Border with actual content based on selected tab -->
-                <!-- For example: -->
-                <!--
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <TextBlock Text="Campaign Description" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15"/>
-                        <TextBlock Text="Your campaign description content goes here..." 
-                                 FontSize="14" 
-                                 LineHeight="22" 
-                                 TextWrapping="Wrap" 
-                                 Foreground="#555555"/>
-                    </StackPanel>
-                </ScrollViewer>
-                -->
+                <!-- Dynamic Content Control -->
+                <ContentPresenter Content="{Binding CurrentTabContent}"/>
             </Grid>
         </Border>
     </Grid>

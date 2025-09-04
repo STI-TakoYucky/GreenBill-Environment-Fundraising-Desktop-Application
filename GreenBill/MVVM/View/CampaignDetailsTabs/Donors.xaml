@@ -1,0 +1,306 @@
+﻿<UserControl x:Class="GreenBill.MVVM.View.CampaignDetailsTabs.Donors"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GreenBill.MVVM.View.CampaignDetailsTabs"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="Recent Donors" 
+                       FontSize="22" 
+                       FontWeight="SemiBold" 
+                       Foreground="#333333"
+                       Margin="0,0,0,10"/>
+            <TextBlock Text="980 people have donated to this campaign" 
+                       FontSize="14" 
+                       Foreground="#666666"/>
+        </StackPanel>
+
+        <!-- Donors List -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Donor Item 1 -->
+                <Border Background="White" 
+                        BorderBrush="#E0E0E0" 
+                        BorderThickness="0,0,0,1" 
+                        Padding="0,15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Avatar -->
+                        <Ellipse Grid.Column="0" 
+                                 Fill="#4CAF50" 
+                                 Width="40" 
+                                 Height="40"/>
+                        <TextBlock Grid.Column="0"
+                                   Text="JD" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="14"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
+
+                        <!-- Donor Info -->
+                        <StackPanel Grid.Column="1" Margin="15,0,0,0">
+                            <TextBlock Text="John Doe" 
+                                       FontWeight="SemiBold" 
+                                       FontSize="14"
+                                       Foreground="#333333"/>
+                            <TextBlock Text="2 hours ago" 
+                                       FontSize="12" 
+                                       Foreground="#999999"/>
+                        </StackPanel>
+
+                        <!-- Donation Amount -->
+                        <TextBlock Grid.Column="2" 
+                                   Text="$100" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="16"
+                                   Foreground="#4CAF50"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,10,0"/>
+
+                        <!-- Top Donor Badge -->
+                        <Border Grid.Column="3" 
+                                Background="#FFE0B2" 
+                                CornerRadius="10"
+                                Padding="8,4"
+                                VerticalAlignment="Center">
+                            <TextBlock Text="Top Donor" 
+                                       FontSize="10" 
+                                       FontWeight="SemiBold"
+                                       Foreground="#E65100"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Donor Item 2 -->
+                <Border Background="White" 
+                        BorderBrush="#E0E0E0" 
+                        BorderThickness="0,0,0,1" 
+                        Padding="0,15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Avatar -->
+                        <Ellipse Grid.Column="0" 
+                                 Fill="#9C27B0" 
+                                 Width="40" 
+                                 Height="40"/>
+                        <TextBlock Grid.Column="0"
+                                   Text="AS" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="14"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
+
+                        <!-- Donor Info -->
+                        <StackPanel Grid.Column="1" Margin="15,0,0,0">
+                            <TextBlock Text="Anonymous Supporter" 
+                                       FontWeight="SemiBold" 
+                                       FontSize="14"
+                                       Foreground="#333333"/>
+                            <TextBlock Text="5 hours ago" 
+                                       FontSize="12" 
+                                       Foreground="#999999"/>
+                        </StackPanel>
+
+                        <!-- Donation Amount -->
+                        <TextBlock Grid.Column="2" 
+                                   Text="$50" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="16"
+                                   Foreground="#4CAF50"
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- Donor Item 3 -->
+                <Border Background="White" 
+                        BorderBrush="#E0E0E0" 
+                        BorderThickness="0,0,0,1" 
+                        Padding="0,15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Avatar -->
+                        <Ellipse Grid.Column="0" 
+                                 Fill="#2196F3" 
+                                 Width="40" 
+                                 Height="40"/>
+                        <TextBlock Grid.Column="0"
+                                   Text="MS" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="14"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
+
+                        <!-- Donor Info -->
+                        <StackPanel Grid.Column="1" Margin="15,0,0,0">
+                            <TextBlock Text="Maria Smith" 
+                                       FontWeight="SemiBold" 
+                                       FontSize="14"
+                                       Foreground="#333333"/>
+                            <TextBlock Text="1 day ago" 
+                                       FontSize="12" 
+                                       Foreground="#999999"/>
+                        </StackPanel>
+
+                        <!-- Donation Amount -->
+                        <TextBlock Grid.Column="2" 
+                                   Text="$25" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="16"
+                                   Foreground="#4CAF50"
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- Donor Item 4 -->
+                <Border Background="White" 
+                        BorderBrush="#E0E0E0" 
+                        BorderThickness="0,0,0,1" 
+                        Padding="0,15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Avatar -->
+                        <Ellipse Grid.Column="0" 
+                                 Fill="#FF5722" 
+                                 Width="40" 
+                                 Height="40"/>
+                        <TextBlock Grid.Column="0"
+                                   Text="RJ" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="14"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
+
+                        <!-- Donor Info -->
+                        <StackPanel Grid.Column="1" Margin="15,0,0,0">
+                            <TextBlock Text="Robert Johnson" 
+                                       FontWeight="SemiBold" 
+                                       FontSize="14"
+                                       Foreground="#333333"/>
+                            <TextBlock Text="2 days ago" 
+                                       FontSize="12" 
+                                       Foreground="#999999"/>
+                        </StackPanel>
+
+                        <!-- Donation Amount -->
+                        <TextBlock Grid.Column="2" 
+                                   Text="$75" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="16"
+                                   Foreground="#4CAF50"
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- Donor Item 5 -->
+                <Border Background="White" 
+                        BorderBrush="#E0E0E0" 
+                        BorderThickness="0,0,0,1" 
+                        Padding="0,15">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Avatar -->
+                        <Ellipse Grid.Column="0" 
+                                 Fill="#607D8B" 
+                                 Width="40" 
+                                 Height="40"/>
+                        <TextBlock Grid.Column="0"
+                                   Text="A" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="14"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center"/>
+
+                        <!-- Donor Info -->
+                        <StackPanel Grid.Column="1" Margin="15,0,0,0">
+                            <TextBlock Text="Anonymous" 
+                                       FontWeight="SemiBold" 
+                                       FontSize="14"
+                                       Foreground="#333333"/>
+                            <TextBlock Text="3 days ago" 
+                                       FontSize="12" 
+                                       Foreground="#999999"/>
+                        </StackPanel>
+
+                        <!-- Donation Amount -->
+                        <TextBlock Grid.Column="2" 
+                                   Text="$15" 
+                                   FontWeight="SemiBold" 
+                                   FontSize="16"
+                                   Foreground="#4CAF50"
+                                   VerticalAlignment="Center"/>
+                    </Grid>
+                </Border>
+
+                <!-- Load More Button -->
+                <Button Content="Load More Donors" 
+                        Background="Transparent"
+                        BorderBrush="#4CAF50"
+                        BorderThickness="2"
+                        Foreground="#4CAF50"
+                        Padding="20,10"
+                        Margin="0,20,0,0"
+                        FontWeight="SemiBold"
+                        Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="6"
+                                    Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                                VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="#4CAF50"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

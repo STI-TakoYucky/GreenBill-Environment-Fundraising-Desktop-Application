@@ -1,6 +1,5 @@
 ﻿using GreenBill.Core;
 using GreenBill.IServices;
-using GreenBill.MVVM.ViewModel;
 
 namespace GreenBill.Services
 {

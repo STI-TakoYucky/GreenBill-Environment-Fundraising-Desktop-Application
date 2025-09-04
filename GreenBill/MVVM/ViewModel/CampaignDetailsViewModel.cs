@@ -1,12 +1,83 @@
-﻿using System;
+﻿using GreenBill.Core;
+using GreenBill.MVVM.View.CampaignDetailsTabs;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace GreenBill.MVVM.ViewModel
 {
-    public class CampaignDetailsViewModel : Core.ViewModel
+    public class CampaignDetailsViewModel : Core.ViewModel, INotifyPropertyChanged
     {
+        private UserControl _currentTabContent;
+        private string _selectedTab = "DETAILS";
+
+        private readonly Details _detailsTab = new Details();
+        private readonly Donors _donorsTab = new Donors();
+
+        public CampaignDetailsViewModel()
+        {
+            // Initialize with Details tab
+            _currentTabContent = _detailsTab;
+
+            // Initialize commands
+            SelectDetailsCommand = new RelayCommand(o => SelectTab("DETAILS"));
+            SelectDonorsCommand = new RelayCommand(o => SelectTab("DONORS"));
+        }
+
+        public UserControl CurrentTabContent
+        {
+            get => _currentTabContent;
+            set
+            {
+                _currentTabContent = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string SelectedTab
+        {
+            get => _selectedTab;
+            set
+            {
+                _selectedTab = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(IsDetailsSelected));
+                OnPropertyChanged(nameof(IsDonorsSelected));
+            }
+        }
+
+        public bool IsDetailsSelected => SelectedTab == "DETAILS";
+        public bool IsDonorsSelected => SelectedTab == "DONORS";
+
+        public ICommand SelectDetailsCommand { get; }
+        public ICommand SelectDonorsCommand { get; }
+
+        private void SelectTab(string tabName)
+        {
+            SelectedTab = tabName;
+
+            switch (tabName)
+            {
+                case "DETAILS":
+                    CurrentTabContent = _detailsTab;
+                    break;
+                case "DONORS":
+                    CurrentTabContent = _donorsTab;
+                    break;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

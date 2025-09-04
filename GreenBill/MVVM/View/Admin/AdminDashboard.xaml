@@ -1,169 +1,331 @@
-﻿<UserControl x:Class="GreenBill.MVVM.View.Admin.AdminDashboard"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             mc:Ignorable="d" 
-             Background="White"
-             d:DesignHeight="900" d:DesignWidth="1400">
+﻿<UserControl
+    x:Class="GreenBill.MVVM.View.Admin.AdminDashboard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="900"
+    d:DesignWidth="1400"
+    Background="White"
+    mc:Ignorable="d">
     <Grid>
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="30 0 30 0">
+        <ScrollViewer
+            Grid.Row="0"
+            Padding="30,0,30,0"
+            VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <TextBlock  Margin="0 20 0 0" Text="Dashboard" FontSize="24" FontWeight="SemiBold"/>
+                <TextBlock
+                    Margin="0,20,0,0"
+                    FontSize="24"
+                    FontWeight="SemiBold"
+                    Text="Dashboard" />
 
-                <Grid Margin="0 20 0 0">
+                <Grid Margin="0,20,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="33*"></ColumnDefinition>
-                        <ColumnDefinition Width="33*"></ColumnDefinition>
-                        <ColumnDefinition Width="33*"></ColumnDefinition>
+                        <ColumnDefinition Width="25*" />
+                        <ColumnDefinition Width="25*" />
+                        <ColumnDefinition Width="25*" />
+                        <ColumnDefinition Width="25*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="100"></RowDefinition>
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Border 
-                BorderThickness="1"
-                Background="White"
-                CornerRadius="8"
-                BorderBrush="#e1e7e9"
-                Grid.Column="0" Margin="0,0,5,0">
-                        <StackPanel Margin="15,15,15,15" VerticalAlignment="Center">
-                            <TextBlock Text="Total Users"></TextBlock>
-                            <TextBlock Text="20" FontSize="24"></TextBlock>
+                    <!--  TOTAL USERS  -->
+                    <Border
+                        Grid.Column="0"
+                        Margin="0,0,15,0"
+                        Background="White"
+                        CornerRadius="12">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="8"
+                                Opacity="0.08"
+                                ShadowDepth="2"
+                                Color="#000000" />
+                        </Border.Effect>
+                        <StackPanel Margin="25,20">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                FontSize="14"
+                                Foreground="#666666"
+                                Text="Total Users" />
+                            <TextBlock
+                                Margin="0,0,0,5"
+                                FontSize="28"
+                                FontWeight="Bold"
+                                Foreground="#00A86B"
+                                Text="2,665" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    FontSize="16"
+                                    Foreground="#00A86B"
+                                    Text="↗" />
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="#00A86B"
+                                    Text="12.5% from last month" />
+                            </StackPanel>
                         </StackPanel>
                     </Border>
 
-                    <Border 
-                BorderThickness="1"
-                Background="White"
-                CornerRadius="8"
-                BorderBrush="#e1e7e9"
-                Grid.Column="1" Margin="0,0,5,0">
-                        <StackPanel Margin="15,15,15,15" VerticalAlignment="Center">
-                            <TextBlock Text="Total Campaigns"></TextBlock>
-                            <TextBlock Text="13" FontSize="24"></TextBlock>
+                    <!--  Total Campaigns Card  -->
+                    <Border
+                        Grid.Column="1"
+                        Margin="0,0,15,0"
+                        Background="White"
+                        CornerRadius="12">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="8"
+                                Opacity="0.08"
+                                ShadowDepth="2"
+                                Color="#000000" />
+                        </Border.Effect>
+                        <StackPanel Margin="25,20">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                FontSize="14"
+                                Foreground="#666666"
+                                Text="Total Campaigns" />
+                            <TextBlock
+                                Margin="0,0,0,5"
+                                FontSize="28"
+                                FontWeight="Bold"
+                                Foreground="#3498DB"
+                                Text="32" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    FontSize="16"
+                                    Foreground="#00A86B"
+                                    Text="↗" />
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="#00A86B"
+                                    Text="8.2% from last month" />
+                            </StackPanel>
                         </StackPanel>
                     </Border>
-                    <Border 
-                BorderThickness="1"
-                Background="White"
-                CornerRadius="8"
-                BorderBrush="#e1e7e9"
-                Grid.Column="2">
-                        <StackPanel Margin="15,15,15,15" VerticalAlignment="Center">
-                            <TextBlock Text="Pending Campaigns"></TextBlock>
-                            <TextBlock Text="5" FontSize="24"></TextBlock>
+
+                    <!--  Pending Campaigns Card  -->
+                    <Border
+                        Grid.Column="3"
+                        Margin="0,0,15,0"
+                        Background="White"
+                        CornerRadius="12">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="8"
+                                Opacity="0.08"
+                                ShadowDepth="2"
+                                Color="#000000" />
+                        </Border.Effect>
+                        <StackPanel Margin="25,20">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                FontSize="14"
+                                Foreground="#666666"
+                                Text="Pending Campaigns" />
+                            <TextBlock
+                                Margin="0,0,0,5"
+                                FontSize="28"
+                                FontWeight="Bold"
+                                Foreground="#E67E22"
+                                Text="2" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    FontSize="16"
+                                    Foreground="#00A86B"
+                                    Text="↗" />
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="#00A86B"
+                                    Text="3.8% from last month" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!--  Active Campaigns Card  -->
+                    <Border
+                        Grid.Column="2"
+                        Background="White"
+                        CornerRadius="12">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="8"
+                                Opacity="0.08"
+                                ShadowDepth="2"
+                                Color="#000000" />
+                        </Border.Effect>
+                        <StackPanel Margin="25,20">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                FontSize="14"
+                                Foreground="#666666"
+                                Text="Active Campaigns" />
+                            <TextBlock
+                                Margin="0,0,0,5"
+                                FontSize="28"
+                                FontWeight="Bold"
+                                Foreground="#9B59B6"
+                                Text="6" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    FontSize="16"
+                                    Foreground="#666666"
+                                    Text="→" />
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="#666666"
+                                    Text="No change" />
+                            </StackPanel>
                         </StackPanel>
                     </Border>
 
                 </Grid>
 
-                <StackPanel Margin="0, 40, 0, 0">
-                    <TextBlock Text="New Users" FontSize="24"></TextBlock>
-                    <lvc:CartesianChart Width="Auto" Height="300" AnimationsSpeed="0:0:0.5">
+
+                <StackPanel Margin="0,40,0,0">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock
+                            Margin="0,0,20,10"
+                            VerticalAlignment="Center"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Text="User Analytics" />
+                        <ComboBox
+                            Width="150"
+                            Height="35"
+                            Margin="0,0,20,0"
+                            FontSize="14"
+                            SelectedIndex="0">
+                            <ComboBoxItem Content="Users" />
+                            <ComboBoxItem Content="Campaigns" />
+                        </ComboBox>
+
+                        <ComboBox
+                            Width="150"
+                            Height="35"
+                            FontSize="14"
+                            SelectedIndex="2">
+                            <ComboBoxItem Content="Last 7 days" />
+                            <ComboBoxItem Content="Last 30 days" />
+                            <ComboBoxItem Content="Last 3 months" />
+                            <ComboBoxItem Content="Last 6 months" />
+                            <ComboBoxItem Content="Last year" />
+                        </ComboBox>
+                    </StackPanel>
+                    <lvc:CartesianChart
+                        Width="Auto"
+                        Height="300"
+                        AnimationsSpeed="0:0:0.5">
                         <lvc:CartesianChart.Series>
-                            <lvc:LineSeries Title="New Users" 
-                              Values="15,25,30,22,35,42,38,45,52,48,55,60" 
-                              Stroke="#00A86B" 
-                              Fill="Transparent"
-                              StrokeThickness="3"
-                              PointGeometrySize="8"/>
+                            <lvc:LineSeries
+                                Title="New Users"
+                                Fill="Transparent"
+                                PointGeometrySize="8"
+                                Stroke="#00A86B"
+                                StrokeThickness="3"
+                                Values="15,25,30,22,35,42,38,45,52,48,55,60" />
                         </lvc:CartesianChart.Series>
-                        </lvc:CartesianChart>
+                    </lvc:CartesianChart>
                 </StackPanel>
 
-                <Grid Margin="0,40,0,40">
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-
-                    <TextBlock Text="Pending Campaigns" 
-                   FontSize="24" 
-                   FontWeight="Bold" 
-                   Margin="10"
-                    Grid.Row="0"/>
+                <!--  TABLE  -->
+                <StackPanel Margin="0,40,0,40">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Margin="0,0,20,10"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Text="Pending Campaigns" />
+                    </StackPanel>
 
                     <DataGrid
-                        ItemsSource="{Binding Campaigns}"
-                  HeadersVisibility="Column"
-                  CanUserAddRows="False"
-                  BorderThickness="0"
-                  RowHeight="40"
+                        Grid.Row="1"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        AlternatingRowBackground="#f7f9fa"
                         AutoGenerateColumns="False"
-                  GridLinesVisibility="None"
-                  AlternatingRowBackground="#f7f9fa"
-                  Background="White"
-                  Grid.Row="1"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch" ColumnWidth="*">
+                        Background="White"
+                        BorderThickness="0"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserReorderColumns="False"
+                        CanUserResizeColumns="False"
+                        CanUserResizeRows="False"
+                        CanUserSortColumns="False"
+                        ColumnWidth="*"
+                        GridLinesVisibility="None"
+                        HeadersVisibility="Column"
+                        ItemsSource="{Binding Campaigns}"
+                        RowHeight="40">
 
-                        <!-- Header Style -->
+                        <!--  Header Style  -->
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
-                                <Setter Property="Background" Value="#e1e7e9"/>
-                                <Setter Property="Foreground" Value="#333"/>
-                                <Setter Property="FontWeight" Value="SemiBold"/>
-                                <Setter Property="FontSize" Value="14"/>
-                                <Setter Property="Padding" Value="4,6"/>
-                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Background" Value="#e1e7e9" />
+                                <Setter Property="Foreground" Value="#333" />
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                                <Setter Property="FontSize" Value="14" />
+                                <Setter Property="Padding" Value="4,6" />
+                                <Setter Property="BorderThickness" Value="0" />
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
 
-                        <!-- Row Style -->
+                        <!--  Row Style  -->
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
-                                <Setter Property="FontSize" Value="13"/>
-                                <Setter Property="Padding" Value="299"/>
-                                <Setter Property="BorderThickness" Value="0"/>
-                                <!-- Hover effect -->
+                                <Setter Property="FontSize" Value="13" />
+                                <Setter Property="Padding" Value="299" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <!--  Hover effect  -->
                                 <Style.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#eef2f3"/>
+                                        <Setter Property="Background" Value="#eef2f3" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
                         </DataGrid.RowStyle>
 
-                        <!-- Define the columns -->
+                        <!--  Define the columns  -->
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Campaign ID" Binding="{Binding CampaignID}"/>
-                            <DataGridTextColumn Header="Title" Binding="{Binding Title}"/>
-                            <!-- last column stretches -->
-                            <DataGridTextColumn Header="Organizer" Binding="{Binding Organizer}"/>
-                            <DataGridTextColumn Header="Date Submitted" Binding="{Binding DateSubmitted}"/>
+                            <DataGridTextColumn
+                                Width="50"
+                                Binding="{Binding CampaignID}"
+                                Header="ID" />
+                            <DataGridTextColumn
+                                Width="80"
+                                Binding="{Binding Title}"
+                                Header="UserID" />
+                            <DataGridTextColumn Binding="{Binding Organizer}" Header="Title" />
+                            <DataGridTextColumn Binding="{Binding DateSubmitted}" Header="Description" />
+                            <DataGridTextColumn Binding="{Binding DateSubmitted}" Header="Target Donation" />
+                            <DataGridTextColumn Binding="{Binding DateSubmitted}" Header="Accumulated Donation" />
+                            <DataGridTextColumn
+                                Width="90"
+                                Binding="{Binding DateSubmitted}"
+                                Header="Status" />
+                            <DataGridTextColumn
+                                Width="90"
+                                Binding="{Binding DateSubmitted}"
+                                Header="Verified" />
+                            <DataGridTextColumn
+                                Width="90"
+                                Binding="{Binding DateSubmitted}"
+                                Header="Created At" />
 
-                            <DataGridTemplateColumn Header="Approve">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Content="Approve" 
-                                            Background="#4CAF50"
-                                            Foreground="White"
-                                            Padding="6,2"
-                                            BorderThickness="0"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
 
-                            <DataGridTemplateColumn Header="Reject">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Content="Reject"
-            Background="#E53935"
-            Foreground="White"
-            Padding="6,2"
-            BorderThickness="0"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
 
-                </Grid>
+                </StackPanel>
 
 
             </StackPanel>

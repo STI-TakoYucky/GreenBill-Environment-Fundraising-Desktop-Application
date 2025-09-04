@@ -1,6 +1,4 @@
-﻿using GreenBill.MVVM.ViewModel;
-using GreenBill.MVVM.ViewModel.Admin;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,15 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GreenBill.MVVM.View.Admin
-{
+namespace GreenBill.MVVM.View.Admin {
     /// <summary>
-    /// Interaction logic for AdminDashboard.xaml
+    /// Interaction logic for UserAnalytics.xaml
     /// </summary>
-    public partial class AdminWindow : Window
-    {
-        public AdminWindow()
-        {
+    public partial class UserAnalytics : UserControl {
+        public UserAnalytics() {
             InitializeComponent();
         }
     }

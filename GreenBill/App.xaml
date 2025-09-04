@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:GreenBill"
              xmlns:view="clr-namespace:GreenBill.MVVM.View"
+             xmlns:adminView="clr-namespace:GreenBill.MVVM.View.Admin"
              xmlns:stepsView="clr-namespace:GreenBill.MVVM.View.FundraisingSteps"
              xmlns:helpers="clr-namespace:GreenBill.Helpers"
              xmlns:converters="clr-namespace:GreenBill.Converters"
-            xmlns:viewModel="clr-namespace:GreenBill.MVVM.ViewModel">
+            xmlns:viewModel="clr-namespace:GreenBill.MVVM.ViewModel"
+            xmlns:adminViewModel="clr-namespace:GreenBill.MVVM.ViewModel.Admin">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -52,6 +54,10 @@
 
             <DataTemplate DataType="{x:Type viewModel:CampaignDetailsViewModel}">
                 <view:CampaignDetails/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type adminViewModel:AdminDashboardViewModel}">
+                <adminView:AdminDashboard />
             </DataTemplate>
 
 

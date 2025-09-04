@@ -11,6 +11,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using GreenBill.IServices;
+using GreenBill.MVVM.View.Admin;
+using GreenBill.MVVM.ViewModel.Admin;
 
 namespace GreenBill
 {
@@ -31,6 +33,10 @@ namespace GreenBill
                 DataContext = provider.GetRequiredService<MainWindowViewModel>()
             });
 
+            services.AddSingleton<AdminWindow>(provider => new AdminWindow {
+                DataContext = provider.GetRequiredService<AdminWindowViewModel>()
+            });
+
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<SigninViewModel>();
             services.AddTransient<HomePageViewModel>();
@@ -40,6 +46,8 @@ namespace GreenBill
             services.AddSingleton<UserCampaignsViewModel>();
             services.AddSingleton<CampaignAnalyticsViewModel>();
             services.AddSingleton<CampaignDetailsViewModel>();
+            services.AddSingleton<AdminDashboardViewModel>();
+            services.AddSingleton<AdminWindowViewModel>();
 
             services.AddSingleton<INavigationService, NavigationService>();
             services.AddSingleton<ICampaignService, CampaignService>();
@@ -62,7 +70,7 @@ namespace GreenBill
 
             CheckSavedSession();
 
-            var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+            var mainWindow = serviceProvider.GetRequiredService<AdminWindow>();
             mainWindow.Show();
         }
 

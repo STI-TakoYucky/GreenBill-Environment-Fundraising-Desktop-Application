@@ -1,4 +1,5 @@
 ﻿using GreenBill.MVVM.ViewModel;
+using GreenBill.MVVM.ViewModel.Admin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GreenBill
+namespace GreenBill.MVVM.View.Admin
 {
     /// <summary>
     /// Interaction logic for AdminDashboard.xaml
@@ -25,11 +26,6 @@ namespace GreenBill
         {
             InitializeComponent();
             DataContext = new AdminDashboardViewModel();
-        }
-
-        private void InitializeComponent()
-        {
-            throw new NotImplementedException();
         }
     }
 }

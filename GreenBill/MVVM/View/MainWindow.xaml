@@ -71,7 +71,7 @@ Background="Transparent">
                     <!-- Dropdown Menu -->
                     <Button.ContextMenu>
                         <ContextMenu x:Name="ProfileMenu">
-                            <MenuItem Header="Dashboard" Command="{Binding GoToDashboard}" />
+                            <MenuItem Header="My Campaigns" Command="{Binding GoToDashboard}" />
                             <MenuItem Header="Logout" Command="{Binding LogoutCommand}" />
                         </ContextMenu>
                     </Button.ContextMenu>

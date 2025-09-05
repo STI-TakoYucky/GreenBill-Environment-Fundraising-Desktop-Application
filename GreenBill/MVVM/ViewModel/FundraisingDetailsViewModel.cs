@@ -9,7 +9,7 @@ namespace GreenBill.MVVM.ViewModel
     {
         private INavigationService _navigationService;
 
-        private ICampaignService _campaignService;
+
         public INavigationService Navigation
         {
             get => _navigationService;
@@ -30,6 +30,7 @@ namespace GreenBill.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+        private ICampaignService _campaignService;
 
         private Campaign _selectedCampaign;
         public Campaign SelectedCampaign

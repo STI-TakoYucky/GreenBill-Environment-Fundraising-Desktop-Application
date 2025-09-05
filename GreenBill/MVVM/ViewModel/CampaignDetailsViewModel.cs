@@ -1,5 +1,8 @@
 ﻿using GreenBill.Core;
+using GreenBill.IServices;
+using GreenBill.MVVM.Model;
 using GreenBill.MVVM.View.CampaignDetailsTabs;
+using GreenBill.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,7 +15,7 @@ using System.Windows.Input;
 
 namespace GreenBill.MVVM.ViewModel
 {
-    public class CampaignDetailsViewModel : Core.ViewModel, INotifyPropertyChanged
+    public class CampaignDetailsViewModel : Core.ViewModel, INotifyPropertyChanged, INavigatableService
     {
         private UserControl _currentTabContent;
         private string _selectedTab = "DETAILS";
@@ -20,8 +23,22 @@ namespace GreenBill.MVVM.ViewModel
         private readonly Details _detailsTab = new Details();
         private readonly Donors _donorsTab = new Donors();
 
-        public CampaignDetailsViewModel()
+        private ICampaignService _campaignService;
+
+        private Campaign _selectedCampaign;
+        public Campaign SelectedCampaign
         {
+            get => _selectedCampaign;
+            set
+            {
+                _selectedCampaign = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public CampaignDetailsViewModel(ICampaignService campaignService)
+        {
+            _campaignService = campaignService;
             _currentTabContent = _detailsTab;
 
             SelectDetailsCommand = new RelayCommand(o => SelectTab("DETAILS"));
@@ -76,6 +93,13 @@ namespace GreenBill.MVVM.ViewModel
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public async void ApplyNavigationParameter(object parameter)
+        {
+            if (parameter == null) return;
+            var id = parameter.ToString();
+            SelectedCampaign = await _campaignService.GetCampaignByIdAsync(id);
         }
     }
 }

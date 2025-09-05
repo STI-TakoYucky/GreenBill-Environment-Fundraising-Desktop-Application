@@ -133,7 +133,7 @@
 
                 <!-- Campaign Info -->
                 <StackPanel Grid.Column="1" Margin="30,0,0,0" VerticalAlignment="Top">
-                    <TextBlock Text="Campaign Title" 
+                    <TextBlock Text="{Binding SelectedCampaign.Title}" 
                              FontSize="28" 
                              FontWeight="Bold" 
                              Foreground="#333333" 

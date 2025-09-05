@@ -138,6 +138,7 @@
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"/>
                         <Button Content="View All"
+                                Command="{Binding ViewMore}"
                                HorizontalAlignment="Right"
                                VerticalAlignment="Center"
                                Background="Transparent"
@@ -202,7 +203,7 @@
                                                                    HorizontalAlignment="Right"
                                                                    VerticalAlignment="Top"
                                                                    Margin="16">
-                                                                <TextBlock Text="Environment"
+                                                                <TextBlock Text="{Binding Category}"
                                                                           Foreground="#333333"
                                                                           FontWeight="Medium"
                                                                           FontSize="10"/>

@@ -39,6 +39,7 @@ namespace GreenBill.MVVM.ViewModel
 
         public ICommand NavigateToFundraisingDetails { get; }
         public ICommand LoadCampaignsCommand { get; }
+        public ICommand ViewMore { get; }
 
         public HomePageViewModel(INavigationService navService, ICampaignService campaignService)
         {
@@ -53,6 +54,8 @@ namespace GreenBill.MVVM.ViewModel
                     Navigation.NavigateTo<FundraisingDetailsViewModel>(campaign_id.ToString());
                 }
             });
+
+            ViewMore = new RelayCommand(o => Navigation.NavigateTo<CampaignsViewModel>());
 
             LoadCampaignsCommand = new RelayCommand(async o => await LoadCampaignsAsync());
 

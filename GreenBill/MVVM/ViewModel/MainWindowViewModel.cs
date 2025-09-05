@@ -67,7 +67,16 @@ namespace GreenBill.MVVM.ViewModel
             Navigation.NavigateTo<HomePageViewModel>();
 
             NavigateToSignin = new RelayCommand(o => Navigation.NavigateTo<SigninViewModel>());
-            GoToStep1 = new RelayCommand(o => Navigation.NavigateTo<FundraisingStepsViewModel>());
+            GoToStep1 = new RelayCommand(o =>
+            {
+                if (_sessionService.IsUserLoggedIn)
+                {
+                    Navigation.NavigateTo<FundraisingStepsViewModel>();
+                }else
+                {
+                    Navigation.NavigateTo<SigninViewModel>();
+                }
+            });
             GoToDashboard = new RelayCommand(o => Navigation.NavigateTo<UserCampaignsViewModel>());
             GoToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
             Logout = new RelayCommand(o => _sessionService.ClearSession());

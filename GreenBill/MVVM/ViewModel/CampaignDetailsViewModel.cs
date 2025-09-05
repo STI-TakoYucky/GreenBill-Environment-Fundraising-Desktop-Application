@@ -17,6 +17,17 @@ namespace GreenBill.MVVM.ViewModel
 {
     public class CampaignDetailsViewModel : Core.ViewModel, INotifyPropertyChanged, INavigatableService
     {
+        private INavigationService _navigationService;
+
+        public INavigationService Navigation
+        {
+            get => _navigationService;
+            set
+            {
+                _navigationService = value;
+                OnPropertyChanged();
+            }
+        }
         private UserControl _currentTabContent;
         private string _selectedTab = "DETAILS";
 
@@ -36,13 +47,15 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        public CampaignDetailsViewModel(ICampaignService campaignService)
+        public CampaignDetailsViewModel(INavigationService navService, ICampaignService campaignService)
         {
+            _navigationService = navService;
             _campaignService = campaignService;
             _currentTabContent = _detailsTab;
 
             SelectDetailsCommand = new RelayCommand(o => SelectTab("DETAILS"));
             SelectDonorsCommand = new RelayCommand(o => SelectTab("DONORS"));
+            GoBackCommand = new RelayCommand(o => Navigation.NavigateTo<UserCampaignsViewModel>());
         }
 
         public UserControl CurrentTabContent
@@ -72,6 +85,7 @@ namespace GreenBill.MVVM.ViewModel
 
         public ICommand SelectDetailsCommand { get; }
         public ICommand SelectDonorsCommand { get; }
+        public ICommand GoBackCommand { get; }
 
         private void SelectTab(string tabName)
         {

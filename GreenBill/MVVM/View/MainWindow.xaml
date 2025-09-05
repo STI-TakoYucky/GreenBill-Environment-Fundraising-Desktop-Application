@@ -72,7 +72,7 @@ Background="Transparent">
                     <Button.ContextMenu>
                         <ContextMenu x:Name="ProfileMenu">
                             <MenuItem Header="My Campaigns" Command="{Binding GoToDashboard}" />
-                            <MenuItem Header="Logout" Command="{Binding LogoutCommand}" />
+                            <MenuItem Header="Logout" Command="{Binding Logout}" />
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>

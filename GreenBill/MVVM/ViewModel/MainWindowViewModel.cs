@@ -14,6 +14,7 @@ namespace GreenBill.MVVM.ViewModel
     {
         private bool _showNavigation = true;
         private bool _isUserLoggedIn;
+        private IUserSessionService _sessionService;
 
         public bool IsUserLoggedIn
         {
@@ -52,20 +53,24 @@ namespace GreenBill.MVVM.ViewModel
         public ICommand GoToDashboard { get; }
         public ICommand GoToHome { get; }
 
+        public ICommand Logout { get; }
+
 
         public MainWindowViewModel() { }
 
         
 
-        public MainWindowViewModel(INavigationService navService)
+        public MainWindowViewModel(INavigationService navService, IUserSessionService sessionService)
         {
             Navigation = navService;
+            _sessionService = sessionService;
             Navigation.NavigateTo<HomePageViewModel>();
 
             NavigateToSignin = new RelayCommand(o => Navigation.NavigateTo<SigninViewModel>());
             GoToStep1 = new RelayCommand(o => Navigation.NavigateTo<FundraisingStepsViewModel>());
             GoToDashboard = new RelayCommand(o => Navigation.NavigateTo<UserCampaignsViewModel>());
             GoToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
+            Logout = new RelayCommand(o => _sessionService.ClearSession());
 
 
         }

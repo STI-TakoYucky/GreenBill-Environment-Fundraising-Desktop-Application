@@ -27,6 +27,14 @@ namespace GreenBill.Services
             return await _collection.Find(_ => true).ToListAsync();
         }
 
+
+        public async Task<List<Campaign>> GetAllCampaignsByIdAsync(ObjectId id)
+        {
+            return await _collection
+                .Find(c => c.UserId == id)
+                .ToListAsync();
+        }
+
         public async Task<Campaign> GetCampaignByIdAsync(string id)
         {
             var objectId = ObjectId.Parse(id);

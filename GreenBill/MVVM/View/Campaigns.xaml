@@ -9,6 +9,70 @@
              Background="#F5F5F5">
 
     <UserControl.Resources>
+
+            <!-- Modern Card Style -->
+            <Style x:Key="ModernCard" TargetType="Border">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="CornerRadius" Value="16"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="Black" 
+                                BlurRadius="20" 
+                                Opacity="0.08" 
+                                ShadowDepth="0"/>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="Black" 
+                                        BlurRadius="30" 
+                                        Opacity="0.15" 
+                                        ShadowDepth="5"/>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Gradient Button Style -->
+            <Style x:Key="GradientButton" TargetType="Button">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="Padding" Value="24,12"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Background" Value="#00BCD4"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                            CornerRadius="25">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#0097A7"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Modern ComboBox Style -->
+            <Style x:Key="ModernComboBox" TargetType="ComboBox">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderBrush" Value="#E0E0E0"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="Padding" Value="16,12"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="Medium"/>
+            </Style>
+
         <!-- Card Style -->
         <Style x:Key="CampaignCardStyle" TargetType="Border">
             <Setter Property="Background" Value="White"/>
@@ -127,7 +191,8 @@
                          VerticalAlignment="Center" 
                          Margin="0,0,20,0"
                          GotFocus="SearchTextBox_GotFocus"
-                         LostFocus="SearchTextBox_LostFocus"/>
+                         LostFocus="SearchTextBox_LostFocus"
+                         TextChanged="SearchTextBox_TextChanged"/>
             </Grid>
         </Border>
 
@@ -155,241 +220,128 @@
                       VerticalScrollBarVisibility="Auto" 
                       HorizontalScrollBarVisibility="Disabled"
                       Margin="100,0,100,20">
-            <UniformGrid Name="CampaignsGrid" 
-                         Columns="2" 
-                         Margin="10">
 
-                <!-- Campaign Card 1 -->
-                <Border Style="{StaticResource CampaignCardStyle}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="200"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+            <ItemsControl ItemsSource="{Binding Campaigns}" Margin="10">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-                        <!-- Image Placeholder -->
-                        <Border Grid.Row="0" 
-                                Background="#E0E0E0" 
-                                CornerRadius="8,8,0,0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <!-- Campaign Card -->
+                        <Border Style="{StaticResource ModernCard}"
+        Height="320"
+        Margin="15">
                             <Grid>
-                                <Rectangle Fill="#CCCCCC" Opacity="0.5"/>
-                                <TextBlock Text="📸" 
-                                           FontSize="48" 
-                                           HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center" 
-                                           Foreground="#999999"/>
-                                <!-- Overlay images simulation -->
-                                <StackPanel Orientation="Horizontal" 
-                                           HorizontalAlignment="Left" 
-                                           VerticalAlignment="Top" 
-                                           Margin="10">
-                                    <Border Width="40" Height="40" 
-                                           Background="#FF6B6B" 
-                                           CornerRadius="20" 
-                                           Margin="2"/>
-                                    <Border Width="40" Height="40" 
-                                           Background="#4ECDC4" 
-                                           CornerRadius="20" 
-                                           Margin="2"/>
-                                    <Border Width="40" Height="40" 
-                                           Background="#45B7D1" 
-                                           CornerRadius="20" 
-                                           Margin="2"/>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="180"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- Image Area -->
+                                <Button Grid.Row="0"
+                Background="#F5F5F5"
+                Command="{Binding DataContext.NavigateToFundraisingDetails, 
+                         RelativeSource={RelativeSource AncestorType=UserControl}}"
+                CommandParameter="{Binding Id}"
+                BorderThickness="0"
+                Cursor="Hand">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border CornerRadius="16,16,0,0"
+                            Background="{TemplateBinding Background}">
+                                                <Grid>
+                                                    <Image Source="{Binding Image, Converter={StaticResource ImageConverter}}"
+                                   Stretch="UniformToFill"/>
+
+                                                    <!-- Donation Badge -->
+                                                    <Border Background="#00BCD4"
+                                    CornerRadius="15"
+                                    Padding="12,6"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Bottom"
+                                    Margin="16">
+                                                        <TextBlock Text="975 donations"
+                                           Foreground="White"
+                                           FontWeight="SemiBold"
+                                           FontSize="11"/>
+                                                    </Border>
+
+                                                    <!-- Category Tag -->
+                                                    <Border Background="White"
+                                    CornerRadius="12"
+                                    Padding="8,4"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Margin="16">
+                                                        <TextBlock Text="{Binding Category}"
+                                           Foreground="#333333"
+                                           FontWeight="Medium"
+                                           FontSize="10"/>
+                                                    </Border>
+                                                </Grid>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                                <!-- Content Area -->
+                                <StackPanel Grid.Row="1" 
+                    Margin="20,16,20,20">
+                                    <TextBlock Text="{Binding Title}"
+                       FontWeight="SemiBold"
+                       FontSize="16"
+                       FontFamily="./Assets/Fonts/#Poppins"
+                       TextWrapping="Wrap"
+                       Foreground="#333333"
+                       Margin="0,0,0,12"/>
+
+                                    <!-- Progress Section -->
+                                    <Grid Margin="0,0,0,8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0"
+                           Text="$45,555 raised"
+                           FontWeight="Bold"
+                           FontSize="14"
+                           Foreground="#333333"
+                           VerticalAlignment="Center"/>
+
+                                        <TextBlock Grid.Column="1"
+                           Text="75% funded"
+                           FontSize="12"
+                           Foreground="#4CAF50"
+                           FontWeight="Medium"
+                           VerticalAlignment="Center"/>
+                                    </Grid>
+
+                                    <!-- Progress Bar -->
+                                    <Border Background="#F0F0F0"
+                    CornerRadius="10"
+                    Height="8">
+                                        <Border Background="#4CAF50"
+                        CornerRadius="10"
+                        HorizontalAlignment="Left"
+                        Width="200"/>
+                                    </Border>
+
+                                    <!-- Time Remaining -->
+                                    <TextBlock Text="12 days left"
+                       FontSize="12"
+                       Foreground="#666666"
+                       Margin="0,8,0,0"/>
                                 </StackPanel>
                             </Grid>
                         </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
-                        <!-- Content -->
-                        <StackPanel Grid.Row="1" Margin="20">
-                            <TextBlock Text="18 shqipëtarë janë të këput 14 muajsh me tumor në kokë" 
-                                       FontSize="16" 
-                                       FontWeight="SemiBold" 
-                                       Foreground="#333333" 
-                                       TextWrapping="Wrap" 
-                                       Margin="0,0,0,10"/>
-
-                            <TextBlock Text="$43,901 raised" 
-                                       FontSize="14" 
-                                       FontWeight="SemiBold" 
-                                       Foreground="#333333" 
-                                       Margin="0,0,0,5"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-
-                <!-- Campaign Card 2 -->
-                <Border Style="{StaticResource CampaignCardStyle}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="200"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0" 
-                                Background="#E0E0E0" 
-                                CornerRadius="8,8,0,0">
-                            <Grid>
-                                <Rectangle Fill="#CCCCCC" Opacity="0.5"/>
-                                <TextBlock Text="👩" 
-                                           FontSize="48" 
-                                           HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center" 
-                                           Foreground="#999999"/>
-                            </Grid>
-                        </Border>
-
-                        <StackPanel Grid.Row="1" Margin="20">
-                            <TextBlock Text="Support Sophie, and the Forchas Family recover" 
-                                       FontSize="16" 
-                                       FontWeight="SemiBold" 
-                                       Foreground="#333333" 
-                                       TextWrapping="Wrap" 
-                                       Margin="0,0,0,10"/>
-
-                            <TextBlock Text="$102,249 raised" 
-                                       FontSize="14" 
-                                       FontWeight="SemiBold" 
-                                       Foreground="#333333" 
-                                       Margin="0,0,0,5"/>
-
-                            <ProgressBar Style="{StaticResource CampaignProgressStyle}" 
-                                        Value="75" 
-                                        Maximum="100" 
-                                        Margin="0,5,0,0"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-
-                <!-- Campaign Card 3 -->
-                <Border Style="{StaticResource CampaignCardStyle}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="200"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0" 
-                                Background="#E0E0E0" 
-                                CornerRadius="8,8,0,0">
-                            <Grid>
-                                <Rectangle Fill="#4CAF50" Opacity="0.7"/>
-                                <TextBlock Text="🏠" 
-                                           FontSize="48" 
-                                           HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center" 
-                                           Foreground="White"/>
-                            </Grid>
-                        </Border>
-
-                        <StackPanel Grid.Row="1" Margin="20">
-                            <TextBlock Text="Support Dikeshi's family After Tragic Drowning Accident" 
-                                       FontSize="16" 
-                                       FontWeight="SemiBold" 
-                                       Foreground="#333333" 
-                                       TextWrapping="Wrap" 
-                                       Margin="0,0,0,10"/>
-
-                            <TextBlock Text="$341,902 raised" 
-                                       FontSize="14" 
-                                       FontWeight="SemiBold" 
-                                       Foreground="#333333" 
-                                       Margin="0,0,0,5"/>
-
-                            <ProgressBar Style="{StaticResource CampaignProgressStyle}" 
-                                        Value="85" 
-                                        Maximum="100" 
-                                        Margin="0,5,0,0"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-
-                <!-- Campaign Card 4 -->
-                <Border Style="{StaticResource CampaignCardStyle}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="200"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0" 
-                                Background="#E0E0E0" 
-                                CornerRadius="8,8,0,0">
-                            <Grid>
-                                <Rectangle Fill="#2196F3" Opacity="0.7"/>
-                                <TextBlock Text="🌍" 
-                                           FontSize="48" 
-                                           HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center" 
-                                           Foreground="White"/>
-                            </Grid>
-                        </Border>
-
-                        <StackPanel Grid.Row="1" Margin="20">
-                            <TextBlock Text="Hot meals 4 Starved Palestinian Kids in north Gaza" 
-                                       FontSize="16" 
-                                       FontWeight="SemiBold" 
-                                       Foreground="#333333" 
-                                       TextWrapping="Wrap" 
-                                       Margin="0,0,0,10"/>
-
-                            <TextBlock Text="$1,347,170 raised" 
-                                       FontSize="14" 
-                                       FontWeight="SemiBold" 
-                                       Foreground="#333333" 
-                                       Margin="0,0,0,5"/>
-
-                            <ProgressBar Style="{StaticResource CampaignProgressStyle}" 
-                                        Value="90" 
-                                        Maximum="100" 
-                                        Margin="0,5,0,0"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-
-                <!-- Campaign Card 5 -->
-                <Border Style="{StaticResource CampaignCardStyle}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="200"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <Border Grid.Row="0" 
-                                Background="#E0E0E0" 
-                                CornerRadius="8,8,0,0">
-                            <Grid>
-                                <Rectangle Fill="#FF9800" Opacity="0.7"/>
-                                <TextBlock Text="👨‍👩‍👧‍👦" 
-                                           FontSize="36" 
-                                           HorizontalAlignment="Center" 
-                                           VerticalAlignment="Center" 
-                                           Foreground="White"/>
-                            </Grid>
-                        </Border>
-
-                        <StackPanel Grid.Row="1" Margin="20">
-                            <TextBlock Text="Hope and Faith 4 Armani and Family" 
-                                       FontSize="16" 
-                                       FontWeight="SemiBold" 
-                                       Foreground="#333333" 
-                                       TextWrapping="Wrap" 
-                                       Margin="0,0,0,10"/>
-
-                            <TextBlock Text="$1,077,502 raised" 
-                                       FontSize="14" 
-                                       FontWeight="SemiBold" 
-                                       Foreground="#333333" 
-                                       Margin="0,0,0,5"/>
-
-                            <ProgressBar Style="{StaticResource CampaignProgressStyle}" 
-                                        Value="95" 
-                                        Maximum="100" 
-                                        Margin="0,5,0,0"/>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-
-            </UniformGrid>
         </ScrollViewer>
     </Grid>
 </UserControl>

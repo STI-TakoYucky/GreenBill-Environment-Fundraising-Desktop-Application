@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using GreenBill.MVVM.ViewModel;
 
 namespace GreenBill.MVVM.View
 {
@@ -39,18 +40,24 @@ namespace GreenBill.MVVM.View
             }
         }
 
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox != null && DataContext is CampaignsViewModel viewModel)
+            {
+                string searchText = textBox.Text == SearchPlaceholder ? string.Empty : textBox.Text;
+                viewModel.SearchCommand?.Execute(searchText);
+            }
+        }
+
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
             var clickedButton = sender as Button;
             if (clickedButton == null) return;
 
-            // Reset all buttons to inactive style
             ResetFilterButtons();
-
-            // Set clicked button to active style
             SetActiveFilterButton(clickedButton);
 
-            // Handle filter logic here
             string filterType = clickedButton.Name.Replace("Button", "");
             ApplyFilter(filterType);
         }
@@ -58,7 +65,6 @@ namespace GreenBill.MVVM.View
         private void ResetFilterButtons()
         {
             var inactiveStyle = (Style)FindResource("FilterButtonStyle");
-
             TrendingButton.Style = inactiveStyle;
             NearYouButton.Style = inactiveStyle;
             NonprofitsButton.Style = inactiveStyle;
@@ -72,18 +78,21 @@ namespace GreenBill.MVVM.View
 
         private void ApplyFilter(string filterType)
         {
-            // This method can be expanded to filter the campaigns based on the selected filter
-            // For now, it's just a placeholder for the filtering logic
+            if (DataContext is CampaignsViewModel viewModel)
+            {
+                viewModel.ApplyFilterCommand?.Execute(filterType);
+            }
+
             switch (filterType.ToLower())
             {
                 case "trending":
-                    // Apply trending filter logic
+                    // Additional UI-specific logic if needed
                     break;
                 case "nearyou":
-                    // Apply near you filter logic
+                    // Additional UI-specific logic if needed
                     break;
                 case "nonprofits":
-                    // Apply nonprofits filter logic
+                    // Additional UI-specific logic if needed
                     break;
                 default:
                     break;
@@ -91,7 +100,6 @@ namespace GreenBill.MVVM.View
         }
     }
 
-    // Converter for progress bar width calculation
     public class PercentageToWidthConverter : IValueConverter
     {
         public static readonly PercentageToWidthConverter Instance = new PercentageToWidthConverter();

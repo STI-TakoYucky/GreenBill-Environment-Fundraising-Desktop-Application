@@ -135,7 +135,6 @@ namespace GreenBill.MVVM.ViewModel
         {
             var filteredList = _allCampaigns.AsEnumerable();
 
-            // Apply search filter
             if (!string.IsNullOrWhiteSpace(SearchText))
             {
                 string searchLower = SearchText.ToLower();
@@ -162,7 +161,6 @@ namespace GreenBill.MVVM.ViewModel
                     break;
             }
 
-            // Update the Campaigns collection
             Campaigns.Clear();
             foreach (var campaign in filteredList)
             {

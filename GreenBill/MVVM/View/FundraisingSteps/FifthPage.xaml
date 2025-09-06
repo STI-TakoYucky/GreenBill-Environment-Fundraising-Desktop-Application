@@ -125,14 +125,14 @@
                                 <Border Height="200"
                                         Background="LightGray"
                                         CornerRadius="8,8,0,0">
-                                    <Image Source="/Assets/Images/pollutedwater.jpg"
+                                    <Image Source="{Binding Image, Converter={StaticResource ImageConverter}}"
                                            Stretch="UniformToFill"/>
                                 </Border>
 
                                 <!-- Fundraiser Content -->
                                 <StackPanel>
                                     <!-- Title -->
-                                    <TextBlock Text="Help The Comet's Get The Gear They Need"
+                                    <TextBlock Text="{Binding Title}"
                                                FontSize="24"
                                                FontWeight="Bold"
                                                Foreground="#333333"
@@ -142,7 +142,7 @@
                                     <!-- Goal Amount -->
                                     <StackPanel Orientation="Horizontal" 
                                                 Margin="0,0,0,20">
-                                        <TextBlock Text="$1,000"
+                                        <TextBlock Text="{Binding DonationGoal}"
                                                    FontSize="18"
                                                    FontWeight="SemiBold"
                                                    Foreground="#333333"/>
@@ -160,7 +160,7 @@
                                             Margin="0,0,0,20"/>
 
                                     <!-- Sample Story Preview -->
-                                    <TextBlock Text="Hi, my name is Sarah and I'm fundraising for our local youth soccer team, The Comets. These amazing kids have been working so hard this season..."
+                                    <TextBlock Text="{Binding Description}"
                                                FontSize="14"
                                                Foreground="#666666"
                                                TextWrapping="Wrap"

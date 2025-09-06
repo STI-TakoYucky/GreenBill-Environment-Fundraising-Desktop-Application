@@ -52,7 +52,7 @@ namespace GreenBill.Services
 
         public void NavigateTo<TViewModel>(object parameter) where TViewModel : ViewModel
         {
-            // Store current view in history before navigating (if there is one)
+
             if (_currentView != null)
             {
                 _navigationHistory.Push(new NavigationEntry
@@ -62,7 +62,6 @@ namespace GreenBill.Services
                 });
             }
 
-            // Create and navigate to new view
             ViewModel viewModel = viewModelFactory.Invoke(typeof(TViewModel));
 
             if (viewModel is INavigatableService navigatableVm && parameter != null)
@@ -80,7 +79,6 @@ namespace GreenBill.Services
 
             var previousEntry = _navigationHistory.Pop();
 
-            // Create the previous view model without adding to history
             ViewModel viewModel = viewModelFactory.Invoke(previousEntry.ViewModelType);
 
             if (viewModel is INavigatableService navigatableVm && previousEntry.Parameter != null)
@@ -108,21 +106,15 @@ namespace GreenBill.Services
 
         private object GetCurrentViewParameter()
         {
-            // This method can be extended to extract relevant parameters from current view
-            // For now, we'll return null, but you can implement logic to preserve state
-            // For example, if current view is FundraisingDetailsViewModel, return the CampaignId
 
             if (_currentView is FundraisingDetailsViewModel fundraisingVm)
             {
                 return fundraisingVm.CampaignId;
             }
 
-            // Add more cases as needed for other ViewModels that have parameters
             return null;
         }
     }
-
-    // Helper class to store navigation history entries
     internal class NavigationEntry
     {
         public Type ViewModelType { get; set; }

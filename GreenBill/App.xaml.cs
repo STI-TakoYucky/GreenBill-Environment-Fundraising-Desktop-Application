@@ -77,7 +77,7 @@ namespace GreenBill
 
             CheckSavedSession();
 
-            var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+            var mainWindow = serviceProvider.GetRequiredService<AdminWindow>();
             mainWindow.Show();
         }
 

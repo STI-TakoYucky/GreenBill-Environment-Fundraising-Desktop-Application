@@ -7,8 +7,13 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
     public class Campaign {
         public int CampaignID { get; set; }
+        public int UserID { get; set; }
         public string Title { get; set; }
-        public string Organizer { get; set; }
+        public string Description { get; set; }
+        public string TargetDonation { get; set; }
+        public string AccumulatedDonation { get; set; }
+        public string Status { get; set; }
+        public bool Verified { get; set; }
         public DateTime DateSubmitted { get; set; }
     }
     public class AdminDashboardViewModel : Core.ViewModel, INavigationAware {
@@ -24,28 +29,11 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             Campaigns.Add(new Campaign {
                 CampaignID = 1,
                 Title = "Charity Run",
-                Organizer = "John Doe",
-                DateSubmitted = DateTime.Now
-            });
-
-            Campaigns.Add(new Campaign {
-                CampaignID = 1,
-                Title = "Charity Run",
-                Organizer = "John Doe",
-                DateSubmitted = DateTime.Now
-            });
-
-            Campaigns.Add(new Campaign {
-                CampaignID = 1,
-                Title = "Charity Run",
-                Organizer = "John Doe",
-                DateSubmitted = DateTime.Now
-            });
-
-            Campaigns.Add(new Campaign {
-                CampaignID = 1,
-                Title = "Charity Run",
-                Organizer = "John Doe",
+                Description = "A charity run for climate change",
+                TargetDonation = "1000PHP",
+                AccumulatedDonation = "200PHP",
+                Status = "Ongoing",
+                Verified = true,
                 DateSubmitted = DateTime.Now
             });
 

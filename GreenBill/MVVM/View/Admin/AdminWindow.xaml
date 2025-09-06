@@ -148,7 +148,10 @@
                     RadiusX="1"
                     RadiusY="1" />
 
-                <ContentControl Grid.Row="1" Content="{Binding Navigation.CurrentView}" />
+                <ContentControl
+                    Grid.Row="1"
+                    Background="Transparent"
+                    Content="{Binding Navigation.CurrentView}" />
             </Grid>
         </Border>
 

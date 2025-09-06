@@ -48,7 +48,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
         public AdminWindowViewModel(INavigationService navService) {
             Navigation = navService;
-            Navigation.NavigateTo<HomePageViewModel>();
+            Navigation.NavigateTo<AdminDashboardViewModel>();
             NavigateToDashboard = new RelayCommand(o => Navigation.NavigateTo<AdminDashboardViewModel>());
             NavigateToUserAnalytics = new RelayCommand(o => Navigation.NavigateTo<UserAnalyticsViewModel>());
             NavigateToAdminCampaignAnalytics = new RelayCommand(o => Navigation.NavigateTo<AdminCampaignAnalyticsViewModel>());

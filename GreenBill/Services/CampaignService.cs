@@ -13,14 +13,13 @@ namespace GreenBill.Services
     public class CampaignService : ICampaignService
     {
         private readonly IMongoCollection<Campaign> _collection;
-        private readonly IUserService _userService;
-        public CampaignService(IUserService userService)
+
+        public CampaignService()
         {
             string connectionString = "mongodb://localhost:27017";
             var client = new MongoClient(connectionString);
             var database = client.GetDatabase("GreenBill");
             _collection = database.GetCollection<Campaign>("Campaigns");
-            _userService = userService;
         }
 
         public async Task<List<Campaign>> GetAllCampaignsAsync()

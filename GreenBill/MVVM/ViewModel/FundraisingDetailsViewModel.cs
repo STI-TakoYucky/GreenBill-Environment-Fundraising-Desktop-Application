@@ -43,7 +43,7 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        public ICommand NavigateToHome { get; set; }
+        public ICommand NavigateBack { get; set; }
 
         public FundraisingDetailsViewModel(INavigationService navService, ICampaignService campaignService)
         {
@@ -54,7 +54,7 @@ namespace GreenBill.MVVM.ViewModel
 
         public void InitializeCommands()
         {
-            NavigateToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
+            NavigateBack = new RelayCommand(o => Navigation.NavigateBack(), o => Navigation.CanNavigateBack);
         }
         public async void ApplyNavigationParameter(object parameter)
         {

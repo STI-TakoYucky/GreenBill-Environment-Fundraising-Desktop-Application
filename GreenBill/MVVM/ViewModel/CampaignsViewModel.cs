@@ -78,6 +78,7 @@ namespace GreenBill.MVVM.ViewModel
         public ICommand LoadCampaignsCommand { get; }
         public ICommand SearchCommand { get; }
         public ICommand ApplyFilterCommand { get; }
+        public ICommand NavigateToCampaignDetails { get; }
 
         public CampaignsViewModel(INavigationService navService, ICampaignService campaignService)
         {
@@ -92,6 +93,7 @@ namespace GreenBill.MVVM.ViewModel
             SearchCommand = new RelayCommand(o => PerformSearch(o?.ToString()));
             ApplyFilterCommand = new RelayCommand(o => ApplyFilter(o?.ToString()));
 
+            NavigateToCampaignDetails = new RelayCommand(campaign_id => Navigation.NavigateTo<FundraisingDetailsViewModel>(campaign_id.ToString()));
             _ = LoadCampaignsAsync();
         }
 
@@ -126,6 +128,8 @@ namespace GreenBill.MVVM.ViewModel
         {
             CurrentFilter = filterType?.ToLower() ?? "trending";
         }
+
+
 
         private void ApplySearchAndFilter()
         {

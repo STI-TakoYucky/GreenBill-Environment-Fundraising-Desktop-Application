@@ -15,7 +15,7 @@
         <!-- Back Button -->
         <Button x:Name="BackButton"
             Content="← Back"
-            Command="{Binding NavigateToHome}"
+            Command="{Binding NavigateBack}"
             Style="{StaticResource SecondaryButton}"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"

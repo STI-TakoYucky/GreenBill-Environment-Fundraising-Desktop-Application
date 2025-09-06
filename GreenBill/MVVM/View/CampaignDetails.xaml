@@ -172,12 +172,7 @@
 
                 <!-- Campaign Image -->
                 <Border Grid.Column="0" Background="#E8E8E8" CornerRadius="12" Height="200">
-                    <TextBlock Text="IMAGE" 
-                             FontSize="24" 
-                             FontWeight="Bold" 
-                             Foreground="#999999"
-                             HorizontalAlignment="Center" 
-                             VerticalAlignment="Center"/>
+                    <Image Source="{Binding SelectedCampaign.Image, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill"/>
                 </Border>
 
                 <!-- Campaign Info -->
@@ -268,6 +263,32 @@
                                                         Padding="{TemplateBinding Padding}">
                                                     <ContentPresenter HorizontalAlignment="Center" 
                                                                     VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Foreground" Value="#4CAF50"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <Button Content="UPDATES" 
+          Command="{Binding SelectUpdatesCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource TabButtonStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsUpdatesSelected}" Value="True">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                          BorderBrush="#4CAF50"
+                                          BorderThickness="0,0,0,2"
+                                          Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                      VerticalAlignment="Center"/>
                                                 </Border>
                                             </ControlTemplate>
                                         </Setter.Value>

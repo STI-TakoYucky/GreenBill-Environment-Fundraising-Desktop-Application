@@ -33,6 +33,7 @@ namespace GreenBill.MVVM.ViewModel
 
         private readonly Details _detailsTab = new Details();
         private readonly Donors _donorsTab = new Donors();
+        private readonly Updates _updatesTab = new Updates();
 
         private ICampaignService _campaignService;
 
@@ -55,6 +56,7 @@ namespace GreenBill.MVVM.ViewModel
 
             SelectDetailsCommand = new RelayCommand(o => SelectTab("DETAILS"));
             SelectDonorsCommand = new RelayCommand(o => SelectTab("DONORS"));
+            SelectUpdatesCommand = new RelayCommand(o => SelectTab("UPDATES"));
             GoBackCommand = new RelayCommand(o => Navigation.NavigateTo<UserCampaignsViewModel>());
         }
 
@@ -77,13 +79,16 @@ namespace GreenBill.MVVM.ViewModel
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(IsDetailsSelected));
                 OnPropertyChanged(nameof(IsDonorsSelected));
+                OnPropertyChanged(nameof(IsUpdatesSelected));
             }
         }
 
         public bool IsDetailsSelected => SelectedTab == "DETAILS";
         public bool IsDonorsSelected => SelectedTab == "DONORS";
+        public bool IsUpdatesSelected => SelectedTab == "UPDATES";
 
         public ICommand SelectDetailsCommand { get; }
+        public ICommand SelectUpdatesCommand { get; }
         public ICommand SelectDonorsCommand { get; }
         public ICommand GoBackCommand { get; }
 
@@ -98,6 +103,9 @@ namespace GreenBill.MVVM.ViewModel
                     break;
                 case "DONORS":
                     CurrentTabContent = _donorsTab;
+                    break;
+                case "UPDATES":
+                    CurrentTabContent = _updatesTab;
                     break;
             }
         }

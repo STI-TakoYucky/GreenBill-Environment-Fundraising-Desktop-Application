@@ -1,102 +1,114 @@
-<Application x:Class="GreenBill.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:GreenBill"
-             xmlns:view="clr-namespace:GreenBill.MVVM.View"
-             xmlns:adminView="clr-namespace:GreenBill.MVVM.View.Admin"
-             xmlns:stepsView="clr-namespace:GreenBill.MVVM.View.FundraisingSteps"
-             xmlns:helpers="clr-namespace:GreenBill.Helpers"
-             xmlns:converters="clr-namespace:GreenBill.Converters"
-            xmlns:viewModel="clr-namespace:GreenBill.MVVM.ViewModel"
-            xmlns:adminViewModel="clr-namespace:GreenBill.MVVM.ViewModel.Admin">
+<Application
+    x:Class="GreenBill.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:adminView="clr-namespace:GreenBill.MVVM.View.Admin"
+    xmlns:adminViewModel="clr-namespace:GreenBill.MVVM.ViewModel.Admin"
+    xmlns:converters="clr-namespace:GreenBill.Converters"
+    xmlns:helpers="clr-namespace:GreenBill.Helpers"
+    xmlns:local="clr-namespace:GreenBill"
+    xmlns:stepsView="clr-namespace:GreenBill.MVVM.View.FundraisingSteps"
+    xmlns:view="clr-namespace:GreenBill.MVVM.View"
+    xmlns:viewModel="clr-namespace:GreenBill.MVVM.ViewModel">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Styles/Buttons.xaml"/>
-                <ResourceDictionary Source="/Styles/ComboBox.xaml"/>
-                <ResourceDictionary Source="/Styles/ComboBoxItem.xaml"/>
-                <ResourceDictionary Source="/Styles/CategoryButton.xaml"/>
+                <ResourceDictionary Source="/Styles/Buttons.xaml" />
+                <ResourceDictionary Source="/Styles/ComboBox.xaml" />
+                <ResourceDictionary Source="/Styles/ComboBoxItem.xaml" />
+                <ResourceDictionary Source="/Styles/CategoryButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-            <converters:StepVisibilityConverter x:Key="StepVisibilityConverter"/>
-            <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
-            <converters:ByteArrayToImageConverter x:Key="ImageConverter"/>
-            <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter"/>
-            <converters:StatusToColorValueConverter x:Key="StatusToColorValueConverter"/>
-            <converters:ProgressWidthValueConverter x:Key="ProgressWidthValueConverter"/>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:StepVisibilityConverter x:Key="StepVisibilityConverter" />
+            <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+            <converters:ByteArrayToImageConverter x:Key="ImageConverter" />
+            <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+            <converters:StatusToColorValueConverter x:Key="StatusToColorValueConverter" />
+            <converters:ProgressWidthValueConverter x:Key="ProgressWidthValueConverter" />
 
             <DataTemplate DataType="{x:Type viewModel:FundraisingStepsViewModel}">
-                <stepsView:FundraisingStepsContainer/>
-            </DataTemplate>                                                     
+                <stepsView:FundraisingStepsContainer />
+            </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:SigninViewModel}">
-                <view:Signin/>
+                <view:Signin />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:SignupViewModel}">
-                <view:Signup/>
+                <view:Signup />
             </DataTemplate>
-            
+
             <DataTemplate DataType="{x:Type viewModel:HomePageViewModel}">
-                <view:HomePage/>
+                <view:HomePage />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:FundraisingDetailsViewModel}">
-                <view:FundraisingDetails/>
+                <view:FundraisingDetails />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:UserCampaignsViewModel}">
-                <view:UserCampaigns/>
+                <view:UserCampaigns />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:CampaignAnalyticsViewModel}">
-                <view:CampaignAnalytics/>
+                <view:CampaignAnalytics />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:CampaignDetailsViewModel}">
-                <view:CampaignDetails/>
+                <view:CampaignDetails />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type adminViewModel:AdminDashboardViewModel}">
                 <adminView:AdminDashboard />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type adminViewModel:UserAnalyticsViewModel}">
+                <adminView:UserAnalytics />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type adminViewModel:AdminCampaignAnalyticsViewModel}">
+                <adminView:AdminCampaignAnalytics />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type adminViewModel:SettingsViewModel}">
+                <adminView:Settings />
+            </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:CampaignsViewModel}">
-                <view:Campaigns/>
+                <view:Campaigns />
             </DataTemplate>
 
             <Style TargetType="TextBlock">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
             </Style>
 
             <Style TargetType="TextBox">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
             </Style>
 
             <Style TargetType="PasswordBox">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
             </Style>
 
             <Style TargetType="Button">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
             </Style>
 
             <Style TargetType="Label">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
             </Style>
 
             <Style TargetType="ComboBox">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
             </Style>
 
             <Style TargetType="ListBox">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
             </Style>
 
             <Style TargetType="ListView">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins"/>
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>

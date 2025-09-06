@@ -185,8 +185,11 @@
     <Compile Include="IServices\IUserService.cs" />
     <Compile Include="MVVM\Model\Campaign.cs" />
     <Compile Include="MVVM\Model\User.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\AdminCampaignAnalyticsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminDashboardViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminWindowViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\SettingsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\UserAnalyticsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CampaignAnalyticsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CampaignDetailsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CampaignsViewModel.cs" />
@@ -197,11 +200,20 @@
     <Compile Include="MVVM\ViewModel\SigninViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SignupViewModel.cs" />
     <Compile Include="MVVM\ViewModel\UserCampaignsViewModel.cs" />
+    <Compile Include="MVVM\View\Admin\AdminCampaignAnalytics.xaml.cs">
+      <DependentUpon>AdminCampaignAnalytics.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Admin\AdminDashboard.xaml.cs">
       <DependentUpon>AdminDashboard.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Admin\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\UserAnalytics.xaml.cs">
+      <DependentUpon>UserAnalytics.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\CampaignAnalytics.xaml.cs">
       <DependentUpon>CampaignAnalytics.xaml</DependentUpon>
@@ -259,6 +271,10 @@
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserSessionService.cs" />
     <Compile Include="Validators\CampaignValidator.cs" />
+    <Page Include="MVVM\View\Admin\AdminCampaignAnalytics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Admin\AdminDashboard.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -266,6 +282,14 @@
     <Page Include="MVVM\View\Admin\AdminWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MVVM\View\Admin\Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\UserAnalytics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\CampaignAnalytics.xaml">
       <SubType>Designer</SubType>

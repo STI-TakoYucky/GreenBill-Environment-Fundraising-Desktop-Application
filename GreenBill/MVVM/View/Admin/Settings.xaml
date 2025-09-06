@@ -1,0 +1,24 @@
+﻿<UserControl
+    x:Class="GreenBill.MVVM.View.Admin.Settings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:GreenBill.MVVM.View.Admin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="900"
+    d:DesignWidth="1400"
+    Background="White"
+    mc:Ignorable="d">
+    <Grid>
+        <ScrollViewer Padding="30,0,30,0" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <TextBlock
+                    Margin="0,20,0,0"
+                    FontSize="24"
+                    FontWeight="SemiBold"
+                    Text="Settings" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
+

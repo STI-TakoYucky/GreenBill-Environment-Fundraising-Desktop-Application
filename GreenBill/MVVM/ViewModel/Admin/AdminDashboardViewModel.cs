@@ -1,5 +1,7 @@
 using GreenBill.MVVM.Model;
 using GreenBill.Services;
+using LiveCharts;
+using LiveCharts.Wpf;
 using System;
 using System.Collections.ObjectModel;
 
@@ -20,10 +22,39 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
         public ObservableCollection<Campaign> Campaigns { get; set; }
 
-        public bool ShowNavigation => true;
+        public SeriesCollection Series { get; set; }
+            = new SeriesCollection
+            {
+                new PieSeries
+                {
+                    Title = "Phase 1",
+                    Values = new ChartValues<double> { 2 },
+                    DataLabels = true
+                },
+                new PieSeries {
+                    Title = "Phase 2",
+                    Values = new ChartValues<double> { 4 },
+                    DataLabels = true
+                },
+                new PieSeries {
+                    Title = "Phase 3",
+                    Values = new ChartValues<double> { 1 },
+                    DataLabels = true
+                },
+                new PieSeries {
+                    Title = "Phase 4",
+                    Values = new ChartValues<double> { 4 },
+                    DataLabels = true
+                },
+                new PieSeries {
+                    Title = "Phase 5",
+                    Values = new ChartValues<double> { 3 },
+                    DataLabels = true
+                }
+            };
+public bool ShowNavigation => true;
 
-        public AdminDashboardViewModel()
-        {
+        public AdminDashboardViewModel() {
             Campaigns = new ObservableCollection<Campaign>();
 
             Campaigns.Add(new Campaign {

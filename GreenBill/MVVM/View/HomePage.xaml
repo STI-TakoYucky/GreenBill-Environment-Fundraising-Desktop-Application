@@ -109,24 +109,12 @@
                                   Margin="0,0,0,30"
                                   TextWrapping="Wrap"/>
 
-                     
-                        <!-- Filter Section -->
-                        <ComboBox Width="250"
-          HorizontalAlignment="Left"
-          Margin="0,0,0,30"
-          Height="40"
-          Style="{StaticResource ComboBox}"
-          ItemContainerStyle="{StaticResource ComboBoxItem}">
-                            <ComboBoxItem Content="Happening worldwide" IsSelected="True"/>
-                            <ComboBoxItem Content="Local projects"/>
-                            <ComboBoxItem Content="Emergency relief"/>
-                            <ComboBoxItem Content="Medical fundraisers"/>
-                            <ComboBoxItem Content="Environmental causes"/>
-                        </ComboBox>
+
+
                     </StackPanel>
                 </Grid>
 
-             
+
 
                 <!-- Featured Projects Section -->
                 <StackPanel Margin="80,0,80,60">

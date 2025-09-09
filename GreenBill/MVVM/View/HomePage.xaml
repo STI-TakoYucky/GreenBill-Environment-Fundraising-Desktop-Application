@@ -91,8 +91,7 @@
                     <StackPanel Margin="80,30,80,30">
                         <!-- Hero Title -->
                         <TextBlock FontWeight="Bold"
-                                  FontSize="42"
-                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  FontSize="35"
                                   Margin="0,0,0,20"
                                   TextWrapping="Wrap"
                                   Foreground="#333333">
@@ -103,8 +102,7 @@
 
                         <!-- Subtitle -->
                         <TextBlock Text="Join thousands of changemakers making a real difference in environmental conservation and sustainability"
-                                  FontSize="18"
-                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  FontSize="14"
                                   Foreground="#666666"
                                   Margin="0,0,0,30"
                                   TextWrapping="Wrap"/>
@@ -122,7 +120,6 @@
                         <TextBlock Text="Trending Projects"
                                   FontWeight="Bold"
                                   FontSize="28"
-                                  FontFamily="./Assets/Fonts/#Poppins"
                                   HorizontalAlignment="Left"
                                   VerticalAlignment="Center"/>
                         <Button Content="View All"
@@ -208,7 +205,6 @@
                                             <TextBlock Text="{Binding Title}"
                                                       FontWeight="SemiBold"
                                                       FontSize="16"
-                                                      FontFamily="./Assets/Fonts/#Poppins"
                                                       TextWrapping="Wrap"
                                                       Foreground="#333333"
                                                       Margin="0,0,0,12"/>
@@ -330,7 +326,6 @@
                                       FontWeight="Bold"
                                       FontSize="32"
                                       Foreground="White"
-                                      FontFamily="./Assets/Fonts/#Poppins"
                                       Margin="0,0,0,20"/>
 
                             <Button Style="{StaticResource GradientButton}"
@@ -348,7 +343,6 @@
                                       FontSize="18"
                                       FontWeight="Normal"
                                       Foreground="White"
-                                      FontFamily="./Assets/Fonts/#Poppins"
                                       TextWrapping="Wrap"
                                       Opacity="0.95"/>
 

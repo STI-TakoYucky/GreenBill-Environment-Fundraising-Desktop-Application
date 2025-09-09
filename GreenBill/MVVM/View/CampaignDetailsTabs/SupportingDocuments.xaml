@@ -176,46 +176,7 @@
                           LineHeight="24"/>
             </StackPanel>
 
-            <!-- Upload Progress -->
-            <Border Style="{StaticResource ModernCard}" 
-                    Margin="0,0,0,32" 
-                    Padding="24">
-                <StackPanel>
-                    <Grid Margin="0,0,0,16">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="369*"/>
-                            <ColumnDefinition Width="52*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="Upload Progress"
-                                  FontWeight="SemiBold"
-                                  FontSize="18"
-                                  Foreground="#333333" Grid.ColumnSpan="2"/>
-
-                        <TextBlock Grid.Column="1"
-                                  Text="1 of 3 uploaded"
-                                  FontSize="14"
-                                  Foreground="#666666"
-                                  VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="104,0,0,0"/>
-                    </Grid>
-
-                    <!-- Progress Bar -->
-                    <Border Background="#F0F0F0"
-                           CornerRadius="8"
-                           Height="8">
-                        <Border Background="#4CAF50"
-                               CornerRadius="8"
-                               HorizontalAlignment="Left"
-                               Width="200"/>
-                    </Border>
-
-                    <TextBlock Text="Upload all required documents to submit your campaign for review"
-                              FontSize="12"
-                              Foreground="#666666"
-                              Margin="0,8,0,0"/>
-                </StackPanel>
-            </Border>
+          
 
             <!-- Required Documents Section -->
             <Border Style="{StaticResource ModernCard}" 

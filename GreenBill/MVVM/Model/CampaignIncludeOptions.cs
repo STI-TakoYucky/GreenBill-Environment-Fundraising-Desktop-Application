@@ -9,5 +9,6 @@ namespace GreenBill.MVVM.Model
     public class CampaignIncludeOptions
     {
         public bool IncludeUser { get; set; }
+        public bool IncludeSupportingDocument { get; set; }
     }
 }

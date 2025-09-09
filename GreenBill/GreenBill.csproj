@@ -182,10 +182,11 @@
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="IServices\ICampaignService.cs" />
     <Compile Include="IServices\INavigatableService.cs" />
+    <Compile Include="IServices\ISupportingDocumentService.cs" />
     <Compile Include="IServices\IUserService.cs" />
     <Compile Include="MVVM\Model\Campaign.cs" />
     <Compile Include="MVVM\Model\CampaignIncludeOptions.cs" />
-    <Compile Include="MVVM\Model\IncludeOptions.cs" />
+    <Compile Include="MVVM\Model\SupportingDocument.cs" />
     <Compile Include="MVVM\Model\User.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminCampaignAnalyticsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminDashboardViewModel.cs" />
@@ -280,6 +281,7 @@
     <Compile Include="Services\CampaignService.cs" />
     <Compile Include="Services\ITabNavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\SupportingDocumentService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserSessionService.cs" />
     <Compile Include="Validators\CampaignValidator.cs" />

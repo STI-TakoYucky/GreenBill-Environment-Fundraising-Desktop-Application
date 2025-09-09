@@ -34,6 +34,7 @@ namespace GreenBill.MVVM.ViewModel
         private readonly Details _detailsTab = new Details();
         private readonly Donors _donorsTab = new Donors();
         private readonly Updates _updatesTab = new Updates();
+        private readonly SupportingDocuments _supportingDocumentTab = new SupportingDocuments();
 
         private ICampaignService _campaignService;
 
@@ -57,6 +58,7 @@ namespace GreenBill.MVVM.ViewModel
             SelectDetailsCommand = new RelayCommand(o => SelectTab("DETAILS"));
             SelectDonorsCommand = new RelayCommand(o => SelectTab("DONORS"));
             SelectUpdatesCommand = new RelayCommand(o => SelectTab("UPDATES"));
+            SelectSupportingDocumentsCommand = new RelayCommand(o => SelectTab("SUPPORTING DOCUMENTS"));
             GoBackCommand = new RelayCommand(o => Navigation.NavigateTo<UserCampaignsViewModel>());
         }
 
@@ -80,16 +82,19 @@ namespace GreenBill.MVVM.ViewModel
                 OnPropertyChanged(nameof(IsDetailsSelected));
                 OnPropertyChanged(nameof(IsDonorsSelected));
                 OnPropertyChanged(nameof(IsUpdatesSelected));
+                OnPropertyChanged(nameof(IsSupportingDocumentsSelected));
             }
         }
 
         public bool IsDetailsSelected => SelectedTab == "DETAILS";
         public bool IsDonorsSelected => SelectedTab == "DONORS";
         public bool IsUpdatesSelected => SelectedTab == "UPDATES";
+        public bool IsSupportingDocumentsSelected => SelectedTab == "SUPPORTING DOCUMENTS";
 
         public ICommand SelectDetailsCommand { get; }
         public ICommand SelectUpdatesCommand { get; }
         public ICommand SelectDonorsCommand { get; }
+        public ICommand SelectSupportingDocumentsCommand { get; }
         public ICommand GoBackCommand { get; }
 
         private void SelectTab(string tabName)
@@ -106,6 +111,9 @@ namespace GreenBill.MVVM.ViewModel
                     break;
                 case "UPDATES":
                     CurrentTabContent = _updatesTab;
+                    break;
+                case "SUPPORTING DOCUMENTS":
+                    CurrentTabContent = _supportingDocumentTab;
                     break;
             }
         }

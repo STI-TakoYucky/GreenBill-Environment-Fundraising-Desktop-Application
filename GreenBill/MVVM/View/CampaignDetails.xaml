@@ -299,6 +299,32 @@
                         </Style>
                     </Button.Style>
                 </Button>
+
+                <Button Content="SUPPORTING DOCUMENTS" 
+                        Command="{Binding SelectSupportingDocumentsCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource TabButtonStyle}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsSupportingDocumentsSelected}" Value="True">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="Button">
+                                                <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="#4CAF50"
+                                BorderThickness="0,0,0,2"
+                                Padding="{TemplateBinding Padding}">
+                                                    <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Foreground" Value="#4CAF50"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </StackPanel>
         </Border>
 

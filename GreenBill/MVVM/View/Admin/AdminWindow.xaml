@@ -17,21 +17,11 @@
 
         <Grid Grid.Column="0" Background="white">
             <Grid.RowDefinitions>
-                <RowDefinition Height="70" />
                 <RowDefinition Height="90*" />
             </Grid.RowDefinitions>
 
-            <TextBlock
-                Grid.Row="0"
-                Grid.Column="0"
-                Margin="20"
-                VerticalAlignment="Center"
-                FontSize="24"
-                FontWeight="SemiBold"
-                Text="GreenBill" />
-
             <StackPanel
-                Grid.Row="1"
+                Grid.Row="0"
                 Grid.Column="0"
                 Margin="10"
                 Orientation="Vertical">
@@ -127,18 +117,8 @@
             CornerRadius="20 0 0 20">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="70" />
                     <RowDefinition Height="90*" />
                 </Grid.RowDefinitions>
-
-                <Button
-                    Margin="0,0,30,0"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    Content="Lucky Estrada"
-                    FontSize="16" />
                 <Rectangle
                     Height="2"
                     Margin="30,0,30,0"

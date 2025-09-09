@@ -92,20 +92,20 @@
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                             <ControlTemplate.Triggers>
-                                <!--  Hover  -->
+
                                 <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#e1e7e9" />
+                                </Trigger>
+
+                                <Trigger Property="IsPressed" Value="True">
                                     <Setter TargetName="border" Property="Background" Value="LightGray" />
                                 </Trigger>
-                                <!--  Pressed  -->
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="border" Property="Background" Value="Gray" />
-                                </Trigger>
                             </ControlTemplate.Triggers>
+
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-
 
             <Style TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />

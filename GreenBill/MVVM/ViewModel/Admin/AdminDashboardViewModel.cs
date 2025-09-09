@@ -68,6 +68,18 @@ public bool ShowNavigation => true;
                 DateSubmitted = DateTime.Now
             });
 
+            Campaigns.Add(new Campaign {
+                CampaignID = 1,
+                Title = "Charity Run",
+                Description = "A charity run for climate change",
+                TargetDonation = "1000PHP",
+                AccumulatedDonation = "200PHP",
+                Status = "Ongoing",
+                Verified = true,
+                DateSubmitted = DateTime.Now
+            });
+
+
         }
     }
 }

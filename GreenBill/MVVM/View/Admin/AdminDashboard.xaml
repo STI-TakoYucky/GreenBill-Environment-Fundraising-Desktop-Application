@@ -9,6 +9,15 @@
     d:DesignWidth="1400"
     Background="#f4f4f4"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/DropdownButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
         <ScrollViewer
             Grid.Row="0"
@@ -213,6 +222,8 @@
 
                 <StackPanel Margin="0,40,0,0">
 
+
+
                     <TextBlock
                         Margin="0,0,15,0"
                         VerticalAlignment="Center"
@@ -284,9 +295,19 @@
                             Foreground="#2D2D2D"
                             Text="Pending Campaigns" />
                         <Button
-                            Padding="10,0"
+                            Background="Transparent"
+                            BorderThickness="0"
                             Content="See More"
-                            DockPanel.Dock="Right" />
+                            Cursor="Hand"
+                            DockPanel.Dock="Right">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </DockPanel>
 
                     <Border
@@ -306,8 +327,6 @@
                             CanUserAddRows="False"
                             CanUserDeleteRows="False"
                             CanUserReorderColumns="False"
-                            CanUserResizeColumns="False"
-                            CanUserResizeRows="False"
                             CanUserSortColumns="False"
                             ColumnWidth="*"
                             GridLinesVisibility="None"
@@ -404,45 +423,34 @@
                                     Binding="{Binding DateSubmitted}"
                                     Header="Created At" />
 
-                                <DataGridTemplateColumn Width="100">
+                                <DataGridTemplateColumn Width="50">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Grid>
-                                                <Button
-                                                    Width="30"
-                                                    Height="30"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    Style="{StaticResource circleBtn}">
-                                                    <Viewbox Stretch="Uniform">
-                                                        <Canvas Width="30" Height="30">
-                                                            <!--  left dot  -->
-                                                            <Ellipse
-                                                                Canvas.Left="4"
-                                                                Canvas.Top="12"
-                                                                Width="6"
-                                                                Height="6"
-                                                                Fill="Black" />
-                                                            <!--  center dot  -->
-                                                            <Ellipse
-                                                                Canvas.Left="12"
-                                                                Canvas.Top="12"
-                                                                Width="6"
-                                                                Height="6"
-                                                                Fill="Black" />
-                                                            <!--  right dot  -->
-                                                            <Ellipse
-                                                                Canvas.Left="20"
-                                                                Canvas.Top="12"
-                                                                Width="6"
-                                                                Height="6"
-                                                                Fill="Black" />
-                                                        </Canvas>
-                                                    </Viewbox>
-                                                </Button>
 
+                                            <Menu Background="Transparent">
+                                                <MenuItem Style="{DynamicResource Services_MenuItem_With_Dropdown}">
+                                                    <MenuItem.Header>
+                                                        <Grid>
+                                                            <Viewbox
+                                                                Width="20"
+                                                                Height="20"
+                                                                HorizontalAlignment="Center">
+                                                                <Path
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    HorizontalAlignment="Center"
+                                                                    Data="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"
+                                                                    Fill="Black"
+                                                                    Stretch="Uniform" />
+                                                            </Viewbox>
+                                                        </Grid>
+                                                    </MenuItem.Header>
 
-                                            </Grid>
+                                                    <MenuItem Cursor="Hand" Header="Reject" />
+                                                    <MenuItem Cursor="Hand" Header="Approve" />
+                                                </MenuItem>
+                                            </Menu>
+
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -464,16 +472,26 @@
                             FontSize="18"
                             FontWeight="Bold"
                             Foreground="#2D2D2D"
-                            Text="Pending Campaigns" />
+                            Text="User Verification Requests" />
                         <Button
-                            Padding="10,0"
+                            Background="Transparent"
+                            BorderThickness="0"
                             Content="See More"
-                            DockPanel.Dock="Right" />
+                            Cursor="Hand"
+                            DockPanel.Dock="Right">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </DockPanel>
 
                     <Border
-                     
                         Grid.Row="1"
+                        Margin="0,0,0,40"
                         Background="White"
                         CornerRadius="8"
                         SnapsToDevicePixels="True">
@@ -488,8 +506,6 @@
                             CanUserAddRows="False"
                             CanUserDeleteRows="False"
                             CanUserReorderColumns="False"
-                            CanUserResizeColumns="False"
-                            CanUserResizeRows="False"
                             CanUserSortColumns="False"
                             ColumnWidth="*"
                             GridLinesVisibility="None"
@@ -586,45 +602,34 @@
                                     Binding="{Binding DateSubmitted}"
                                     Header="Created At" />
 
-                                <DataGridTemplateColumn Width="100">
+                                <DataGridTemplateColumn Width="50">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <Grid>
-                                                <Button
-                                                    Width="30"
-                                                    Height="30"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    Style="{StaticResource circleBtn}">
-                                                    <Viewbox Stretch="Uniform">
-                                                        <Canvas Width="30" Height="30">
-                                                            <!--  left dot  -->
-                                                            <Ellipse
-                                                                Canvas.Left="4"
-                                                                Canvas.Top="12"
-                                                                Width="6"
-                                                                Height="6"
-                                                                Fill="Black" />
-                                                            <!--  center dot  -->
-                                                            <Ellipse
-                                                                Canvas.Left="12"
-                                                                Canvas.Top="12"
-                                                                Width="6"
-                                                                Height="6"
-                                                                Fill="Black" />
-                                                            <!--  right dot  -->
-                                                            <Ellipse
-                                                                Canvas.Left="20"
-                                                                Canvas.Top="12"
-                                                                Width="6"
-                                                                Height="6"
-                                                                Fill="Black" />
-                                                        </Canvas>
-                                                    </Viewbox>
-                                                </Button>
 
+                                            <Menu Background="Transparent">
+                                                <MenuItem Style="{DynamicResource Services_MenuItem_With_Dropdown}">
+                                                    <MenuItem.Header>
+                                                        <Grid>
+                                                            <Viewbox
+                                                                Width="20"
+                                                                Height="20"
+                                                                HorizontalAlignment="Center">
+                                                                <Path
+                                                                    Width="20"
+                                                                    Height="20"
+                                                                    HorizontalAlignment="Center"
+                                                                    Data="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"
+                                                                    Fill="Black"
+                                                                    Stretch="Uniform" />
+                                                            </Viewbox>
+                                                        </Grid>
+                                                    </MenuItem.Header>
 
-                                            </Grid>
+                                                    <MenuItem Cursor="Hand" Header="Reject" />
+                                                    <MenuItem Cursor="Hand" Header="Approve" />
+                                                </MenuItem>
+                                            </Menu>
+
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>

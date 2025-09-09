@@ -61,7 +61,7 @@ namespace GreenBill.MVVM.ViewModel
             SelectUpdatesCommand = new RelayCommand(o => SelectTab("UPDATES"));
             SelectSupportingDocumentsCommand = new RelayCommand(o => SelectTab("SUPPORTING DOCUMENTS"));
             GoBackCommand = new RelayCommand(o => Navigation.NavigateTo<UserCampaignsViewModel>());
-            GoToSupportingDocumentsPage = new RelayCommand(o => Navigation.NavigateTo<SupportingDocumentsPageViewModel>());
+            GoToSupportingDocumentsPage = new RelayCommand(campaign_id => Navigation.NavigateTo<SupportingDocumentsPageViewModel>(campaign_id));
         }
 
         public UserControl CurrentTabContent

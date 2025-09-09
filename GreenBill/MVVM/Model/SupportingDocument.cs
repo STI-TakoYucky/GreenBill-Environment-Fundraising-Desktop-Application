@@ -9,7 +9,7 @@ namespace GreenBill.MVVM.Model
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-
+        public ObjectId CampaignId { get; set; }
         public string FileName { get; set; }
         public string DocumentType { get; set; }
         public string DocumentName { get; set; }

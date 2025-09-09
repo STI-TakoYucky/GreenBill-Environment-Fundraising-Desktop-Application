@@ -12,15 +12,18 @@ using System.IO;
 using Microsoft.Win32;
 using System.Windows;
 using System.Collections.ObjectModel;
+using MongoDB.Bson;
+using System.Diagnostics;
 
 namespace GreenBill.MVVM.ViewModel
 {
-    public class SupportingDocumentsPageViewModel : Core.ViewModel, INavigationAware
+    public class SupportingDocumentsPageViewModel : Core.ViewModel, INavigationAware, INavigatableService
     {
         public bool ShowNavigation => false;
 
         private INavigationService _navigationService;
         private readonly ISupportingDocumentService _supportingDocumentService;
+        private ObjectId CampaignId { get; set; }
 
         public INavigationService Navigation
         {
@@ -110,18 +113,51 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
+        // Documents collection for binding
+        private ObservableCollection<SupportingDocument> _documents;
+        public ObservableCollection<SupportingDocument> Documents
+        {
+            get => _documents;
+            set
+            {
+                _documents = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(DocumentsOverviewText));
+            }
+        }
+
         // Document types for ComboBox
         public ObservableCollection<string> DocumentTypes { get; set; }
+
+        // Computed property for documents overview text
+        public string DocumentsOverviewText
+        {
+            get
+            {
+                if (Documents == null || !Documents.Any())
+                    return "No documents uploaded yet";
+
+                var total = Documents.Count;
+                var verified = Documents.Count(d => d.Status == "Verified" || d.Status == "Approved");
+                var underReview = Documents.Count(d => d.Status == "Pending" || d.Status == "Under Review");
+                var requiresAttention = Documents.Count(d => d.Status == "Rejected" || d.Status == "Requires Attention");
+
+                return $"{total} documents uploaded • {verified} verified • {underReview} under review • {requiresAttention} requires attention";
+            }
+        }
 
         // Commands
         public ICommand GoBackCommand { get; set; }
         public ICommand BrowseFileCommand { get; set; }
         public ICommand UploadDocumentCommand { get; set; }
+        public ICommand DeleteDocumentCommand { get; set; }
+        public ICommand RefreshDocumentsCommand { get; set; }
 
         public SupportingDocumentsPageViewModel(INavigationService navigation)
         {
             Navigation = navigation;
             _supportingDocumentService = new SupportingDocumentService();
+            Documents = new ObservableCollection<SupportingDocument>();
 
             InitializeCommands();
             InitializeDocumentTypes();
@@ -132,6 +168,8 @@ namespace GreenBill.MVVM.ViewModel
             GoBackCommand = new RelayCommand(o => Navigation.NavigateBack(), o => Navigation.CanNavigateBack);
             BrowseFileCommand = new RelayCommand(async o => await BrowseFileAsync());
             UploadDocumentCommand = new RelayCommand(async o => await UploadDocumentAsync(), o => CanUpload && !IsUploading);
+            DeleteDocumentCommand = new RelayCommand(async o => await DeleteDocumentAsync(o as SupportingDocument));
+            RefreshDocumentsCommand = new RelayCommand(async o => await LoadDocumentsAsync());
         }
 
         private void InitializeDocumentTypes()
@@ -144,6 +182,50 @@ namespace GreenBill.MVVM.ViewModel
                 "Legal Documents",
                 "Other"
             };
+        }
+
+        private async Task LoadDocumentsAsync()
+        {
+            try
+            {
+                var documents = await _supportingDocumentService.GetByCampaignIdAsync(CampaignId.ToString());
+
+                Documents.Clear();
+                foreach (var doc in documents)
+                {
+                    Documents.Add(doc);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading documents: {ex.Message}", "Error",
+                              MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async Task DeleteDocumentAsync(SupportingDocument document)
+        {
+            if (document == null) return;
+
+            var result = MessageBox.Show($"Are you sure you want to delete '{document.DocumentName}'?",
+                                       "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    await _supportingDocumentService.DeleteAsync(document.Id);
+                    Documents.Remove(document);
+
+                    MessageBox.Show("Document deleted successfully.", "Success",
+                                  MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error deleting document: {ex.Message}", "Error",
+                                  MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
 
         private async Task BrowseFileAsync()
@@ -223,7 +305,9 @@ namespace GreenBill.MVVM.ViewModel
                     FileData = fileData,
                     ContentType = GetContentType(SelectedFilePath),
                     FileSize = fileData.Length,
-                    Status = "Pending"
+                    Status = "Pending",
+                    CampaignId = this.CampaignId,
+                    UploadDate = DateTime.UtcNow
                 };
 
                 UploadProgress = 80;
@@ -234,6 +318,9 @@ namespace GreenBill.MVVM.ViewModel
 
                 UploadProgress = 100;
                 await Task.Delay(500);
+
+                // Add to collection
+                Documents.Add(document);
 
                 // Reset form
                 ResetUploadForm();
@@ -286,6 +373,16 @@ namespace GreenBill.MVVM.ViewModel
                 default:
                     return "application/octet-stream";
             }
+        }
+
+        public async void ApplyNavigationParameter(object parameter)
+        {
+            Debug.WriteLine($"Here Parameter: ${parameter}");
+            if (parameter == null) return;
+            CampaignId = (ObjectId)parameter;
+            Debug.WriteLine($"Campaign Id: {CampaignId.ToString()}");
+
+            await LoadDocumentsAsync();
         }
     }
 }

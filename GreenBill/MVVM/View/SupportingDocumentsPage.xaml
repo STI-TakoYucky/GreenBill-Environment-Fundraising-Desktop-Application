@@ -102,11 +102,53 @@
             </Style.Triggers>
         </Style>
 
+        <!-- Document Item Style -->
+        <Style x:Key="DocumentItem" TargetType="Border">
+            <Setter Property="Background" Value="#FAFAFA"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+            <Setter Property="BorderBrush" Value="#E5E5E5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F0F0F0"/>
+                    <Setter Property="BorderBrush" Value="#D0D0D0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
+        <!-- Status Badge Styles -->
+        <Style x:Key="StatusBadge" TargetType="Border">
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="12,4"/>
+        </Style>
 
-
-
-      
+        <!-- Status Text Converter (you might need to implement this as a converter) -->
+        <Style x:Key="StatusText" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Status}" Value="Verified">
+                    <Setter Property="Foreground" Value="#27AE60"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status}" Value="Approved">
+                    <Setter Property="Foreground" Value="#27AE60"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status}" Value="Pending">
+                    <Setter Property="Foreground" Value="#F39C12"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status}" Value="Under Review">
+                    <Setter Property="Foreground" Value="#F39C12"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status}" Value="Rejected">
+                    <Setter Property="Foreground" Value="#E74C3C"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Status}" Value="Requires Attention">
+                    <Setter Property="Foreground" Value="#E74C3C"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
 
     <Grid>
@@ -315,17 +357,140 @@
                                               FontSize="20"
                                               Foreground="#2C3E50"
                                               Margin="0,0,0,4"/>
-                                    <TextBlock Text="7 documents uploaded • 5 verified • 1 under review • 1 requires attention"
+                                    <TextBlock Text="{Binding DocumentsOverviewText}"
                                               FontSize="14"
                                               Foreground="#7F8C8D"/>
                                 </StackPanel>
+
+                                <Button Content="🔄 Refresh"
+                                       Style="{StaticResource SecondaryButton}"
+                                       Command="{Binding RefreshDocumentsCommand}"
+                                       Grid.Column="1"
+                                       VerticalAlignment="Center"/>
                             </Grid>
 
                             <!-- Document List -->
-                            <StackPanel Name="DocumentsList">
-                                <!-- Sample documents remain the same for now -->
-                                <!-- You can bind this to a collection later -->
-                            </StackPanel>
+                            <ItemsControl ItemsSource="{Binding Documents}" Name="DocumentsList">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Style="{StaticResource DocumentItem}">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <!-- Document Icon -->
+                                                <Border Grid.Column="0"
+                                                       Background="#E8F4FD"
+                                                       CornerRadius="8"
+                                                       Width="48"
+                                                       Height="48"
+                                                       Margin="0,0,16,0">
+                                                    <TextBlock Text="📄"
+                                                              FontSize="20"
+                                                              HorizontalAlignment="Center"
+                                                              VerticalAlignment="Center"/>
+                                                </Border>
+
+                                                <!-- Document Info -->
+                                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                                    <TextBlock Text="{Binding DocumentName}"
+                                                              FontWeight="SemiBold"
+                                                              FontSize="16"
+                                                              Foreground="#2C3E50"
+                                                              Margin="0,0,0,4"/>
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding DocumentType}"
+                                                                  FontSize="14"
+                                                                  Foreground="#7F8C8D"
+                                                                  Margin="0,0,12,0"/>
+                                                        <TextBlock Text="•"
+                                                                  FontSize="14"
+                                                                  Foreground="#BDC3C7"
+                                                                  Margin="0,0,12,0"/>
+                                                        <TextBlock FontSize="14"
+                                                                  Foreground="#7F8C8D"
+                                                                  Margin="0,0,12,0">
+                                                            <TextBlock.Text>
+                                                                <MultiBinding StringFormat="{}{0:F1} MB">
+                                                                    <Binding Path="FileSize" Converter="{StaticResource BytesToMBConverter}"/>
+                                                                </MultiBinding>
+                                                            </TextBlock.Text>
+                                                        </TextBlock>
+                                                        <TextBlock Text="•"
+                                                                  FontSize="14"
+                                                                  Foreground="#BDC3C7"
+                                                                  Margin="0,0,12,0"/>
+                                                        <TextBlock Text="{Binding UploadDate, StringFormat='MMM dd, yyyy'}"
+                                                                  FontSize="14"
+                                                                  Foreground="#7F8C8D"/>
+                                                    </StackPanel>
+
+                                                    <!-- Review Comments (if any) -->
+                                                    <TextBlock Text="{Binding ReviewComments}"
+                                                              FontSize="12"
+                                                              Foreground="#E74C3C"
+                                                              FontStyle="Italic"
+                                                              Margin="0,4,0,0"
+                                                              TextWrapping="Wrap"
+                                                              Visibility="{Binding ReviewComments, Converter={StaticResource StringToVisibilityConverter}}"/>
+                                                </StackPanel>
+
+                                                <!-- Status Badge -->
+                                                <Border Grid.Column="2"
+                                                       Style="{StaticResource StatusBadge}"
+                                                       VerticalAlignment="Center"
+                                                       Margin="0,0,16,0">
+
+                                                    <TextBlock Text="{Binding Status}"
+                                                              Style="{StaticResource StatusText}"/>
+                                                </Border>
+
+                                                <!-- Action Button -->
+                                                <Button Grid.Column="3"
+                                                       Content="🗑️"
+                                                       FontSize="16"
+                                                       Width="32"
+                                                       Height="32"
+                                                       Background="Transparent"
+                                                       BorderThickness="0"
+                                                       Cursor="Hand"
+                                                       VerticalAlignment="Center"
+                                                       Command="{Binding DataContext.DeleteDocumentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                       CommandParameter="{Binding}"
+                                                       ToolTip="Delete Document">
+                                                    <Button.Style>
+                                                        <Style TargetType="Button">
+                                                            <Setter Property="Template">
+                                                                <Setter.Value>
+                                                                    <ControlTemplate TargetType="Button">
+                                                                        <Border Background="{TemplateBinding Background}"
+                                                                               CornerRadius="16">
+                                                                            <ContentPresenter HorizontalAlignment="Center"
+                                                                                            VerticalAlignment="Center"/>
+                                                                        </Border>
+                                                                    </ControlTemplate>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="#FFE5E5"/>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Button.Style>
+                                                </Button>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                      
                         </StackPanel>
                     </Border>
 

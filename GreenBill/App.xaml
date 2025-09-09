@@ -57,6 +57,10 @@
                 <view:CampaignDetails />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type adminViewModel:AdminWindowViewModel}">
+                <adminView:AdminWindow />
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type adminViewModel:AdminDashboardViewModel}">
                 <adminView:AdminDashboard />
             </DataTemplate>

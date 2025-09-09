@@ -1,11 +1,9 @@
-
 using GreenBill.Core;
 using GreenBill.Services;
 using System;
 using System.Windows.Input;
 
 namespace GreenBill.MVVM.ViewModel.Admin {
-
     public class AdminWindowViewModel : Core.ViewModel {
         private bool _showNavigation = true;
         private bool _isUserLoggedIn;
@@ -18,7 +16,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             }
         }
 
-        private INavigationService _navigationService;
+        private ITabNavigationService _navigationService;
 
         public bool ShowNavigation {
             get => _showNavigation;
@@ -28,7 +26,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             }
         }
 
-        public INavigationService Navigation {
+        public ITabNavigationService Navigation {
             get => _navigationService;
             set {
                 _navigationService = value;
@@ -41,21 +39,16 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         public ICommand NavigateToAdminCampaignAnalytics { get; }
         public ICommand NavigateToSettings { get; }
 
-
         public AdminWindowViewModel() { }
 
-
-
-        public AdminWindowViewModel(INavigationService navService) {
+        public AdminWindowViewModel(ITabNavigationService navService) {
             Navigation = navService;
-            Navigation.NavigateTo<AdminDashboardViewModel>();
-            NavigateToDashboard = new RelayCommand(o => Navigation.NavigateTo<AdminDashboardViewModel>());
-            NavigateToUserAnalytics = new RelayCommand(o => Navigation.NavigateTo<UserAnalyticsViewModel>());
-            NavigateToAdminCampaignAnalytics = new RelayCommand(o => Navigation.NavigateTo<AdminCampaignAnalyticsViewModel>());
-            NavigateToSettings = new RelayCommand(o => Navigation.NavigateTo<SettingsViewModel>());
+            Navigation.NavigateToTab<AdminDashboardViewModel>();
 
-
+            NavigateToDashboard = new RelayCommand(o => Navigation.NavigateToTab<AdminDashboardViewModel>());
+            NavigateToUserAnalytics = new RelayCommand(o => Navigation.NavigateToTab<UserAnalyticsViewModel>());
+            NavigateToAdminCampaignAnalytics = new RelayCommand(o => Navigation.NavigateToTab<AdminCampaignAnalyticsViewModel>());
+            NavigateToSettings = new RelayCommand(o => Navigation.NavigateToTab<SettingsViewModel>());
         }
     }
-
 }

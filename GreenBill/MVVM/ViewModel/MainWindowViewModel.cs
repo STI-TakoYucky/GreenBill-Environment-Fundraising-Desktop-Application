@@ -1,4 +1,5 @@
 ﻿using GreenBill.Core;
+using GreenBill.MVVM.ViewModel.Admin;
 using GreenBill.Services;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,7 @@ namespace GreenBill.MVVM.ViewModel
         public ICommand GoToStep1 { get; }
         public ICommand GoToDashboard { get; }
         public ICommand GoToHome { get; }
+        public ICommand GoToAdminDashboard { get; }
 
 
         public MainWindowViewModel() { }
@@ -66,6 +68,7 @@ namespace GreenBill.MVVM.ViewModel
             GoToStep1 = new RelayCommand(o => Navigation.NavigateTo<FundraisingStepsViewModel>());
             GoToDashboard = new RelayCommand(o => Navigation.NavigateTo<UserCampaignsViewModel>());
             GoToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
+            GoToAdminDashboard = new RelayCommand(o => Navigation.NavigateTo<AdminWindowViewModel>());
 
 
         }

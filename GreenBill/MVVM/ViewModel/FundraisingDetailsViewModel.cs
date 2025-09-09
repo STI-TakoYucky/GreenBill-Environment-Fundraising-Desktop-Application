@@ -3,6 +3,7 @@ using GreenBill.Services;
 using GreenBill.IServices;
 using System.Windows.Input;
 using GreenBill.MVVM.Model;
+using System.Diagnostics;
 namespace GreenBill.MVVM.ViewModel
 {
     public class FundraisingDetailsViewModel : Core.ViewModel, INavigatableService
@@ -60,7 +61,11 @@ namespace GreenBill.MVVM.ViewModel
         {
             if (parameter == null) return;
             var id = parameter.ToString();
-            SelectedCampaign = await _campaignService.GetCampaignByIdAsync(id);
+            SelectedCampaign = await _campaignService.GetCampaignByIdAsync(
+                id,
+                new CampaignIncludeOptions { IncludeUser = true }
+             );
+            Debug.WriteLine(SelectedCampaign.User.Username);
         }
     }
 }

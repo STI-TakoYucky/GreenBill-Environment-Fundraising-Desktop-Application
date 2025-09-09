@@ -184,6 +184,8 @@
     <Compile Include="IServices\INavigatableService.cs" />
     <Compile Include="IServices\IUserService.cs" />
     <Compile Include="MVVM\Model\Campaign.cs" />
+    <Compile Include="MVVM\Model\CampaignIncludeOptions.cs" />
+    <Compile Include="MVVM\Model\IncludeOptions.cs" />
     <Compile Include="MVVM\Model\User.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminCampaignAnalyticsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminDashboardViewModel.cs" />

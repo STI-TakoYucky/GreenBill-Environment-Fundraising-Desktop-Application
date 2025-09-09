@@ -1,4 +1,5 @@
 ﻿using GreenBill.Core;
+using GreenBill.MVVM.Model;
 using GreenBill.Services;
 using System;
 using System.Collections.Generic;
@@ -69,6 +70,9 @@ namespace GreenBill.MVVM.ViewModel
             NavigateToSignin = new RelayCommand(o => Navigation.NavigateTo<SigninViewModel>());
             GoToStep1 = new RelayCommand(o =>
             {
+                CampaignIncludeOptions test = new CampaignIncludeOptions();
+                Debug.Write(test.IncludeUser);
+                Debug.WriteLine("TeT");
                 if (_sessionService.IsUserLoggedIn)
                 {
                     Navigation.NavigateTo<FundraisingStepsViewModel>();

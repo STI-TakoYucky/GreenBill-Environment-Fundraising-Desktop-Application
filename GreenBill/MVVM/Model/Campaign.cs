@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 
 namespace GreenBill.MVVM.Model
@@ -18,5 +19,7 @@ namespace GreenBill.MVVM.Model
          public DateTime CreatedAt { get; set; }
         public string Status { get; set; } = "verified";
 
+        [BsonIgnore]
+        public User User { get; set; }
     }
 }

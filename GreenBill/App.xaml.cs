@@ -13,6 +13,7 @@ using System.Windows;
 using GreenBill.IServices;
 using GreenBill.MVVM.View.Admin;
 using GreenBill.MVVM.ViewModel.Admin;
+using System.Diagnostics;
 
 namespace GreenBill
 {
@@ -38,6 +39,8 @@ namespace GreenBill
                 DataContext = provider.GetRequiredService<AdminWindowViewModel>()
             });
 
+   
+
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<SigninViewModel>();
             services.AddTransient<HomePageViewModel>();
@@ -57,8 +60,8 @@ namespace GreenBill
             services.AddSingleton<INavigationService, NavigationService>();
 
 
-            services.AddSingleton<ICampaignService, CampaignService>();
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<ICampaignService, CampaignService>();
 
             services.AddTransient<ITabNavigationService, TabNavigationService>();
 

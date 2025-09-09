@@ -26,6 +26,7 @@
             <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
             <converters:StatusToColorValueConverter x:Key="StatusToColorValueConverter" />
             <converters:ProgressWidthValueConverter x:Key="ProgressWidthValueConverter" />
+            <converters:ProgressToWidthConverter x:Key="ProgressToWidthConverter"/>
 
             <DataTemplate DataType="{x:Type viewModel:FundraisingStepsViewModel}">
                 <stepsView:FundraisingStepsContainer />

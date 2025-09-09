@@ -20,7 +20,7 @@ namespace GreenBill.MVVM.ViewModel
         private ObservableCollection<Campaign> _allCampaigns;
         private ICampaignService _campaignService;
         private IUserSessionService _userSessionService;
-        private string _selectedTab = "Verified"; // Default to Verified tab
+        private string _selectedTab = "Verified"; 
 
         public ICommand LoadCampaignsCommand { get; }
 

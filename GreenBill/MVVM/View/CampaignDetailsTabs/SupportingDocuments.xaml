@@ -101,6 +101,34 @@
             </Style.Triggers>
         </Style>
 
+        <!-- View More Button Style -->
+        <Style x:Key="ViewMoreButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#00BCD4"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#F0F8FF"/>
+                    <Setter Property="Foreground" Value="#0097A7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
         <!-- Document Item Style -->
         <Style x:Key="DocumentItem" TargetType="Border">
             <Setter Property="Background" Value="#F8F9FA"/>
@@ -139,13 +167,13 @@
                            FontSize="22" 
                            FontWeight="SemiBold" 
                            Foreground="#333333"
-                           Margin="0,0,0,20"/>
+                           Margin="0,0,0,10"/>
 
                 <TextBlock Text="Upload documents that validate your campaign and build trust with potential donors. All documents are reviewed by our team to ensure campaign legitimacy."
                           FontSize="16"
                           Foreground="#666666"
                           TextWrapping="Wrap"
-                          LineHeight="14"/>
+                          LineHeight="24"/>
             </StackPanel>
 
             <!-- Upload Progress -->
@@ -372,6 +400,22 @@
                         </Grid>
                     </Border>
 
+                    <!-- View More Button -->
+                    <Border Background="Transparent" 
+                            CornerRadius="6" 
+                            Padding="12,8" 
+                            HorizontalAlignment="Center"
+                            Margin="0,16,0,0">
+                        <Button Style="{StaticResource ViewMoreButton}" Command="{Binding GoToSupportingDocumentsPage}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="View More Details" 
+                                          FontWeight="Medium"
+                                          VerticalAlignment="Center"
+                                          Margin="0,0,8,0"/>
+                            </StackPanel>
+                        </Button>
+                    </Border>
+
                 </StackPanel>
             </Border>
 
@@ -402,7 +446,7 @@
                                       Margin="0,0,8,0" 
                                       VerticalAlignment="Top"/>
                             <TextBlock Grid.Column="1" 
-                                      Text="Upload all required documents to proceed with campaign submission"
+                                      Text="Upload all required documents to proceed with campaign verification."
                                       FontSize="12"
                                       Foreground="#8A6D00"
                                       TextWrapping="Wrap"/>
@@ -411,12 +455,12 @@
                 </StackPanel>
 
 
-               <!--
+                <!--
                 <Button Grid.Column="2"
                        Content="Submit for Review"
                        Style="{StaticResource PrimaryButton}"
                        IsEnabled="False"/>
-                --> 
+                -->
             </Grid>
 
             <!-- Help Section -->

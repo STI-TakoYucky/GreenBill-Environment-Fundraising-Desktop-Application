@@ -63,12 +63,12 @@
                             Height="30" 
                             Fill="#CCCCCC"/>
                         <TextBlock FontFamily="./Assets/Fonts/#Poppins"
-           FontSize="14"
-           Foreground="#666666"
-           VerticalAlignment="Center"
-           Margin="10,0,0,0">
-    <Run Text="{Binding SelectedCampaign.User.Username}" />
-    <Run Text=" is organizing this campaign." />
+                                    FontSize="14"
+                                    Foreground="#666666"
+                                    VerticalAlignment="Center"
+                                    Margin="10,0,0,0">
+                                <Run Text="{Binding SelectedCampaign.User.Username}" />
+                                <Run Text="is organizing this campaign." />
                         </TextBlock>
 
                     </StackPanel>

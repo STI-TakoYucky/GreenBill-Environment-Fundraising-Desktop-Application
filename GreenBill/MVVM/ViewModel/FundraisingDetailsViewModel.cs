@@ -65,7 +65,6 @@ namespace GreenBill.MVVM.ViewModel
                 id,
                 new CampaignIncludeOptions { IncludeUser = true }
              );
-            Debug.WriteLine(SelectedCampaign.User.Username);
         }
     }
 }

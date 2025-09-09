@@ -42,8 +42,7 @@
             <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                 <Button Name="VerifiedTab" 
                        Content="Verified" 
-                       Background="#00A86B" 
-                       Foreground="White"
+                       Command="{Binding SelectVerifiedTab}"
                        BorderThickness="0"
                        FontWeight="SemiBold"
                        FontSize="14"
@@ -64,14 +63,23 @@
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsVerifiedTabActive}" Value="True">
+                                    <Setter Property="Background" Value="#00A86B"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsVerifiedTabActive}" Value="False">
+                                    <Setter Property="Background" Value="#F8F9FA"/>
+                                    <Setter Property="Foreground" Value="#666666"/>
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
                     </Button.Style>
                 </Button>
 
                 <Button Name="InReviewTab" 
                        Content="In Review" 
-                       Background="#F8F9FA" 
-                       Foreground="#666666"
+                       Command="{Binding SelectInReviewTab}"
                        BorderThickness="0"
                        FontWeight="SemiBold"
                        FontSize="14"
@@ -97,14 +105,23 @@
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsInReviewTabActive}" Value="True">
+                                    <Setter Property="Background" Value="#00A86B"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsInReviewTabActive}" Value="False">
+                                    <Setter Property="Background" Value="#F8F9FA"/>
+                                    <Setter Property="Foreground" Value="#666666"/>
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
                     </Button.Style>
                 </Button>
 
                 <Button Name="RejectedTab" 
                        Content="Rejected" 
-                       Background="#F8F9FA" 
-                       Foreground="#666666"
+                       Command="{Binding SelectRejectedTab}"
                        BorderThickness="0"
                        FontWeight="SemiBold"
                        FontSize="14"
@@ -130,6 +147,16 @@
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsRejectedTabActive}" Value="True">
+                                    <Setter Property="Background" Value="#00A86B"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsRejectedTabActive}" Value="False">
+                                    <Setter Property="Background" Value="#F8F9FA"/>
+                                    <Setter Property="Foreground" Value="#666666"/>
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
                     </Button.Style>
                 </Button>
@@ -292,7 +319,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-              
+
             </ScrollViewer>
         </Border>
     </Grid>

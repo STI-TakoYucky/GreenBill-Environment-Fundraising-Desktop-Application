@@ -17,7 +17,7 @@ namespace GreenBill.MVVM.Model
         public string Title { get; set; }
         public string Description { get; set; }
          public DateTime CreatedAt { get; set; }
-        public string Status { get; set; } = "verified";
+        public string Status { get; set; } = "in review";
 
         [BsonIgnore]
         public User User { get; set; }

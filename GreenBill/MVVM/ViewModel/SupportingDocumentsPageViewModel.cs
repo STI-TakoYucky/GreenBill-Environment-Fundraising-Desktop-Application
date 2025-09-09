@@ -25,12 +25,12 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        public ICommand NavigateBack { get; set; }
+        public ICommand GoBackCommand { get; set; }
 
         public SupportingDocumentsPageViewModel(INavigationService navigation)
         {
             Navigation = navigation;
-            NavigateBack = new RelayCommand(o => Navigation.NavigateBack(), o => Navigation.CanNavigateBack);
+            GoBackCommand = new RelayCommand(o => Navigation.NavigateBack(), o => Navigation.CanNavigateBack);
         }
     }
 }

@@ -15,9 +15,10 @@ using System.Windows.Input;
 
 namespace GreenBill.MVVM.ViewModel
 {
-    public class CampaignDetailsViewModel : Core.ViewModel, INotifyPropertyChanged, INavigatableService
+    public class CampaignDetailsViewModel : Core.ViewModel, INotifyPropertyChanged, INavigatableService, INavigationAware
     {
         private INavigationService _navigationService;
+        public bool ShowNavigation => false;
 
         public INavigationService Navigation
         {

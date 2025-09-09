@@ -154,7 +154,7 @@
 
         <Grid Grid.Row="0">
             <Grid Grid.Row="0" Margin="72,40,0,0">
-                <Button Content="Back to Campaigns"
+                <Button Content="Back"
             Style="{StaticResource BackButtonStyle}"
             HorizontalAlignment="Left"
             Command="{Binding GoBackCommand}"/>

@@ -80,9 +80,9 @@
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:SupportingDocumentsPageViewModel}">
-                <view:SupportingDocumentsPage />
+                <view:SupportingDocumentsPage/>
             </DataTemplate>
-            
+
             <Style TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
             </Style>

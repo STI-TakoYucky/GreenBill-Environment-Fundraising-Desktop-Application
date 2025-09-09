@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GreenBill.MVVM.View"
              mc:Ignorable="d" 
-             Background="#FFFFFF"
-             d:DesignHeight="900" d:DesignWidth="1400">
+                      Background="#FFFFFF"
+         d:DesignHeight="900" d:DesignWidth="1400">
 
     <UserControl.Resources>
         <!-- Modern Card Style -->
@@ -17,10 +17,10 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Effect">
                 <Setter.Value>
-                    <DropShadowEffect Color="Black" 
-                                    BlurRadius="20" 
-                                    Opacity="0.08" 
-                                    ShadowDepth="0"/>
+                    <DropShadowEffect Color="Black"
+                                BlurRadius="20"
+                                Opacity="0.08"
+                                ShadowDepth="0"/>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -53,9 +53,9 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                                CornerRadius="8">
+                            CornerRadius="8">
                             <ContentPresenter HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"/>
+                                        VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -85,11 +85,11 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="6">
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="6">
                             <ContentPresenter HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"/>
+                                        VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
@@ -112,10 +112,10 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Effect">
                 <Setter.Value>
-                    <DropShadowEffect Color="Black" 
-                                    BlurRadius="10" 
-                                    Opacity="0.05" 
-                                    ShadowDepth="0"/>
+                    <DropShadowEffect Color="Black"
+                                BlurRadius="10"
+                                Opacity="0.05"
+                                ShadowDepth="0"/>
                 </Setter.Value>
             </Setter>
         </Style>
@@ -143,7 +143,7 @@
         </Style>
 
         <!-- ComboBox Style -->
-       
+
     </UserControl.Resources>
 
     <Grid>
@@ -154,10 +154,10 @@
 
         <Grid Grid.Row="0">
             <Grid Grid.Row="0" Margin="72,40,0,0">
-                <Button Content="Back to Campaigns" 
-                Style="{StaticResource BackButtonStyle}"
-                HorizontalAlignment="Left"
-                Command="{Binding GoBackCommand}"/>
+                <Button Content="Back to Campaigns"
+            Style="{StaticResource BackButtonStyle}"
+            HorizontalAlignment="Left"
+            Command="{Binding GoBackCommand}"/>
             </Grid>
         </Grid>
 
@@ -167,31 +167,31 @@
 
                     <!-- Page Header -->
                     <StackPanel Margin="0,0,0,40">
-                        <TextBlock Text="Supporting Documents" 
-                       FontSize="32" 
-                       FontWeight="Bold" 
-                       Foreground="#2C3E50"
-                       Margin="0,0,0,12"/>
+                        <TextBlock Text="Supporting Documents"
+                   FontSize="32"
+                   FontWeight="Bold"
+                   Foreground="#2C3E50"
+                   Margin="0,0,0,12"/>
 
                         <TextBlock Text="Upload and manage documents to verify your campaign. All documents are reviewed by our team to ensure authenticity and build trust with donors."
-                      FontSize="16"
-                      Foreground="#7F8C8D"
-                      TextWrapping="Wrap"
-                      LineHeight="24"
-                      MaxWidth="800"
-                      HorizontalAlignment="Left"/>
+                  FontSize="16"
+                  Foreground="#7F8C8D"
+                  TextWrapping="Wrap"
+                  LineHeight="24"
+                  MaxWidth="800"
+                  HorizontalAlignment="Left"/>
                     </StackPanel>
 
                     <!-- Upload Section -->
-                    <Border Style="{StaticResource ModernCard}" 
-                Margin="0,0,0,32" 
-                Padding="32">
+                    <Border Style="{StaticResource ModernCard}"
+            Margin="0,0,0,32"
+            Padding="32">
                         <StackPanel>
                             <TextBlock Text="Upload New Document"
-                          FontWeight="SemiBold"
-                          FontSize="20"
-                          Foreground="#2C3E50"
-                          Margin="0,0,0,20"/>
+                      FontWeight="SemiBold"
+                      FontSize="20"
+                      Foreground="#2C3E50"
+                      Margin="0,0,0,20"/>
 
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -201,46 +201,46 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Upload Zone -->
-                                <Border Grid.Column="0" Style="{StaticResource UploadZone}" 
-                            Height="160"
-                            Name="UploadZone">
+                                <Border Grid.Column="0" Style="{StaticResource UploadZone}"
+                        Height="160"
+                        Name="UploadZone">
                                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <TextBlock Text="📄" 
-                                      FontSize="48" 
-                                      HorizontalAlignment="Center"
-                                      Margin="0,0,0,16"/>
+                                        <TextBlock Text="📄"
+                                  FontSize="48"
+                                  HorizontalAlignment="Center"
+                                  Margin="0,0,0,16"/>
                                         <TextBlock Text="Drop files here or click to browse"
-                                      FontWeight="SemiBold"
-                                      FontSize="16"
-                                      Foreground="#00BCD4"
-                                      HorizontalAlignment="Center"
-                                      Margin="0,0,0,8"/>
+                                  FontWeight="SemiBold"
+                                  FontSize="16"
+                                  Foreground="#00BCD4"
+                                  HorizontalAlignment="Center"
+                                  Margin="0,0,0,8"/>
                                         <TextBlock Text="Supported formats: PDF, JPG, PNG, DOC, DOCX"
-                                      FontSize="12"
-                                      Foreground="#999999"
-                                      HorizontalAlignment="Center"
-                                      Margin="0,0,0,4"/>
+                                  FontSize="12"
+                                  Foreground="#999999"
+                                  HorizontalAlignment="Center"
+                                  Margin="0,0,0,4"/>
                                         <TextBlock Text="Maximum file size: 25MB"
-                                      FontSize="12"
-                                      Foreground="#999999"
-                                      HorizontalAlignment="Center"/>
+                                  FontSize="12"
+                                  Foreground="#999999"
+                                  HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </Border>
 
                                 <!-- Document Type Selection -->
                                 <StackPanel Grid.Column="2" VerticalAlignment="Top">
                                     <TextBlock Text="Document Type"
-                                  FontWeight="Medium"
-                                  FontSize="14"
-                                  Foreground="#2C3E50"
-                                  Margin="0,0,0,8"/>
+                              FontWeight="Medium"
+                              FontSize="14"
+                              Foreground="#2C3E50"
+                              Margin="0,0,0,8"/>
 
                                     <ComboBox Width="370"
-                                  HorizontalAlignment="Left"
-                                  Margin="0,0,0,30"
-                                  Height="40"
-                                  Style="{StaticResource ComboBox}"
-                                  ItemContainerStyle="{StaticResource ComboBoxItem}">
+                              HorizontalAlignment="Left"
+                              Margin="0,0,0,30"
+                              Height="40"
+                              Style="{StaticResource ComboBox}"
+                              ItemContainerStyle="{StaticResource ComboBoxItem}">
                                         <ComboBoxItem Content="Government ID" IsSelected="True"/>
                                         <ComboBoxItem Content="Medical Records"/>
                                         <ComboBoxItem Content="Financial Documents"/>
@@ -251,29 +251,29 @@
                                     </ComboBox>
 
                                     <TextBlock Text="Document Name"
-                                  FontWeight="Medium"
-                                  FontSize="14"
-                                  Foreground="#2C3E50"
-                                  Margin="0,0,0,8"/>
+                              FontWeight="Medium"
+                              FontSize="14"
+                              Foreground="#2C3E50"
+                              Margin="0,0,0,8"/>
 
                                     <TextBox Name="DocumentNameTextBox"
-                                Padding="12,10"
-                                FontSize="14"
-                                BorderBrush="#DDDDDD"
-                                BorderThickness="1"
-                                Background="White"
-                                Margin="0,0,0,20">
+                            Padding="12,10"
+                            FontSize="14"
+                            BorderBrush="#DDDDDD"
+                            BorderThickness="1"
+                            Background="White"
+                            Margin="0,0,0,20">
                                         <TextBox.Style>
                                             <Style TargetType="TextBox">
                                                 <Setter Property="Template">
                                                     <Setter.Value>
                                                         <ControlTemplate TargetType="TextBox">
                                                             <Border Background="{TemplateBinding Background}"
-                                                        BorderBrush="{TemplateBinding BorderBrush}"
-                                                        BorderThickness="{TemplateBinding BorderThickness}"
-                                                        CornerRadius="8">
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="8">
                                                                 <ScrollViewer x:Name="PART_ContentHost"
-                                                                Margin="{TemplateBinding Padding}"/>
+                                                            Margin="{TemplateBinding Padding}"/>
                                                             </Border>
                                                         </ControlTemplate>
                                                     </Setter.Value>
@@ -283,48 +283,48 @@
                                     </TextBox>
 
                                     <Button Content="Upload Document"
-                               Style="{StaticResource PrimaryButton}"
-                               Name="UploadButton"
-                               IsEnabled="False"/>
+                           Style="{StaticResource PrimaryButton}"
+                           Name="UploadButton"
+                           IsEnabled="False"/>
                                 </StackPanel>
                             </Grid>
                         </StackPanel>
                     </Border>
 
                     <!-- Upload Progress (Show when uploading) -->
-                    <Border Style="{StaticResource ModernCard}" 
-                Margin="0,0,0,32" 
-                Padding="24"
-                Name="ProgressSection"
-                Visibility="Collapsed">
+                    <Border Style="{StaticResource ModernCard}"
+            Margin="0,0,0,32"
+            Padding="24"
+            Name="ProgressSection"
+            Visibility="Collapsed">
                         <StackPanel>
                             <Grid Margin="0,0,0,12">
                                 <TextBlock Text="Uploading..."
-                              FontWeight="SemiBold"
-                              FontSize="16"
-                              Foreground="#2C3E50"
-                              HorizontalAlignment="Left"/>
+                          FontWeight="SemiBold"
+                          FontSize="16"
+                          Foreground="#2C3E50"
+                          HorizontalAlignment="Left"/>
                                 <TextBlock Text="75%"
-                              FontSize="14"
-                              Foreground="#7F8C8D"
-                              HorizontalAlignment="Right"/>
+                          FontSize="14"
+                          Foreground="#7F8C8D"
+                          HorizontalAlignment="Right"/>
                             </Grid>
 
                             <Border Background="#F0F0F0"
-                       CornerRadius="8"
-                       Height="8">
+                   CornerRadius="8"
+                   Height="8">
                                 <Border Background="#00BCD4"
-                           CornerRadius="8"
-                           HorizontalAlignment="Left"
-                           Width="300"/>
+                       CornerRadius="8"
+                       HorizontalAlignment="Left"
+                       Width="300"/>
                             </Border>
                         </StackPanel>
                     </Border>
 
                     <!-- Documents Overview -->
-                    <Border Style="{StaticResource ModernCard}" 
-                Margin="0,0,0,32" 
-                Padding="32">
+                    <Border Style="{StaticResource ModernCard}"
+            Margin="0,0,0,32"
+            Padding="32">
                         <StackPanel>
                             <Grid Margin="0,0,0,24">
                                 <Grid.ColumnDefinitions>
@@ -334,13 +334,13 @@
 
                                 <StackPanel>
                                     <TextBlock Text="Your Documents"
-                                  FontWeight="SemiBold"
-                                  FontSize="20"
-                                  Foreground="#2C3E50"
-                                  Margin="0,0,0,4"/>
+                              FontWeight="SemiBold"
+                              FontSize="20"
+                              Foreground="#2C3E50"
+                              Margin="0,0,0,4"/>
                                     <TextBlock Text="7 documents uploaded • 5 verified • 1 under review • 1 requires attention"
-                                  FontSize="14"
-                                  Foreground="#7F8C8D"/>
+                              FontSize="14"
+                              Foreground="#7F8C8D"/>
                                 </StackPanel>
 
 
@@ -361,45 +361,45 @@
 
                                         <!-- File Icon -->
                                         <Border Grid.Column="0"
-                                   Background="#E8F5E8"
-                                   CornerRadius="12"
-                                   Width="56"
-                                   Height="56"
-                                   VerticalAlignment="Top"
-                                   Margin="0,0,20,0">
+                               Background="#E8F5E8"
+                               CornerRadius="12"
+                               Width="56"
+                               Height="56"
+                               VerticalAlignment="Top"
+                               Margin="0,0,20,0">
                                             <TextBlock Text="📄"
-                                          FontSize="24"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
+                                      FontSize="24"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
                                         </Border>
 
                                         <!-- Document Info -->
                                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                             <TextBlock Text="Driver's License - John Doe.pdf"
-                                          FontWeight="SemiBold"
-                                          FontSize="16"
-                                          Foreground="#2C3E50"
-                                          Margin="0,0,0,4"/>
+                                      FontWeight="SemiBold"
+                                      FontSize="16"
+                                      Foreground="#2C3E50"
+                                      Margin="0,0,0,4"/>
                                             <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
                                                 <TextBlock Text="Government ID"
-                                              FontSize="12"
-                                              Foreground="#7F8C8D"
-                                              Margin="0,0,16,0"/>
+                                          FontSize="12"
+                                          Foreground="#7F8C8D"
+                                          Margin="0,0,16,0"/>
                                                 <TextBlock Text="•"
-                                              FontSize="12"
-                                              Foreground="#BDC3C7"
-                                              Margin="0,0,16,0"/>
+                                          FontSize="12"
+                                          Foreground="#BDC3C7"
+                                          Margin="0,0,16,0"/>
                                                 <TextBlock Text="2.4 MB"
-                                              FontSize="12"
-                                              Foreground="#7F8C8D"
-                                              Margin="0,0,16,0"/>
+                                          FontSize="12"
+                                          Foreground="#7F8C8D"
+                                          Margin="0,0,16,0"/>
                                                 <TextBlock Text="•"
-                                              FontSize="12"
-                                              Foreground="#BDC3C7"
-                                              Margin="0,0,16,0"/>
+                                          FontSize="12"
+                                          Foreground="#BDC3C7"
+                                          Margin="0,0,16,0"/>
                                                 <TextBlock Text="Uploaded 2 days ago"
-                                              FontSize="12"
-                                              Foreground="#7F8C8D"/>
+                                          FontSize="12"
+                                          Foreground="#7F8C8D"/>
                                             </StackPanel>
                                         </StackPanel>
 
@@ -407,22 +407,22 @@
                                         <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,0,16,0">
                                             <Border Style="{StaticResource VerifiedBadge}">
                                                 <TextBlock Text="✓ Verified"
-                                              FontWeight="Medium"
-                                              FontSize="12"
-                                              Foreground="#155724"/>
+                                          FontWeight="Medium"
+                                          FontSize="12"
+                                          Foreground="#155724"/>
                                             </Border>
                                         </StackPanel>
 
                                         <!-- Actions -->
                                         <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
                                             <Button Content="View"
-                                       Style="{StaticResource SecondaryButton}"
-                                       Margin="0,0,8,0"/>
+                                   Style="{StaticResource SecondaryButton}"
+                                   Margin="0,0,8,0"/>
                                             <Button Content="⋮"
-                                       Style="{StaticResource SecondaryButton}"
-                                       FontSize="16"
-                                       Width="32"
-                                       Padding="0"/>
+                                   Style="{StaticResource SecondaryButton}"
+                                   FontSize="16"
+                                   Width="32"
+                                   Padding="0"/>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
@@ -438,73 +438,73 @@
                                         </Grid.ColumnDefinitions>
 
                                         <Border Grid.Column="0"
-                                   Background="#FFF3CD"
-                                   CornerRadius="12"
-                                   Width="56"
-                                   Height="56"
-                                   VerticalAlignment="Top"
-                                   Margin="0,0,20,0">
+                               Background="#FFF3CD"
+                               CornerRadius="12"
+                               Width="56"
+                               Height="56"
+                               VerticalAlignment="Top"
+                               Margin="0,0,20,0">
                                             <TextBlock Text="📋"
-                                          FontSize="24"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
+                                      FontSize="24"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
                                         </Border>
 
                                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                             <TextBlock Text="Medical Report - Hospital Records.pdf"
-                                          FontWeight="SemiBold"
-                                          FontSize="16"
-                                          Foreground="#2C3E50"
-                                          Margin="0,0,0,4"/>
+                                      FontWeight="SemiBold"
+                                      FontSize="16"
+                                      Foreground="#2C3E50"
+                                      Margin="0,0,0,4"/>
                                             <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
                                                 <TextBlock Text="Medical Records"
-                                              FontSize="12"
-                                              Foreground="#7F8C8D"
-                                              Margin="0,0,16,0"/>
+                                          FontSize="12"
+                                          Foreground="#7F8C8D"
+                                          Margin="0,0,16,0"/>
                                                 <TextBlock Text="•"
-                                              FontSize="12"
-                                              Foreground="#BDC3C7"
-                                              Margin="0,0,16,0"/>
+                                          FontSize="12"
+                                          Foreground="#BDC3C7"
+                                          Margin="0,0,16,0"/>
                                                 <TextBlock Text="5.7 MB"
-                                              FontSize="12"
-                                              Foreground="#7F8C8D"
-                                              Margin="0,0,16,0"/>
+                                          FontSize="12"
+                                          Foreground="#7F8C8D"
+                                          Margin="0,0,16,0"/>
                                                 <TextBlock Text="•"
-                                              FontSize="12"
-                                              Foreground="#BDC3C7"
-                                              Margin="0,0,16,0"/>
+                                          FontSize="12"
+                                          Foreground="#BDC3C7"
+                                          Margin="0,0,16,0"/>
                                                 <TextBlock Text="Uploaded 1 day ago"
-                                              FontSize="12"
-                                              Foreground="#7F8C8D"/>
+                                          FontSize="12"
+                                          Foreground="#7F8C8D"/>
                                             </StackPanel>
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,0,16,0">
                                             <Border Style="{StaticResource ReviewBadge}">
                                                 <TextBlock Text="⏳ Under Review"
-                                              FontWeight="Medium"
-                                              FontSize="12"
-                                              Foreground="#383D41"/>
+                                          FontWeight="Medium"
+                                          FontSize="12"
+                                          Foreground="#383D41"/>
                                             </Border>
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
                                             <Button Content="View"
-                                       Style="{StaticResource SecondaryButton}"
-                                       Margin="0,0,8,0"/>
+                                   Style="{StaticResource SecondaryButton}"
+                                   Margin="0,0,8,0"/>
                                             <Button Content="⋮"
-                                       Style="{StaticResource SecondaryButton}"
-                                       FontSize="16"
-                                       Width="32"
-                                       Padding="0"/>
+                                   Style="{StaticResource SecondaryButton}"
+                                   FontSize="16"
+                                   Width="32"
+                                   Padding="0"/>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
 
                                 <!-- Sample Document 3 - Needs Attention -->
                                 <Border Style="{StaticResource DocumentItem}"
-                           BorderBrush="#F8D7DA"
-                           BorderThickness="2">
+                       BorderBrush="#F8D7DA"
+                       BorderThickness="2">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
@@ -514,98 +514,98 @@
                                         </Grid.ColumnDefinitions>
 
                                         <Border Grid.Column="0"
-                                   Background="#F8D7DA"
-                                   CornerRadius="12"
-                                   Width="56"
-                                   Height="56"
-                                   VerticalAlignment="Top"
-                                   Margin="0,0,20,0">
+                               Background="#F8D7DA"
+                               CornerRadius="12"
+                               Width="56"
+                               Height="56"
+                               VerticalAlignment="Top"
+                               Margin="0,0,20,0">
                                             <TextBlock Text="⚠️"
-                                          FontSize="24"
-                                          HorizontalAlignment="Center"
-                                          VerticalAlignment="Center"/>
+                                      FontSize="24"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
                                         </Border>
 
                                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                             <TextBlock Text="Bank Statement - Incomplete.pdf"
-                                          FontWeight="SemiBold"
-                                          FontSize="16"
-                                          Foreground="#2C3E50"
-                                          Margin="0,0,0,4"/>
+                                      FontWeight="SemiBold"
+                                      FontSize="16"
+                                      Foreground="#2C3E50"
+                                      Margin="0,0,0,4"/>
                                             <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
                                                 <TextBlock Text="Financial Documents"
-                                              FontSize="12"
-                                              Foreground="#7F8C8D"
-                                              Margin="0,0,16,0"/>
+                                          FontSize="12"
+                                          Foreground="#7F8C8D"
+                                          Margin="0,0,16,0"/>
                                                 <TextBlock Text="•"
-                                              FontSize="12"
-                                              Foreground="#BDC3C7"
-                                              Margin="0,0,16,0"/>
+                                          FontSize="12"
+                                          Foreground="#BDC3C7"
+                                          Margin="0,0,16,0"/>
                                                 <TextBlock Text="1.2 MB"
-                                              FontSize="12"
-                                              Foreground="#7F8C8D"
-                                              Margin="0,0,16,0"/>
+                                          FontSize="12"
+                                          Foreground="#7F8C8D"
+                                          Margin="0,0,16,0"/>
                                                 <TextBlock Text="•"
-                                              FontSize="12"
-                                              Foreground="#BDC3C7"
-                                              Margin="0,0,16,0"/>
+                                          FontSize="12"
+                                          Foreground="#BDC3C7"
+                                          Margin="0,0,16,0"/>
                                                 <TextBlock Text="Uploaded 3 days ago"
-                                              FontSize="12"
-                                              Foreground="#7F8C8D"/>
+                                          FontSize="12"
+                                          Foreground="#7F8C8D"/>
                                             </StackPanel>
                                             <TextBlock Text="Document quality is unclear. Please reupload a clearer version."
-                                          FontSize="12"
-                                          Foreground="#721C24"
-                                          FontStyle="Italic"/>
+                                      FontSize="12"
+                                      Foreground="#721C24"
+                                      FontStyle="Italic"/>
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,0,16,0">
                                             <Border Style="{StaticResource RejectedBadge}">
                                                 <TextBlock Text="⚠️ Needs Attention"
-                                              FontWeight="Medium"
-                                              FontSize="12"
-                                              Foreground="#721C24"/>
+                                          FontWeight="Medium"
+                                          FontSize="12"
+                                          Foreground="#721C24"/>
                                             </Border>
                                         </StackPanel>
 
                                         <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
                                             <Button Content="Reupload"
-                                       Style="{StaticResource PrimaryButton}"
-                                       Padding="12,6"
-                                       FontSize="12"
-                                       Margin="0,0,8,0"/>
+                                   Style="{StaticResource PrimaryButton}"
+                                   Padding="12,6"
+                                   FontSize="12"
+                                   Margin="0,0,8,0"/>
                                             <Button Content="⋮"
-                                       Style="{StaticResource SecondaryButton}"
-                                       FontSize="16"
-                                       Width="32"
-                                       Padding="0"/>
+                                   Style="{StaticResource SecondaryButton}"
+                                   FontSize="16"
+                                   Width="32"
+                                   Padding="0"/>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
 
                                 <!-- Load More Button -->
                                 <Button Content="Load More Documents"
-                           Style="{StaticResource SecondaryButton}"
-                           HorizontalAlignment="Center"
-                           Margin="0,24,0,0"
-                           Padding="20,12"/>
+                       Style="{StaticResource SecondaryButton}"
+                       HorizontalAlignment="Center"
+                       Margin="0,24,0,0"
+                       Padding="20,12"/>
 
                             </StackPanel>
                         </StackPanel>
                     </Border>
 
                     <!-- Help Section -->
-                    <Border Background="#F8F9FA" 
-                CornerRadius="16" 
-                Padding="32"
-                BorderBrush="#E9ECEF"
-                BorderThickness="1">
+                    <Border Background="#F8F9FA"
+            CornerRadius="16"
+            Padding="32"
+            BorderBrush="#E9ECEF"
+            BorderThickness="1">
                         <StackPanel>
                             <TextBlock Text="Document Guidelines and Support"
-                          FontWeight="SemiBold"
-                          FontSize="18"
-                          Foreground="#2C3E50"
-                          Margin="0,0,0,16"/>
+                      FontWeight="SemiBold"
+                      FontSize="18"
+                      Foreground="#2C3E50"
+                      Margin="0,0,0,16"/>
 
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -617,52 +617,52 @@
                                 <!-- Guidelines -->
                                 <StackPanel Grid.Column="0">
                                     <TextBlock Text="📋 Document Requirements"
-                                  FontWeight="Medium"
-                                  FontSize="14"
-                                  Foreground="#2C3E50"
-                                  Margin="0,0,0,8"/>
-                                    <TextBlock FontSize="13" 
-                                  Foreground="#7F8C8D" 
-                                  TextWrapping="Wrap"
-                                  Margin="0,0,0,16">
-                            • Files must be clear and readable<LineBreak/>
-                            • Maximum file size: 25MB<LineBreak/>
-                            • Supported formats: PDF, JPG, PNG, DOC, DOCX<LineBreak/>
-                            • Personal information should be visible
+                              FontWeight="Medium"
+                              FontSize="14"
+                              Foreground="#2C3E50"
+                              Margin="0,0,0,8"/>
+                                    <TextBlock FontSize="13"
+                              Foreground="#7F8C8D"
+                              TextWrapping="Wrap"
+                              Margin="0,0,0,16">
+									• Files must be clear and readable<LineBreak/>
+									• Maximum file size: 25MB<LineBreak/>
+									• Supported formats: PDF, JPG, PNG, DOC, DOCX<LineBreak/>
+									• Personal information should be visible
                                     </TextBlock>
 
                                     <TextBlock Text="⏱️ Review Process"
-                                  FontWeight="Medium"
-                                  FontSize="14"
-                                  Foreground="#2C3E50"
-                                  Margin="0,0,0,8"/>
-                                    <TextBlock FontSize="13" 
-                                  Foreground="#7F8C8D" 
-                                  TextWrapping="Wrap">
-                            Documents are typically reviewed within 2-3 business days. You'll receive notifications about status changes.
+                              FontWeight="Medium"
+                              FontSize="14"
+                              Foreground="#2C3E50"
+                              Margin="0,0,0,8"/>
+                                    <TextBlock FontSize="13"
+                              Foreground="#7F8C8D"
+                              TextWrapping="Wrap">
+									Documents are typically reviewed within 2-3 business days. You'll receive notifications about status changes.
                                     </TextBlock>
                                 </StackPanel>
 
                                 <!-- Support -->
                                 <StackPanel Grid.Column="2">
                                     <TextBlock Text="🎯 Need Help?"
-                                  FontWeight="Medium"
-                                  FontSize="14"
-                                  Foreground="#2C3E50"
-                                  Margin="0,0,0,8"/>
-                                    <TextBlock FontSize="13" 
-                                  Foreground="#7F8C8D" 
-                                  TextWrapping="Wrap"
-                                  Margin="0,0,0,20">
-                            Our support team is available 24/7 to help with document uploads, verification questions, and technical issues.
+                              FontWeight="Medium"
+                              FontSize="14"
+                              Foreground="#2C3E50"
+                              Margin="0,0,0,8"/>
+                                    <TextBlock FontSize="13"
+                              Foreground="#7F8C8D"
+                              TextWrapping="Wrap"
+                              Margin="0,0,0,20">
+									Our support team is available 24/7 to help with document uploads, verification questions, and technical issues.
                                     </TextBlock>
 
                                     <StackPanel Orientation="Horizontal">
                                         <Button Content="Contact Support"
-                                   Style="{StaticResource SecondaryButton}"
-                                   Margin="0,0,12,0"/>
+                               Style="{StaticResource SecondaryButton}"
+                               Margin="0,0,12,0"/>
                                         <Button Content="View FAQ"
-                                   Style="{StaticResource SecondaryButton}"/>
+                               Style="{StaticResource SecondaryButton}"/>
                                     </StackPanel>
                                 </StackPanel>
                             </Grid>

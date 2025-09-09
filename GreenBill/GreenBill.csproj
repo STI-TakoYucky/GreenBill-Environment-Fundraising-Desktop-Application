@@ -201,6 +201,7 @@
     <Compile Include="MVVM\ViewModel\MainWindowViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SigninViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SignupViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\SupportingDocumentsPageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\UserCampaignsViewModel.cs" />
     <Compile Include="MVVM\View\Admin\AdminCampaignAnalytics.xaml.cs">
       <DependentUpon>AdminCampaignAnalytics.xaml</DependentUpon>
@@ -229,6 +230,9 @@
     </Compile>
     <Compile Include="MVVM\View\CampaignDetailsTabs\Donors.xaml.cs">
       <DependentUpon>Donors.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\CampaignDetailsTabs\SupportingDocuments.xaml.cs">
+      <DependentUpon>SupportingDocuments.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\CampaignDetailsTabs\Updates.xaml.cs">
       <DependentUpon>Updates.xaml</DependentUpon>
@@ -267,6 +271,9 @@
       <DependentUpon>Signup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\ByteArrayToImageConverter.cs" />
+    <Compile Include="MVVM\View\SupportingDocumentsPage.xaml.cs">
+      <DependentUpon>SupportingDocumentsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\UserCampaigns.xaml.cs">
       <DependentUpon>UserCampaigns.xaml</DependentUpon>
     </Compile>
@@ -311,6 +318,10 @@
     <Page Include="MVVM\View\CampaignDetailsTabs\Donors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\CampaignDetailsTabs\SupportingDocuments.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MVVM\View\CampaignDetailsTabs\Updates.xaml">
       <SubType>Designer</SubType>
@@ -372,6 +383,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Signup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\SupportingDocumentsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

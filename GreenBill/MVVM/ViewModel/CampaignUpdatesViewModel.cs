@@ -194,7 +194,7 @@ namespace GreenBill.MVVM.ViewModel
 
             if (IsEditing && EditingUpdate != null)
             {
-                // Update existing
+
                 EditingUpdate.Title = Title?.Trim();
                 EditingUpdate.Description = Description?.Trim();
                 EditingUpdate.Category = SelectedCategory;
@@ -251,14 +251,17 @@ namespace GreenBill.MVVM.ViewModel
 
         private async Task DeleteUpdate(ObjectId updateId)
         {
+            Debug.WriteLine("TEST 1");
             var confirmResult = await OnConfirmDelete?.Invoke("Are you sure you want to delete this update? This action cannot be undone.");
             if (confirmResult != true) return;
+            Debug.WriteLine("TEST 2");
 
             var update = Updates.FirstOrDefault(u => u.Id == updateId);
             if (update != null)
             {
                 Updates.Remove(update);
                 ApplySearch();
+                await _campaignUpdateService.DeleteAsync(updateId);
                 OnSuccessMessage?.Invoke("Update deleted successfully!");
 
                 // If we were editing this update, reset the form

@@ -1,4 +1,5 @@
 ﻿using GreenBill.MVVM.ViewModel;
+using MongoDB.Bson;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -81,7 +82,7 @@ namespace GreenBill.MVVM.View
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is Guid updateId)
+            if (sender is Button button && button.Tag is ObjectId updateId)
             {
                 ViewModel?.DeleteCommand?.Execute(updateId);
             }

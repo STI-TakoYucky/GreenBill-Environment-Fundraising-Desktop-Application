@@ -286,7 +286,8 @@
                                                        Click="EditButton_Click"/>
                                                 <Button Content="Delete" Style="{StaticResource SecondaryButtonStyle}" 
                                                        Padding="8,6" FontSize="12" Tag="{Binding Id}"
-                                                       Click="DeleteButton_Click"/>
+                                                         Command="{Binding DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                       CommandParameter="{Binding Id}"/>
                                             </StackPanel>
                                         </Grid>
 

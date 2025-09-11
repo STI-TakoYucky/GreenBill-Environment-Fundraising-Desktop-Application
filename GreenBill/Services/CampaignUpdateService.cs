@@ -53,6 +53,23 @@ namespace GreenBill.Services
             }
         }
 
+        public async Task DeleteAsync(ObjectId updateId)
+        {
+            try
+            {
+                var filter = Builders<CampaignUpdate>.Filter.Eq(x => x.Id, updateId);
+                var result = await _collection.DeleteOneAsync(filter);
+
+                if (result.DeletedCount == 0)
+                {
+                    throw new Exception("Document not found or could not be deleted");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error deleting document {updateId}: {ex.Message}", ex);
+            }
+        }
 
     }
 }

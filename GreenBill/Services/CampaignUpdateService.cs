@@ -4,6 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace GreenBill.Services
         {
             try
             {
+                Debug.WriteLine(campaignId.ToString());
                 var filter = Builders<CampaignUpdate>.Filter.Eq(x => x.CampaignId, campaignId);
 
                 var sort = Builders<CampaignUpdate>.Sort.Descending(x => x.CreatedAt);

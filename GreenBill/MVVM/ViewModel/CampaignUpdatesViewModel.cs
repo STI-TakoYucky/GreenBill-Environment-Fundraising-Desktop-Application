@@ -155,7 +155,7 @@ namespace GreenBill.MVVM.ViewModel
             _campaignUpdateService = new CampaignUpdateService();
             InitializeData();
             InitializeCommands();
-            _ = LoadUpdatesAsync();
+
         }
 
         #region Initialization
@@ -208,12 +208,14 @@ namespace GreenBill.MVVM.ViewModel
                 var newUpdate = new CampaignUpdate
                 {
                     Title = Title?.Trim(),
+                    CampaignId = this.CampaignId,
                     Description = Description?.Trim(),
                     Category = SelectedCategory,
                     CreatedAt = DateTime.Now
                 };
 
                 await _campaignUpdateService.Create(newUpdate);
+                Updates.Add(newUpdate);
                 ApplySearch();
                 OnSuccessMessage?.Invoke("Update added successfully!");
             }
@@ -335,6 +337,7 @@ namespace GreenBill.MVVM.ViewModel
         {
             if (parameter == null) return;
             CampaignId = (ObjectId)parameter;
+            await LoadUpdatesAsync();
         }
     }
 }

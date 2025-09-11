@@ -229,7 +229,7 @@
                            Visibility="{Binding ShowCancelButton, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <Button x:Name="SaveButton" Content="{Binding SaveButtonText}" 
                            Style="{StaticResource PrimaryButtonStyle}" 
-                           Padding="20,8" Click="SaveButton_Click"
+                           Padding="20,8"
                            Command="{Binding SaveCommand}"/>
                 </StackPanel>
             </Grid>
@@ -291,7 +291,7 @@
                                         </Grid>
 
                                         <!-- Date -->
-                                        <TextBlock Grid.Row="1" Text="{Binding DateCreated, StringFormat='Posted on {0:MMMM dd, yyyy} at {0:HH:mm}'}" 
+                                        <TextBlock Grid.Row="1" Text="{Binding CreatedAt, StringFormat='Posted on {0:MMMM dd, yyyy} at {0:HH:mm}'}" 
                                                   FontSize="12" Foreground="#666" Margin="0,5,0,10"/>
 
                                         <!-- Description -->

@@ -143,7 +143,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Margin="100, 40, 100, 40">
+    <Grid Margin="100, 40, 100, 40" MaxWidth="1200">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -162,7 +162,7 @@
         </Grid>
 
         <!-- Header -->
-        <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0,0,0,20" Padding="20">
+        <Border Grid.Row="1"  Margin="0,0,0,20">
             <StackPanel>
                 <TextBlock Text="Campaign Updates" FontSize="24" FontWeight="Bold" Foreground="#333" Margin="0,0,0,10"/>
                 <TextBlock Text="Manage your campaign updates to keep your supporters informed about your progress." 
@@ -299,24 +299,7 @@
                                                   FontSize="14" Foreground="#444" 
                                                   TextWrapping="Wrap" Margin="0,0,0,10"/>
 
-                                        <!-- Tags -->
-                                        <ItemsControl Grid.Row="3" ItemsSource="{Binding TagsList}" 
-                                                     Visibility="{Binding TagsVisibility}">
-                                            <ItemsControl.ItemsPanel>
-                                                <ItemsPanelTemplate>
-                                                    <WrapPanel/>
-                                                </ItemsPanelTemplate>
-                                            </ItemsControl.ItemsPanel>
-                                            <ItemsControl.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Border Background="#e3f2fd" CornerRadius="8" 
-                                                           Padding="6,3" Margin="0,0,5,5">
-                                                        <TextBlock Text="{Binding}" FontSize="11" 
-                                                                  Foreground="#1976d2"/>
-                                                    </Border>
-                                                </DataTemplate>
-                                            </ItemsControl.ItemTemplate>
-                                        </ItemsControl>
+                                      
                                     </Grid>
                                 </Border>
                             </DataTemplate>

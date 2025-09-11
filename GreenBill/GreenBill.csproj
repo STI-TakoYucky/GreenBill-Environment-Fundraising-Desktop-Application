@@ -188,6 +188,7 @@
     <Compile Include="IServices\IUserService.cs" />
     <Compile Include="MVVM\Model\Campaign.cs" />
     <Compile Include="MVVM\Model\CampaignIncludeOptions.cs" />
+    <Compile Include="MVVM\Model\CampaignUpdate.cs" />
     <Compile Include="MVVM\Model\SupportingDocument.cs" />
     <Compile Include="MVVM\Model\User.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminCampaignAnalyticsViewModel.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="MVVM\ViewModel\CampaignAnalyticsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CampaignDetailsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CampaignsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CampaignUpdatesViewModel.cs" />
     <Compile Include="MVVM\ViewModel\FundraisingDetailsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\FundraisingStepsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\HomePageViewModel.cs" />

@@ -7,14 +7,57 @@
              mc:Ignorable="d" 
              Background="#FFFFFF"
              d:DesignHeight="900" d:DesignWidth="1400">
+
+    <UserControl.Resources>
+        <!-- Button Style -->
+        <Style x:Key="ManageButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#4CAF50"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#4CAF50"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"
+                                            Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#45a049"/>
+                                <Setter Property="BorderBrush" Value="#45a049"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
-                <TextBlock Text="Recent Updates" 
-                       FontSize="22" 
-                       FontWeight="SemiBold" 
-                       Foreground="#333333"
-                       Margin="0,0,0,20"/>
+                <!-- Header with Title and Manage Button -->
+                <Grid Margin="0,0,0,20">
+                    <TextBlock Text="Recent Updates" 
+                           FontSize="22" 
+                           FontWeight="SemiBold" 
+                           Foreground="#333333"
+                           VerticalAlignment="Center"/>
+                    <Button Content="Manage Updates" 
+                            Style="{StaticResource ManageButtonStyle}"
+                            HorizontalAlignment="Right"
+                            Command="{Binding GoToUpdatesPage}"
+                            CommandParameter="{Binding SelectedCampaign.Id}"/>
+                </Grid>
 
                 <!-- Update Item 1 -->
                 <Border Background="#F8F9FA" 

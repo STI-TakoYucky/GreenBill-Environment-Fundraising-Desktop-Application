@@ -85,6 +85,10 @@
                 <view:SupportingDocumentsPage/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:CampaignUpdatesViewModel}">
+                <view:CampaignUpdates/>
+            </DataTemplate>
+
             <Style TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
             </Style>

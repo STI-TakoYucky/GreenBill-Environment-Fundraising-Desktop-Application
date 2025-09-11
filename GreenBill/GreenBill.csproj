@@ -183,6 +183,7 @@
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="IServices\ICampaignService.cs" />
+    <Compile Include="IServices\ICampaignUpdateService.cs" />
     <Compile Include="IServices\INavigatableService.cs" />
     <Compile Include="IServices\ISupportingDocumentService.cs" />
     <Compile Include="IServices\IUserService.cs" />
@@ -286,6 +287,7 @@
       <DependentUpon>UserCampaigns.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\CampaignService.cs" />
+    <Compile Include="Services\CampaignUpdateService.cs" />
     <Compile Include="Services\ITabNavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\SupportingDocumentService.cs" />

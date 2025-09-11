@@ -65,6 +65,7 @@ namespace GreenBill
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<ICampaignService, CampaignService>();
             services.AddSingleton<ISupportingDocumentService, SupportingDocumentService>();
+            services.AddSingleton<ICampaignUpdateService, CampaignUpdateService>();
 
             services.AddTransient<ITabNavigationService, TabNavigationService>();
 

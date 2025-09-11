@@ -18,6 +18,7 @@ namespace GreenBill.MVVM.ViewModel
     {
         public bool ShowNavigation => false;
         private INavigationService _navigationService;
+        private readonly ICampaignUpdateService _campaignUpdateService;
         private ObjectId CampaignId { get; set; }
 
         #region Properties
@@ -151,9 +152,10 @@ namespace GreenBill.MVVM.ViewModel
         public CampaignUpdatesViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
+            _campaignUpdateService = new CampaignUpdateService();
             InitializeData();
             InitializeCommands();
-            LoadSampleData();
+            _ = LoadUpdatesAsync();
         }
 
         #region Initialization
@@ -174,49 +176,10 @@ namespace GreenBill.MVVM.ViewModel
 
             SaveCommand = new RelayCommand(async o => await SaveUpdate(), o => CanSave());
             CancelCommand = new RelayCommand(o => ResetForm());
-            EditCommand = new RelayCommand(o => StartEditing((Guid)o));
-            DeleteCommand = new RelayCommand(async o => await DeleteUpdate((Guid)o));
+            EditCommand = new RelayCommand(o => StartEditing((ObjectId)o));
+            DeleteCommand = new RelayCommand(async o => await DeleteUpdate((ObjectId)o));
         }
 
-        private void LoadSampleData()
-        {
-            var sampleUpdates = new List<CampaignUpdate>
-            {
-                new CampaignUpdate
-                {
-                    Id = Guid.NewGuid(),
-                    Title = "Campaign Launch Success!",
-                    Description = "We're thrilled to announce the official launch of our green energy campaign! Thanks to early supporters, we've already reached 15% of our goal in the first week. Your contributions are making a real difference in promoting sustainable energy solutions.",
-                    Category = "Milestone Reached",
-                    Tags = "launch, milestone, thank you",
-                    DateCreated = DateTime.Now.AddDays(-7)
-                },
-                new CampaignUpdate
-                {
-                    Id = Guid.NewGuid(),
-                    Title = "Media Coverage Update",
-                    Description = "Our campaign was featured in the local environmental magazine! This exposure has brought in new supporters and increased awareness about our cause. We're gaining momentum every day.",
-                    Category = "Media Coverage",
-                    Tags = "media, awareness, progress",
-                    DateCreated = DateTime.Now.AddDays(-3)
-                },
-                new CampaignUpdate
-                {
-                    Id = Guid.NewGuid(),
-                    Title = "50% Goal Reached!",
-                    Description = "Incredible news! We've officially reached 50% of our funding goal! This milestone wouldn't have been possible without each and every one of our amazing supporters. We're halfway there!",
-                    Category = "Milestone Reached",
-                    Tags = "milestone, halfway, celebration",
-                    DateCreated = DateTime.Now.AddDays(-1)
-                }
-            };
-
-            foreach (var update in sampleUpdates)
-            {
-                Updates.Add(update);
-                FilteredUpdates.Add(update);
-            }
-        }
         #endregion
 
         #region Command Implementations
@@ -235,7 +198,7 @@ namespace GreenBill.MVVM.ViewModel
                 EditingUpdate.Title = Title?.Trim();
                 EditingUpdate.Description = Description?.Trim();
                 EditingUpdate.Category = SelectedCategory;
-                EditingUpdate.DateModified = DateTime.Now;
+                EditingUpdate.UpdatedAt = DateTime.Now;
 
                 OnSuccessMessage?.Invoke("Update modified successfully!");
             }
@@ -244,14 +207,13 @@ namespace GreenBill.MVVM.ViewModel
                 // Create new
                 var newUpdate = new CampaignUpdate
                 {
-                    Id = Guid.NewGuid(),
                     Title = Title?.Trim(),
                     Description = Description?.Trim(),
                     Category = SelectedCategory,
-                    DateCreated = DateTime.Now
+                    CreatedAt = DateTime.Now
                 };
 
-                Updates.Insert(0, newUpdate);
+                await _campaignUpdateService.Create(newUpdate);
                 ApplySearch();
                 OnSuccessMessage?.Invoke("Update added successfully!");
             }
@@ -259,7 +221,17 @@ namespace GreenBill.MVVM.ViewModel
             ResetForm();
         }
 
-        private void StartEditing(Guid updateId)
+        public async Task LoadUpdatesAsync()
+        {
+            var updates = await _campaignUpdateService.GetByCampaignIdAsync(CampaignId);
+            foreach (var update in updates)
+            {
+                Updates.Add(update);
+                FilteredUpdates.Add(update);
+            }
+        }
+
+        private void StartEditing(ObjectId updateId)
         {
             var update = Updates.FirstOrDefault(u => u.Id == updateId);
             if (update != null)
@@ -275,7 +247,7 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        private async Task DeleteUpdate(Guid updateId)
+        private async Task DeleteUpdate(ObjectId updateId)
         {
             var confirmResult = await OnConfirmDelete?.Invoke("Are you sure you want to delete this update? This action cannot be undone.");
             if (confirmResult != true) return;
@@ -343,10 +315,9 @@ namespace GreenBill.MVVM.ViewModel
                 : Updates.Where(u =>
                     u.Title.ToLower().Contains(searchTerm) ||
                     u.Description.ToLower().Contains(searchTerm) ||
-                    u.Category.ToLower().Contains(searchTerm) ||
-                    u.Tags.ToLower().Contains(searchTerm));
+                    u.Category.ToLower().Contains(searchTerm)); 
 
-            foreach (var item in filteredItems.OrderByDescending(u => u.DateCreated))
+            foreach (var item in filteredItems.OrderByDescending(u => u.CreatedAt))
             {
                 FilteredUpdates.Add(item);
             }

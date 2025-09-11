@@ -243,6 +243,9 @@
     <Compile Include="MVVM\View\Campaigns.xaml.cs">
       <DependentUpon>Campaigns.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\CampaignUpdates.xaml.cs">
+      <DependentUpon>CampaignUpdates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\FundraisingDetails.xaml.cs">
       <DependentUpon>FundraisingDetails.xaml</DependentUpon>
     </Compile>
@@ -332,6 +335,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Campaigns.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\CampaignUpdates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

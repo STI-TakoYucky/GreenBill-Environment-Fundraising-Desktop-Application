@@ -62,7 +62,7 @@ namespace GreenBill.MVVM.ViewModel
         public MainWindowViewModel(INavigationService navService)
         {
             Navigation = navService;
-            Navigation.NavigateTo<HomePageViewModel>();
+            Navigation.NavigateTo<AdminWindowViewModel>();
 
             NavigateToSignin = new RelayCommand(o => Navigation.NavigateTo<SigninViewModel>());
             GoToStep1 = new RelayCommand(o => Navigation.NavigateTo<FundraisingStepsViewModel>());

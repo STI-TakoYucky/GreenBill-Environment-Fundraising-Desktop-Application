@@ -9,6 +9,68 @@
     d:DesignWidth="1400"
     Background="White"
     mc:Ignorable="d">
+
+    <UserControl.Resources>
+
+        <!--  Tab Button Style  -->
+        <Style x:Key="TabButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#666666" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="20,15" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="#E0E0E0"
+                            BorderThickness="0,0,0,2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="#4CAF50" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--  Active Tab Style  -->
+        <Style x:Key="ActiveTabButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#4CAF50" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="20,15" />
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Padding="{TemplateBinding Padding}"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="#4CAF50"
+                            BorderThickness="0,0,0,2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ResourceDictionary x:Key="Dropdownstyles">
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/DropdownButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <ScrollViewer Padding="30,0,30,0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
@@ -18,30 +80,224 @@
                     FontWeight="SemiBold"
                     Text="Users" />
 
+                <Grid Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25*" />
+                        <ColumnDefinition Width="25*" />
+                        <ColumnDefinition Width="25*" />
+                        <ColumnDefinition Width="25*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!--  TOTAL USERS  -->
+                    <Border
+                        Grid.Column="0"
+                        Margin="0,0,15,0"
+                        Background="White"
+                        CornerRadius="12">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="8"
+                                Opacity="0.08"
+                                ShadowDepth="2"
+                                Color="#000000" />
+                        </Border.Effect>
+                        <StackPanel Margin="25,20">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                FontSize="14"
+                                Foreground="#666666"
+                                Style="{StaticResource HeadingText}"
+                                Text="Total Users" />
+                            <TextBlock
+                                Margin="0,0,0,5"
+                                FontSize="28"
+                                FontWeight="Bold"
+                                Foreground="#00A86B"
+                                Text="{Binding UserCount}" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    FontSize="16"
+                                    Foreground="#00A86B"
+                                    Text="↗" />
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="#00A86B"
+                                    Text="12.5% from last month" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!--  Total Campaigns Card  -->
+                    <Border
+                        Grid.Column="1"
+                        Margin="0,0,15,0"
+                        Background="White"
+                        CornerRadius="12">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="8"
+                                Opacity="0.08"
+                                ShadowDepth="2"
+                                Color="#000000" />
+                        </Border.Effect>
+                        <StackPanel Margin="25,20">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                FontSize="14"
+                                Foreground="#666666"
+                                Style="{StaticResource HeadingText}"
+                                Text="Verified Users" />
+                            <TextBlock
+                                Margin="0,0,0,5"
+                                FontSize="28"
+                                FontWeight="Bold"
+                                Foreground="#3498DB"
+                                Text="32" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    FontSize="16"
+                                    Foreground="#00A86B"
+                                    Text="↗" />
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="#00A86B"
+                                    Text="8.2% from last month" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!--  Active Campaigns Card  -->
+                    <Border
+                        Grid.Column="2"
+                        Margin="0,0,15,0"
+                        Background="White"
+                        CornerRadius="12">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="8"
+                                Opacity="0.08"
+                                ShadowDepth="2"
+                                Color="#000000" />
+                        </Border.Effect>
+                        <StackPanel Margin="25,20">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                FontSize="14"
+                                Foreground="#666666"
+                                Style="{StaticResource HeadingText}"
+                                Text="Unverified Users" />
+                            <TextBlock
+                                Margin="0,0,0,5"
+                                FontSize="28"
+                                FontWeight="Bold"
+                                Foreground="#9B59B6"
+                                Text="6" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    FontSize="16"
+                                    Foreground="#666666"
+                                    Text="→" />
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="#666666"
+                                    Text="No change" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <!--  Pending Campaigns Card  -->
+                    <Border
+                        Grid.Column="3"
+                        Margin="0,0,15,0"
+                        Background="White"
+                        CornerRadius="12">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="8"
+                                Opacity="0.08"
+                                ShadowDepth="2"
+                                Color="#000000" />
+                        </Border.Effect>
+                        <StackPanel Margin="25,20">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                FontSize="14"
+                                Foreground="#666666"
+                                Style="{StaticResource HeadingText}"
+                                Text="Reported Users" />
+                            <TextBlock
+                                Margin="0,0,0,5"
+                                FontSize="28"
+                                FontWeight="Bold"
+                                Foreground="#E67E22"
+                                Text="2" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    FontSize="16"
+                                    Foreground="#00A86B"
+                                    Text="↗" />
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="#00A86B"
+                                    Text="3.8% from last month" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+
                 <!--  TABLE  -->
                 <StackPanel Margin="0,40,0,40">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Margin="0,0,20,10"
-                            FontSize="24"
-                            FontWeight="Bold"
-                            Text="Users" />
+                    <StackPanel Margin="0,0,0,20">
+                        <Grid>
+                            <!--  Bottom line under all tabs  -->
+                            <Border
+                                Height="2"
+                                VerticalAlignment="Bottom"
+                                Background="Transparent"
+                                BorderBrush="#E0E0E0"
+                                BorderThickness="0,0,0,2" />
+
+                            <!--  Tabs  -->
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="All" Style="{StaticResource ActiveTabButtonStyle}" />
+                                <Button Content="Pending Verification" Style="{StaticResource TabButtonStyle}" />
+                                <Button Content="Reported" Style="{StaticResource TabButtonStyle}" />
+                            </StackPanel>
+                        </Grid>
                     </StackPanel>
 
                     <DataGrid
-                        Grid.Row="1"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
-                        AlternatingRowBackground="#f7f9fa"
                         AutoGenerateColumns="False"
-                        Background="White"
                         BorderThickness="0"
                         CanUserAddRows="False"
-                        ColumnWidth="*"
+                        CanUserDeleteRows="False"
+                        CanUserReorderColumns="False"
+                        CanUserResizeColumns="True"
+                        CanUserSortColumns="False"
                         GridLinesVisibility="None"
                         HeadersVisibility="Column"
-                        ItemsSource="{Binding Campaigns}"
-                        RowHeight="40">
+                        ItemsSource="{Binding Users}"
+                        RowHeight="50">
+
+                        <DataGrid.Resources>
+                            <!--  Remove selection style  -->
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
+                        </DataGrid.Resources>
+
 
                         <!--  Header Style  -->
                         <DataGrid.ColumnHeaderStyle>
@@ -49,39 +305,123 @@
                                 <Setter Property="Background" Value="#e1e7e9" />
                                 <Setter Property="Foreground" Value="#333" />
                                 <Setter Property="FontWeight" Value="SemiBold" />
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                                 <Setter Property="FontSize" Value="14" />
-                                <Setter Property="Padding" Value="4,6" />
+                                <Setter Property="Padding" Value="10,20" />
                                 <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                <!--  Override default template to prevent implicit bold  -->
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="DataGridColumnHeader">
+                                            <Border
+                                                Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="5">
+                                                <ContentPresenter
+                                                    Margin="{TemplateBinding Padding}"
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    VerticalAlignment="Center"
+                                                    RecognizesAccessKey="True" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
 
                         <!--  Row Style  -->
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
-                                <Setter Property="FontSize" Value="13" />
-                                <Setter Property="Padding" Value="299" />
-                                <Setter Property="BorderThickness" Value="0" />
-                                <!--  Hover effect  -->
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#eef2f3" />
-                                    </Trigger>
-                                </Style.Triggers>
+                                <Setter Property="FontSize" Value="14" />
+                                <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                <Setter Property="BorderBrush" Value="#e1e7e9" />
                             </Style>
                         </DataGrid.RowStyle>
 
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Padding" Value="10,0" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="DataGridCell">
+                                            <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGrid.CellStyle>
+
                         <!--  Define the columns  -->
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding CampaignID}" Header="ID" />
-                            <DataGridTextColumn Binding="{Binding Title}" Header="Username" />
-                            <!--  last column stretches  -->
-                            <DataGridTextColumn Binding="{Binding Organizer}" Header="Email" />
-                            <DataGridTextColumn Binding="{Binding DateSubmitted}" Header="Password" />
-                            <DataGridTextColumn Binding="{Binding DateSubmitted}" Header="Profile Picture" />
-                            <DataGridTextColumn Binding="{Binding DateSubmitted}" Header="Role" />
-                            <DataGridTextColumn Binding="{Binding DateSubmitted}" Header="IsBanned" />
-                            <DataGridTextColumn Binding="{Binding DateSubmitted}" Header="IsDeactivated" />
-                            <DataGridTextColumn Binding="{Binding DateSubmitted}" Header="Created At" />
+                            <DataGridTextColumn
+                                MinWidth="50"
+                                Binding="{Binding Id}"
+                                Header="ID" />
+                            <DataGridTextColumn
+                                MinWidth="120"
+                                Binding="{Binding Profile}"
+                                Header="Profile Picture" />
+                            <DataGridTextColumn
+                                MinWidth="150"
+                                Binding="{Binding FirstName}"
+                                Header="First Name" />
+                            <DataGridTextColumn
+                                MinWidth="150"
+                                Binding="{Binding LastName}"
+                                Header="Last Name" />
+                            <DataGridTextColumn
+                                MinWidth="150"
+                                Binding="{Binding Username}"
+                                Header="Username" />
+                            <DataGridTextColumn
+                                MinWidth="200"
+                                Binding="{Binding Email}"
+                                Header="Email" />
+                            <DataGridTextColumn
+                                MinWidth="150"
+                                Binding="{Binding Password}"
+                                Header="Password" />
+                            <DataGridTextColumn MinWidth="100" Header="Role" />
+                            <DataGridTextColumn
+                                MinWidth="150"
+                                Binding="{Binding CreatedAt}"
+                                Header="Created At" />
+
+                            <DataGridTemplateColumn Width="50">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+
+                                        <Menu Background="Transparent">
+                                            <MenuItem Style="{DynamicResource Services_MenuItem_With_Dropdown}">
+                                                <MenuItem.Header>
+                                                    <Grid>
+                                                        <Viewbox
+                                                            Width="20"
+                                                            Height="20"
+                                                            HorizontalAlignment="Center">
+                                                            <Path
+                                                                Width="20"
+                                                                Height="20"
+                                                                HorizontalAlignment="Center"
+                                                                Data="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"
+                                                                Fill="Black"
+                                                                Stretch="Uniform" />
+                                                        </Viewbox>
+                                                    </Grid>
+                                                </MenuItem.Header>
+
+                                                <MenuItem Cursor="Hand" Header="Reject" />
+                                                <MenuItem Cursor="Hand" Header="Approve" />
+                                            </MenuItem>
+                                        </Menu>
+
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
 

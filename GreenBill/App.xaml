@@ -111,20 +111,26 @@
                 </Setter>
             </Style>
 
-            <Style TargetType="TextBlock">
+
+            <Style x:Key="HeadingText" TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+            </Style>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins-Regular" />
             </Style>
 
             <Style TargetType="TextBox">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins-Regular" />
             </Style>
 
             <Style TargetType="PasswordBox">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins-Regular" />
             </Style>
 
             <Style TargetType="Button">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins-Medium" />
             </Style>
 
             <Style TargetType="Label">
@@ -132,7 +138,7 @@
             </Style>
 
             <Style TargetType="ComboBox">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins-Regular" />
             </Style>
 
             <Style TargetType="ListBox">

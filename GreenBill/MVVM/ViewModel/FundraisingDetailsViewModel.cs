@@ -3,13 +3,14 @@ using GreenBill.Services;
 using GreenBill.IServices;
 using System.Windows.Input;
 using GreenBill.MVVM.Model;
+using System.Diagnostics;
 namespace GreenBill.MVVM.ViewModel
 {
     public class FundraisingDetailsViewModel : Core.ViewModel, INavigatableService
     {
         private INavigationService _navigationService;
 
-        private ICampaignService _campaignService;
+
         public INavigationService Navigation
         {
             get => _navigationService;
@@ -30,6 +31,7 @@ namespace GreenBill.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+        private ICampaignService _campaignService;
 
         private Campaign _selectedCampaign;
         public Campaign SelectedCampaign
@@ -42,7 +44,7 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        public ICommand NavigateToHome { get; set; }
+        public ICommand NavigateBack { get; set; }
 
         public FundraisingDetailsViewModel(INavigationService navService, ICampaignService campaignService)
         {
@@ -53,13 +55,16 @@ namespace GreenBill.MVVM.ViewModel
 
         public void InitializeCommands()
         {
-            NavigateToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
+            NavigateBack = new RelayCommand(o => Navigation.NavigateBack(), o => Navigation.CanNavigateBack);
         }
         public async void ApplyNavigationParameter(object parameter)
         {
             if (parameter == null) return;
             var id = parameter.ToString();
-            SelectedCampaign = await _campaignService.GetCampaignByIdAsync(id);
+            SelectedCampaign = await _campaignService.GetCampaignByIdAsync(
+                id,
+                new CampaignIncludeOptions { IncludeUser = true }
+             );
         }
     }
 }

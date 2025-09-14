@@ -13,6 +13,7 @@ using System.Windows;
 using GreenBill.IServices;
 using GreenBill.MVVM.View.Admin;
 using GreenBill.MVVM.ViewModel.Admin;
+using System.Diagnostics;
 
 namespace GreenBill
 {
@@ -33,35 +34,41 @@ namespace GreenBill
                 DataContext = provider.GetRequiredService<MainWindowViewModel>()
             });
 
-            services.AddSingleton<AdminWindow>(provider => new AdminWindow {
+            services.AddSingleton<AdminWindow>(provider => new AdminWindow
+            {
                 DataContext = provider.GetRequiredService<AdminWindowViewModel>()
             });
+
+   
 
             services.AddSingleton<MainWindowViewModel>();
             services.AddSingleton<SigninViewModel>();
             services.AddTransient<HomePageViewModel>();
             services.AddSingleton<SignupViewModel>();
             services.AddSingleton<FundraisingDetailsViewModel>();
-            services.AddSingleton<FundraisingStepsViewModel>();
-            services.AddSingleton<UserCampaignsViewModel>();
+            services.AddTransient<FundraisingStepsViewModel>();
+            services.AddTransient<UserCampaignsViewModel>();
             services.AddSingleton<CampaignAnalyticsViewModel>();
             services.AddSingleton<CampaignDetailsViewModel>();
             services.AddSingleton<AdminDashboardViewModel>();
             services.AddSingleton<AdminWindowViewModel>();
+            services.AddSingleton<CampaignsViewModel>();
             services.AddSingleton<UserAnalyticsViewModel>();
             services.AddSingleton<AdminCampaignAnalyticsViewModel>();
             services.AddSingleton<SettingsViewModel>();
+            services.AddTransient<SupportingDocumentsPageViewModel>();
 
             services.AddSingleton<INavigationService, NavigationService>();
 
- 
-            services.AddSingleton<ICampaignService, CampaignService>();
+
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<ICampaignService, CampaignService>();
+            services.AddSingleton<ISupportingDocumentService, SupportingDocumentService>();
 
             services.AddTransient<ITabNavigationService, TabNavigationService>();
 
             services.AddSingleton<IUserSessionService>(UserSessionService.Instance);
- 
+
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
 
             serviceProvider = services.BuildServiceProvider();

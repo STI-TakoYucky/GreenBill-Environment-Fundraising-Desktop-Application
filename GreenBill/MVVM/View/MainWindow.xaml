@@ -55,16 +55,16 @@
                     Content="Start a Change"
                     Style="{StaticResource PrimaryButton}" />
 
-                <!--  Profile Image with Dropdown  -->
-                <Button
-                    Width="40"
-                    Height="40"
-                    Margin="15,0,0,0"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Click="ProfileButton_Click"
-                    Cursor="Hand"
-                    Visibility="{Binding IsUserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <!-- Profile Image with Dropdown -->
+                <Button Width="40"
+                        Height="40"
+                        Margin="15,0,0,0"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Cursor="Hand"
+                        Style="{StaticResource TransparentButton}"
+                        Click="ProfileButton_Click"
+                        Visibility="{Binding IsUserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
 
                     <Image
                         Width="40"
@@ -85,6 +85,8 @@
                             <MenuItem Command="{Binding GoToDashboard}" Header="Dashboard" />
                             <MenuItem Command="{Binding GoToAdminDashboard}" Header="Admin Dashboard" />
                             <MenuItem Command="{Binding LogoutCommand}" Header="Logout" />
+                            <MenuItem Header="My Campaigns" Command="{Binding GoToDashboard}" />
+                            <MenuItem Header="Logout" Command="{Binding Logout}" />
                         </ContextMenu>
                     </Button.ContextMenu>
                 </Button>

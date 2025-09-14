@@ -16,79 +16,13 @@
                        Foreground="#333333"
                        Margin="0,0,0,20"/>
 
-            <TextBlock Text="This is where the detailed description of the campaign goes. You can include information about the cause, goals, and how the funds will be used. This content can be quite long and will scroll if necessary."
+            <TextBlock Text="{Binding SelectedCampaign.Description}"
                        FontSize="14" 
                        LineHeight="22" 
                        TextWrapping="Wrap" 
                        Foreground="#555555"
                        Margin="0,0,0,30"/>
 
-            <!-- Campaign Updates Section -->
-            <TextBlock Text="Recent Updates" 
-                       FontSize="22" 
-                       FontWeight="SemiBold" 
-                       Foreground="#333333"
-                       Margin="0,0,0,20"/>
-
-            <!-- Update Item 1 -->
-            <Border Background="#F8F9FA" 
-                    CornerRadius="8" 
-                    Padding="20"
-                    Margin="0,0,0,15">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                        <TextBlock Text="Update #3" 
-                                   FontWeight="SemiBold" 
-                                   FontSize="16"
-                                   Foreground="#333333"/>
-                        <TextBlock Text=" • 2 days ago" 
-                                   FontSize="14" 
-                                   Foreground="#999999"
-                                   VerticalAlignment="Center"/>
-                    </StackPanel>
-                    <TextBlock Text="Thank you for all the support! We've reached 75% of our goal and are making great progress."
-                               FontSize="14"
-                               TextWrapping="Wrap"
-                               Foreground="#555555"/>
-                </StackPanel>
-            </Border>
-
-            <!-- Update Item 2 -->
-            <Border Background="#F8F9FA" 
-                    CornerRadius="8" 
-                    Padding="20"
-                    Margin="0,0,0,15">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                        <TextBlock Text="Update #2" 
-                                   FontWeight="SemiBold" 
-                                   FontSize="16"
-                                   Foreground="#333333"/>
-                        <TextBlock Text=" • 1 week ago" 
-                                   FontSize="14" 
-                                   Foreground="#999999"
-                                   VerticalAlignment="Center"/>
-                    </StackPanel>
-                    <TextBlock Text="We've hit our first milestone! The response has been overwhelming and we're grateful for everyone's generosity."
-                               FontSize="14"
-                               TextWrapping="Wrap"
-                               Foreground="#555555"/>
-                </StackPanel>
-            </Border>
-
-            <!-- Campaign Goals Section -->
-            <TextBlock Text="Campaign Goals" 
-                       FontSize="22" 
-                       FontWeight="SemiBold" 
-                       Foreground="#333333"
-                       Margin="0,30,0,20"/>
-
-            <StackPanel>
-                <TextBlock Text="• Reach our target of $50,000" FontSize="14" Foreground="#555555" Margin="0,0,0,8"/>
-                <TextBlock Text="• Support 100 families in need" FontSize="14" Foreground="#555555" Margin="0,0,0,8"/>
-                <TextBlock Text="• Provide essential resources and aid" FontSize="14" Foreground="#555555" Margin="0,0,0,8"/>
-                <TextBlock Text="• Create lasting impact in the community" FontSize="14" Foreground="#555555"/>
-            </StackPanel>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

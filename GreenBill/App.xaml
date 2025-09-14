@@ -24,6 +24,10 @@
             <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
             <converters:ByteArrayToImageConverter x:Key="ImageConverter" />
             <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+            <converters:StatusToColorValueConverter x:Key="StatusToColorValueConverter" />
+            <converters:ProgressWidthValueConverter x:Key="ProgressWidthValueConverter" />
+            <converters:ProgressToWidthConverter x:Key="ProgressToWidthConverter"/>
+            <converters:BytesToMBConverter x:Key="BytesToMBConverter"/>
 
             <DataTemplate DataType="{x:Type viewModel:FundraisingStepsViewModel}">
                 <stepsView:FundraisingStepsContainer />
@@ -77,6 +81,9 @@
                 <adminView:Settings />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:CampaignsViewModel}">
+                <view:Campaigns />
+            </DataTemplate>
 
             <Style x:Key="circleBtn" TargetType="Button">
                 <Setter Property="Width" Value="30" />
@@ -111,6 +118,9 @@
                 </Setter>
             </Style>
 
+            <DataTemplate DataType="{x:Type viewModel:SupportingDocumentsPageViewModel}">
+                <view:SupportingDocumentsPage/>
+            </DataTemplate>
 
             <Style x:Key="HeadingText" TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />

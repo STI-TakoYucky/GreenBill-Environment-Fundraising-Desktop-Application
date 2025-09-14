@@ -47,7 +47,8 @@ namespace GreenBill.MVVM.ViewModel
     {
         public bool ShowNavigation => false;
         private ICampaignService _campaignService;
-        private Dictionary<String, String> _errorsList; 
+        private Dictionary<String, String> _errorsList;
+        private IUserSessionService _sessionService;
 
         public string ZipCodeError
         {
@@ -223,10 +224,11 @@ namespace GreenBill.MVVM.ViewModel
         public ObservableCollection<string> Countries { get; set; }
         public ObservableCollection<string> Categories { get; set; }
 
-        public FundraisingStepsViewModel(INavigationService navService, ICampaignService campaignService)
+        public FundraisingStepsViewModel(INavigationService navService, ICampaignService campaignService, IUserSessionService sessionService)
         {
             Navigation = navService;
             _campaignService = campaignService;
+            _sessionService = sessionService;
             InitializeCampaign();
             InitializeCollections();
             InitializeCommands();
@@ -384,6 +386,7 @@ namespace GreenBill.MVVM.ViewModel
             try
             {
                 if (ValidateCampaignForSaving()) return;
+                CurrentCampaign.UserId = _sessionService.CurrentUser.Id;
                 _campaignService.Create(CurrentCampaign);
                 MessageBox.Show("Campaign saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 Navigation.NavigateTo<HomePageViewModel>();

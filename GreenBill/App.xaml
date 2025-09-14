@@ -26,8 +26,8 @@
             <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
             <converters:StatusToColorValueConverter x:Key="StatusToColorValueConverter" />
             <converters:ProgressWidthValueConverter x:Key="ProgressWidthValueConverter" />
-            <converters:ProgressToWidthConverter x:Key="ProgressToWidthConverter"/>
-            <converters:BytesToMBConverter x:Key="BytesToMBConverter"/>
+            <converters:ProgressToWidthConverter x:Key="ProgressToWidthConverter" />
+            <converters:BytesToMBConverter x:Key="BytesToMBConverter" />
 
             <DataTemplate DataType="{x:Type viewModel:FundraisingStepsViewModel}">
                 <stepsView:FundraisingStepsContainer />
@@ -119,7 +119,7 @@
             </Style>
 
             <DataTemplate DataType="{x:Type viewModel:SupportingDocumentsPageViewModel}">
-                <view:SupportingDocumentsPage/>
+                <view:SupportingDocumentsPage />
             </DataTemplate>
 
             <Style x:Key="HeadingText" TargetType="TextBlock">

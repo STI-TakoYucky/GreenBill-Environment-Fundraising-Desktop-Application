@@ -10,10 +10,12 @@ using System.Windows;
 
 namespace GreenBill.MVVM.ViewModel.Admin {
     internal class UserAnalyticsViewModel : Core.ViewModel {
+        //set variables
         private readonly IUserService _userService;
         public List<User> usersFromDB { get; private set; }
         public ObservableCollection<User> Users { get; set; } = new ObservableCollection<User>();
 
+        //usercount
         private string _userCount;
         public string UserCount {
             get => _userCount;

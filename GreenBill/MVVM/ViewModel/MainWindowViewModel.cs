@@ -1,4 +1,5 @@
 ﻿using GreenBill.Core;
+using GreenBill.MVVM.ViewModel.Admin;
 using GreenBill.MVVM.Model;
 using GreenBill.Services;
 using System;
@@ -53,6 +54,7 @@ namespace GreenBill.MVVM.ViewModel
         public ICommand GoToStep1 { get; }
         public ICommand GoToDashboard { get; }
         public ICommand GoToHome { get; }
+        public ICommand GoToAdminDashboard { get; }
 
         public ICommand Logout { get; }
 
@@ -66,7 +68,6 @@ namespace GreenBill.MVVM.ViewModel
             Navigation = navService;
             _sessionService = sessionService;
             Navigation.NavigateTo<HomePageViewModel>();
-
             NavigateToSignin = new RelayCommand(o => Navigation.NavigateTo<SigninViewModel>());
             GoToStep1 = new RelayCommand(o =>
             {
@@ -83,6 +84,7 @@ namespace GreenBill.MVVM.ViewModel
             });
             GoToDashboard = new RelayCommand(o => Navigation.NavigateTo<UserCampaignsViewModel>());
             GoToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
+            GoToAdminDashboard = new RelayCommand(o => Navigation.NavigateTo<AdminWindowViewModel>());
             Logout = new RelayCommand(o => _sessionService.ClearSession());
 
 

@@ -1,0 +1,223 @@
+﻿<UserControl
+    x:Class="GreenBill.MVVM.View.Admin.ReviewCampaign"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="900"
+    d:DesignWidth="1400"
+    Background="#f0f2f5"
+    mc:Ignorable="d">
+
+    <Grid Margin="20">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+
+                <!--  Header  -->
+                <DockPanel Margin="0,0,0,20">
+                    <Button Margin="0,0,10,0" Style="{StaticResource BackButtonStyle}" />
+                    <TextBlock
+                        DockPanel.Dock="Left"
+                        FontSize="28"
+                        FontWeight="Bold"
+                        Foreground="#333"
+                        Text="Review Campaign" />
+
+                    <StackPanel
+                        HorizontalAlignment="Right"
+                        DockPanel.Dock="Right"
+                        Orientation="Horizontal">
+                        <Button Content="Reject" Style="{StaticResource SecondaryButton}" />
+                        <Button
+                            Margin="20,0,0,0"
+                            Content="Approve"
+                            Style="{StaticResource PrimaryButton}" />
+                    </StackPanel>
+                </DockPanel>
+
+                <!--  Campaign Card  -->
+                <Border
+                    Margin="0,0,0,20"
+                    Padding="25"
+                    Background="White"
+                    BorderBrush="#E0E0E0"
+                    BorderThickness="1"
+                    CornerRadius="12"
+                    Effect="{DynamicResource DropShadowEffect}">
+                    <StackPanel>
+                        <TextBlock
+                            Margin="0,0,0,15"
+                            FontSize="20"
+                            FontWeight="Bold"
+                            Text="Campaign Details" />
+
+                        <WrapPanel
+                            Margin="0,0,0,15"
+                            ItemHeight="30"
+                            ItemWidth="300">
+                            <TextBlock Text="Title: Help the Homeless" />
+                            <TextBlock Text="Category: Social Welfare" />
+                            <TextBlock Text="Country: Philippines" />
+                            <TextBlock Text="Zip Code: 1000" />
+                            <TextBlock Text="Donation Goal: ₱50,000" />
+                            <TextBlock Text="Donation Raised: ₱12,500" />
+                            <TextBlock Text="Created At: 2025-09-16" />
+                            <TextBlock Text="Status: In Review" />
+                        </WrapPanel>
+
+                        <!--  Image and Description  -->
+                        <Grid Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="300" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border
+                                Grid.Column="0"
+                                Height="200"
+                                Background="#f4f4f4"
+                                CornerRadius="8">
+                                <Image Source="sample-campaign-image.jpg" Stretch="UniformToFill" />
+                            </Border>
+
+                            <TextBlock
+                                Grid.Column="1"
+                                Margin="20,0,0,0"
+                                VerticalAlignment="Top"
+                                Text="This campaign aims to support homeless communities by providing food, shelter, and medical aid. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                                TextWrapping="Wrap" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!--  Supporting Documents Section  -->
+                <TextBlock
+                    Margin="0,0,0,15"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Text="Supporting Documents" />
+
+                <WrapPanel Margin="0,0,0,20">
+                    <!--  Example File Card  -->
+                    <Border
+                        Width="250"
+                        Margin="0,0,15,15"
+                        Padding="15"
+                        Background="White"
+                        BorderBrush="#E0E0E0"
+                        BorderThickness="1"
+                        CornerRadius="10">
+                        <StackPanel>
+
+                            <!--  File Info  -->
+                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                <!--  Optional File Icon  -->
+                                <Border
+                                    Width="40"
+                                    Height="40"
+                                    HorizontalAlignment="Left"
+                                    Background="#e0e0e0"
+                                    CornerRadius="6">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Text="PDF" />
+                                </Border>
+
+                                <StackPanel Margin="10,0,0,0">
+                                    <TextBlock FontWeight="Bold" Text="ID_Proof.pdf" />
+                                    <TextBlock
+                                        FontSize="12"
+                                        Foreground="#777"
+                                        Text="Size: 1.2 MB" />
+                                    <TextBlock
+                                        FontSize="12"
+                                        Foreground="#FF9800"
+                                        Text="Status: Pending" />
+                                </StackPanel>
+                            </StackPanel>
+
+                            <!--  Buttons  -->
+                            <StackPanel
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+                                <Button
+                                    Width="100"
+                                    Height="30"
+                                    Margin="0,0,10,0"
+                                    Content="Accept"
+                                    Style="{StaticResource PrimaryButton}" />
+                                <Button
+                                    Width="100"
+                                    Height="30"
+                                    Content="Reject"
+                                    Style="{StaticResource SecondaryButton}" />
+                            </StackPanel>
+
+                        </StackPanel>
+                    </Border>
+
+                    <!--  Repeat File Card  -->
+                    <Border
+                        Width="250"
+                        Margin="0,0,15,15"
+                        Padding="15"
+                        Background="White"
+                        BorderBrush="#E0E0E0"
+                        BorderThickness="1"
+                        CornerRadius="10">
+                        <StackPanel>
+                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                <Border
+                                    Width="40"
+                                    Height="40"
+                                    HorizontalAlignment="Left"
+                                    Background="#e0e0e0"
+                                    CornerRadius="6">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        Text="XLS" />
+                                </Border>
+                                <StackPanel Margin="10,0,0,0">
+                                    <TextBlock FontWeight="Bold" Text="Budget_Plan.xlsx" />
+                                    <TextBlock
+                                        FontSize="12"
+                                        Foreground="#777"
+                                        Text="Size: 500 KB" />
+                                    <TextBlock
+                                        FontSize="12"
+                                        Foreground="#FF9800"
+                                        Text="Status: Pending" />
+                                </StackPanel>
+                            </StackPanel>
+
+                            <StackPanel
+                                Margin="0,10,0,0"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+                                <Button
+                                    Width="100"
+                                    Height="30"
+                                    Margin="0,0,10,0"
+                                    Content="Accept"
+                                    Style="{StaticResource PrimaryButton}" />
+                                <Button
+                                    Width="100"
+                                    Height="30"
+                                    Content="Reject"
+                                    Style="{StaticResource SecondaryButton}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </WrapPanel>
+
+
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

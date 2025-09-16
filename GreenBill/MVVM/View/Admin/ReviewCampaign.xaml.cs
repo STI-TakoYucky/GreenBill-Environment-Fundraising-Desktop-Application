@@ -16,12 +16,11 @@ using System.Windows.Shapes;
 
 namespace GreenBill.MVVM.View.Admin {
     /// <summary>
-    /// Interaction logic for AdminCampaignAnalytics.xaml
+    /// Interaction logic for ReviewCampaign.xaml
     /// </summary>
-    public partial class AdminCampaignAnalytics : UserControl {
-        public AdminCampaignAnalytics() {
+    public partial class ReviewCampaign : UserControl {
+        public ReviewCampaign() {
             InitializeComponent();
-         
         }
     }
 }

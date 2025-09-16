@@ -85,6 +85,10 @@
                 <view:Campaigns />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type adminViewModel:ReviewCampaignViewModel}">
+                <adminView:ReviewCampaign />
+            </DataTemplate>
+
             <Style x:Key="circleBtn" TargetType="Button">
                 <Setter Property="Width" Value="30" />
                 <Setter Property="Height" Value="30" />

@@ -39,6 +39,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         public ICommand NavigateToAdminCampaignAnalytics { get; }
         public ICommand NavigateToSettings { get; }
 
+        public ICommand NavigateToReviewCampaign { get; }
         public AdminWindowViewModel() { }
 
         public AdminWindowViewModel(ITabNavigationService navService) {
@@ -49,6 +50,8 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             NavigateToUserAnalytics = new RelayCommand(o => Navigation.NavigateToTab<UserAnalyticsViewModel>());
             NavigateToAdminCampaignAnalytics = new RelayCommand(o => Navigation.NavigateToTab<AdminCampaignAnalyticsViewModel>());
             NavigateToSettings = new RelayCommand(o => Navigation.NavigateToTab<SettingsViewModel>());
+
+            NavigateToReviewCampaign = new RelayCommand(o => Navigation.NavigateToTab<ReviewCampaignViewModel>());
         }
     }
 }

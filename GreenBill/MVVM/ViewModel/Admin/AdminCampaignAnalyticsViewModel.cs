@@ -51,6 +51,11 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
         public ICommand NavigateToCampaignDetails { get; }
 
+        public AdminCampaignAnalyticsViewModel()
+        {
+
+        }
+
         public AdminCampaignAnalyticsViewModel(INavigationService navService) {
             // Create service manually (not via DI)
             _campaignService = new CampaignService(_userService);

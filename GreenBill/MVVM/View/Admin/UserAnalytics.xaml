@@ -109,7 +109,6 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-                                Style="{StaticResource HeadingText}"
                                 Text="Total Users" />
                             <TextBlock
                                 Margin="0,0,0,5"
@@ -149,7 +148,7 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-                                Style="{StaticResource HeadingText}"
+            
                                 Text="Verified Users" />
                             <TextBlock
                                 Margin="0,0,0,5"
@@ -189,7 +188,7 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-                                Style="{StaticResource HeadingText}"
+                            
                                 Text="Unverified Users" />
                             <TextBlock
                                 Margin="0,0,0,5"
@@ -229,7 +228,7 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-                                Style="{StaticResource HeadingText}"
+                       
                                 Text="Reported Users" />
                             <TextBlock
                                 Margin="0,0,0,5"

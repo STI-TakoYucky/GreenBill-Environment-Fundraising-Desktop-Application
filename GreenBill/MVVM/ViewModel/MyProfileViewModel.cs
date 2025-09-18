@@ -48,6 +48,7 @@ namespace GreenBill.MVVM.ViewModel
             ConnectStripeAccountCommand = new RelayCommand(async (o) =>
             {
                 await _stripeService.CreateConnectAccountAsync(this.CurrentUser);
+                this.CurrentUser = _userSessionService.CurrentUser;
             });
             _userSessionService = userSessionService;
         }

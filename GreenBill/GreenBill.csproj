@@ -299,6 +299,7 @@
     <Compile Include="MVVM\Model\CampaignIncludeOptions.cs" />
     <Compile Include="MVVM\Model\CampaignUpdate.cs" />
     <Compile Include="MVVM\Model\Donation.cs" />
+    <Compile Include="MVVM\Model\DonationRecord.cs" />
     <Compile Include="MVVM\Model\SupportingDocument.cs" />
     <Compile Include="MVVM\Model\User.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminCampaignAnalyticsViewModel.cs" />
@@ -609,6 +610,7 @@
     <Analyzer Include="..\packages\AWSSDK.SecurityToken.3.7.100.27\analyzers\dotnet\cs\AWSSDK.SecurityToken.CodeAnalysis.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

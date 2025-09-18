@@ -156,7 +156,7 @@
                                 Foreground="#666" Margin="0,0,0,25"/>
 
                             <!-- Donate Button -->
-                            <Button Background="#2E7D32" BorderThickness="0" 
+                            <Button Command="{Binding CompleteDonation}" Background="#2E7D32" BorderThickness="0" 
                               Padding="0,18"  Margin="0,10,0,0"
                               Foreground="White" FontWeight="SemiBold" FontSize="16">
                                 <Button.Effect>

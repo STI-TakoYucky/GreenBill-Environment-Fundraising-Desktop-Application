@@ -1,13 +1,6 @@
 ﻿using GreenBill.Core;
 using GreenBill.MVVM.Model;
 using GreenBill.Services;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using GreenBill.IServices;
 
@@ -83,19 +76,9 @@ namespace GreenBill.MVVM.ViewModel
         {
             NavigateToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
 
-            CreateAccount = new RelayCommand(o =>
+            CreateAccount =  new RelayCommand(async (o)=>
             {
-                try
-                {
-                    _userService.Create(NewUser);
-                    MessageBox.Show("Account created successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                    Navigation?.NavigateTo<HomePageViewModel>();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occurred while creating an account: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-
+                await _userService.Create(NewUser);
             }, o => NewUser != null);
         }
 

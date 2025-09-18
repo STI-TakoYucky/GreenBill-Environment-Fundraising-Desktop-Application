@@ -206,7 +206,11 @@ namespace GreenBill.MVVM.ViewModel
         private async Task DeleteDocumentAsync(SupportingDocument document)
         {
             if (document == null) return;
-
+            if(document.Status == "Approved")
+            {
+                MessageBox.Show("You cannot delete an approved document.");
+                return;
+            }
             var result = MessageBox.Show($"Are you sure you want to delete '{document.DocumentName}'?",
                                        "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
 

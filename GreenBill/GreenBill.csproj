@@ -183,11 +183,13 @@
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="IServices\ICampaignService.cs" />
+    <Compile Include="IServices\ICampaignUpdateService.cs" />
     <Compile Include="IServices\INavigatableService.cs" />
     <Compile Include="IServices\ISupportingDocumentService.cs" />
     <Compile Include="IServices\IUserService.cs" />
     <Compile Include="MVVM\Model\Campaign.cs" />
     <Compile Include="MVVM\Model\CampaignIncludeOptions.cs" />
+    <Compile Include="MVVM\Model\CampaignUpdate.cs" />
     <Compile Include="MVVM\Model\SupportingDocument.cs" />
     <Compile Include="MVVM\Model\User.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminCampaignAnalyticsViewModel.cs" />
@@ -199,6 +201,7 @@
     <Compile Include="MVVM\ViewModel\CampaignAnalyticsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CampaignDetailsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CampaignsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\CampaignUpdatesViewModel.cs" />
     <Compile Include="MVVM\ViewModel\FundraisingDetailsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\FundraisingStepsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\HomePageViewModel.cs" />
@@ -248,6 +251,9 @@
     <Compile Include="MVVM\View\Campaigns.xaml.cs">
       <DependentUpon>Campaigns.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\CampaignUpdates.xaml.cs">
+      <DependentUpon>CampaignUpdates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\FundraisingDetails.xaml.cs">
       <DependentUpon>FundraisingDetails.xaml</DependentUpon>
     </Compile>
@@ -286,6 +292,7 @@
       <DependentUpon>UserCampaigns.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\CampaignService.cs" />
+    <Compile Include="Services\CampaignUpdateService.cs" />
     <Compile Include="Services\ITabNavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\SupportingDocumentService.cs" />
@@ -341,6 +348,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Campaigns.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\CampaignUpdates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -209,6 +209,7 @@
     <Compile Include="MVVM\ViewModel\CampaignDetailsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CampaignsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CampaignUpdatesViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\DonationPageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\FundraisingDetailsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\FundraisingStepsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\HomePageViewModel.cs" />
@@ -261,6 +262,9 @@
     <Compile Include="MVVM\View\CampaignUpdates.xaml.cs">
       <DependentUpon>CampaignUpdates.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\DonationPage.xaml.cs">
+      <DependentUpon>DonationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\FundraisingDetails.xaml.cs">
       <DependentUpon>FundraisingDetails.xaml</DependentUpon>
     </Compile>
@@ -302,6 +306,7 @@
     <Compile Include="Services\CampaignUpdateService.cs" />
     <Compile Include="Services\ITabNavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Services\StripeService.cs" />
     <Compile Include="Services\SupportingDocumentService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserSessionService.cs" />
@@ -359,6 +364,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\CampaignUpdates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\DonationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

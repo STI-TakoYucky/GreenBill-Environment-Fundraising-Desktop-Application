@@ -27,11 +27,18 @@ namespace GreenBill.MVVM.ViewModel
         }
 
         public ICommand NavigateBack { get; set; }
+        public ICommand CompleteDonation {  get; set; }
 
         public DonationPageViewModel(INavigationService navService, ICampaignService campaignService)
         {
             Navigation = navService;
             NavigateBack = new RelayCommand(o => Navigation.NavigateBack(), o => Navigation.CanNavigateBack);
+            CompleteDonation = new RelayCommand(o => HandleDonation());
+
+        }
+
+        public void HandleDonation()
+        {
 
         }
 

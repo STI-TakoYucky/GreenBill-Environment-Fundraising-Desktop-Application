@@ -57,6 +57,7 @@ namespace GreenBill
             services.AddSingleton<AdminCampaignAnalyticsViewModel>();
             services.AddSingleton<SettingsViewModel>();
             services.AddTransient<SupportingDocumentsPageViewModel>();
+            services.AddTransient<CampaignUpdatesViewModel>();
 
             services.AddSingleton<INavigationService, NavigationService>();
 
@@ -64,6 +65,7 @@ namespace GreenBill
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<ICampaignService, CampaignService>();
             services.AddSingleton<ISupportingDocumentService, SupportingDocumentService>();
+            services.AddSingleton<ICampaignUpdateService, CampaignUpdateService>();
 
             services.AddTransient<ITabNavigationService, TabNavigationService>();
 

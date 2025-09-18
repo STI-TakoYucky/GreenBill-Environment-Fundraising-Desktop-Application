@@ -122,7 +122,15 @@
                 <view:SupportingDocumentsPage/>
             </DataTemplate>
 
-            <Style x:Key="HeadingText" TargetType="TextBlock">
+
+
+
+            <DataTemplate DataType="{x:Type viewModel:CampaignUpdatesViewModel}">
+                <view:CampaignUpdates/>
+            </DataTemplate>
+
+                <Style x:Key="HeadingText" TargetType="TextBlock">
+
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
                 <Setter Property="FontWeight" Value="SemiBold" />
             </Style>

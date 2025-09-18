@@ -70,6 +70,7 @@
         <ResourceDictionary x:Key="Dropdownstyles">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/DropdownButton.xaml" />
+                <ResourceDictionary Source="/Styles/Buttons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -444,18 +445,6 @@
                 </StackPanel>
 
 
-                <ContentControl
-                    MinWidth="400"
-                    MinHeight="300"
-                    Margin="20,0,0,0"
-                    Content="{Binding SelectedCampaign}">
-                    <ContentControl.ContentTemplate>
-                        <DataTemplate>
-                            <!--  Bind ReviewCampaign DataContext to this DataTemplate's data item  -->
-                            <local:ReviewCampaign DataContext="{Binding}" />
-                        </DataTemplate>
-                    </ContentControl.ContentTemplate>
-                </ContentControl>
 
             </StackPanel>
 

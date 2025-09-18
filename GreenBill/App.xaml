@@ -89,43 +89,10 @@
                 <adminView:ReviewCampaign />
             </DataTemplate>
 
-            <Style x:Key="circleBtn" TargetType="Button">
-                <Setter Property="Width" Value="30" />
-                <Setter Property="Height" Value="30" />
-                <Setter Property="Cursor" Value="Arrow" />
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border
-                                x:Name="border"
-                                Background="{TemplateBinding Background}"
-                                CornerRadius="15"
-                                Cursor="Hand"
-                                SnapsToDevicePixels="True">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Border>
-                            <ControlTemplate.Triggers>
-
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="Background" Value="#e1e7e9" />
-                                </Trigger>
-
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="border" Property="Background" Value="LightGray" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
 
             <DataTemplate DataType="{x:Type viewModel:SupportingDocumentsPageViewModel}">
                 <view:SupportingDocumentsPage />
             </DataTemplate>
-
 
 
 
@@ -137,6 +104,7 @@
                 <view:DonationPage/>
             </DataTemplate>
 
+
             <DataTemplate DataType="{x:Type viewModel:MyProfileViewModel}">
                 <view:MyProfile/>
             </DataTemplate>
@@ -147,23 +115,22 @@
                 <Setter Property="FontWeight" Value="SemiBold" />
             </Style>
 
-            <Style TargetType="TextBlock">
 
+            <Style TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
-                <Setter Property="FontWeight" Value="SemiBold" />
             </Style>
 
 
             <Style TargetType="TextBox">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins-Regular" />
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
             </Style>
 
             <Style TargetType="PasswordBox">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins-Regular" />
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
             </Style>
 
             <Style TargetType="Button">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins-Medium" />
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
             </Style>
 
             <Style TargetType="Label">
@@ -171,7 +138,7 @@
             </Style>
 
             <Style TargetType="ComboBox">
-                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins-Regular" />
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
             </Style>
 
             <Style TargetType="ListBox">

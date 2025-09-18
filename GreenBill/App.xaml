@@ -89,41 +89,18 @@
                 <adminView:ReviewCampaign />
             </DataTemplate>
 
-            <Style x:Key="circleBtn" TargetType="Button">
-                <Setter Property="Width" Value="30" />
-                <Setter Property="Height" Value="30" />
-                <Setter Property="Cursor" Value="Arrow" />
-                <Setter Property="Background" Value="Transparent" />
-                <Setter Property="BorderThickness" Value="0" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border
-                                x:Name="border"
-                                Background="{TemplateBinding Background}"
-                                CornerRadius="15"
-                                Cursor="Hand"
-                                SnapsToDevicePixels="True">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Border>
-                            <ControlTemplate.Triggers>
-
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="Background" Value="#e1e7e9" />
-                                </Trigger>
-
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="border" Property="Background" Value="LightGray" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
 
             <DataTemplate DataType="{x:Type viewModel:SupportingDocumentsPageViewModel}">
                 <view:SupportingDocumentsPage />
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type viewModel:CampaignUpdatesViewModel}">
+                <view:CampaignUpdates/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:DonationPageViewModel}">
+                <view:DonationPage/>
             </DataTemplate>
 
             <Style x:Key="HeadingText" TargetType="TextBlock">

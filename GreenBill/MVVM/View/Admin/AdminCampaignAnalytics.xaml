@@ -70,6 +70,7 @@
         <ResourceDictionary x:Key="Dropdownstyles">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/DropdownButton.xaml" />
+                <ResourceDictionary Source="/Styles/Buttons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -427,11 +428,14 @@
                                                     </Grid>
                                                 </MenuItem.Header>
 
-                                                <MenuItem
-                                                    Command="{Binding DataContext.NavigateToCampaignDetails, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                    CommandParameter="{Binding Id}"
-                                                    Cursor="Hand"
-                                                    Header="Review" />
+                                                <MenuItem>
+                                                    <Button
+                                                        Command="{Binding DataContext.NavigateToCampaignDetails, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                        CommandParameter="{Binding Id}"
+                                                        Content="Review"
+                                                        Cursor="Hand"
+                                                        Style="{StaticResource circleBtn}" />
+                                                </MenuItem>
                                             </MenuItem>
                                         </Menu>
 

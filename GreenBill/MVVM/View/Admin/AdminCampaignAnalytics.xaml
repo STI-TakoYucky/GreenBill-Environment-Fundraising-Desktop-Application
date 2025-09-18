@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="900"
     d:DesignWidth="1400"
-    Background="White"
+    Background="#f4f4f4"
     mc:Ignorable="d">
     <Grid>
         <ScrollViewer Padding="30,0,30,0" VerticalScrollBarVisibility="Auto">
@@ -110,6 +110,7 @@
                     <!--  Active Campaigns Card  -->
                     <Border
                         Grid.Column="2"
+                        Margin="0,0,15,0"
                         Background="White"
                         CornerRadius="12">
                         <Border.Effect>
@@ -185,7 +186,197 @@
                     </Border>
 
                 </Grid>
+
+                <StackPanel Margin="0,40,0,40">
+                    <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontFamily="./Assets/Fonts/#Poppins"
+                            FontSize="18"
+                            FontWeight="Bold"
+                            Foreground="#2D2D2D"
+                            Text="All Campaigns" />
+                        <ComboBox
+                            Width="150"
+                            Height="35"
+                            Margin="10,0,0,0"
+                            VerticalContentAlignment="Center"
+                            FontSize="14"
+                            SelectedIndex="0">
+                            <ComboBoxItem Content="All" />
+                            <ComboBoxItem Content="Pending" />
+                            <ComboBoxItem Content="Reported" />
+
+                        </ComboBox>
+                    </StackPanel>
+
+                    <Border
+                        Grid.Row="1"
+                        Background="White"
+                        CornerRadius="8"
+                        SnapsToDevicePixels="True">
+
+
+                        <DataGrid
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            AlternatingRowBackground="#f7f9fa"
+                            AutoGenerateColumns="False"
+                            BorderThickness="0"
+                            CanUserAddRows="False"
+                            CanUserDeleteRows="False"
+                            CanUserReorderColumns="False"
+                            CanUserResizeColumns="False"
+                            CanUserResizeRows="False"
+                            CanUserSortColumns="False"
+                            ColumnWidth="*"
+                            GridLinesVisibility="None"
+                            HeadersVisibility="Column"
+                            ItemsSource="{Binding Campaigns}"
+                            RowHeight="50">
+
+                            <DataGrid.Resources>
+                                <!--  Remove selection style  -->
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
+                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
+                            </DataGrid.Resources>
+
+                            <!--  Header Style: Ensures text is NOT bold  -->
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="DataGridColumnHeader">
+                                    <Setter Property="Background" Value="#e1e7e9" />
+                                    <Setter Property="Foreground" Value="#333" />
+                                    <Setter Property="FontWeight" Value="Normal" />
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                    <Setter Property="FontSize" Value="14" />
+                                    <Setter Property="Padding" Value="15,20" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                                    <!--  Override default template to prevent implicit bold  -->
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="DataGridColumnHeader">
+                                                <Border
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="5">
+                                                    <ContentPresenter
+                                                        Margin="{TemplateBinding Padding}"
+                                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                        VerticalAlignment="Center"
+                                                        RecognizesAccessKey="True" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+
+                            <!--  Row Style  -->
+                            <DataGrid.RowStyle>
+                                <Style TargetType="DataGridRow">
+                                    <Setter Property="FontSize" Value="14" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                </Style>
+                            </DataGrid.RowStyle>
+
+                            <DataGrid.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Padding" Value="9,6" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="DataGridCell">
+                                                <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                                                    <ContentPresenter VerticalAlignment="Center" />
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </DataGrid.CellStyle>
+
+                            <!--  Define the columns  -->
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Width="50"
+                                    Binding="{Binding CampaignID}"
+                                    Header="ID" />
+                                <DataGridTextColumn
+                                    Width="80"
+                                    Binding="{Binding Title}"
+                                    Header="UserID" />
+                                <DataGridTextColumn Binding="{Binding Title}" Header="Title" />
+                                <DataGridTextColumn Binding="{Binding Description}" Header="Description" />
+                                <DataGridTextColumn Binding="{Binding TargetDonation}" Header="Target Donation" />
+                                <DataGridTextColumn Binding="{Binding AccumulatedDonation}" Header="Accumulated Donation" />
+                                <DataGridTextColumn
+                                    Width="90"
+                                    Binding="{Binding Status}"
+                                    Header="Status" />
+                                <DataGridTextColumn
+                                    Width="90"
+                                    Binding="{Binding Verified}"
+                                    Header="Verified" />
+                                <DataGridTextColumn
+                                    Width="90"
+                                    Binding="{Binding DateSubmitted}"
+                                    Header="Created At" />
+
+                                <DataGridTemplateColumn Width="100">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Button
+                                                    Width="30"
+                                                    Height="30"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Style="{StaticResource circleBtn}">
+                                                    <Viewbox Stretch="Uniform">
+                                                        <Canvas Width="30" Height="30">
+                                                            <!--  left dot  -->
+                                                            <Ellipse
+                                                                Canvas.Left="4"
+                                                                Canvas.Top="12"
+                                                                Width="6"
+                                                                Height="6"
+                                                                Fill="Black" />
+                                                            <!--  center dot  -->
+                                                            <Ellipse
+                                                                Canvas.Left="12"
+                                                                Canvas.Top="12"
+                                                                Width="6"
+                                                                Height="6"
+                                                                Fill="Black" />
+                                                            <!--  right dot  -->
+                                                            <Ellipse
+                                                                Canvas.Left="20"
+                                                                Canvas.Top="12"
+                                                                Width="6"
+                                                                Height="6"
+                                                                Fill="Black" />
+                                                        </Canvas>
+                                                    </Viewbox>
+                                                </Button>
+
+
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </Border>
+                </StackPanel>
             </StackPanel>
+
         </ScrollViewer>
     </Grid>
 </UserControl>

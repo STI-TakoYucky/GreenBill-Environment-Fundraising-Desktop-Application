@@ -137,6 +137,10 @@
                 <view:DonationPage/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:MyProfileViewModel}">
+                <view:MyProfile/>
+            </DataTemplate>
+
             <Style x:Key="HeadingText" TargetType="TextBlock">
 
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />

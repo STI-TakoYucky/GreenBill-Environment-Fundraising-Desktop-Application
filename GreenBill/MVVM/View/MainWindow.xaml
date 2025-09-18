@@ -85,6 +85,7 @@
                         <ContextMenu x:Name="ProfileMenu">
                             <MenuItem Command="{Binding GoToAdminDashboard}" Header="Admin Dashboard" />
                             <MenuItem Command="{Binding GoToDashboard}" Header="My Campaigns" />
+                            <MenuItem Command="{Binding GoToProfile}" Header="My Profile" />
                             <MenuItem Command="{Binding Logout}" Header="Logout" />
                         </ContextMenu>
                     </Button.ContextMenu>

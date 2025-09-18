@@ -317,6 +317,7 @@
     <Compile Include="MVVM\ViewModel\FundraisingStepsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\HomePageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\MyProfileViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SigninViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SignupViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SupportingDocumentsPageViewModel.cs" />
@@ -391,6 +392,9 @@
     </Compile>
     <Compile Include="MVVM\View\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\MyProfile.xaml.cs">
+      <DependentUpon>MyProfile.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Signin.xaml.cs">
       <DependentUpon>Signin.xaml</DependentUpon>
@@ -521,6 +525,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MVVM\View\MyProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Signin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

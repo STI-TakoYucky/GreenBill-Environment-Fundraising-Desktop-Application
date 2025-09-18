@@ -55,6 +55,7 @@ namespace GreenBill.MVVM.ViewModel
         public ICommand GoToDashboard { get; }
         public ICommand GoToHome { get; }
         public ICommand GoToAdminDashboard { get; }
+        public ICommand GoToProfile { get; }
 
         public ICommand Logout { get; }
 
@@ -85,6 +86,7 @@ namespace GreenBill.MVVM.ViewModel
             GoToDashboard = new RelayCommand(o => Navigation.NavigateTo<UserCampaignsViewModel>());
             GoToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
             GoToAdminDashboard = new RelayCommand(o => Navigation.NavigateTo<AdminWindowViewModel>());
+            GoToProfile = new RelayCommand(o => Navigation.NavigateTo<MyProfileViewModel>());
             Logout = new RelayCommand(o => _sessionService.ClearSession());
 
 

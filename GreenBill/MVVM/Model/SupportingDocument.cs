@@ -17,9 +17,9 @@ namespace GreenBill.MVVM.Model
         public string ContentType { get; set; }
         public long FileSize { get; set; }
         public DateTime UploadDate { get; set; }
-        public string Status { get; set; } // "Pending", "Verified", "Rejected", "Under Review"
+        public string Status { get; set; } 
         public string ReviewComments { get; set; }
-        public string UserId { get; set; } // If you have user management
+        public string UserId { get; set; } 
 
         public SupportingDocument()
         {

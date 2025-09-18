@@ -45,6 +45,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
         public AdminCampaignAnalyticsViewModel() {
             _userService = new UserService();
+
             _campaignService = new CampaignService(_userService);
 
             _ = LoadCampaignsAsync();

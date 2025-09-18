@@ -95,18 +95,28 @@
             </DataTemplate>
 
 
-            <!--<DataTemplate DataType="{x:Type viewModel:CampaignUpdatesViewModel}">
+            <DataTemplate DataType="{x:Type viewModel:CampaignUpdatesViewModel}">
+
+
+            <DataTemplate DataType="{x:Type viewModel:CampaignUpdatesViewModel}">
                 <view:CampaignUpdates/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:DonationPageViewModel}">
                 <view:DonationPage/>
-            </DataTemplate>-->
+            </DataTemplate>
 
 
             <Style TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
+            </DataTemplate>
+
+
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />
+                <Setter Property="FontWeight" Value="SemiBold" />
             </Style>
+
 
             <Style TargetType="TextBox">
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />

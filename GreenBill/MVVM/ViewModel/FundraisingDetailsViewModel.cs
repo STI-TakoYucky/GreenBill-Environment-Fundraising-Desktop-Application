@@ -1,9 +1,10 @@
 ﻿using GreenBill.Core;
-using GreenBill.Services;
 using GreenBill.IServices;
-using System.Windows.Input;
 using GreenBill.MVVM.Model;
+using GreenBill.Services;
+using System;
 using System.Diagnostics;
+using System.Windows.Input;
 namespace GreenBill.MVVM.ViewModel
 {
     public class FundraisingDetailsViewModel : Core.ViewModel, INavigatableService
@@ -45,6 +46,7 @@ namespace GreenBill.MVVM.ViewModel
         }
 
         public ICommand NavigateBack { get; set; }
+        public ICommand NavigateToDonationPage { get; set; }
 
         public FundraisingDetailsViewModel(INavigationService navService, ICampaignService campaignService)
         {
@@ -56,6 +58,11 @@ namespace GreenBill.MVVM.ViewModel
         public void InitializeCommands()
         {
             NavigateBack = new RelayCommand(o => Navigation.NavigateBack(), o => Navigation.CanNavigateBack);
+            NavigateToDonationPage = new RelayCommand(o =>
+            {
+                Debug.WriteLine($"API KEY: {Environment.GetEnvironmentVariable("STRIPE_API_KEY")}");
+                Navigation.NavigateTo<DonationPageViewModel>(o);
+            });
         }
         public async void ApplyNavigationParameter(object parameter)
         {

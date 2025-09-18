@@ -37,7 +37,7 @@
                 <StackPanel Grid.Column="0">
                     <!-- Title -->
                     <TextBlock Text="{Binding SelectedCampaign.Title}"
-                           FontFamily="./Assets/Fonts/#Poppins"
+                           
                            FontSize="28"
                            FontWeight="Bold"
                            Foreground="#333333"
@@ -62,7 +62,7 @@
                         <Ellipse Width="30" 
                             Height="30" 
                             Fill="#CCCCCC"/>
-                        <TextBlock FontFamily="./Assets/Fonts/#Poppins"
+                        <TextBlock 
                                     FontSize="14"
                                     Foreground="#666666"
                                     VerticalAlignment="Center"
@@ -85,7 +85,7 @@
                                 Fill="#00A651"
                                 VerticalAlignment="Center"/>
                             <TextBlock Text="Donation protected"
-                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  
                                   FontSize="12"
                                   FontWeight="SemiBold"
                                   Foreground="#00A651"
@@ -96,7 +96,7 @@
 
                     <!-- Description -->
                     <TextBlock TextWrapping="Wrap"
-                           FontFamily="./Assets/Fonts/#Poppins"
+                           
                            FontSize="15"
                            LineHeight="24"
                            Foreground="#555555"
@@ -118,7 +118,7 @@
                     <StackPanel>
                         <!-- Donation Amount -->
                         <TextBlock Text="$45,665 USD raised"
-                              FontFamily="./Assets/Fonts/#Poppins"
+                              
                               FontSize="24"
                               FontWeight="Bold"
                               Foreground="#333333"
@@ -128,15 +128,15 @@
                         <StackPanel Orientation="Horizontal" 
                                Margin="0,0,0,12">
                             <TextBlock Text="{Binding SelectedCampaign.DonationGoal}"
-                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  
                                   FontSize="14"
                                   Foreground="#888888"/>
                             <TextBlock Text=" • "
-                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  
                                   FontSize="14"
                                   Foreground="#888888"/>
                             <TextBlock Text="980 donations"
-                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  
                                   FontSize="14"
                                   Foreground="#888888"/>
                         </StackPanel>
@@ -151,6 +151,8 @@
                         <Button Content="Donate now"
                            Style="{StaticResource SecondaryButton}"
                            Width="111"
+                           Command="{Binding NavigateToDonationPage}"
+                           CommandParameter="{Binding SelectedCampaign.Id}"
                            HorizontalAlignment="Stretch"
                            Margin="0,0,0,20"/>
 
@@ -163,7 +165,7 @@
                                 VerticalAlignment="Top"
                                 Margin="0,2,0,0"/>
                             <TextBlock Text="715 people just donated"
-                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  
                                   FontSize="14"
                                   Foreground="#8B5FBF"
                                   Margin="8,0,0,0"/>
@@ -178,12 +180,12 @@
                                     Fill="#CCCCCC"/>
                                 <StackPanel Margin="8,0,0,0">
                                     <TextBlock Text="Eric Welmiar"
-                                          FontFamily="./Assets/Fonts/#Poppins"
+                                          
                                           FontSize="13"
                                           FontWeight="SemiBold"
                                           Foreground="#333333"/>
                                     <TextBlock Text="$50 • Recent donation"
-                                          FontFamily="./Assets/Fonts/#Poppins"
+                                          
                                           FontSize="11"
                                           Foreground="#888888"/>
                                 </StackPanel>
@@ -199,12 +201,12 @@
                                     Fill="#CCCCCC"/>
                                 <StackPanel Margin="8,0,0,0">
                                     <TextBlock Text="Anonymous"
-                                          FontFamily="./Assets/Fonts/#Poppins"
+                                          
                                           FontSize="13"
                                           FontWeight="SemiBold"
                                           Foreground="#333333"/>
                                     <TextBlock Text="$1,800 • Top donation"
-                                          FontFamily="./Assets/Fonts/#Poppins"
+                                          
                                           FontSize="11"
                                           Foreground="#888888"/>
                                 </StackPanel>
@@ -219,12 +221,12 @@
                                     Fill="#CCCCCC"/>
                                 <StackPanel Margin="8,0,0,0">
                                     <TextBlock Text="Anonymous"
-                                          FontFamily="./Assets/Fonts/#Poppins"
+                                          
                                           FontSize="13"
                                           FontWeight="SemiBold"
                                           Foreground="#333333"/>
                                     <TextBlock Text="$50 • First donation"
-                                          FontFamily="./Assets/Fonts/#Poppins"
+                                          
                                           FontSize="11"
                                           Foreground="#888888"/>
                                 </StackPanel>
@@ -235,14 +237,14 @@
                         <StackPanel Orientation="Horizontal" 
                                HorizontalAlignment="Center">
                             <TextBlock Text="See all"
-                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  
                                   FontSize="14"
                                   Foreground="#00A651"
                                   TextDecorations="Underline"
                                   Cursor="Hand"
                                   Margin="0,0,16,0"/>
                             <TextBlock Text="See top"
-                                  FontFamily="./Assets/Fonts/#Poppins"
+                                  
                                   FontSize="14"
                                   Foreground="#00A651"
                                   TextDecorations="Underline"

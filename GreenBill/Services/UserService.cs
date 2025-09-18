@@ -1,10 +1,11 @@
-﻿using GreenBill.MVVM.Model;
+﻿using GreenBill.IServices;
+using GreenBill.MVVM.Model;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using GreenBill.IServices;
 
 namespace GreenBill.Services
 {
@@ -33,12 +34,20 @@ namespace GreenBill.Services
 
         public async Task Create(User user)
         {
-            if (user.CreatedAt == default(DateTime))
-            {
-                user.CreatedAt = DateTime.UtcNow;
-            }
-
             await Collection.InsertOneAsync(user);
+           
+        }
+
+        public async Task<bool> UpdateUserAsync(ObjectId id, User updatedUser)
+        {
+            updatedUser.Id = id;
+
+            var result = await Collection.ReplaceOneAsync(
+                filter: u => u.Id == id,
+                replacement: updatedUser
+            );
+
+            return result.ModifiedCount > 0;
         }
     }
 }

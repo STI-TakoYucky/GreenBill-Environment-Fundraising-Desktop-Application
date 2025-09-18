@@ -31,6 +31,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         public ReviewCampaignViewModel() {
 
         }
+
         public ReviewCampaignViewModel(ICampaignService campaignService) { 
         
             _campaignService = campaignService;

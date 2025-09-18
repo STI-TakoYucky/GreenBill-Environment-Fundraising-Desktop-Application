@@ -1,19 +1,19 @@
 ﻿using GreenBill.Core;
+using GreenBill.IServices;
 using GreenBill.MVVM.Model;
+using GreenBill.MVVM.View.Admin;
 using GreenBill.MVVM.ViewModel;
+using GreenBill.MVVM.ViewModel.Admin;
 using GreenBill.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using GreenBill.IServices;
-using GreenBill.MVVM.View.Admin;
-using GreenBill.MVVM.ViewModel.Admin;
-using System.Diagnostics;
 
 namespace GreenBill
 {
@@ -27,6 +27,7 @@ namespace GreenBill
 
         public App()
         {
+            Stripe.StripeConfiguration.ApiKey = "sk_test_51RNlS7H0KVHxP8CWywsphLYId1CavpCnpDW9BXm2yycKudwQQn1kmI6zPQsOHQuQUDXeLHo5AJZBfiP2i3lObxbR00ha4k1FSj";
             IServiceCollection services = new ServiceCollection();
 
             services.AddSingleton<MainWindow>(provider => new MainWindow
@@ -57,7 +58,12 @@ namespace GreenBill
             services.AddSingleton<AdminCampaignAnalyticsViewModel>();
             services.AddSingleton<SettingsViewModel>();
             services.AddTransient<SupportingDocumentsPageViewModel>();
+            services.AddTransient<DonationPageViewModel>();
+
             services.AddSingleton<ReviewCampaignViewModel>();
+
+            services.AddTransient<CampaignUpdatesViewModel>();
+
 
             services.AddSingleton<INavigationService, NavigationService>();
 
@@ -65,6 +71,7 @@ namespace GreenBill
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<ICampaignService, CampaignService>();
             services.AddSingleton<ISupportingDocumentService, SupportingDocumentService>();
+            services.AddSingleton<ICampaignUpdateService, CampaignUpdateService>();
 
             services.AddTransient<ITabNavigationService, TabNavigationService>();
 

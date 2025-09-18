@@ -5,41 +5,32 @@ using GreenBill.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Navigation;
 
 namespace GreenBill.MVVM.ViewModel.Admin {
-    internal class AdminCampaignAnalyticsViewModel:Core.ViewModel {
+    internal class AdminCampaignAnalyticsViewModel : Core.ViewModel, INavigatableService {
         private readonly ICampaignService _campaignService;
         private readonly IUserService _userService;
-        private INavigationService _navigationService;
-        public INavigationService Navigation {
-            get => _navigationService;
-            set {
-                _navigationService = value;
-                OnPropertyChanged();
-            }
-        }
-        public ICommand ReviewCommand { get; }
-        private List<GreenBill.MVVM.Model.Campaign> campaignsFromDB { get; set; }
-        public ObservableCollection<GreenBill.MVVM.Model.Campaign> Campaigns { get; set; } = new ObservableCollection<GreenBill.MVVM.Model.Campaign>();
+
+        private List<MVVM.Model.Campaign> campaignsFromDB { get; set; }
+
+        public ObservableCollection<MVVM.Model.Campaign> Campaigns { get; set; } = new ObservableCollection<MVVM.Model.Campaign>();
+
         private string _campaignCount;
         public string CampaignCount {
-            get => _campaignCount; set {
+            get => _campaignCount;
+            set {
                 if (_campaignCount != value) {
                     _campaignCount = value;
-                    OnPropertyChanged(nameof(CampaignCount)); // tells WPF to refresh bindings
+                    OnPropertyChanged(nameof(CampaignCount));
                 }
-                ;
             }
         }
 
-        private GreenBill.MVVM.Model.Campaign _selectedCampaign;
-        public GreenBill.MVVM.Model.Campaign SelectedCampaign {
+        private Campaign _selectedCampaign;
+        public Campaign SelectedCampaign {
             get => _selectedCampaign;
             set {
                 if (_selectedCampaign != value) {
@@ -49,19 +40,21 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             }
         }
 
-        public ICommand NavigateToCampaignDetails { get; }
+        // Will be injected via ApplyNavigationParameter
+        public ICommand NavigateToCampaignDetails { get; private set; }
 
-        public AdminCampaignAnalyticsViewModel(INavigationService navService) {
-            // Create service manually (not via DI)
+        public AdminCampaignAnalyticsViewModel() {
+            _userService = new UserService();
             _campaignService = new CampaignService(_userService);
-            Navigation = navService;
-            NavigateToCampaignDetails = new RelayCommand(campaign_id => Navigation.NavigateTo<ReviewCampaignViewModel>(campaign_id.ToString()));
-            _ = LoadCampaignsAsync();
 
+            _ = LoadCampaignsAsync();
         }
 
-
-
+        public void ApplyNavigationParameter(object parameter) {
+            if (parameter is ICommand cmd) {
+                NavigateToCampaignDetails = cmd;
+            }
+        }
 
         private async Task LoadCampaignsAsync() {
             campaignsFromDB = await _campaignService.GetAllCampaignsAsync();
@@ -69,8 +62,10 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
             try {
                 CampaignCount = campaignsFromDB.Count.ToString();
+                Campaigns.Clear();
+
                 foreach (var item in campaignsFromDB) {
-                    Campaigns.Add(new GreenBill.MVVM.Model.Campaign {
+                    Campaigns.Add(new MVVM.Model.Campaign {
                         Id = item.Id,
                         UserId = item.UserId,
                         Country = item.Country,
@@ -86,9 +81,10 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                         User = item.User
                     });
                 }
-                OnPropertyChanged(nameof(campaignsFromDB));
+
+                OnPropertyChanged(nameof(Campaigns));
             } catch (Exception ex) {
-                MessageBox.Show($"Error fetching users: {ex.Message}");
+                MessageBox.Show($"Error fetching campaigns: {ex.Message}");
             }
         }
     }

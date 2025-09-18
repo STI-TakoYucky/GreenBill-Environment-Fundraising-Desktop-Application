@@ -428,14 +428,11 @@
                                                     </Grid>
                                                 </MenuItem.Header>
 
-                                                <MenuItem>
-                                                    <Button
-                                                        Command="{Binding DataContext.NavigateToCampaignDetails, RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                        CommandParameter="{Binding Id}"
-                                                        Content="Review"
-                                                        Cursor="Hand"
-                                                        Style="{StaticResource circleBtn}" />
-                                                </MenuItem>
+                                                <MenuItem
+                                                    Command="{Binding DataContext.NavigateToCampaignDetails, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                    CommandParameter="{Binding Id}"
+                                                    Cursor="Hand"
+                                                    Header="Review" />
                                             </MenuItem>
                                         </Menu>
 
@@ -448,18 +445,6 @@
                 </StackPanel>
 
 
-                <ContentControl
-                    MinWidth="400"
-                    MinHeight="300"
-                    Margin="20,0,0,0"
-                    Content="{Binding SelectedCampaign}">
-                    <ContentControl.ContentTemplate>
-                        <DataTemplate>
-                            <!--  Bind ReviewCampaign DataContext to this DataTemplate's data item  -->
-                            <local:ReviewCampaign DataContext="{Binding}" />
-                        </DataTemplate>
-                    </ContentControl.ContentTemplate>
-                </ContentControl>
 
             </StackPanel>
 

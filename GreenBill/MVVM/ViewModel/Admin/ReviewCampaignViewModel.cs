@@ -28,8 +28,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             }
         }
 
-        public ReviewCampaignViewModel()
-        {
+        public ReviewCampaignViewModel() {
 
         }
 

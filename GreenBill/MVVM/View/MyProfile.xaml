@@ -336,8 +336,9 @@
                                         <Run Text="Setup your Stripe account to receive donations and manage fundraising campaigns. This is required to create and manage fundraising campaigns on the platform."/>
                                     </TextBlock>
 
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="ConnectStripeButton" 
+                                    <StackPanel Orientation="Horizontal"  >
+                                        <Button Command="{Binding ConnectStripeAccountCommand}"
+                                                Visibility="{Binding CurrentUser.CanReceiveFunds, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                                                Style="{StaticResource StripeButton}"
                                                Width="200" Margin="0,0,15,0"
                                              >
@@ -346,7 +347,17 @@
                                             </StackPanel>
                                         </Button>
 
-                                      
+                                        <Button  Visibility="{Binding CurrentUser.CanReceiveFunds, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                Style="{StaticResource StripeButton}"
+                                                Width="200" Margin="0,0,15,0"
+                                                 Cursor="Arrow"
+                                                >
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Completed" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                        </Button>
+
+
                                     </StackPanel>
                                 </StackPanel>
                             </Border>

@@ -17,7 +17,7 @@ namespace GreenBill.MVVM.ViewModel
     public class SigninViewModel : Core.ViewModel, INavigationAware
     {
         public bool ShowNavigation => false;
-        private INavigationService _navigationService;
+       
         private IMongoCollection<User> _collection;
         private IUserService _userService;
         private IUserSessionService _sessionService; 
@@ -26,7 +26,7 @@ namespace GreenBill.MVVM.ViewModel
 
         public ICommand Login { get; set; }
         private User NewUser { get; set; }
-
+        private INavigationService _navigationService;
         public INavigationService Navigation
         {
             get => _navigationService;

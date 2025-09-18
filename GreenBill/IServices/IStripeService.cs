@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GreenBill.MVVM.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace GreenBill.IServices
 {
-    internal interface IStripeService
+    public interface IStripeService
     {
+        Task CreateConnectAccountAsync(User user);
     }
 }

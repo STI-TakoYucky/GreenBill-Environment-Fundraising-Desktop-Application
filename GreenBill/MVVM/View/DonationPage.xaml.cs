@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace GreenBill.MVVM.View
 {
-    /// <summary>
-    /// Interaction logic for DonationPage.xaml
-    /// </summary>
     public partial class DonationPage : UserControl
     {
         public DonationPage()

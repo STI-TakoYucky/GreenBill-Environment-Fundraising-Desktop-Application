@@ -18,6 +18,9 @@ namespace GreenBill.MVVM.Model
         public long PlatformFee { get; set; }
         public long OrganizerAmount { get; set; }
         public string Status { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public bool IsAnonymous { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }

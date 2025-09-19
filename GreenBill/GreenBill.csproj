@@ -292,6 +292,7 @@
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="IServices\ICampaignService.cs" />
     <Compile Include="IServices\ICampaignUpdateService.cs" />
+    <Compile Include="IServices\IDonationRecordService.cs" />
     <Compile Include="IServices\INavigatableService.cs" />
     <Compile Include="IServices\IStripeService.cs" />
     <Compile Include="IServices\ISupportingDocumentService.cs" />
@@ -412,6 +413,7 @@
     </Compile>
     <Compile Include="Services\CampaignService.cs" />
     <Compile Include="Services\CampaignUpdateService.cs" />
+    <Compile Include="Services\DonationRecordService.cs" />
     <Compile Include="Services\ITabNavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\StripeService.cs" />

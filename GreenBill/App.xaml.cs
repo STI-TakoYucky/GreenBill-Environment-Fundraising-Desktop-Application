@@ -73,6 +73,7 @@ namespace GreenBill
             services.AddSingleton<ISupportingDocumentService, SupportingDocumentService>();
             services.AddSingleton<ICampaignUpdateService, CampaignUpdateService>();
             services.AddSingleton<IStripeService, StripeService>();
+            services.AddSingleton<IDonationRecordService, DonationRecordService>();
 
 
             services.AddTransient<ITabNavigationService, TabNavigationService>();

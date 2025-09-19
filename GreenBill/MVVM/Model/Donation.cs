@@ -12,6 +12,8 @@ namespace GreenBill.MVVM.Model
         public ObjectId Id { get; set; }
         public ObjectId UserId { get; set; }
         public ObjectId CampaignId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public decimal Amount { get; set; }
         public string StripePaymentIntentId { get; set; }
         public string Status { get; set; }

@@ -3,6 +3,7 @@ using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.Services;
 using MongoDB.Bson;
+using MongoDB.Driver.Core.Authentication;
 using Stripe;
 using Stripe.Checkout;
 using System;
@@ -19,8 +20,8 @@ namespace GreenBill.MVVM.ViewModel
     public class DonationPageViewModel : Core.ViewModel, INavigatableService
     {
         private INavigationService _navigationService;
-
-
+        private IDonationRecordService _donationRecordService;
+        private ICampaignService _campaignService;
         public INavigationService Navigation
         {
             get => _navigationService;
@@ -34,12 +35,14 @@ namespace GreenBill.MVVM.ViewModel
         public ICommand NavigateBack { get; set; }
         public ICommand CompleteDonation {  get; set; }
 
-        public DonationPageViewModel(INavigationService navService, ICampaignService campaignService)
+        public DonationPageViewModel(INavigationService navService, ICampaignService campaignService, IDonationRecordService donationRecordService)
         {
             Navigation = navService;
+            _campaignService = campaignService;
+            _donationRecordService = donationRecordService;
             NavigateBack = new RelayCommand(o => Navigation.NavigateBack(), o => Navigation.CanNavigateBack);
             CompleteDonation = new RelayCommand(o => HandleDonation());
-
+            _donationRecordService = donationRecordService;
         }
 
         public async void HandleDonation()
@@ -124,7 +127,7 @@ namespace GreenBill.MVVM.ViewModel
         }
         private async Task SaveDonationToDatabase(DonationRecord donation)
         {
-            Console.WriteLine($"Saving donation: {donation.PaymentIntentId} for ${donation.Amount / 100.0:F2}");
+            await _donationRecordService.Create(donation);
         }
 
 

@@ -153,17 +153,18 @@
            Margin="0,4,0,0"/>
                 </StackPanel>
 
-                <!-- Terms and conditions text -->
 
                 <!-- Sign in button -->
                 <Button Name="SignUpButton"
-               Style="{StaticResource PrimaryButton}"
-               Content="Sign in"
-                        Command="{Binding Login}"
-               Height="50"
-               FontSize="16"
-               FontWeight="SemiBold"
-               Margin="0,0,0,0"/>
+                          IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                          Style="{StaticResource PrimaryButton}"
+                          Cursor="Hand"
+                          Content="Sign in"
+                          Command="{Binding Login}"
+                          Height="50"
+                          FontSize="16"
+                          FontWeight="SemiBold"
+                          Margin="0,0,0,0"/>
 
                 <Button FontSize="14"
                         Style="{StaticResource TransparentButton}"

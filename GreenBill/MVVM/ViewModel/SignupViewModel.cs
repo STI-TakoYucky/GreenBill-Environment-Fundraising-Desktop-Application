@@ -1,8 +1,10 @@
 ﻿using GreenBill.Core;
+using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.Services;
+using System;
+using System.Windows;
 using System.Windows.Input;
-using GreenBill.IServices;
 
 
 namespace GreenBill.MVVM.ViewModel
@@ -18,6 +20,16 @@ namespace GreenBill.MVVM.ViewModel
             set
             {
                 _navigationService = value;
+                OnPropertyChanged();
+            }
+        }
+        private bool _isLoading = false;
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
                 OnPropertyChanged();
             }
         }
@@ -78,7 +90,21 @@ namespace GreenBill.MVVM.ViewModel
 
             CreateAccount =  new RelayCommand(async (o)=>
             {
-                await _userService.Create(NewUser);
+                try
+                {
+                    IsLoading = true;
+                    await _userService.Create(NewUser);
+                    MessageBox.Show("Account Created Successfully.");
+                    Navigation.NavigateTo<SigninViewModel>();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}");
+                }
+                finally
+                {
+                    IsLoading = false;
+                }
             }, o => NewUser != null);
         }
 

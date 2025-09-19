@@ -22,7 +22,7 @@ namespace GreenBill.MVVM.ViewModel
         private IUserService _userService;
         private IUserSessionService _sessionService; 
         private string _errorMessage;
-        private bool _isLoading;
+        private bool _isLoading = false;
 
         public ICommand Login { get; set; }
         private User NewUser { get; set; }
@@ -135,6 +135,8 @@ namespace GreenBill.MVVM.ViewModel
             if (_userService.Collection  == null)
             {
                 ErrorMessage = "Database connection not available.";
+                IsLoading = false;
+                MessageBox.Show(ErrorMessage);
                 return;
             }
 
@@ -186,6 +188,7 @@ namespace GreenBill.MVVM.ViewModel
             {
                 ErrorMessage = "An error occurred during login. Please try again.";
                 Debug.WriteLine($"Login error: {ex.Message}");
+                MessageBox.Show(ErrorMessage);
             }
             finally
             {

@@ -3,6 +3,7 @@ using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.Services;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
 namespace GreenBill.MVVM.ViewModel
@@ -11,7 +12,17 @@ namespace GreenBill.MVVM.ViewModel
     {
         private INavigationService _navigationService;
 
-
+        private IDonationRecordService _donationRecordService;
+        private ObservableCollection<DonationRecord> _donations;
+        public ObservableCollection<DonationRecord> Donations
+        {
+            get => _donations;
+            set
+            {
+                _donations = value;
+                OnPropertyChanged();
+            }
+        }
         public INavigationService Navigation
         {
             get => _navigationService;
@@ -48,11 +59,12 @@ namespace GreenBill.MVVM.ViewModel
         public ICommand NavigateBack { get; set; }
         public ICommand NavigateToDonationPage { get; set; }
 
-        public FundraisingDetailsViewModel(INavigationService navService, ICampaignService campaignService)
+        public FundraisingDetailsViewModel(INavigationService navService, ICampaignService campaignService, IDonationRecordService donationRecordService)
         {
             Navigation = navService;
             _campaignService = campaignService;
             InitializeCommands();
+            _donationRecordService = donationRecordService;
         }
 
         public void InitializeCommands()
@@ -70,7 +82,7 @@ namespace GreenBill.MVVM.ViewModel
             var id = parameter.ToString();
             SelectedCampaign = await _campaignService.GetCampaignByIdAsync(
                 id,
-                new CampaignIncludeOptions { IncludeUser = true }
+                new CampaignIncludeOptions { IncludeUser = true, IncludeDonationRecord = true }
              );
         }
     }

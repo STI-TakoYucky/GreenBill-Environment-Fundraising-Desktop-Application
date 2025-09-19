@@ -43,10 +43,14 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         // Will be injected via ApplyNavigationParameter
         public ICommand NavigateToCampaignDetails { get; private set; }
 
-        public AdminCampaignAnalyticsViewModel() {
+        public AdminCampaignAnalyticsViewModel()
+        {
+
+        }
+        public AdminCampaignAnalyticsViewModel(ICampaignService campaignService) {
             _userService = new UserService();
 
-            _campaignService = new CampaignService(_userService);
+            _campaignService = campaignService;
 
             _ = LoadCampaignsAsync();
         }

@@ -41,7 +41,6 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        // Donation form properties
         private decimal _selectedAmount = 10;
         public decimal SelectedAmount
         {
@@ -62,7 +61,6 @@ namespace GreenBill.MVVM.ViewModel
             {
                 _customAmount = value;
                 OnPropertyChanged();
-                // Parse custom amount and update SelectedAmount
                 if (decimal.TryParse(value, out decimal amount) && amount > 0)
                 {
                     _selectedAmount = amount;
@@ -115,7 +113,7 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        // Commands
+
         public ICommand NavigateBack { get; set; }
         public ICommand CompleteDonation { get; set; }
         public ICommand SelectAmountCommand { get; set; }
@@ -136,7 +134,7 @@ namespace GreenBill.MVVM.ViewModel
             if (parameter != null && decimal.TryParse(parameter.ToString(), out decimal amount))
             {
                 SelectedAmount = amount;
-                CustomAmount = ""; // Clear custom amount when selecting predefined amount
+                CustomAmount = "";
             }
         }
 
@@ -144,7 +142,6 @@ namespace GreenBill.MVVM.ViewModel
         {
             try
             {
-                // Validate required fields
                 if (SelectedAmount <= 0)
                 {
                     MessageBox.Show("Please select a valid donation amount.");
@@ -172,9 +169,9 @@ namespace GreenBill.MVVM.ViewModel
                 string connectedAccountId = SelectedCampaign.User.StripeAccountId;
                 ObjectId campaignId = SelectedCampaign.Id;
 
-                // Convert decimal to cents (Stripe uses cents)
+
                 long donationAmount = (long)(SelectedAmount * 100);
-                long platformFee = (long)(donationAmount * 0.01); // 1% platform fee
+                long platformFee = (long)(donationAmount * 0.01); 
                 long organizerAmount = donationAmount - platformFee;
 
                 var sessionService = new Stripe.Checkout.SessionService();
@@ -226,6 +223,7 @@ namespace GreenBill.MVVM.ViewModel
                     FirstName = FirstName,
                     LastName =  LastName,
                     IsAnonymous = IsAnonymous,
+                    Email = EmailAddress,
                     CampaignId = campaignId,
                     ConnectedAccountId = connectedAccountId,
                     Amount = donationAmount,
@@ -248,6 +246,10 @@ namespace GreenBill.MVVM.ViewModel
             catch (Exception ex)
             {
                 MessageBox.Show($"Error processing donation: {ex.Message}");
+            }
+            finally
+            {
+                Navigation.NavigateTo<FundraisingDetailsViewModel>(SelectedCampaign.Id.ToString());
             }
         }
 

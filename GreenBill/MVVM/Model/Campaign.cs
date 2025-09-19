@@ -1,6 +1,8 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections.Generic;
+using System.Windows.Documents;
 
 namespace GreenBill.MVVM.Model
 {
@@ -21,5 +23,7 @@ namespace GreenBill.MVVM.Model
 
         [BsonIgnore]
         public User User { get; set; }
+        [BsonIgnore]
+        public List<DonationRecord> DonationRecord { get; set; }
     }
 }

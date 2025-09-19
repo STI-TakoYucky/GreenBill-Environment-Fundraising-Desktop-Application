@@ -49,7 +49,7 @@ namespace GreenBill.MVVM.ViewModel
         private ICampaignService _campaignService;
         private Dictionary<String, String> _errorsList;
         private IUserSessionService _sessionService;
-
+        private readonly IStripeService _stripeService;
         public string ZipCodeError
         {
             get => _errorsList?.ContainsKey("ZipCode") == true ? _errorsList["ZipCode"] : null;
@@ -224,7 +224,7 @@ namespace GreenBill.MVVM.ViewModel
         public ObservableCollection<string> Countries { get; set; }
         public ObservableCollection<string> Categories { get; set; }
 
-        public FundraisingStepsViewModel(INavigationService navService, ICampaignService campaignService, IUserSessionService sessionService)
+        public FundraisingStepsViewModel(INavigationService navService, ICampaignService campaignService, IUserSessionService sessionService, IStripeService stripeService)
         {
             Navigation = navService;
             _campaignService = campaignService;
@@ -232,6 +232,7 @@ namespace GreenBill.MVVM.ViewModel
             InitializeCampaign();
             InitializeCollections();
             InitializeCommands();
+            _stripeService = stripeService;
         }
 
         private void InitializeCampaign()
@@ -381,11 +382,52 @@ namespace GreenBill.MVVM.ViewModel
             return CurrentCampaign;
         }
 
-        public void SaveCampaignAsync()
+        public async void SaveCampaignAsync()
         {
             try
             {
+                while (!_sessionService.CurrentUser.CanReceiveFunds)
+                {
+                    var result = MessageBox.Show(
+                        "Setup your Stripe Connect Account to create campaign",
+                        "Stripe Connect Setup Required",
+                        MessageBoxButton.OKCancel,
+                        MessageBoxImage.Information);
+
+                    if (result == MessageBoxResult.Cancel)
+                    {
+                        return;
+                    }
+                    else if (result == MessageBoxResult.OK) 
+                    {
+                        try
+                        {
+                            await _stripeService.CreateConnectAccountAsync(_sessionService.CurrentUser);
+
+                            if (!_sessionService.CurrentUser.CanReceiveFunds)
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        catch (Exception stripeEx)
+                        {
+                            MessageBox.Show(
+                                $"Error setting up Stripe Connect account: {stripeEx.Message}",
+                                "Stripe Setup Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
+
+                            continue;
+                        }
+                    }
+                }
+
                 if (ValidateCampaignForSaving()) return;
+
                 CurrentCampaign.UserId = _sessionService.CurrentUser.Id;
                 _campaignService.Create(CurrentCampaign);
                 MessageBox.Show("Campaign saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -396,7 +438,6 @@ namespace GreenBill.MVVM.ViewModel
                 MessageBox.Show($"An error occurred while saving: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
         private bool ValidateCampaignForSaving()
         {
             _errorsList.Clear();

@@ -13,9 +13,10 @@ namespace GreenBill.Services
     {
         private readonly IMongoCollection<Campaign> _collection;
         private readonly IUserService _userService;
+        private readonly ICampaignUpdateService _campaignUpdateService;
         private readonly IDonationRecordService _donationRecordService;
 
-        public CampaignService(IUserService userService, IDonationRecordService donationRecordService)
+        public CampaignService(IUserService userService, IDonationRecordService donationRecordService, ICampaignUpdateService campaignUpdateService)
         {
             string connectionString = "mongodb://localhost:27017";
             var client = new MongoClient(connectionString);
@@ -23,6 +24,7 @@ namespace GreenBill.Services
             _collection = database.GetCollection<Campaign>("Campaigns");
             _userService = userService;
             _donationRecordService = donationRecordService;
+            _campaignUpdateService = campaignUpdateService;
         }
 
         public async Task<List<Campaign>> GetAllCampaignsAsync(CampaignIncludeOptions options = null)
@@ -71,6 +73,10 @@ namespace GreenBill.Services
             if (options?.IncludeDonationRecord == true)
             {
                 campaign.DonationRecord = await _donationRecordService.GetByCampaignIdAsync(campaign.Id);
+            }
+            if(options?.IncludeCampaignUpdate == true)
+            {
+                campaign.CampaignUpdate = await _campaignUpdateService.GetByCampaignIdAsync(campaign.Id);
             }
 
             return campaign;

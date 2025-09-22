@@ -59,51 +59,46 @@
                             CommandParameter="{Binding SelectedCampaign.Id}"/>
                 </Grid>
 
-                <!-- Update Item 1 -->
-                <Border Background="#F8F9FA" 
-                    CornerRadius="8" 
-                    Padding="20"
-                    Margin="0,0,0,15">
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                            <TextBlock Text="Update #3" 
-                                   FontWeight="SemiBold" 
-                                   FontSize="16"
-                                   Foreground="#333333"/>
-                            <TextBlock Text=" • 2 days ago" 
-                                   FontSize="14" 
-                                   Foreground="#999999"
-                                   VerticalAlignment="Center"/>
-                        </StackPanel>
-                        <TextBlock Text="Thank you for all the support! We've reached 75% of our goal and are making great progress."
-                               FontSize="14"
-                               TextWrapping="Wrap"
-                               Foreground="#555555"/>
-                    </StackPanel>
-                </Border>
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="UpdatesItemsControl" ItemsSource="{Binding SelectedCampaign.CampaignUpdate}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#F8F9FA" 
+                                        CornerRadius="8" 
+                                        Padding="20"
+                                        Margin="0,0,0,15">
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                                            <TextBlock Text="{Binding Title}" 
+                                                        FontWeight="SemiBold" 
+                                                        FontSize="16"
+                                                        Foreground="#333333"/>
+                                            <TextBlock Text=" • " 
+                                                        FontSize="14" 
+                                                        Foreground="#999999"
+                                                        VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding CreatedAt}" 
+                                                       FontSize="14" 
+                                                       Foreground="#999999"
+                                                       VerticalAlignment="Center"/>
 
-                <!-- Update Item 2 -->
-                <Border Background="#F8F9FA" 
-                    CornerRadius="8" 
-                    Padding="20"
-                    Margin="0,0,0,15">
-                    <StackPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                            <TextBlock Text="Update #2" 
-                                   FontWeight="SemiBold" 
-                                   FontSize="16"
-                                   Foreground="#333333"/>
-                            <TextBlock Text=" • 1 week ago" 
-                                   FontSize="14" 
-                                   Foreground="#999999"
-                                   VerticalAlignment="Center"/>
-                        </StackPanel>
-                        <TextBlock Text="We've hit our first milestone! The response has been overwhelming and we're grateful for everyone's generosity."
-                               FontSize="14"
-                               TextWrapping="Wrap"
-                               Foreground="#555555"/>
-                    </StackPanel>
-                </Border>
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding Description}"
+                                                    FontSize="14"
+                                                    TextWrapping="Wrap"
+                                                    Foreground="#555555"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <!-- Update Item 1 -->
+             
+
+              
+          
             </StackPanel>
         </ScrollViewer>
     </Grid>

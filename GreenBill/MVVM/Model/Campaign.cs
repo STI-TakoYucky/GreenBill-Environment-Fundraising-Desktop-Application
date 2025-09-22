@@ -25,5 +25,7 @@ namespace GreenBill.MVVM.Model
         public User User { get; set; }
         [BsonIgnore]
         public List<DonationRecord> DonationRecord { get; set; }
+        [BsonIgnore]
+        public List<CampaignUpdate> CampaignUpdate { get; set; }
     }
 }

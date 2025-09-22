@@ -209,7 +209,7 @@
 
                                                 <!-- Donor Info -->
                                                 <StackPanel Grid.Column="1" Margin="15,0,0,0">
-                                                    <TextBlock Text="Anonymous Supporter" 
+                                                    <TextBlock Text="{Binding FirstName}" 
                                                                 FontWeight="SemiBold" 
                                                                 FontSize="14"
                                                                 Foreground="#333333"/>

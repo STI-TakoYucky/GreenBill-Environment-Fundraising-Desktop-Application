@@ -27,5 +27,12 @@ namespace GreenBill.MVVM.Model
         public List<DonationRecord> DonationRecord { get; set; }
         [BsonIgnore]
         public List<CampaignUpdate> CampaignUpdate { get; set; }
+        [BsonIgnore]
+        public string TotalAmountRaised { get; set; }
+        
+        [BsonIgnore]
+        public string DonationsCount {  get; set; }
+        [BsonIgnore]
+        public string Percentage {  get; set; }
     }
 }

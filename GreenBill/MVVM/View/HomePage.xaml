@@ -175,7 +175,7 @@
                                                                    HorizontalAlignment="Left"
                                                                    VerticalAlignment="Bottom"
                                                                    Margin="16">
-                                                                <TextBlock Text="975 donations"
+                                                                <TextBlock Text="{Binding DonationsCount}"
                                                                           Foreground="White"
                                                                           FontWeight="SemiBold"
                                                                           FontSize="11"/>
@@ -217,14 +217,14 @@
                                                 </Grid.ColumnDefinitions>
 
                                                 <TextBlock Grid.Column="0"
-                                                          Text="$45,555 raised"
+                                                          Text="{Binding TotalAmountRaised}"
                                                           FontWeight="Bold"
                                                           FontSize="14"
                                                           Foreground="#333333"
                                                           VerticalAlignment="Center"/>
 
                                                 <TextBlock Grid.Column="1"
-                                                          Text="75% funded"
+                                                          Text="{Binding Percentage}"
                                                           FontSize="12"
                                                           Foreground="#4CAF50"
                                                           FontWeight="Medium"
@@ -242,7 +242,7 @@
                                             </Border>
 
                                             <!-- Time Remaining -->
-                                            <TextBlock Text="12 days left"
+                                            <TextBlock Text="{Binding CreatedAt}"
                                                       FontSize="12"
                                                       Foreground="#666666"
                                                       Margin="0,8,0,0"/>

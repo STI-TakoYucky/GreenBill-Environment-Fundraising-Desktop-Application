@@ -36,6 +36,11 @@ namespace GreenBill.Services
             {
                 await LoadUsersForCampaigns(campaigns);
             }
+            if (options?.IncludeDonationRecord == true)
+            {
+                await LoadDonationRecordsForCampaigns(campaigns);
+            }
+
 
             return campaigns;
         }
@@ -119,5 +124,32 @@ namespace GreenBill.Services
                 }
             }
         }
+
+
+        private async Task LoadDonationRecordsForCampaigns(List<Campaign> campaigns)
+        {
+            if (!campaigns.Any()) return;
+            
+            // Load donation records for each campaign
+            foreach (var campaign in campaigns)
+            {
+                try
+                {
+                    campaign.DonationRecord = await _donationRecordService.GetByCampaignIdAsync(campaign.Id);
+                    campaign.DonationsCount = campaign.DonationRecord.Count.ToString() + " donations"; 
+                    var total = $"${(campaign.DonationRecord?.Sum(item => item.Amount) ?? 0):N2} USD raised";
+                    campaign.TotalAmountRaised = total;
+                    var percentage = ((campaign.DonationRecord?.Sum(item => item.Amount) ?? 0) / campaign.DonationGoal) * 100;
+                    campaign.Percentage = $"{percentage}% Funded";
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception if you have logging configured
+                    // For now, initialize with empty list to prevent null reference issues
+                    campaign.DonationRecord = new List<DonationRecord>();
+                }
+            }
+        }
+
     }
 }

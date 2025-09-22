@@ -31,5 +31,7 @@ namespace GreenBill.MVVM.Model
         {
             get { return this.FirstName + " " + this.LastName; }
         }
+
+        
     }
 }

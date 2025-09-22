@@ -117,7 +117,7 @@
                    VerticalAlignment="Top">
                     <StackPanel>
                         <!-- Donation Amount -->
-                        <TextBlock Text="$45,665 USD raised"
+                        <TextBlock Text="{Binding TotalDonationRaised}"
                               
                               FontSize="24"
                               FontWeight="Bold"
@@ -127,18 +127,11 @@
                         <!-- Progress Info -->
                         <StackPanel Orientation="Horizontal" 
                                Margin="0,0,0,12">
-                            <TextBlock Text="{Binding SelectedCampaign.DonationGoal}"
+                            <TextBlock Text="{Binding Percentage}"
                                   
                                   FontSize="14"
                                   Foreground="#888888"/>
-                            <TextBlock Text=" • "
-                                  
-                                  FontSize="14"
-                                  Foreground="#888888"/>
-                            <TextBlock Text="980 donations"
-                                  
-                                  FontSize="14"
-                                  Foreground="#888888"/>
+         
                         </StackPanel>
 
                         <!-- Progress Bar -->

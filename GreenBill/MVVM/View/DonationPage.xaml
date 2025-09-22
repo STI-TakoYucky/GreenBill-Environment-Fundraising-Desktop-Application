@@ -307,10 +307,9 @@
                             <!-- Progress Stats -->
                             <Border Background="#E8F5E8" CornerRadius="10" Padding="20" Margin="0,0,0,20">
                                 <StackPanel>
-                                    <TextBlock Text="$45,665 USD raised" FontSize="24" FontWeight="Bold" 
+                                    <TextBlock Text="{Binding TotalDonationRaised}" FontSize="24" FontWeight="Bold" 
                                          Foreground="#2E7D32" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="4234 • 980 donations" FontSize="14" 
-                                         Foreground="#666" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                  
                                 </StackPanel>
                             </Border>
 
@@ -319,81 +318,66 @@
                                    Background="#E0E0E0" Foreground="#2E7D32" 
                                    BorderThickness="0" Margin="0,0,0,20"/>
 
-                            <TextBlock Text="65% of $70,000 goal" FontSize="14" 
+                            <TextBlock Text="{Binding Percentage}" FontSize="14" 
                                  Foreground="#666" HorizontalAlignment="Center" Margin="0,0,0,25"/>
 
                             <!-- Recent Donors -->
-                            <TextBlock Text="Recent Supporters" FontSize="16" FontWeight="SemiBold" 
+                            <TextBlock Text="Supporters" FontSize="16" FontWeight="SemiBold" 
                                  Foreground="#2E2E2E" Margin="0,0,0,15"/>
 
                             <!-- Donor List -->
-                            <StackPanel>
-                                <!-- Recent Donation -->
-                                <Border Background="#F9F9F9" CornerRadius="8" Padding="15" Margin="0,0,0,10">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                <ItemsControl x:Name="UpdatesItemsControl" ItemsSource="{Binding SelectedCampaign.DonationRecord}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border Background="White" 
+                         BorderBrush="#E0E0E0" 
+                         BorderThickness="0,0,0,1" 
+                         Padding="0,15">
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="50"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                        <ColumnDefinition Width="Auto"/>
+                                                    </Grid.ColumnDefinitions>
 
-                                        <Ellipse Grid.Column="0" Width="35" Height="35" Fill="#2E7D32" 
-                                           Margin="0,0,10,0"/>
+                                                    <!-- Avatar -->
+                                                    <Ellipse Grid.Column="0" 
+                                  Fill="#9C27B0" 
+                                  Width="40" 
+                                  Height="40"/>
+                                                    <TextBlock Grid.Column="0"
+                                    Text="TS" 
+                                    FontWeight="SemiBold" 
+                                    FontSize="14"
+                                    Foreground="White"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"/>
 
-                                        <StackPanel Grid.Column="1">
-                                            <TextBlock Text="Eric Welmiar" FontWeight="SemiBold" FontSize="14"/>
-                                            <TextBlock Text="Recent donation" FontSize="12" Foreground="#666"/>
-                                        </StackPanel>
+                                                    <!-- Donor Info -->
+                                                    <StackPanel Grid.Column="1" Margin="15,0,0,0">
+                                                        <TextBlock Text="{Binding FirstName}" 
+                                         FontWeight="SemiBold" 
+                                         FontSize="14"
+                                         Foreground="#333333"/>
+                                                        <TextBlock Text="5 hours ago" 
+                                         FontSize="12" 
+                                         Foreground="#999999"/>
+                                                    </StackPanel>
 
-                                        <TextBlock Grid.Column="2" Text="$50" FontWeight="SemiBold" 
-                                             FontSize="14" Foreground="#2E7D32" VerticalAlignment="Center"/>
-                                    </Grid>
-                                </Border>
-
-                                <!-- Top Donation -->
-                                <Border Background="#F9F9F9" CornerRadius="8" Padding="15" Margin="0,0,0,10">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <Ellipse Grid.Column="0" Width="35" Height="35" Fill="#666" 
-                                           Margin="0,0,10,0"/>
-
-                                        <StackPanel Grid.Column="1">
-                                            <TextBlock Text="Anonymous" FontWeight="SemiBold" FontSize="14"/>
-                                            <TextBlock Text="Top donation" FontSize="12" Foreground="#666"/>
-                                        </StackPanel>
-
-                                        <TextBlock Grid.Column="2" Text="$1,800" FontWeight="SemiBold" 
-                                             FontSize="14" Foreground="#2E7D32" VerticalAlignment="Center"/>
-                                    </Grid>
-                                </Border>
-
-                                <!-- First Donation -->
-                                <Border Background="#F9F9F9" CornerRadius="8" Padding="15" Margin="0,0,0,15">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <Ellipse Grid.Column="0" Width="35" Height="35" Fill="#666" 
-                                           Margin="0,0,10,0"/>
-
-                                        <StackPanel Grid.Column="1">
-                                            <TextBlock Text="Anonymous" FontWeight="SemiBold" FontSize="14"/>
-                                            <TextBlock Text="First donation" FontSize="12" Foreground="#666"/>
-                                        </StackPanel>
-
-                                        <TextBlock Grid.Column="2" Text="$80" FontWeight="SemiBold" 
-                                             FontSize="14" Foreground="#2E7D32" VerticalAlignment="Center"/>
-                                    </Grid>
-                                </Border>
-                            </StackPanel>
+                                                    <!-- Donation Amount -->
+                                                    <TextBlock Grid.Column="2" 
+                                    Text="{Binding Amount}" 
+                                    FontWeight="SemiBold" 
+                                    FontSize="16"
+                                    Foreground="#4CAF50"
+                                    VerticalAlignment="Center"/>
+                                                </Grid>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
 
                             <!-- Links -->
                             <Grid Margin="0,20,0,0">
@@ -402,13 +386,7 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Column="0" Text="See all" FontSize="14" 
-                                     Foreground="#2E7D32" TextDecorations="Underline" 
-                                     HorizontalAlignment="Left" Cursor="Hand"/>
-
-                                <TextBlock Grid.Column="1" Text="See top" FontSize="14" 
-                                     Foreground="#2E7D32" TextDecorations="Underline" 
-                                     HorizontalAlignment="Right" Cursor="Hand"/>
+                         
                             </Grid>
                         </StackPanel>
                     </Border>

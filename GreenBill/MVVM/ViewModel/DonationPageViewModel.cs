@@ -8,6 +8,7 @@ using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -19,6 +20,7 @@ namespace GreenBill.MVVM.ViewModel
         private INavigationService _navigationService;
         private IDonationRecordService _donationRecordService;
         private ICampaignService _campaignService;
+      
 
         public INavigationService Navigation
         {
@@ -50,6 +52,28 @@ namespace GreenBill.MVVM.ViewModel
                 _selectedAmount = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(CustomAmount));
+            }
+        }
+
+        private string _total_donation_raised;
+        public string TotalDonationRaised
+        {
+            get => _total_donation_raised;
+            set 
+            {
+                _total_donation_raised = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _percentage;
+        public string Percentage
+        {
+            get => _percentage;
+            set
+            {
+                _percentage = value;
+                OnPropertyChanged();
             }
         }
 
@@ -264,8 +288,12 @@ namespace GreenBill.MVVM.ViewModel
             var id = parameter.ToString();
             SelectedCampaign = await _campaignService.GetCampaignByIdAsync(
                id,
-               new CampaignIncludeOptions { IncludeUser = true }
+               new CampaignIncludeOptions { IncludeUser = true, IncludeDonationRecord = true }
             );
+            var total = $"${(SelectedCampaign.DonationRecord?.Sum(item => item.Amount) ?? 0):N2} USD raised";
+            TotalDonationRaised = total;
+            var percentage = ((SelectedCampaign.DonationRecord?.Sum(item => item.Amount) ?? 0) / SelectedCampaign.DonationGoal) * 100;
+            Percentage = $"{percentage}% of {SelectedCampaign.DonationGoal:N2} goal";
         }
     }
 }

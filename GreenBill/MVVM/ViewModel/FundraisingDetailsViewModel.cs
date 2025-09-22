@@ -5,6 +5,7 @@ using GreenBill.Services;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Input;
 namespace GreenBill.MVVM.ViewModel
 {
@@ -29,6 +30,28 @@ namespace GreenBill.MVVM.ViewModel
             set
             {
                 _navigationService = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _total_donation_raised;
+        public string TotalDonationRaised
+        {
+            get => _total_donation_raised;
+            set
+            {
+                _total_donation_raised = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _percentage;
+        public string Percentage
+        {
+            get => _percentage;
+            set
+            {
+                _percentage = value;
                 OnPropertyChanged();
             }
         }
@@ -84,6 +107,11 @@ namespace GreenBill.MVVM.ViewModel
                 id,
                 new CampaignIncludeOptions { IncludeUser = true, IncludeDonationRecord = true }
              );
+
+            var total = $"${(SelectedCampaign.DonationRecord?.Sum(item => item.Amount) ?? 0):N2} USD raised";
+            TotalDonationRaised = total;
+            var percentage = ((SelectedCampaign.DonationRecord?.Sum(item => item.Amount) ?? 0) / SelectedCampaign.DonationGoal) * 100;
+            Percentage = $"{percentage}% of {SelectedCampaign.DonationGoal:N2} goal";
         }
     }
 }

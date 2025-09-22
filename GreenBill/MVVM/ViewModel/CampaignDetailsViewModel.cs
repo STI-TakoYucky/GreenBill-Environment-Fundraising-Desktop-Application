@@ -134,7 +134,7 @@ namespace GreenBill.MVVM.ViewModel
         {
             if (parameter == null) return;
             var id = parameter.ToString();
-            SelectedCampaign = await _campaignService.GetCampaignByIdAsync(id, new CampaignIncludeOptions { IncludeCampaignUpdate = true});
+            SelectedCampaign = await _campaignService.GetCampaignByIdAsync(id, new CampaignIncludeOptions { IncludeCampaignUpdate = true, IncludeDonationRecord = true});
         }
     }
 }

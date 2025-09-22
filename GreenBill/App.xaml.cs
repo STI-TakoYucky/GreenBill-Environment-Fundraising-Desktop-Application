@@ -51,7 +51,7 @@ namespace GreenBill
             services.AddTransient<FundraisingStepsViewModel>();
             services.AddTransient<UserCampaignsViewModel>();
             services.AddSingleton<CampaignAnalyticsViewModel>();
-            services.AddTransient<CampaignDetailsViewModel>();
+            services.AddSingleton<CampaignDetailsViewModel>();
             services.AddSingleton<AdminDashboardViewModel>();
             services.AddSingleton<AdminWindowViewModel>();
             services.AddSingleton<CampaignsViewModel>();

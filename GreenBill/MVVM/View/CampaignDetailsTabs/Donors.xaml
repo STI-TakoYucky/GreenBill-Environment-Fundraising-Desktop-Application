@@ -55,7 +55,7 @@
 
                                 <!-- Donor Info -->
                                 <StackPanel Grid.Column="1" Margin="15,0,0,0">
-                                    <TextBlock Text="{Binding FirstName}" 
+                                    <TextBlock Text="{Binding DisplayName}" 
                             FontWeight="SemiBold" 
                             FontSize="14"
                             Foreground="#333333"/>

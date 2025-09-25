@@ -108,10 +108,10 @@ namespace GreenBill.MVVM.ViewModel
                 new CampaignIncludeOptions { IncludeUser = true, IncludeDonationRecord = true }
              );
 
-            var total = $"${(SelectedCampaign.DonationRecord?.Sum(item => item.Amount) ?? 0):N2} USD raised";
+            var total = $"${(SelectedCampaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0):N2} USD raised";
             TotalDonationRaised = total;
-            var percentage = ((SelectedCampaign.DonationRecord?.Sum(item => item.Amount) ?? 0) / SelectedCampaign.DonationGoal) * 100;
-            Percentage = $"{percentage}% of {SelectedCampaign.DonationGoal:N2} goal";
+            var percentage = ((SelectedCampaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0) / SelectedCampaign.DonationGoal) * 100;
+            Percentage = $"{percentage:N0}% of {SelectedCampaign.DonationGoal:N2} goal";
         }
     }
 }

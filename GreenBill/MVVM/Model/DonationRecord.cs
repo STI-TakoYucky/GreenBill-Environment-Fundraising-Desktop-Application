@@ -32,6 +32,38 @@ namespace GreenBill.MVVM.Model
             get { return this.FirstName + " " + this.LastName; }
         }
 
-        
+        public string DisplayName
+        {
+            get
+            {
+                if (this.IsAnonymous)
+                {
+                    return "Anonymous";
+                }else
+                {
+                    return this.FirstName + " " + this.LastName;
+                }
+            }
+        }
+
+        [BsonIgnore]
+        public decimal RealAmount
+        {
+            get { return Amount / 100m; }
+        }
+
+        [BsonIgnore]
+        public decimal RealPlatformFee
+        {
+            get { return PlatformFee / 100m; }
+        }
+
+        [BsonIgnore]
+        public decimal RealOrganizerAmount
+        {
+            get { return OrganizerAmount / 100m; }
+        }
+
+
     }
 }

@@ -3,6 +3,7 @@ using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.Services;
 using System;
+using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Input;
 
@@ -30,6 +31,17 @@ namespace GreenBill.MVVM.ViewModel
             set
             {
                 _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _hasErrors = false;
+        public bool HasErrors
+        {
+            get => _hasErrors;
+            set
+            {
+                _hasErrors = value;
                 OnPropertyChanged();
             }
         }
@@ -71,6 +83,37 @@ namespace GreenBill.MVVM.ViewModel
                 }
             }
         }
+
+
+        private string _usernameError;
+        public string UsernameError
+        {
+            get => _usernameError;
+            set  {
+                _usernameError = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _emailError;
+        public string EmailError
+        {
+            get => _emailError;
+            set
+            {
+                _emailError = value;
+                OnPropertyChanged();
+            }
+        }
+        private string _passwordError;
+        public string PasswordError
+        {
+            get => _passwordError;
+            set
+            {
+                _passwordError = value;
+                OnPropertyChanged();
+            }
+        }
         public ICommand CreateAccount { get; set; }
 
         public RelayCommand NavigateToHome { get; set; }
@@ -92,6 +135,8 @@ namespace GreenBill.MVVM.ViewModel
             {
                 try
                 {
+                    ValidateInputs();
+                    if (HasErrors) return;
                     IsLoading = true;
                     await _userService.Create(NewUser);
                     MessageBox.Show("Account Created Successfully.");
@@ -106,6 +151,30 @@ namespace GreenBill.MVVM.ViewModel
                     IsLoading = false;
                 }
             }, o => NewUser != null);
+        }
+
+        public void ValidateInputs()
+        {
+            HasErrors = false;
+            UsernameError = "";
+            EmailError = "";
+            PasswordError = "";
+            if (string.IsNullOrEmpty(NewUser.Username))
+            {
+                UsernameError = "This field is Required";
+                HasErrors = true;
+            }
+            if (string.IsNullOrEmpty(NewUser.Email))
+            {
+                EmailError = "This field is Required";
+                HasErrors = true;
+            }
+            if (string.IsNullOrEmpty(NewUser.Password))
+            {
+                PasswordError = "This field is Required";
+                HasErrors = true;
+            }
+
         }
 
 

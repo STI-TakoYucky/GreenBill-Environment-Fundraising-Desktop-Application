@@ -210,7 +210,7 @@
 
                 <!-- Sign up button -->
                 <Button Name="SignUpButton"
-                   IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                   Tag="{Binding IsLoading}"
                    Style="{StaticResource PrimaryButton}"
                    Content="Sign up"
                    Height="50"

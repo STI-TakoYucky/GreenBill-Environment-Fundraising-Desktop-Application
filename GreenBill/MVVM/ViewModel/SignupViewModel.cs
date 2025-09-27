@@ -24,7 +24,7 @@ namespace GreenBill.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        private bool _isLoading = false;
+        private bool _isLoading = true;
         public bool IsLoading
         {
             get => _isLoading;
@@ -135,9 +135,14 @@ namespace GreenBill.MVVM.ViewModel
             {
                 try
                 {
-                    ValidateInputs();
-                    if (HasErrors) return;
                     IsLoading = true;
+                    ValidateInputs();
+                    if (HasErrors)
+                    {
+                        IsLoading = false;
+                        return;
+                    }
+
                     await _userService.Create(NewUser);
                     MessageBox.Show("Account Created Successfully.");
                     Navigation.NavigateTo<SigninViewModel>();

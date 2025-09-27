@@ -58,6 +58,11 @@ namespace GreenBill.Services
                 var user = await _userService.GetUserByIdAsync(id.ToString());
                 campaigns.ForEach(c => c.User = user);
             }
+            if (options?.IncludeDonationRecord == true)
+            {
+                await LoadDonationRecordsForCampaigns(campaigns);
+            }
+
 
             return campaigns;
         }
@@ -78,6 +83,12 @@ namespace GreenBill.Services
             if (options?.IncludeDonationRecord == true)
             {
                 campaign.DonationRecord = await _donationRecordService.GetByCampaignIdAsync(campaign.Id);
+                campaign.DonationsCount = campaign.DonationRecord.Count.ToString() + " donations";
+                var total = $"${(campaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0):N2} USD raised";
+                campaign.TotalAmountRaised = total;
+                var percentage = ((campaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0) / campaign.DonationGoal) * 100;
+                campaign.Percentage = $"{percentage}% Funded";
+
             }
             if(options?.IncludeCampaignUpdate == true)
             {

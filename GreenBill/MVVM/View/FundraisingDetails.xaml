@@ -103,10 +103,7 @@
                            Margin="0,0,0,20"
                                Text="{Binding SelectedCampaign.Description}"/>
 
-                    <!-- Read More Button -->
-                    <Button Content="Read more"
-                       Style="{StaticResource PrimaryButton}"
-                       HorizontalAlignment="Left" Height="35" Width="107"/>
+
                 </StackPanel>
 
                 <!-- Right Sidebar -->
@@ -117,7 +114,7 @@
                    VerticalAlignment="Top">
                     <StackPanel>
                         <!-- Donation Amount -->
-                        <TextBlock Text="{Binding TotalDonationRaised}"
+                        <TextBlock Text="{Binding SelectedCampaign.TotalAmountRaised}"
                               
                               FontSize="24"
                               FontWeight="Bold"
@@ -127,7 +124,7 @@
                         <!-- Progress Info -->
                         <StackPanel Orientation="Horizontal" 
                                Margin="0,0,0,12">
-                            <TextBlock Text="{Binding Percentage}"
+                            <TextBlock Text="{Binding SelectedCampaign.Percentage}"
                                   
                                   FontSize="14"
                                   Foreground="#888888"/>
@@ -157,16 +154,11 @@
                                 Fill="#E8B4FF"
                                 VerticalAlignment="Top"
                                 Margin="0,2,0,0"/>
-                            <TextBlock Text="{Binding SelectedCampaign.DonationRecord.Count}"
+                            <TextBlock Text="{Binding SelectedCampaign.DonationsCount}"
                                   
                                   FontSize="14"
                                   Foreground="#8B5FBF"
                                   Margin="8,0,0,0"/>
-                            <TextBlock Text="people just donated"
-            
-            FontSize="14"
-            Foreground="#8B5FBF"
-            Margin="8,0,0,0"/>
                         </StackPanel>
                         
 

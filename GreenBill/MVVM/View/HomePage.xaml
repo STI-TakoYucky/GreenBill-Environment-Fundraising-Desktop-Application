@@ -242,7 +242,7 @@
                                             </Border>
 
                                             <!-- Time Remaining -->
-                                            <TextBlock Text="{Binding CreatedAt}"
+                                            <TextBlock Text="{Binding DaySpan}"
                                                       FontSize="12"
                                                       Foreground="#666666"
                                                       Margin="0,8,0,0"/>

@@ -97,7 +97,7 @@ namespace GreenBill.MVVM.ViewModel
             try
             {
                 Debug.WriteLine($"Current User: {_userSessionService.CurrentUser.Id}");
-                var campaigns = await _campaignService.GetAllCampaignsByIdAsync(_userSessionService.CurrentUser.Id);
+                var campaigns = await _campaignService.GetAllCampaignsByIdAsync(_userSessionService.CurrentUser.Id, new CampaignIncludeOptions { IncludeDonationRecord = true});
 
                 AllCampaigns.Clear();
                 foreach (var campaign in campaigns)

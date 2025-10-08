@@ -2,12 +2,12 @@
 using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Documents;
 
 namespace GreenBill.MVVM.Model
 {
-    public class Campaign
-    {
+    public class Campaign : INotifyPropertyChanged {
         public ObjectId Id { get; set; }
         public ObjectId UserId { get; set; }
         public string Country { get; set; }
@@ -19,7 +19,17 @@ namespace GreenBill.MVVM.Model
         public string Title { get; set; }
         public string Description { get; set; }
          public DateTime CreatedAt { get; set; }
-        public string Status { get; set; } = "in review";
+
+        private string _status = "in review";
+        public string Status {
+            get => _status;
+            set {
+                if (_status != value) {
+                    _status = value;
+                    OnPropertyChanged(nameof(Status));
+                }
+            }
+        }
 
         [BsonIgnore]
         public User User { get; set; }
@@ -34,5 +44,9 @@ namespace GreenBill.MVVM.Model
         public string DonationsCount {  get; set; }
         [BsonIgnore]
         public string Percentage {  get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName) =>
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

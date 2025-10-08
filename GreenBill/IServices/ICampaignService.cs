@@ -15,5 +15,8 @@ namespace GreenBill.IServices
         Task<List<Campaign>> GetAllCampaignsByIdAsync(ObjectId id, CampaignIncludeOptions options = null);
         Task<Campaign> GetCampaignByIdAsync(string id, CampaignIncludeOptions options = null);
         void Create(Campaign campaign);
+        void ApproveCampaign(ObjectId campaignId);
+        void StageReviewCampaign(ObjectId campaignId);
+        void RejectCampaign(ObjectId id);
     }
 }

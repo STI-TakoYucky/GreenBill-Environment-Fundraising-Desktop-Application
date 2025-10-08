@@ -9,30 +9,16 @@
     Background="#f0f2f5"
     mc:Ignorable="d">
 
-    <Grid Margin="20">
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <Grid>
+        <ScrollViewer Padding="20" VerticalScrollBarVisibility="Auto">
             <StackPanel>
 
                 <!--  Header  -->
                 <DockPanel Margin="0,0,0,20">
-                    <Button Margin="0,0,10,0" Style="{StaticResource BackButtonStyle}" />
-                    <TextBlock
-                        DockPanel.Dock="Left"
-                        FontSize="28"
-                        FontWeight="Bold"
-                        Foreground="#333"
-                        Text="Review Campaign" />
-
-                    <StackPanel
-                        HorizontalAlignment="Right"
-                        DockPanel.Dock="Right"
-                        Orientation="Horizontal">
-                        <Button Content="Reject" Style="{StaticResource SecondaryButton}" />
-                        <Button
-                            Margin="20,0,0,0"
-                            Content="Approve"
-                            Style="{StaticResource PrimaryButton}" />
-                    </StackPanel>
+                    <Button
+                        Margin="0,0,10,0"
+                        Content="Back"
+                        Style="{StaticResource BackButtonStyle}" />
                 </DockPanel>
 
                 <!--  Campaign Card  -->
@@ -44,50 +30,190 @@
                     BorderThickness="1"
                     CornerRadius="12"
                     Effect="{DynamicResource DropShadowEffect}">
-                    <StackPanel>
-                        <TextBlock
-                            Margin="0,0,0,15"
-                            FontSize="20"
-                            FontWeight="Bold"
-                            Text="Campaign Details" />
 
-                        <WrapPanel
-                            Margin="0,0,0,15"
-                            ItemHeight="30"
-                            ItemWidth="300">
-                            <TextBlock Text="Title: Help the Homeless" />
-                            <TextBlock Text="Category: Social Welfare" />
-                            <TextBlock Text="Country: Philippines" />
-                            <TextBlock Text="Zip Code: 1000" />
-                            <TextBlock Text="Donation Goal: ₱50,000" />
-                            <TextBlock Text="Donation Raised: ₱12,500" />
-                            <TextBlock Text="Created At: 2025-09-16" />
-                            <TextBlock Text="Status: In Review" />
-                        </WrapPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                        <!--  Image and Description  -->
-                        <Grid Margin="0,0,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="300" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal">
 
+                            <!--  Image  -->
                             <Border
-                                Grid.Column="0"
                                 Height="200"
-                                Background="#f4f4f4"
+                                VerticalAlignment="Top"
                                 CornerRadius="8">
-                                <Image Source="sample-campaign-image.jpg" Stretch="UniformToFill" />
+                                <Button
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Command="{Binding PreviewImageCommand}"
+                                    CommandParameter="{Binding SelectedCampaign.Image}"
+                                    Cursor="Hand"
+                                    Focusable="False">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Grid>
+                                                <!--  Image  -->
+                                                <Image
+                                                    Height="350"
+                                                    Source="{Binding SelectedCampaign.Image, Converter={StaticResource ImageConverter}}"
+                                                    Stretch="UniformToFill" />
+
+                                                <!--  Dark overlay  -->
+                                                <Rectangle
+                                                    x:Name="Overlay"
+                                                    Fill="Black"
+                                                    IsHitTestVisible="False"
+                                                    Opacity="0" />
+                                            </Grid>
+
+                                            <!--  Hover trigger  -->
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Overlay" Property="Opacity" Value="0.2" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
                             </Border>
 
-                            <TextBlock
-                                Grid.Column="1"
-                                Margin="20,0,0,0"
-                                VerticalAlignment="Top"
-                                Text="This campaign aims to support homeless communities by providing food, shelter, and medical aid. Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-                                TextWrapping="Wrap" />
-                        </Grid>
-                    </StackPanel>
+                            <!--  Image  -->
+
+                            <StackPanel
+                                Width="Auto"
+                                Margin="30,0,0,0"
+                                Orientation="Vertical">
+                                <StackPanel.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Margin" Value="0,0,0,10" />
+                                    </Style>
+                                </StackPanel.Resources>
+                                <TextBlock TextWrapping="Wrap">
+                                    <Run
+                                        FontSize="12"
+                                        Foreground="Gray"
+                                        Text="ID" />
+                                    <LineBreak />
+                                    <Run FontSize="14" Text="{Binding SelectedCampaign._id}" />
+                                </TextBlock>
+
+                                <TextBlock TextWrapping="Wrap">
+                                    <Run
+                                        FontSize="12"
+                                        Foreground="Gray"
+                                        Text="Title" />
+                                    <LineBreak />
+                                    <Run FontSize="14" Text="{Binding SelectedCampaign.Title}" />
+                                </TextBlock>
+
+                                <TextBlock TextWrapping="Wrap">
+                                    <Run
+                                        FontSize="12"
+                                        Foreground="Gray"
+                                        Text="UserID" />
+                                    <LineBreak />
+                                    <Run FontSize="14" Text="{Binding SelectedCampaign.UserId}" />
+                                </TextBlock>
+
+                                <TextBlock TextWrapping="Wrap">
+                                    <Run
+                                        FontSize="12"
+                                        Foreground="Gray"
+                                        Text="Description" />
+                                    <LineBreak />
+                                    <Run FontSize="14" Text="{Binding SelectedCampaign.Description}" />
+                                </TextBlock>
+
+                                <TextBlock TextWrapping="Wrap">
+                                    <Run
+                                        FontSize="12"
+                                        Foreground="Gray"
+                                        Text="Category" />
+                                    <LineBreak />
+                                    <Run FontSize="14" Text="{Binding SelectedCampaign.Category}" />
+                                </TextBlock>
+
+                                <TextBlock TextWrapping="Wrap">
+                                    <Run
+                                        FontSize="12"
+                                        Foreground="Gray"
+                                        Text="Country" />
+                                    <LineBreak />
+                                    <Run FontSize="14" Text="{Binding SelectedCampaign.Country}" />
+                                </TextBlock>
+
+                                <TextBlock TextWrapping="Wrap">
+                                    <Run
+                                        FontSize="12"
+                                        Foreground="Gray"
+                                        Text="ZipCode" />
+                                    <LineBreak />
+                                    <Run FontSize="14" Text="{Binding SelectedCampaign.ZipCode}" />
+                                </TextBlock>
+
+                                <TextBlock TextWrapping="Wrap">
+                                    <Run
+                                        FontSize="12"
+                                        Foreground="Gray"
+                                        Text="Donation Goal" />
+                                    <LineBreak />
+                                    <Run FontSize="14" Text="{Binding SelectedCampaign.DonationGoal}" />
+                                </TextBlock>
+
+                                <TextBlock TextWrapping="Wrap">
+                                    <Run
+                                        FontSize="12"
+                                        Foreground="Gray"
+                                        Text="Created At" />
+                                    <LineBreak />
+                                    <Run FontSize="14" Text="{Binding SelectedCampaign.CreatedAt}" />
+                                </TextBlock>
+
+                                <TextBlock TextWrapping="Wrap">
+                                    <Run
+                                        FontSize="12"
+                                        Foreground="Gray"
+                                        Text="Status" />
+                                    <LineBreak />
+                                    <Run FontSize="14" Text="{Binding SelectedCampaign.Status}" />
+                                </TextBlock>
+
+
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel
+                            Grid.Column="1"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal">
+                            <Button Margin="0,0,20,0" Command="{Binding Approve_ReviewCampaign}">
+                                <Button.Style>
+                                    <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                        <Setter Property="Content" Value="Approve" />
+
+                                        <Style.Triggers>
+                                            <!--  When Status == Approved  -->
+                                            <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Verified">
+                                                <Setter Property="Content" Value="Review" />
+                                            </DataTrigger>
+
+                                            <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="in review">
+                                                <Setter Property="Content" Value="Approve" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+
+                            <Button
+                                Command="{Binding RejectCampaign}"
+                                CommandParameter="{Binding SelectedCampaign.Id}"
+                                Content="Reject"
+                                Style="{StaticResource SecondaryButton}" />
+                        </StackPanel>
+                    </Grid>
                 </Border>
 
                 <!--  Supporting Documents Section  -->
@@ -97,123 +223,185 @@
                     FontWeight="Bold"
                     Text="Supporting Documents" />
 
-                <WrapPanel Margin="0,0,0,20">
-                    <!--  Example File Card  -->
-                    <Border
-                        Width="250"
-                        Margin="0,0,15,15"
-                        Padding="15"
-                        Background="White"
-                        BorderBrush="#E0E0E0"
-                        BorderThickness="1"
-                        CornerRadius="10">
-                        <StackPanel>
+                <ItemsControl ItemsSource="{Binding SupportingDocument}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                            <!--  Cards flow horizontally  -->
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
-                            <!--  File Info  -->
-                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                <!--  Optional File Icon  -->
-                                <Border
-                                    Width="40"
-                                    Height="40"
-                                    HorizontalAlignment="Left"
-                                    Background="#e0e0e0"
-                                    CornerRadius="6">
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontWeight="Bold"
-                                        Text="PDF" />
-                                </Border>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Margin="0,0,15,15"
+                                Padding="15"
+                                Background="White"
+                                BorderBrush="#E0E0E0"
+                                BorderThickness="1"
+                                CornerRadius="10">
 
-                                <StackPanel Margin="10,0,0,0">
-                                    <TextBlock FontWeight="Bold" Text="ID_Proof.pdf" />
-                                    <TextBlock
-                                        FontSize="12"
-                                        Foreground="#777"
-                                        Text="Size: 1.2 MB" />
-                                    <TextBlock
-                                        FontSize="12"
-                                        Foreground="#FF9800"
-                                        Text="Status: Pending" />
+                                <StackPanel>
+                                    <!--  Document info  -->
+                                    <DockPanel>
+                                        <StackPanel Orientation="Vertical">
+
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                FontWeight="Bold"
+                                                Text="{Binding FileName}" />
+
+                                            <TextBlock
+                                                FontSize="12"
+                                                Foreground="Gray"
+                                                Text="{Binding DocumentType}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+
+                                        <!--  Buttons  -->
+                                        <StackPanel
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+                                            <Button
+                                                Width="100"
+                                                Height="30"
+                                                Margin="0,0,10,0"
+                                                Command="{Binding DataContext.Approve_ReviewSupportingDocument, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding Id}">
+                                                <Button.Style>
+                                                    <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                                        <Setter Property="Content" Value="Approve" />
+
+                                                        <Style.Triggers>
+                                                            <!--  When Status == Approved  -->
+                                                            <DataTrigger Binding="{Binding Status}" Value="Verified">
+                                                                <Setter Property="Content" Value="Review" />
+                                                            </DataTrigger>
+
+                                                            <DataTrigger Binding="{Binding Status}" Value="in review">
+                                                                <Setter Property="Content" Value="Approve" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                            <Button
+                                                Width="100"
+                                                Height="30"
+                                                Command="{Binding DataContext.RejectDocument, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding Id}"
+                                                Content="Reject"
+                                                Style="{DynamicResource SecondaryButton}" />
+                                        </StackPanel>
+                                    </DockPanel>
+
+                                    <Border
+                                        Margin="0,20,0,0"
+                                        VerticalAlignment="Top"
+                                        CornerRadius="8">
+
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button
+                                                Width="250"
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Command="{Binding DataContext.PreviewImageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding FileData}"
+                                                Cursor="Hand"
+                                                Focusable="False">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Grid>
+                                                            <!--  Image  -->
+                                                            <Image
+                                                                Height="350"
+                                                                Source="{Binding FileData, Converter={StaticResource ImageConverter}}"
+                                                                Stretch="UniformToFill" />
+
+                                                            <!--  Dark overlay  -->
+                                                            <Rectangle
+                                                                x:Name="Overlay"
+                                                                Fill="Black"
+                                                                IsHitTestVisible="False"
+                                                                Opacity="0" />
+                                                        </Grid>
+
+                                                        <!--  Hover trigger  -->
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter TargetName="Overlay" Property="Opacity" Value="0.2" />
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
+
+                                            <StackPanel
+                                                Width="Auto"
+                                                Margin="30,0,0,0"
+                                                Orientation="Vertical">
+                                                <StackPanel.Resources>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Margin" Value="0,0,0,10" />
+                                                    </Style>
+                                                </StackPanel.Resources>
+                                                <TextBlock TextWrapping="Wrap">
+                                                    <Run
+                                                        FontSize="12"
+                                                        Foreground="Gray"
+                                                        Text="ID" />
+                                                    <LineBreak />
+                                                    <Run FontSize="14" Text="{Binding Id}" />
+                                                </TextBlock>
+
+                                                <TextBlock TextWrapping="Wrap">
+                                                    <Run
+                                                        FontSize="12"
+                                                        Foreground="Gray"
+                                                        Text="Content Type" />
+                                                    <LineBreak />
+                                                    <Run FontSize="14" Text="{Binding ContentType}" />
+                                                </TextBlock>
+
+                                                <TextBlock TextWrapping="Wrap">
+                                                    <Run
+                                                        FontSize="12"
+                                                        Foreground="Gray"
+                                                        Text="File Size" />
+                                                    <LineBreak />
+                                                    <Run FontSize="14" Text="{Binding FileSize}" />
+                                                </TextBlock>
+
+                                                <TextBlock TextWrapping="Wrap">
+                                                    <Run
+                                                        FontSize="12"
+                                                        Foreground="Gray"
+                                                        Text="Upload Date" />
+                                                    <LineBreak />
+                                                    <Run FontSize="14" Text="{Binding UploadDate}" />
+                                                </TextBlock>
+
+                                                <TextBlock TextWrapping="Wrap">
+                                                    <Run
+                                                        FontSize="12"
+                                                        Foreground="Gray"
+                                                        Text="Status" />
+                                                    <LineBreak />
+                                                    <Run FontSize="14" Text="{Binding Status}" />
+                                                </TextBlock>
+                                            </StackPanel>
+
+                                        </StackPanel>
+                                    </Border>
+
                                 </StackPanel>
-                            </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-                            <!--  Buttons  -->
-                            <StackPanel
-                                Margin="0,10,0,0"
-                                HorizontalAlignment="Right"
-                                Orientation="Horizontal">
-                                <Button
-                                    Width="100"
-                                    Height="30"
-                                    Margin="0,0,10,0"
-                                    Content="Accept"
-                                    Style="{StaticResource PrimaryButton}" />
-                                <Button
-                                    Width="100"
-                                    Height="30"
-                                    Content="Reject"
-                                    Style="{StaticResource SecondaryButton}" />
-                            </StackPanel>
-
-                        </StackPanel>
-                    </Border>
-
-                    <!--  Repeat File Card  -->
-                    <Border
-                        Width="250"
-                        Margin="0,0,15,15"
-                        Padding="15"
-                        Background="White"
-                        BorderBrush="#E0E0E0"
-                        BorderThickness="1"
-                        CornerRadius="10">
-                        <StackPanel>
-                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                <Border
-                                    Width="40"
-                                    Height="40"
-                                    HorizontalAlignment="Left"
-                                    Background="#e0e0e0"
-                                    CornerRadius="6">
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        FontWeight="Bold"
-                                        Text="XLS" />
-                                </Border>
-                                <StackPanel Margin="10,0,0,0">
-                                    <TextBlock FontWeight="Bold" Text="Budget_Plan.xlsx" />
-                                    <TextBlock
-                                        FontSize="12"
-                                        Foreground="#777"
-                                        Text="Size: 500 KB" />
-                                    <TextBlock
-                                        FontSize="12"
-                                        Foreground="#FF9800"
-                                        Text="Status: Pending" />
-                                </StackPanel>
-                            </StackPanel>
-
-                            <StackPanel
-                                Margin="0,10,0,0"
-                                HorizontalAlignment="Right"
-                                Orientation="Horizontal">
-                                <Button
-                                    Width="100"
-                                    Height="30"
-                                    Margin="0,0,10,0"
-                                    Content="Accept"
-                                    Style="{StaticResource PrimaryButton}" />
-                                <Button
-                                    Width="100"
-                                    Height="30"
-                                    Content="Reject"
-                                    Style="{StaticResource SecondaryButton}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </WrapPanel>
 
 
 

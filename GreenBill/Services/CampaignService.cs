@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GreenBill.IServices;
+using System.Windows;
 
 namespace GreenBill.Services
 {
@@ -148,6 +149,54 @@ namespace GreenBill.Services
                     // For now, initialize with empty list to prevent null reference issues
                     campaign.DonationRecord = new List<DonationRecord>();
                 }
+            }
+        }
+
+        public async void ApproveCampaign(ObjectId id) {
+            
+            //var campaign = await _collection.Find(c => c.Id == id).FirstOrDefaultAsync();
+            
+            var filter = Builders<Campaign>.Filter.Eq("_id", id);
+
+            var update = Builders<Campaign>.Update
+                .Set(campaign => campaign.Status, "Verified");
+
+            var result = _collection.UpdateOne(filter, update);
+
+            if (result != null) {
+                MessageBox.Show("Approved Successfully");
+            } else {
+                MessageBox.Show("Campaign Not Found");
+            }
+        }
+
+        public async void StageReviewCampaign(ObjectId id) {
+
+            //var campaign = await _collection.Find(c => c.Id == id).FirstOrDefaultAsync();
+
+            var filter = Builders<Campaign>.Filter.Eq("_id", id);
+
+            var update = Builders<Campaign>.Update
+                .Set(campaign => campaign.Status, "in review");
+
+            var result = _collection.UpdateOne(filter, update);
+
+            if (result != null) {
+                MessageBox.Show("Campaign back to reviewing stage.");
+            } else {
+                MessageBox.Show("Campaign Not Found");
+            }
+        }
+
+        public async void RejectCampaign(ObjectId id) {
+            var filter = Builders<Campaign>.Filter.Eq("_id", id);
+            var update = Builders<Campaign>.Update.Set(campaign => campaign.Status, "Rejected");
+            var result = _collection.UpdateOne(filter, update);
+
+            if (result != null) {
+                MessageBox.Show("Campaign rejected");
+            } else {
+                MessageBox.Show("Campaign Not Found");
             }
         }
 

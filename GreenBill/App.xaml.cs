@@ -44,9 +44,9 @@ namespace GreenBill
    
 
             services.AddSingleton<MainWindowViewModel>();
-            services.AddSingleton<SigninViewModel>();
+            services.AddTransient<SigninViewModel>();
             services.AddTransient<HomePageViewModel>();
-            services.AddSingleton<SignupViewModel>();
+            services.AddTransient<SignupViewModel>();
             services.AddSingleton<FundraisingDetailsViewModel>();
             services.AddTransient<FundraisingStepsViewModel>();
             services.AddTransient<UserCampaignsViewModel>();

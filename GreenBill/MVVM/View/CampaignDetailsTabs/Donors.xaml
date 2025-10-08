@@ -19,7 +19,7 @@
                        FontWeight="SemiBold" 
                        Foreground="#333333"
                        Margin="0,0,0,10"/>
-            <TextBlock Text="980 people have donated to this campaign" 
+            <TextBlock Text="{Binding SelectedCampaign.DonationsCount}" 
                        FontSize="14" 
                        Foreground="#666666"/>
         </StackPanel>
@@ -55,7 +55,7 @@
 
                                 <!-- Donor Info -->
                                 <StackPanel Grid.Column="1" Margin="15,0,0,0">
-                                    <TextBlock Text="{Binding FirstName}" 
+                                    <TextBlock Text="{Binding DisplayName}" 
                             FontWeight="SemiBold" 
                             FontSize="14"
                             Foreground="#333333"/>
@@ -66,7 +66,7 @@
 
                                 <!-- Donation Amount -->
                                 <TextBlock Grid.Column="2" 
-                        Text="{Binding Amount}" 
+                        Text="{Binding RealAmount}" 
                         FontWeight="SemiBold" 
                         FontSize="16"
                         Foreground="#4CAF50"

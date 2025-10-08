@@ -194,10 +194,9 @@
                     <!-- Amount Raised -->
                     <StackPanel Margin="0,0,0,15">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                            <TextBlock Text="$45,665" FontSize="32" FontWeight="Bold" Foreground="#4CAF50"/>
-                            <TextBlock Text=" USD raised" FontSize="16" Foreground="#666666" VerticalAlignment="Bottom" Margin="5,0,0,5"/>
+                            <TextBlock Text="{Binding SelectedCampaign.TotalAmountRaised}" FontSize="32" FontWeight="Bold" Foreground="#4CAF50"/>
                         </StackPanel>
-                        <TextBlock Text="42,342 • 980 donations" FontSize="14" Foreground="#999999"/>
+                        <TextBlock Text="{Binding SelectedCampaign.Percentage}" FontSize="14" Foreground="#999999"/>
                     </StackPanel>
 
                     <!-- Progress Bar -->
@@ -208,7 +207,7 @@
                     <!-- Recent Donation -->
                     <StackPanel Orientation="Horizontal">
                         <Ellipse Fill="#9C27B0" Width="8" Height="8" VerticalAlignment="Center" Margin="0,0,8,0"/>
-                        <TextBlock Text="715 people just donated" FontSize="14" Foreground="#666666"/>
+                        <TextBlock Text="{Binding SelectedCampaign.DonationsCount}" FontSize="14" Foreground="#666666"/>
                     </StackPanel>
                 </StackPanel>
 

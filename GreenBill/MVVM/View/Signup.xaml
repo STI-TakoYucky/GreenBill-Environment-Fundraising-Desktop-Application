@@ -81,11 +81,10 @@
 
                     <!-- Validation message -->
                     <TextBlock Name="EmailValidation"
-                          Text="Please fill out this field."
+                                Text="{Binding EmailError, Mode=TwoWay}"
                           FontSize="14"
                           Foreground="Red"
-                          Margin="0,4,0,0"
-                          Visibility="Collapsed"/>
+                          Margin="0,4,0,0"/>
                 </StackPanel>
 
                 <!-- Username field -->
@@ -121,11 +120,10 @@
 
                     <!-- Validation message -->
                     <TextBlock Name="UsernameValidation"
-                          Text="Please fill out this field."
+                          Text="{Binding UsernameError, Mode=TwoWay}"
                           FontSize="14"
                           Foreground="Red"
-                          Margin="0,4,0,0"
-                          Visibility="Collapsed"/>
+                          Margin="0,4,0,0"/>
                 </StackPanel>
 
                 <!-- Password field -->
@@ -187,11 +185,10 @@
 
                     <!-- Validation message -->
                     <TextBlock Name="PasswordValidation"
-                          Text="Please fill out this field."
+                               Text="{Binding PasswordError, Mode=TwoWay}"
                           FontSize="14"
                           Foreground="Red"
-                          Margin="0,4,0,0"
-                          Visibility="Collapsed"/>
+                          Margin="0,4,0,0"/>
                 </StackPanel>
 
                 <!-- Terms and conditions text -->
@@ -213,7 +210,7 @@
 
                 <!-- Sign up button -->
                 <Button Name="SignUpButton"
-                   IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                   Tag="{Binding IsLoading}"
                    Style="{StaticResource PrimaryButton}"
                    Content="Sign up"
                    Height="50"

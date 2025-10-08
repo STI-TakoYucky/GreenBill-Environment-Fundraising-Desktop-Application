@@ -241,17 +241,14 @@
                                                   FontWeight="Bold" 
                                                   Foreground="#00A86B"
                                                   Margin="0,0,0,5">
-                                            <Run Text="1,034.50"/>
-                                            <Run Text=" raised" FontSize="16" FontWeight="Normal" Foreground="#666666"/>
+                                            <Run Text="{Binding TotalAmountRaised}"/>
+                                         
                                         </TextBlock>
 
                                         <TextBlock FontSize="14" 
                                                   Foreground="#999999"
                                                   Margin="0,0,0,10">
-                                            <Run Text="100"/>
-                                            <Run Text=" • "/>
-                                            <Run Text="100"/>
-                                            <Run Text=" donations"/>
+                                            <Run Text="{Binding Percentage}"/>
                                         </TextBlock>
 
                                         <!-- Progress Bar -->
@@ -270,8 +267,7 @@
                                             <Ellipse Width="8" Height="8" Fill="#9B59B6" Margin="0,0,8,0"/>
                                             <TextBlock FontSize="12" 
                                                       Foreground="#666666">
-                                                <Run Text="100"/>
-                                                <Run Text=" people just donated"/>
+                                                <Run Text="{Binding DonationsCount}"/>
                                             </TextBlock>
                                         </StackPanel>
                                     </StackPanel>

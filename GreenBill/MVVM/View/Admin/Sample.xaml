@@ -1,0 +1,161 @@
+﻿<Page
+    x:Class="GreenBill.MVVM.View.Admin.Sample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:GreenBill.MVVM.View.Admin"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Sample"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Background="White"
+    mc:Ignorable="d">
+
+    <Grid>
+        <Border
+            Margin="0,0,15,15"
+            Padding="15"
+            Background="White"
+            BorderBrush="#E0E0E0"
+            BorderThickness="1"
+            CornerRadius="10">
+
+            <StackPanel>
+                <!--  Document info  -->
+                <DockPanel>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontSize="14"
+                        FontWeight="Bold"
+                        Text="Docs.Jpeg" />
+
+                    <!--  Buttons  -->
+                    <StackPanel
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button
+                            Width="100"
+                            Height="30"
+                            Margin="0,0,10,0"
+                            Command="{Binding DataContext.ApproveSupportingDocument, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                            CommandParameter="{Binding Id}"
+                            Content="Accept"
+                            Style="{DynamicResource PrimaryButton}" />
+                        <Button
+                            Width="100"
+                            Height="30"
+                            Command="{Binding DataContext.RejectCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                            CommandParameter="{Binding}"
+                            Content="Reject"
+                            Style="{DynamicResource SecondaryButton}" />
+                    </StackPanel>
+                </DockPanel>
+                <TextBlock
+                    FontSize="12"
+                    Foreground="Gray"
+                    Text="Government ID"
+                    TextWrapping="Wrap" />
+                <Border
+                    Height="200"
+                    VerticalAlignment="Top"
+                    CornerRadius="8">
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button
+                            Width="250"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Command="{Binding DataContext.PreviewImageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding FileData}"
+                            Cursor="Hand"
+                            Focusable="False">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid>
+                                        <!--  Image  -->
+                                        <Image
+                                            Height="350"
+                                            Source="{Binding FileData, Converter={StaticResource ImageConverter}}"
+                                            Stretch="UniformToFill" />
+
+                                        <!--  Dark overlay  -->
+                                        <Rectangle
+                                            x:Name="Overlay"
+                                            Fill="Black"
+                                            IsHitTestVisible="False"
+                                            Opacity="0" />
+                                    </Grid>
+
+                                    <!--  Hover trigger  -->
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Overlay" Property="Opacity" Value="0.2" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                        <StackPanel
+                            Width="Auto"
+                            Margin="30,0,0,0"
+                            Orientation="Vertical">
+                            <StackPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="0,0,0,10" />
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBlock TextWrapping="Wrap">
+                                <Run
+                                    FontSize="12"
+                                    Foreground="Gray"
+                                    Text="ID" />
+                                <LineBreak />
+                                <Run FontSize="14" Text="{Binding SelectedCampaign.Id}" />
+                            </TextBlock>
+
+                            <TextBlock TextWrapping="Wrap">
+                                <Run
+                                    FontSize="12"
+                                    Foreground="Gray"
+                                    Text="Content Type" />
+                                <LineBreak />
+                                <Run FontSize="14" Text="{Binding SelectedCampaign.Id}" />
+                            </TextBlock>
+
+                            <TextBlock TextWrapping="Wrap">
+                                <Run
+                                    FontSize="12"
+                                    Foreground="Gray"
+                                    Text="File Size" />
+                                <LineBreak />
+                                <Run FontSize="14" Text="{Binding SelectedCampaign.Id}" />
+                            </TextBlock>
+
+                            <TextBlock TextWrapping="Wrap">
+                                <Run
+                                    FontSize="12"
+                                    Foreground="Gray"
+                                    Text="Upload Date" />
+                                <LineBreak />
+                                <Run FontSize="14" Text="{Binding SelectedCampaign.Id}" />
+                            </TextBlock>
+
+                            <TextBlock TextWrapping="Wrap">
+                                <Run
+                                    FontSize="12"
+                                    Foreground="Gray"
+                                    Text="Status" />
+                                <LineBreak />
+                                <Run FontSize="14" Text="{Binding SelectedCampaign.Id}" />
+                            </TextBlock>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

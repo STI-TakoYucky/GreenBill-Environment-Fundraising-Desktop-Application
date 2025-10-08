@@ -1,12 +1,13 @@
 ﻿using GreenBill.IServices;
 using GreenBill.MVVM.Model;
-using MongoDB.Driver;
 using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace GreenBill.Services
 {
@@ -174,5 +175,53 @@ namespace GreenBill.Services
                 throw new Exception($"Error retrieving documents with status {status}: {ex.Message}", ex);
             }
         }
+
+        public async void ApproveSupportingDocument(object id) {
+
+            //var campaign = await _collection.Find(c => c.Id == id).FirstOrDefaultAsync();
+
+            var filter = Builders<SupportingDocument>.Filter.Eq("_id", id);
+
+            var update = Builders<SupportingDocument>.Update
+                .Set(document => document.Status, "Verified");
+
+            var result = _collection.UpdateOne(filter, update);
+
+            if (result != null) {
+                MessageBox.Show("Document verified successfully");
+            } else {
+                MessageBox.Show("NOT FOUND");
+            }
+        }
+        public async void StageReviewSupportingDocument(object id) {
+
+            //var campaign = await _collection.Find(c => c.Id == id).FirstOrDefaultAsync();
+
+            var filter = Builders<SupportingDocument>.Filter.Eq("_id", id);
+
+            var update = Builders<SupportingDocument>.Update
+                .Set(document => document.Status, "in review");
+
+            var result = _collection.UpdateOne(filter, update);
+
+            if (result != null) {
+                MessageBox.Show("Document back to reviewing stage");
+            } else {
+                MessageBox.Show("NOT FOUND");
+            }
+        }
+
+        public async void RejectDocument(ObjectId id) {
+            var filter = Builders<SupportingDocument>.Filter.Eq("_id", id);
+            var update = Builders<SupportingDocument>.Update.Set(document => document.Status, "Rejected");
+            var result = _collection.UpdateOne(filter, update);
+
+            if (result != null) {
+                MessageBox.Show("Document rejected");
+            } else {
+                MessageBox.Show("Document Not Found");
+            }
+        }
+
     }
 }

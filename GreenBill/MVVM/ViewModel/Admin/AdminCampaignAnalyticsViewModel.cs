@@ -43,15 +43,9 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         // Will be injected via ApplyNavigationParameter
         public ICommand NavigateToCampaignDetails { get; private set; }
 
-        public AdminCampaignAnalyticsViewModel()
-        {
-
-        }
-        public AdminCampaignAnalyticsViewModel(ICampaignService campaignService) {
-            _userService = new UserService();
-
+        public AdminCampaignAnalyticsViewModel(ICampaignService campaignService, IUserService userService) {
             _campaignService = campaignService;
-
+            _userService = userService;
             _ = LoadCampaignsAsync();
         }
 
@@ -59,6 +53,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             if (parameter is ICommand cmd) {
                 NavigateToCampaignDetails = cmd;
             }
+            _ = LoadCampaignsAsync();
         }
 
         private async Task LoadCampaignsAsync() {
@@ -70,21 +65,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 Campaigns.Clear();
 
                 foreach (var item in campaignsFromDB) {
-                    Campaigns.Add(new MVVM.Model.Campaign {
-                        Id = item.Id,
-                        UserId = item.UserId,
-                        Country = item.Country,
-                        ZipCode = item.ZipCode,
-                        Category = item.Category,
-                        DonationGoal = item.DonationGoal,
-                        DonationRaised = item.DonationRaised,
-                        Image = item.Image,
-                        Title = item.Title,
-                        Description = item.Description,
-                        CreatedAt = item.CreatedAt,
-                        Status = item.Status,
-                        User = item.User
-                    });
+                    Campaigns.Add(item);
                 }
 
                 OnPropertyChanged(nameof(Campaigns));

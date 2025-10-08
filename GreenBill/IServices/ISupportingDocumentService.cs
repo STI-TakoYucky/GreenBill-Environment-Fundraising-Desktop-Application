@@ -1,4 +1,5 @@
 ﻿using GreenBill.MVVM.Model;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,8 @@ namespace GreenBill.IServices
         Task DeleteAsync(string documentId);
         Task<List<SupportingDocument>> GetAllAsync();
         Task<List<SupportingDocument>> GetByStatusAsync(string status);
+        void ApproveSupportingDocument(object campaignId);
+        void StageReviewSupportingDocument(object campaignId);
+        void RejectDocument(ObjectId campaignId);
     }
 }

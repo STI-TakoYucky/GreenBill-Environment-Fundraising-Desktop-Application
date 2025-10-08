@@ -21,6 +21,9 @@ namespace GreenBill.MVVM.Model
          public DateTime CreatedAt { get; set; }
 
         private string _status = "in review";
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public string Status {
             get => _status;
             set {
@@ -29,6 +32,10 @@ namespace GreenBill.MVVM.Model
                     OnPropertyChanged(nameof(Status));
                 }
             }
+        }
+
+        private void OnPropertyChanged(string v) {
+            throw new NotImplementedException();
         }
 
         [BsonIgnore]

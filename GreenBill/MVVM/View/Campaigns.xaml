@@ -8,137 +8,6 @@
              d:DesignHeight="900" d:DesignWidth="1400"
              Background="#F5F5F5">
 
-    <UserControl.Resources>
-
-        <!-- Modern Card Style -->
-        <Style x:Key="ModernCard" TargetType="Border">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="CornerRadius" Value="16"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect Color="Black" 
-                                BlurRadius="20" 
-                                Opacity="0.08" 
-                                ShadowDepth="0"/>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Effect">
-                        <Setter.Value>
-                            <DropShadowEffect Color="Black" 
-                                        BlurRadius="30" 
-                                        Opacity="0.15" 
-                                        ShadowDepth="5"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- Gradient Button Style -->
-        <Style x:Key="GradientButton" TargetType="Button">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Padding" Value="24,12"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Background" Value="#00BCD4"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                            CornerRadius="25">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#0097A7"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- Modern ComboBox Style -->
-        <Style x:Key="ModernComboBox" TargetType="ComboBox">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#E0E0E0"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Padding" Value="16,12"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="Medium"/>
-        </Style>
-
-        <!-- Card Style -->
-        <Style x:Key="CampaignCardStyle" TargetType="Border">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect Color="Gray" Direction="270" ShadowDepth="2" Opacity="0.3" BlurRadius="8"/>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Cursor" Value="Hand"/>
-        </Style>
-
-        <!-- Button Style -->
-        <Style x:Key="FilterButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#666666"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="Medium"/>
-            <Setter Property="Padding" Value="20,8"/>
-            <Setter Property="Margin" Value="5,0"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="20" 
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#E0E0E0"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Active Filter Button Style -->
-        <Style x:Key="ActiveFilterButtonStyle" TargetType="Button" BasedOn="{StaticResource FilterButtonStyle}">
-            <Setter Property="Background" Value="#333333"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
-
-        <!-- Progress Bar Style -->
-        <Style x:Key="CampaignProgressStyle" TargetType="ProgressBar">
-            <Setter Property="Height" Value="4"/>
-            <Setter Property="Background" Value="#E0E0E0"/>
-            <Setter Property="Foreground" Value="#4CAF50"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ProgressBar">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="2">
-                            <Rectangle Fill="{TemplateBinding Foreground}" 
-                                     Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, Converter={x:Static local:PercentageToWidthConverter.Instance}}"
-                                     HorizontalAlignment="Left"
-                                     RadiusX="2" RadiusY="2"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -147,7 +16,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Header Section -->
         <StackPanel Grid.Row="0" Margin="100,40,100,20">
             <TextBlock Text="Find fundraisers and nonprofits" 
                        FontSize="28" 
@@ -159,7 +27,6 @@
                        Foreground="#666666"/>
         </StackPanel>
 
-        <!-- Search Section -->
         <Border Grid.Row="1" 
                 Background="White" 
                 CornerRadius="25" 
@@ -196,7 +63,6 @@
             </Grid>
         </Border>
 
-        <!-- Filter Buttons -->
         <StackPanel Grid.Row="2" 
                     Orientation="Horizontal" 
                     Margin="100,0,100,20" 
@@ -215,7 +81,6 @@
                     Click="FilterButton_Click"/>
         </StackPanel>
 
-        <!-- Campaign Cards -->
         <ScrollViewer Grid.Row="3" 
                       VerticalScrollBarVisibility="Auto" 
                       HorizontalScrollBarVisibility="Disabled"
@@ -232,8 +97,7 @@
 
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <!-- Campaign Card -->
-                        <Border Style="{StaticResource ModernCard}"
+                        <Border Style="{StaticResource CampaignContainer}"
                                 Height="320"
                                 Margin="15"
                                 VerticalAlignment="Top">
@@ -243,7 +107,6 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                <!-- Image Area -->
                                 <Button Grid.Row="0"
                                         Background="#F5F5F5"
                                         Command="{Binding DataContext.NavigateToCampaignDetails, 
@@ -259,7 +122,6 @@
                                                     <Image Source="{Binding Image, Converter={StaticResource ImageConverter}}"
                                                            Stretch="UniformToFill"/>
 
-                                                    <!-- Donation Badge -->
                                                     <Border Background="#00BCD4"
                                                             CornerRadius="15"
                                                             Padding="12,6"
@@ -272,7 +134,6 @@
                                                                    FontSize="11"/>
                                                     </Border>
 
-                                                    <!-- Category Tag -->
                                                     <Border Background="White"
                                                             CornerRadius="12"
                                                             Padding="8,4"
@@ -290,7 +151,6 @@
                                     </Button.Template>
                                 </Button>
 
-                                <!-- Content Area -->
                                 <StackPanel Grid.Row="1" 
                                             Margin="20,16,20,20">
                                     <TextBlock Text="{Binding Title}"
@@ -301,7 +161,6 @@
                                                Foreground="#333333"
                                                Margin="0,0,0,12"/>
 
-                                    <!-- Progress Section -->
                                     <Grid Margin="0,0,0,8">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition/>
@@ -323,7 +182,6 @@
                                                    VerticalAlignment="Center"/>
                                     </Grid>
 
-                                    <!-- Progress Bar -->
                                     <Border Background="#F0F0F0"
                                             CornerRadius="10"
                                             Height="8">
@@ -333,7 +191,6 @@
                                                 Width="200"/>
                                     </Border>
 
-                                    <!-- Time Remaining -->
                                     <TextBlock Text="{Binding DaySpan}"
                                                FontSize="12"
                                                Foreground="#666666"

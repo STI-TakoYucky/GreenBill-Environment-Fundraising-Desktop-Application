@@ -8,144 +8,6 @@
              Background="#FFFFFF"
              d:DesignHeight="900" d:DesignWidth="1400">
 
-    <UserControl.Resources>
-        <!-- Button Styles -->
-        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#4CAF50"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#4CAF50"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="6">
-                            <ContentPresenter HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center"
-                                            Margin="{TemplateBinding Padding}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#45a049"/>
-                                <Setter Property="BorderBrush" Value="#45a049"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="SecondaryButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#f44336"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#f44336"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="6">
-                            <ContentPresenter HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center"
-                                            Margin="{TemplateBinding Padding}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#da190b"/>
-                                <Setter Property="BorderBrush" Value="#da190b"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="EditButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#2196F3"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#2196F3"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="8,6"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="4">
-                            <ContentPresenter HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center"
-                                            Margin="{TemplateBinding Padding}"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#1976D2"/>
-                                <Setter Property="BorderBrush" Value="#1976D2"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-      
-        <!-- TextBox Style -->
-        <Style x:Key="ModernTextBoxStyle" TargetType="TextBox">
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#ddd"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
-                        <Border Background="{TemplateBinding Background}" 
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="6">
-                            <ScrollViewer Margin="{TemplateBinding Padding}" 
-                                        x:Name="PART_ContentHost"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="#4CAF50"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Card Style -->
-        <Style x:Key="CardStyle" TargetType="Border">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#e0e0e0"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="8"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect Color="Gray" Opacity="0.2" ShadowDepth="2" BlurRadius="8"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Visibility Converters -->
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-    </UserControl.Resources>
 
     <Grid Margin="100, 40, 100, 40" MaxWidth="1200">
         <Grid.RowDefinitions>
@@ -165,7 +27,6 @@
             </Grid>
         </Grid>
 
-        <!-- Header -->
         <Border Grid.Row="1" Margin="0,0,0,20">
             <StackPanel>
                 <TextBlock Text="Campaign Updates" FontSize="24" FontWeight="Bold" Foreground="#333" Margin="0,0,0,10"/>
@@ -174,8 +35,7 @@
             </StackPanel>
         </Border>
 
-        <!-- Add/Edit Form -->
-        <Border Grid.Row="2" Style="{StaticResource CardStyle}" Margin="0,0,0,20" Padding="20">
+        <Border Grid.Row="2" Style="{StaticResource UpdateCardStyle}" Margin="0,0,0,20" Padding="20">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -190,19 +50,16 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Form Title -->
                 <TextBlock x:Name="FormTitle" Grid.Row="0" Grid.ColumnSpan="3" 
                           Text="{Binding FormTitle}" FontSize="18" FontWeight="SemiBold" 
                           Foreground="#333" Margin="0,0,0,15"/>
 
-                <!-- Title Input -->
                 <StackPanel Grid.Row="1" Grid.Column="0">
                     <TextBlock Text="Update Title *" FontWeight="SemiBold" Margin="0,0,0,5" Foreground="#333"/>
                     <TextBox x:Name="TitleTextBox" Style="{StaticResource ModernTextBoxStyle}" 
                             Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
-                <!-- Category Input -->
                 <StackPanel Grid.Row="1" Grid.Column="2">
                     <TextBlock Text="Category" FontWeight="SemiBold" Margin="0,0,0,5" Foreground="#333"/>
                     <ComboBox x:Name="CategoryComboBox" Padding="10" FontSize="14" Height="40"
@@ -210,7 +67,6 @@
                              SelectedItem="{Binding SelectedCategory}"/>
                 </StackPanel>
 
-                <!-- Description Input -->
                 <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="0,15,0,0">
                     <TextBlock Text="Description *" FontWeight="SemiBold" Margin="0,0,0,5" Foreground="#333"/>
                     <TextBox x:Name="DescriptionTextBox" Style="{StaticResource ModernTextBoxStyle}" 
@@ -219,14 +75,13 @@
                             Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
-                <!-- Buttons -->
                 <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" 
                            Margin="0,20,0,0" HorizontalAlignment="Right">
                     <Button x:Name="CancelButton" Content="Cancel" 
                            Background="#666" Foreground="White" Margin="0,0,10,0" 
                            Padding="15,8" FontWeight="SemiBold" Cursor="Hand" 
                            Click="CancelButton_Click" 
-                           Visibility="{Binding ShowCancelButton, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                           Visibility="{Binding ShowCancelButton, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     <Button x:Name="SaveButton" Content="{Binding SaveButtonText}" 
                            Style="{StaticResource PrimaryButtonStyle}" 
                            Padding="20,8"

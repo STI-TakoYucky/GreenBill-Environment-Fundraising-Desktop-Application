@@ -36,4 +36,16 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style x:Key="UpdateCardStyle" TargetType="Border">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="#e0e0e0"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="8"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Gray" Opacity="0.2" ShadowDepth="2" BlurRadius="8"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

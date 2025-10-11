@@ -8,142 +8,6 @@
              d:DesignHeight="900" d:DesignWidth="1400"
              Background="#F5F5F5">
 
-    <UserControl.Resources>
-        <!-- Modern Button Style -->
-        <Style x:Key="ModernButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#4CAF50"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="20,10"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="6"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#45A049"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#3D8B40"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Back Button Style -->
-        <Style x:Key="BackButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#666666"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="12,8"/>
-            <Setter Property="FontWeight" Value="Medium"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                CornerRadius="8"
-                                Padding="{TemplateBinding Padding}">
-                            <StackPanel Orientation="Horizontal">
-                                <Path Data="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" 
-                                      Fill="{TemplateBinding Foreground}" 
-                                      Width="16" Height="16" 
-                                      Stretch="Uniform"
-                                      VerticalAlignment="Center"
-                                      Margin="0,0,8,0"/>
-                                <ContentPresenter VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#F0F0F0"/>
-                                <Setter Property="Foreground" Value="#4CAF50"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="#E8E8E8"/>
-                                <Setter Property="Foreground" Value="#45A049"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Tab Button Style -->
-        <Style x:Key="TabButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#666666"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="20,15"/>
-            <Setter Property="FontWeight" Value="Medium"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                BorderBrush="#E0E0E0"
-                                BorderThickness="0,0,0,2"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="#4CAF50"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Active Tab Style -->
-        <Style x:Key="ActiveTabButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#4CAF50"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="20,15"/>
-            <Setter Property="FontWeight" Value="Medium"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                BorderBrush="#4CAF50"
-                                BorderThickness="0,0,0,2"
-                                Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Card Style -->
-        <Style x:Key="CardStyle" TargetType="Border">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="CornerRadius" Value="12"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect Color="#E0E0E0" BlurRadius="15" ShadowDepth="2" Opacity="0.3"/>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
 
     <Grid Margin="40">
         <Grid.RowDefinitions>
@@ -153,7 +17,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Back Button Row -->
+
         <Grid Grid.Row="0" Margin="0,0,0,20">
             <Button Content="Back to Campaigns" 
                     Style="{StaticResource BackButtonStyle}"
@@ -161,7 +25,6 @@
                     Command="{Binding GoBackCommand}"/>
         </Grid>
 
-        <!-- Header Section -->
         <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0,0,0,30">
             <Grid Margin="40">
                 <Grid.ColumnDefinitions>
@@ -170,12 +33,10 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Campaign Image -->
                 <Border Grid.Column="0" Background="#E8E8E8" CornerRadius="12" Height="200">
                     <Image Source="{Binding SelectedCampaign.Image, Converter={StaticResource ImageConverter}}" Stretch="UniformToFill"/>
                 </Border>
 
-                <!-- Campaign Info -->
                 <StackPanel Grid.Column="1" Margin="30,0,0,0" VerticalAlignment="Top">
                     <TextBlock Text="{Binding SelectedCampaign.Title}" 
                              FontSize="28" 
@@ -183,7 +44,6 @@
                              Foreground="#333333" 
                              Margin="0,0,0,10"/>
 
-                    <!-- Donation Protected Badge -->
                     <Border Background="#E8F5E8" CornerRadius="15" Padding="10,5" HorizontalAlignment="Left" Margin="0,0,0,20">
                         <StackPanel Orientation="Horizontal">
                             <Ellipse Fill="#4CAF50" Width="8" Height="8" VerticalAlignment="Center" Margin="0,0,5,0"/>
@@ -191,7 +51,6 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- Amount Raised -->
                     <StackPanel Margin="0,0,0,15">
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
                             <TextBlock Text="{Binding SelectedCampaign.TotalAmountRaised}" FontSize="32" FontWeight="Bold" Foreground="#4CAF50"/>
@@ -199,19 +58,16 @@
                         <TextBlock Text="{Binding SelectedCampaign.Percentage}" FontSize="14" Foreground="#999999"/>
                     </StackPanel>
 
-                    <!-- Progress Bar -->
                     <Border Background="#F0F0F0" Height="8" CornerRadius="4" Margin="0,0,0,15">
                         <Border Background="#4CAF50" Width="200" HorizontalAlignment="Left" CornerRadius="4"/>
                     </Border>
 
-                    <!-- Recent Donation -->
                     <StackPanel Orientation="Horizontal">
                         <Ellipse Fill="#9C27B0" Width="8" Height="8" VerticalAlignment="Center" Margin="0,0,8,0"/>
                         <TextBlock Text="{Binding SelectedCampaign.DonationsCount}" FontSize="14" Foreground="#666666"/>
                     </StackPanel>
                 </StackPanel>
 
-                <!-- Withdraw Button -->
                 <Button Grid.Column="2" 
                         Content="Withdraw" 
                         Style="{StaticResource ModernButtonStyle}"
@@ -219,7 +75,6 @@
             </Grid>
         </Border>
 
-        <!-- Navigation Tabs -->
         <Border Grid.Row="2" Background="White" CornerRadius="12,12,0,0" Margin="0,0,0,0">
             <StackPanel Orientation="Horizontal" Margin="0">
                 <Button Content="DETAILS" 
@@ -327,12 +182,10 @@
             </StackPanel>
         </Border>
 
-        <!-- Content Area -->
         <Border Grid.Row="3" 
                 Background="White" 
                 CornerRadius="0,0,12,12">
             <Grid Margin="40">
-                <!-- Dynamic Content Control -->
                 <ContentPresenter Content="{Binding CurrentTabContent}"/>
             </Grid>
         </Border>

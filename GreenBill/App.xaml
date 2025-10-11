@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="/Styles/ComboBox.xaml" />
                 <ResourceDictionary Source="/Styles/ComboBoxItem.xaml" />
                 <ResourceDictionary Source="/Styles/CategoryButton.xaml" />
+                <ResourceDictionary Source="/Styles/Conatiners.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />

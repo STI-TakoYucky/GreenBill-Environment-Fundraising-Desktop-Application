@@ -137,6 +137,63 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
+        private string _selectAmountError;
+        public string SelectedAmountError
+        {
+            get => _selectAmountError;
+            set
+            {
+                _selectAmountError = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _firstNameError;
+        public string FirstNameError
+        {
+            get => _firstNameError;
+            set
+            {
+                _firstNameError = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _lastNameError;
+        public string LastNameError
+        {
+            get => _lastNameError;
+            set
+            {
+                _lastNameError = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _emailError;
+        public string EmailError
+        {
+            get => _emailError;
+            set
+            {
+                _emailError = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool _hasErrors = false;
+        public bool HasErrors
+        {
+            get => _hasErrors;
+            set
+            {
+                _hasErrors = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
 
         public ICommand NavigateBack { get; set; }
         public ICommand CompleteDonation { get; set; }
@@ -294,6 +351,36 @@ namespace GreenBill.MVVM.ViewModel
             TotalDonationRaised = total;
             var percentage = ((SelectedCampaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0) / SelectedCampaign.DonationGoal) * 100;
             Percentage = $"{percentage:N0}% of {SelectedCampaign.DonationGoal:N2} goal";
+        }
+
+        public void validateInputs()
+        {
+            HasErrors = false;
+            if(SelectedAmount <= 0)
+            {
+                SelectedAmountError = "";
+                SelectedAmountError = "Please enter a valid amount";
+                HasErrors = true;
+            } 
+            if(!IsAnonymous && string.IsNullOrEmpty(FirstName))
+            {
+                FirstNameError = "";
+                FirstNameError = "This field is required";
+                HasErrors = true;
+            }
+            if (!IsAnonymous && string.IsNullOrEmpty(LastName))
+            {
+                LastNameError = "";
+                LastNameError = "This field is required";
+                HasErrors = true;
+            }
+            if (!IsAnonymous && string.IsNullOrEmpty(EmailAddress))
+            {
+                EmailError = "";
+                EmailError = "This field is required";
+                HasErrors = true;
+            }
+
         }
     }
 }

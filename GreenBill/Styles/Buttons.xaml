@@ -143,4 +143,29 @@
         </Setter>
     </Style>
 
+    <Style x:Key="GradientButton" TargetType="Button">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="24,12"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="#00BCD4"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                         CornerRadius="25">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#0097A7"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

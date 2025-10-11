@@ -8,88 +8,20 @@
              d:DesignHeight="900" d:DesignWidth="1400"
              Background="White">
 
-    <UserControl.Resources>
-        <!-- Modern Card Style -->
-        <Style x:Key="ModernCard" TargetType="Border">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="CornerRadius" Value="16"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect Color="Black" 
-                                    BlurRadius="20" 
-                                    Opacity="0.08" 
-                                    ShadowDepth="0"/>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Effect">
-                        <Setter.Value>
-                            <DropShadowEffect Color="Black" 
-                                            BlurRadius="30" 
-                                            Opacity="0.15" 
-                                            ShadowDepth="5"/>
-                        </Setter.Value>
-                    </Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- Gradient Button Style -->
-        <Style x:Key="GradientButton" TargetType="Button">
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Padding" Value="24,12"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Background" Value="#00BCD4"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                CornerRadius="25">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#0097A7"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- Modern ComboBox Style -->
-        <Style x:Key="ModernComboBox" TargetType="ComboBox">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#E0E0E0"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Padding" Value="16,12"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="Medium"/>
-        </Style>
-    </UserControl.Resources>
 
     <Grid>
-        <!-- Navigation Frame for Page Content -->
         <Frame x:Name="MainFrame" 
                Margin="0,0,0,-62"
                NavigationUIVisibility="Hidden"/>
 
-        <!-- Main Content -->
         <ScrollViewer x:Name="MainContent"
                      Margin="0"
                      VerticalAlignment="Stretch"
                      VerticalScrollBarVisibility="Auto">
             <StackPanel>
 
-                <!-- Hero Section -->
                 <Grid Background="#FAFAFA" Margin="0,0,0,60">
                     <StackPanel Margin="80,30,80,30">
-                        <!-- Hero Title -->
                         <TextBlock FontWeight="Bold"
                                   FontSize="35"
                                   Margin="0,0,0,20"
@@ -100,21 +32,14 @@
                             <Run Text="inspired by your passion for protecting our planet"/>
                         </TextBlock>
 
-                        <!-- Subtitle -->
                         <TextBlock Text="Join thousands of changemakers making a real difference in environmental conservation and sustainability"
                                   FontSize="14"
                                   Foreground="#666666"
                                   Margin="0,0,0,30"
                                   TextWrapping="Wrap"/>
-
-
-
                     </StackPanel>
                 </Grid>
 
-
-
-                <!-- Featured Projects Section -->
                 <StackPanel Margin="80,0,80,60">
                     <Grid Margin="0,0,0,40">
                         <TextBlock Text="Trending Projects"
@@ -134,7 +59,6 @@
                                Cursor="Hand"/>
                     </Grid>
 
-                    <!-- Modern Cards Grid -->
                     <ItemsControl ItemsSource="{Binding Campaigns}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -143,7 +67,7 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border Style="{StaticResource ModernCard}"
+                                <Border Style="{StaticResource CampaignContainer}"
                                        Height="320"
                                        Margin="15">
                                     <Grid>
@@ -152,7 +76,6 @@
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
 
-                                        <!-- Image Area -->
                                         <Button Grid.Row="0"
                                                Background="#F5F5F5"
                                                Command="{Binding DataContext.NavigateToFundraisingDetails, 
@@ -168,7 +91,6 @@
                                                             <Image Source="{Binding Image, Converter={StaticResource ImageConverter}}"
                                                                   Stretch="UniformToFill"/>
 
-                                                            <!-- Donation Badge -->
                                                             <Border Background="#00BCD4"
                                                                    CornerRadius="15"
                                                                    Padding="12,6"
@@ -181,7 +103,6 @@
                                                                           FontSize="11"/>
                                                             </Border>
 
-                                                            <!-- Category Tag -->
                                                             <Border Background="White"
                                                                    CornerRadius="12"
                                                                    Padding="8,4"
@@ -199,7 +120,6 @@
                                             </Button.Template>
                                         </Button>
 
-                                        <!-- Content Area -->
                                         <StackPanel Grid.Row="1" 
                                                    Margin="20,16,20,20">
                                             <TextBlock Text="{Binding Title}"
@@ -209,7 +129,6 @@
                                                       Foreground="#333333"
                                                       Margin="0,0,0,12"/>
 
-                                            <!-- Progress Section -->
                                             <Grid Margin="0,0,0,8">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition/>
@@ -231,7 +150,6 @@
                                                           VerticalAlignment="Center"/>
                                             </Grid>
 
-                                            <!-- Progress Bar -->
                                             <Border Background="#F0F0F0"
                                                    CornerRadius="10"
                                                    Height="8">
@@ -240,8 +158,7 @@
                                                        HorizontalAlignment="Left"
                                                        Width="200"/>
                                             </Border>
-
-                                            <!-- Time Remaining -->
+                                            
                                             <TextBlock Text="{Binding DaySpan}"
                                                       FontSize="12"
                                                       Foreground="#666666"
@@ -254,7 +171,6 @@
                     </ItemsControl>
                 </StackPanel>
 
-                <!-- Stats Section -->
                 <Grid Margin="80,0,80,60">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -312,7 +228,6 @@
                     </StackPanel>
                 </Grid>
 
-                <!-- Trust Section -->
                 <Grid Margin="0,40,0,0" Background="#00695C">
                     <Grid Margin="80,60,80,60">
                         <Grid.ColumnDefinitions>
@@ -320,7 +235,6 @@
                             <ColumnDefinition Width="3*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- Left Content -->
                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
                             <TextBlock Text="We've got you covered."
                                       FontWeight="Bold"
@@ -335,7 +249,6 @@
                                    Margin="0,0,0,0"/>
                         </StackPanel>
 
-                        <!-- Right Content -->
                         <StackPanel Grid.Column="1" 
                                    Margin="40,0,0,0"
                                    VerticalAlignment="Center">
@@ -346,7 +259,6 @@
                                       TextWrapping="Wrap"
                                       Opacity="0.95"/>
 
-                            <!-- Trust Features -->
                             <StackPanel Margin="0,30,0,0">
                                 <Grid Margin="0,0,0,15">
                                     <Grid.ColumnDefinitions>

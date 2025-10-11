@@ -17,8 +17,6 @@ namespace GreenBill.MVVM.ViewModel
         private ObservableCollection<Campaign> _campaigns;
         private ICampaignService _campaignService;
 
-
-
         public INavigationService Navigation
         {
             get => _navigationService;
@@ -39,9 +37,9 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        public ICommand NavigateToFundraisingDetails { get; }
-        public ICommand LoadCampaignsCommand { get; }
-        public ICommand ViewMore { get; }
+        public ICommand NavigateToFundraisingDetails { get; set; }
+        public ICommand LoadCampaignsCommand { get; set; }
+        public ICommand ViewMore { get; set; }
 
         public HomePageViewModel(INavigationService navService, ICampaignService campaignService)
         {
@@ -56,9 +54,7 @@ namespace GreenBill.MVVM.ViewModel
                     Navigation.NavigateTo<FundraisingDetailsViewModel>(campaign_id.ToString());
                 }
             });
-
             ViewMore = new RelayCommand(o => Navigation.NavigateTo<CampaignsViewModel>());
-
             LoadCampaignsCommand = new RelayCommand(async o => await LoadCampaignsAsync());
 
             _ = LoadCampaignsAsync();

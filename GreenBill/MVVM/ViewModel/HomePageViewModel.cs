@@ -7,15 +7,39 @@ using System.Diagnostics;
 using GreenBill.MVVM.Model;
 using System.Collections.ObjectModel;
 using GreenBill.IServices;
+using System.Collections.Generic;
 
 namespace GreenBill.MVVM.ViewModel
 {
-    public class HomePageViewModel : Core.ViewModel, INavigationAware
+    public class HomePageViewModel : Core.ViewModel, INavigationAware, INavigatableService
     {
         public bool ShowNavigation => true;
         private INavigationService _navigationService;
         private ObservableCollection<Campaign> _campaigns;
         private ICampaignService _campaignService;
+
+        public string _successMessage;
+        public string SuccessMessage
+        {
+            get => _successMessage;
+            set
+            {
+                _successMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool _showMessage;
+        public bool ShowMessage
+        {
+            get => _showMessage;
+            set
+            {
+                _showMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public INavigationService Navigation
         {
@@ -76,6 +100,17 @@ namespace GreenBill.MVVM.ViewModel
             {
                 Debug.WriteLine($"Error loading campaigns: {ex.Message}");
             }
+        }
+
+        public async void ApplyNavigationParameter(object parameter)
+        {
+            if (parameter == null) return;
+            Dictionary<string, object> props = parameter as Dictionary<string, object>;
+
+            SuccessMessage = props["message"] as string;
+            ShowMessage = (bool) props["success"];
+
+           
         }
     }
 }

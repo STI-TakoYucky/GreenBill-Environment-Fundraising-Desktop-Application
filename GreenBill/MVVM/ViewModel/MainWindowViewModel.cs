@@ -73,8 +73,6 @@ namespace GreenBill.MVVM.ViewModel
             GoToStep1 = new RelayCommand(o =>
             {
                 CampaignIncludeOptions test = new CampaignIncludeOptions();
-                Debug.Write(test.IncludeUser);
-                Debug.WriteLine("TeT");
                 if (_sessionService.IsUserLoggedIn)
                 {
                     Navigation.NavigateTo<FundraisingStepsViewModel>();

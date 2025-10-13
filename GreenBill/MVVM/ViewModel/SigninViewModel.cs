@@ -3,7 +3,6 @@ using GreenBill.MVVM.Model;
 using GreenBill.Services;
 using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -11,13 +10,17 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using GreenBill.IServices;
+using System.Collections.Generic;
 
 namespace GreenBill.MVVM.ViewModel
 {
     public class SigninViewModel : Core.ViewModel, INavigationAware
     {
         public bool ShowNavigation => false;
-       
+
+        public string _successMessage;
+
+    
         private IMongoCollection<User> _collection;
         private IUserService _userService;
         private IUserSessionService _sessionService; 
@@ -170,15 +173,11 @@ namespace GreenBill.MVVM.ViewModel
                 }
 
                 _sessionService.SetCurrentUser(user);
+                Dictionary<string, object> props = new Dictionary<string, object>();
+                props.Add("success", true);
+                props.Add("message", "Logged in Successfully.");
 
-                var mainWindow = Application.Current.MainWindow;
-                if (mainWindow?.DataContext is MainWindowViewModel mainVM)
-                {
-                    mainVM.ShowNavigation = true;
-                    mainVM.IsUserLoggedIn = true;
-                }
-
-                Navigation.NavigateTo<HomePageViewModel>();
+                Navigation.NavigateTo<HomePageViewModel>(props);
 
                 Debug.WriteLine("Current User: " + _sessionService.CurrentUser.Username);
 

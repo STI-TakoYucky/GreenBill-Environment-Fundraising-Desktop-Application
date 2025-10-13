@@ -2,6 +2,7 @@
 using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.Services;
+using LiveCharts;
 using System;
 using System.Reflection.Emit;
 using System.Windows;
@@ -159,6 +160,7 @@ namespace GreenBill.MVVM.ViewModel
 
                     await _userService.Create(NewUser);
                     ShowSuccessMessage = true;
+                    ResetInputs();
                 }
                 catch(Exception ex)
                 {
@@ -169,6 +171,16 @@ namespace GreenBill.MVVM.ViewModel
                     IsLoading = false;
                 }
             }, o => NewUser != null);
+        }
+
+        public void ResetInputs()
+        {
+            NewUser.Username = "";
+            NewUser.Email = "";
+            NewUser.Password = "";
+            Username = "";
+            Email = "";
+            Password = "";
         }
 
         public void ValidateInputs()

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GreenBill.MVVM.View"
              mc:Ignorable="d" 
+             xmlns:components="clr-namespace:GreenBill.Components"
              d:DesignHeight="900" d:DesignWidth="1400"
              Background="White">
 
@@ -314,5 +315,11 @@
                 </Grid>
             </StackPanel>
         </ScrollViewer>
+
+        <components:SuccessToast Grid.RowSpan="3"
+                      IsVisible="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
+                      Title="Account Created!"
+                      CloseCommand="{Binding CloseToast}"
+                      Message="{Binding SuccessMessage}"/>
     </Grid>
 </UserControl>

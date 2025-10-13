@@ -9,7 +9,6 @@
              d:DesignHeight="900" d:DesignWidth="1400">
 
     <UserControl.Resources>
-        <!-- Modern Card Style -->
         <Style x:Key="ModernCard" TargetType="Border">
             <Setter Property="Background" Value="White"/>
             <Setter Property="CornerRadius" Value="16"/>
@@ -25,7 +24,6 @@
             </Setter>
         </Style>
 
-        <!-- Upload Zone Style -->
         <Style x:Key="UploadZone" TargetType="Border">
             <Setter Property="Background" Value="#FAFAFA"/>
             <Setter Property="BorderBrush" Value="#00BCD4"/>
@@ -40,7 +38,6 @@
             </Style.Triggers>
         </Style>
 
-        <!-- Primary Button Style -->
         <Style x:Key="PrimaryButton" TargetType="Button">
             <Setter Property="Background" Value="#00BCD4"/>
             <Setter Property="Foreground" Value="White"/>
@@ -71,7 +68,6 @@
             </Style.Triggers>
         </Style>
 
-        <!-- Secondary Button Style -->
         <Style x:Key="SecondaryButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="#666666"/>
@@ -102,7 +98,6 @@
             </Style.Triggers>
         </Style>
 
-        <!-- Document Item Style -->
         <Style x:Key="DocumentItem" TargetType="Border">
             <Setter Property="Background" Value="#FAFAFA"/>
             <Setter Property="CornerRadius" Value="12"/>
@@ -118,13 +113,11 @@
             </Style.Triggers>
         </Style>
 
-        <!-- Status Badge Styles -->
         <Style x:Key="StatusBadge" TargetType="Border">
             <Setter Property="CornerRadius" Value="12"/>
             <Setter Property="Padding" Value="12,4"/>
         </Style>
 
-        <!-- Status Text Converter (you might need to implement this as a converter) -->
         <Style x:Key="StatusText" TargetType="TextBlock">
             <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="FontSize" Value="12"/>
@@ -170,7 +163,6 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="32" Margin="0">
                 <StackPanel MaxWidth="1200">
 
-                    <!-- Page Header -->
                     <StackPanel Margin="0,0,0,40">
                         <TextBlock Text="Supporting Documents"
                                    FontSize="32"
@@ -187,7 +179,6 @@
                                    HorizontalAlignment="Left"/>
                     </StackPanel>
 
-                    <!-- Upload Section -->
                     <Border Style="{StaticResource ModernCard}"
                             Margin="0,0,0,32"
                             Padding="32">
@@ -205,7 +196,6 @@
                                     <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <!-- Upload Zone -->
                                 <Border Grid.Column="0" Style="{StaticResource UploadZone}"
                                         Height="160"
                                         Name="UploadZone">
@@ -215,7 +205,6 @@
                                                    HorizontalAlignment="Center"
                                                    Margin="0,0,0,16"/>
 
-                                        <!-- Show selected file name or default text -->
                                         <TextBlock FontWeight="SemiBold"
                                                    FontSize="16"
                                                    HorizontalAlignment="Center"
@@ -246,7 +235,6 @@
                                     </StackPanel>
                                 </Border>
 
-                                <!-- Document Type Selection -->
                                 <StackPanel Grid.Column="2" VerticalAlignment="Top">
                                     <TextBlock Text="Document Type"
                                               FontWeight="Medium"
@@ -306,8 +294,7 @@
                             </Grid>
                         </StackPanel>
                     </Border>
-
-                    <!-- Upload Progress (Show when uploading) -->
+                    
                     <Border Style="{StaticResource ModernCard}"
                             Margin="0,0,0,32"
                             Padding="24"
@@ -340,7 +327,6 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- Documents Overview -->
                     <Border Style="{StaticResource ModernCard}"
                             Margin="0,0,0,32"
                             Padding="32">
@@ -369,7 +355,6 @@
                                        VerticalAlignment="Center"/>
                             </Grid>
 
-                            <!-- Document List -->
                             <ItemsControl ItemsSource="{Binding Documents}" Name="DocumentsList">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
@@ -382,7 +367,6 @@
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <!-- Document Icon -->
                                                 <Border Grid.Column="0"
                                                        Background="#E8F4FD"
                                                        CornerRadius="8"
@@ -395,7 +379,6 @@
                                                               VerticalAlignment="Center"/>
                                                 </Border>
 
-                                                <!-- Document Info -->
                                                 <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                                     <TextBlock Text="{Binding DocumentName}"
                                                               FontWeight="SemiBold"
@@ -430,7 +413,6 @@
                                                                   Foreground="#7F8C8D"/>
                                                     </StackPanel>
 
-                                                    <!-- Review Comments (if any) -->
                                                     <TextBlock Text="{Binding ReviewComments}"
                                                               FontSize="12"
                                                               Foreground="#E74C3C"
@@ -440,7 +422,6 @@
                                                               Visibility="{Binding ReviewComments, Converter={StaticResource StringToVisibilityConverter}}"/>
                                                 </StackPanel>
 
-                                                <!-- Status Badge -->
                                                 <Border Grid.Column="2"
                                                        Style="{StaticResource StatusBadge}"
                                                        VerticalAlignment="Center"
@@ -450,7 +431,6 @@
                                                               Style="{StaticResource StatusText}"/>
                                                 </Border>
 
-                                                <!-- Action Button -->
                                                 <Button Grid.Column="3"
                                                        Content="🗑️"
                                                        FontSize="16"
@@ -494,7 +474,6 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- Help Section -->
                     <Border Background="#F8F9FA"
                             CornerRadius="16"
                             Padding="32"
@@ -514,7 +493,6 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
 
-                                <!-- Guidelines -->
                                 <StackPanel Grid.Column="0">
                                     <TextBlock Text="📋 Document Requirements"
                                               FontWeight="Medium"
@@ -543,7 +521,6 @@
                                     </TextBlock>
                                 </StackPanel>
 
-                                <!-- Support -->
                                 <StackPanel Grid.Column="2">
                                     <TextBlock Text="🎯 Need Help?"
                                               FontWeight="Medium"

@@ -7,22 +7,17 @@
       mc:Ignorable="d" 
         d:DesignHeight="900" d:DesignWidth="1400"
     Background="#F5F5F5">
-        
+
     <Grid>
-        <!-- Header -->
-
-
-        <!-- Back Button -->
         <Button x:Name="BackButton"
-            Content="← Back"
+            Content="Back"
             Command="{Binding NavigateBack}"
-            Style="{StaticResource SecondaryButton}"
+            Style="{StaticResource BackButtonStyle}"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
             Margin="100,20,0,0"
             Panel.ZIndex="15"/>
 
-        <!-- Main Content -->
         <ScrollViewer Margin="10,60,0,0" 
                   VerticalScrollBarVisibility="Auto"
                   HorizontalScrollBarVisibility="Disabled">
@@ -33,9 +28,7 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Left Content -->
                 <StackPanel Grid.Column="0">
-                    <!-- Title -->
                     <TextBlock Text="{Binding SelectedCampaign.Title}"
                            
                            FontSize="28"
@@ -44,7 +37,6 @@
                            Margin="0,0,0,20"
                            TextWrapping="Wrap"/>
 
-                    <!-- Main Image -->
                     <Border Background="White"
                        CornerRadius="8"
                        Margin="0,0,0,20">
@@ -56,7 +48,6 @@
                         </Grid>
                     </Border>
 
-                    <!-- Organizer Info -->
                     <StackPanel Orientation="Horizontal" 
                            Margin="0,0,0,20">
                         <Ellipse Width="30" 
@@ -73,7 +64,6 @@
 
                     </StackPanel>
 
-                    <!-- Donation Protected Badge -->
                     <Border Background="#E8F5E8"
                        CornerRadius="15"
                        HorizontalAlignment="Left"
@@ -94,7 +84,6 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- Description -->
                     <TextBlock TextWrapping="Wrap"
                            
                            FontSize="15"
@@ -106,14 +95,12 @@
 
                 </StackPanel>
 
-                <!-- Right Sidebar -->
                 <Border Grid.Column="2"
                    Background="White"
                    CornerRadius="12"
                    Padding="24"
                    VerticalAlignment="Top">
                     <StackPanel>
-                        <!-- Donation Amount -->
                         <TextBlock Text="{Binding SelectedCampaign.TotalAmountRaised}"
                               
                               FontSize="24"
@@ -121,7 +108,6 @@
                               Foreground="#333333"
                               Margin="0,0,0,8"/>
 
-                        <!-- Progress Info -->
                         <StackPanel Orientation="Horizontal" 
                                Margin="0,0,0,12">
                             <TextBlock Text="{Binding SelectedCampaign.Percentage}"
@@ -131,7 +117,6 @@
          
                         </StackPanel>
 
-                        <!-- Progress Bar -->
                         <ProgressBar
                                 Value="20.7"
                                 Maximum="100"
@@ -146,7 +131,6 @@
                            HorizontalAlignment="Stretch"
                            Margin="0,0,0,20"/>
 
-                        <!-- Recent Donation -->
                         <StackPanel Orientation="Horizontal" 
                                Margin="0,0,0,16">
                             <Ellipse Width="16" 
@@ -160,9 +144,8 @@
                                   Foreground="#8B5FBF"
                                   Margin="8,0,0,0"/>
                         </StackPanel>
-                        
 
-                        <!-- Donators List -->
+
 
                         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                             <ItemsControl x:Name="UpdatesItemsControl" ItemsSource="{Binding SelectedCampaign.DonationRecord}">
@@ -179,7 +162,6 @@
                                                     <ColumnDefinition Width="Auto"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <!-- Avatar -->
                                                 <Ellipse Grid.Column="0" 
                                                          Fill="#9C27B0" 
                                                          Width="40" 
@@ -192,7 +174,6 @@
                                                            HorizontalAlignment="Center" 
                                                            VerticalAlignment="Center"/>
 
-                                                <!-- Donor Info -->
                                                 <StackPanel Grid.Column="1" Margin="15,0,0,0">
                                                     <TextBlock Text="{Binding DisplayName}" 
                                                                 FontWeight="SemiBold" 
@@ -203,7 +184,6 @@
                                                                 Foreground="#999999"/>
                                                 </StackPanel>
 
-                                                <!-- Donation Amount -->
                                                 <TextBlock Grid.Column="2" 
                                                            Text="{Binding RealAmount}" 
                                                            FontWeight="SemiBold" 
@@ -216,12 +196,6 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                         </ScrollViewer>
-
-
-
-                    
-                        
-                      
                     </StackPanel>
                 </Border>
             </Grid>

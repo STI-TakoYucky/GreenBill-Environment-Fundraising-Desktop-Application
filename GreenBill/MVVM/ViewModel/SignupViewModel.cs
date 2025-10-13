@@ -24,7 +24,19 @@ namespace GreenBill.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        private bool _isLoading = true;
+
+        private bool _showSuccessMessage = false;
+        public bool ShowSuccessMessage
+        {
+            get => _showSuccessMessage;
+            set
+            {
+                _showSuccessMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isLoading = false;
         public bool IsLoading
         {
             get => _isLoading;
@@ -115,6 +127,7 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
         public ICommand CreateAccount { get; set; }
+        public ICommand CloseToast { get; set; }
 
         public RelayCommand NavigateToHome { get; set; }
 
@@ -129,6 +142,7 @@ namespace GreenBill.MVVM.ViewModel
 
         public void InitializeCommands()
         {
+            CloseToast = new RelayCommand(o => ShowSuccessMessage = false);
             NavigateToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
 
             CreateAccount =  new RelayCommand(async (o)=>
@@ -144,8 +158,7 @@ namespace GreenBill.MVVM.ViewModel
                     }
 
                     await _userService.Create(NewUser);
-                    MessageBox.Show("Account Created Successfully.");
-                    Navigation.NavigateTo<SigninViewModel>();
+                    ShowSuccessMessage = true;
                 }
                 catch(Exception ex)
                 {
@@ -160,6 +173,7 @@ namespace GreenBill.MVVM.ViewModel
 
         public void ValidateInputs()
         {
+            ShowSuccessMessage = false;
             HasErrors = false;
             UsernameError = "";
             EmailError = "";

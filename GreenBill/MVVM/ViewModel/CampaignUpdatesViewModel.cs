@@ -204,7 +204,6 @@ namespace GreenBill.MVVM.ViewModel
             }
             else
             {
-                // Create new
                 var newUpdate = new CampaignUpdate
                 {
                     Title = Title?.Trim(),
@@ -264,7 +263,6 @@ namespace GreenBill.MVVM.ViewModel
                 await _campaignUpdateService.DeleteAsync(updateId);
                 OnSuccessMessage?.Invoke("Update deleted successfully!");
 
-                // If we were editing this update, reset the form
                 if (IsEditing && EditingUpdate?.Id == updateId)
                 {
                     ResetForm();

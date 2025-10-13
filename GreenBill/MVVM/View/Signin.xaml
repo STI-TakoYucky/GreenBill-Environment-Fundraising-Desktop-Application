@@ -16,7 +16,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Main signup form container -->
         <Border Grid.Row="1" 
         Background="White"
         CornerRadius="16"
@@ -41,7 +40,6 @@
               Margin="0,0,0,0"
               Stretch="Uniform"/>
 
-                <!-- Sign in title -->
                 <TextBlock Text="Sign in"
                   FontSize="32"
                   FontWeight="SemiBold"
@@ -49,7 +47,6 @@
                   HorizontalAlignment="Left"
                   Margin="0,0,0,24"/>
 
-                <!-- Username field -->
                 <StackPanel Margin="0,0,0,24">
                     <Grid>
                         <TextBox Name="EmailTextBox"
@@ -80,7 +77,6 @@
                         </TextBlock>
                     </Grid>
 
-                    <!-- Validation message -->
                     <TextBlock Name="EmailValidation"
           Text="Please fill out this field."
           FontSize="14"
@@ -88,10 +84,8 @@
           Margin="0,4,0,0"
           Visibility="Collapsed"/>
                 </StackPanel>
-                <!-- Password field -->
                 <StackPanel Margin="0,0,0,24">
                     <Grid>
-                        <!-- PasswordBox (hidden password) -->
                         <PasswordBox Name="PasswordBox"
                      helpers:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay}"
                      helpers:PasswordBoxHelper.BindPassword="True"
@@ -104,7 +98,6 @@
                      Background="White"
                      Foreground="#2C2C2C"/>
 
-                        <!-- TextBox (visible password) -->
                         <TextBox Name="PasswordTextBox"
                  Text=""
                  TextChanged="PasswordTextBox_TextChanged"
@@ -117,7 +110,6 @@
                  Foreground="#2C2C2C"
                  Visibility="Collapsed"/>
 
-                        <!-- Placeholder for password -->
                         <TextBlock Name="PasswordPlaceholder"
                    Text="Password"
                    Foreground="#999"
@@ -125,7 +117,6 @@
                    Margin="18,0,50,0"
                    IsHitTestVisible="False"/>
 
-                        <!-- Show/Hide password button -->
                         <Button Name="ShowPasswordButton"
             Width="24"
             Height="24"
@@ -145,7 +136,6 @@
                         </Button>
                     </Grid>
 
-                    <!-- Validation message -->
                     <TextBlock Name="PasswordValidation"
            Text="{Binding ErrorMessage, Mode=TwoWay}"
            FontSize="14"
@@ -153,8 +143,6 @@
            Margin="0,4,0,0"/>
                 </StackPanel>
 
-
-                <!-- Sign in button -->
                 <Button Name="SignUpButton"
                           IsEnabled="{Binding IsLoading, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                           Style="{StaticResource PrimaryButton}"
@@ -175,7 +163,6 @@
            Background="Transparent"
           Width="340" Content="Don't have an account?"/>
 
-                <!-- Back link -->
                 <Button Name="BackButton"
                         Command="{Binding NavigateToHome}"
                Content="Back"

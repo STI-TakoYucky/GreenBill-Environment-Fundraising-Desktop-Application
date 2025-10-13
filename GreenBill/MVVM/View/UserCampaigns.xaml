@@ -14,7 +14,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Header Section -->
         <Grid Grid.Row="0" Margin="0,0,0,20">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -34,7 +33,6 @@
             </StackPanel>
         </Grid>
 
-        <!-- Tab Header -->
         <Border Grid.Row="1" Background="White" CornerRadius="12,12,0,0" Margin="0,0,0,0">
             <Border.Effect>
                 <DropShadowEffect Color="#000000" Opacity="0.05" BlurRadius="8" ShadowDepth="1"/>
@@ -163,7 +161,6 @@
             </StackPanel>
         </Border>
 
-        <!-- Campaigns Content -->
         <Border Grid.Row="2" Background="White" CornerRadius="0,0,12,12" Margin="0">
             <Border.Effect>
                 <DropShadowEffect Color="#000000" Opacity="0.05" BlurRadius="8" ShadowDepth="1"/>
@@ -172,7 +169,6 @@
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" 
                          Margin="20,20,20,20">
 
-                <!-- Dynamic Campaigns List -->
                 <ItemsControl ItemsSource="{Binding Campaigns}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -182,7 +178,6 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <!-- Campaign Card -->
                             <Border Background="#FAFAFA" 
                                    CornerRadius="12"
                                    Margin="0,0,15,20"
@@ -197,16 +192,13 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <!-- Campaign Image -->
                                     <Border Grid.Row="0" CornerRadius="12,12,0,0" Background="#E8F5E8">
-                                        <!-- Display campaign image or default emoji -->
                                         <Grid>
                                             <Image Source="{Binding Image, Converter={StaticResource ImageConverter}}"
                                                    Stretch="UniformToFill"/>
                                         </Grid>
                                     </Border>
 
-                                    <!-- Status Badge -->
                                     <Border Grid.Row="0"
                                            Panel.ZIndex="1"
                                            CornerRadius="12"
@@ -228,7 +220,6 @@
                                         </StackPanel>
                                     </Border>
 
-                                    <!-- Campaign Details -->
                                     <StackPanel Grid.Row="1" Margin="20,15">
                                         <TextBlock Text="{Binding Title}" 
                                                   FontSize="18" 
@@ -251,7 +242,6 @@
                                             <Run Text="{Binding Percentage}"/>
                                         </TextBlock>
 
-                                        <!-- Progress Bar -->
                                         <Border Background="#F0F0F0" Height="6" CornerRadius="3" Margin="0,0,0,10">
                                             <Border Background="#F0F0F0"
                                                     CornerRadius="10"
@@ -272,7 +262,6 @@
                                         </StackPanel>
                                     </StackPanel>
 
-                                    <!-- Action Button -->
                                     <Button Grid.Row="2" 
                                            Content="View Details" 
                                            Background="Transparent" 

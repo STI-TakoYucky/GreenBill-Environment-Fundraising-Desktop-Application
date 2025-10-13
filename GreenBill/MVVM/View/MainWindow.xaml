@@ -17,14 +17,12 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--  Top Navigation Bar  -->
         <DockPanel
             Grid.Row="0"
             VerticalAlignment="Top"
             Background="White"
             Visibility="{Binding ShowNavigation, Converter={StaticResource BooleanToVisibilityConverter}}">
 
-            <!--  Logo  -->
             <Button
                 Height="60"
                 Margin="100,0,0,0"
@@ -40,7 +38,6 @@
             </Button>
 
 
-            <!--  Right Side Controls  -->
             <StackPanel
                 Margin="0,0,100,0"
                 HorizontalAlignment="Right"
@@ -48,14 +45,12 @@
                 DockPanel.Dock="Right"
                 Orientation="Horizontal">
 
-                <!--  Start a Change Button  -->
                 <Button
                     Height="30"
                     Command="{Binding GoToStep1}"
                     Content="Start a Change"
                     Style="{StaticResource PrimaryButton}" />
 
-                <!--  Profile Image with Dropdown  -->
                 <Button
                     Width="40"
                     Height="40"
@@ -91,7 +86,6 @@
                     </Button.ContextMenu>
                 </Button>
 
-                <!--  Sign In Button (shown when not logged in)  -->
                 <Button
                     Margin="15,0,0,0"
                     VerticalAlignment="Center"
@@ -109,7 +103,6 @@
             </StackPanel>
         </DockPanel>
 
-        <!--  Main Content Area  -->
         <ContentControl Grid.Row="1" Content="{Binding Navigation.CurrentView}" />
     </Grid>
 </Window>

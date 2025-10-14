@@ -177,6 +177,13 @@ namespace GreenBill.MVVM.ViewModel
                 props.Add("success", true);
                 props.Add("message", "Logged in Successfully.");
 
+                var mainWindow = Application.Current.MainWindow;
+                if(mainWindow?.DataContext is MainWindowViewModel mainVM)
+                {
+                    mainVM.ShowNavigation = true;
+                    mainVM.IsUserLoggedIn = true;
+                }
+
                 Navigation.NavigateTo<HomePageViewModel>(props);
 
                 Debug.WriteLine("Current User: " + _sessionService.CurrentUser.Username);

@@ -205,21 +205,21 @@
                         <TextBlock Text="Profile Picture" FontSize="18" FontWeight="SemiBold" 
                                   Foreground="#333333" Margin="0,0,0,20"/>
 
+
                         <Border Width="200" Height="200" CornerRadius="100" 
-                               BorderBrush="#E0E0E0" BorderThickness="2"
-                               HorizontalAlignment="Center" Margin="0,0,0,20">
+       BorderBrush="#E0E0E0" BorderThickness="2"
+       HorizontalAlignment="Center" Margin="0,0,0,20">
                             <Border.Background>
                                 <ImageBrush x:Name="ProfileImageBrush" 
-                                          ImageSource="/Assets/Images/defaultProfile.jpg" 
-                                          Stretch="UniformToFill"/>
+                  ImageSource="{Binding ProfileImage}" 
+                  Stretch="UniformToFill"/>
                             </Border.Background>
                             <Grid>
                                 <Border Background="Black" Opacity="0.3" CornerRadius="100" 
-                                       x:Name="ImageOverlay" Visibility="Collapsed"/>
+               x:Name="ImageOverlay" Visibility="Collapsed"/>
                                 <Button x:Name="ChangePhotoButton" 
-                                       Background="Transparent" BorderThickness="0"
-                                       Cursor="Hand" ToolTip="Change Profile Picture"
-                                   >
+               Background="Transparent" BorderThickness="0"
+               Cursor="Hand" ToolTip="Change Profile Picture">
                                     <Button.Template>
                                         <ControlTemplate>
                                             <Grid>
@@ -230,10 +230,6 @@
                                 </Button>
                             </Grid>
                         </Border>
-
-                        <Button x:Name="UploadPhotoButton" Content="Upload New Photo" 
-                               Style="{StaticResource SecondaryButton}"
-                               />
                     </StackPanel>
 
                     <StackPanel Grid.Column="1">

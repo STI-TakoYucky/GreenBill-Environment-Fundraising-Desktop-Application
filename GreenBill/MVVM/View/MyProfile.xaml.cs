@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GreenBill.MVVM.ViewModel;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GreenBill.MVVM.View
 {
@@ -23,6 +13,16 @@ namespace GreenBill.MVVM.View
         public MyProfile()
         {
             InitializeComponent();
+            ChangePhotoButton.Click += UploadPhotoButton_Click;
+        }
+
+        private void UploadPhotoButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Call the ViewModel's upload method
+            if (DataContext is MyProfileViewModel viewModel)
+            {
+                viewModel.UploadProfilePicture();
+            }
         }
     }
 }

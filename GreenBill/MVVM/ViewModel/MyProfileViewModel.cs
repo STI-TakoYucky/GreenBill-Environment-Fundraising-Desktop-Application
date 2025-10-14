@@ -2,14 +2,17 @@
 using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.Services;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace GreenBill.MVVM.ViewModel
 {
@@ -26,12 +29,14 @@ namespace GreenBill.MVVM.ViewModel
         private string _originalLastName;
         private string _originalUsername;
         private string _originalEmail;
+        private byte[] _originalProfile;
 
         // Properties for two-way binding
         private string _firstName;
         private string _lastName;
         private string _username;
         private string _email;
+        private BitmapImage _profileImage;
 
         public string FirstName
         {
@@ -73,6 +78,16 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
+        public BitmapImage ProfileImage
+        {
+            get => _profileImage;
+            set
+            {
+                _profileImage = value;
+                OnPropertyChanged();
+            }
+        }
+
         public User CurrentUser
         {
             get => _currentUser;
@@ -98,11 +113,13 @@ namespace GreenBill.MVVM.ViewModel
         public ICommand UpdateProfileCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public MyProfileViewModel(INavigationService navigationService, IStripeService stripeService, IUserSessionService userSessionService, IUserService userService)
+        public MyProfileViewModel(INavigationService navigationService, IStripeService stripeService,
+            IUserSessionService userSessionService, IUserService userService)
         {
             Navigation = navigationService;
             _stripeService = stripeService;
             _userSessionService = userSessionService;
+            _userService = userService;
             this.CurrentUser = _userSessionService.CurrentUser;
 
             ConnectStripeAccountCommand = new RelayCommand(async (o) =>
@@ -113,7 +130,6 @@ namespace GreenBill.MVVM.ViewModel
 
             UpdateProfileCommand = new RelayCommand(async (o) => await UpdateProfile());
             CancelCommand = new RelayCommand(o => CancelChanges());
-            _userService = userService;
         }
 
         private void LoadUserData()
@@ -126,11 +142,80 @@ namespace GreenBill.MVVM.ViewModel
                 Username = CurrentUser.Username ?? string.Empty;
                 Email = CurrentUser.Email ?? string.Empty;
 
+                // Load profile picture
+                LoadProfileImage();
+
                 // Store original values for cancel functionality
                 _originalFirstName = FirstName;
                 _originalLastName = LastName;
                 _originalUsername = Username;
                 _originalEmail = Email;
+                _originalProfile = CurrentUser.Profile;
+            }
+        }
+
+        private void LoadProfileImage()
+        {
+            if (CurrentUser?.Profile != null && CurrentUser.Profile.Length > 0)
+            {
+                ProfileImage = ByteArrayToImage(CurrentUser.Profile);
+            }
+            else
+            {
+                // Load default image if no profile picture exists
+                try
+                {
+                    ProfileImage = new BitmapImage(new Uri("pack://application:,,,/Assets/Images/defaultProfile.jpg"));
+                }
+                catch
+                {
+                    // If default image doesn't exist, create a blank image
+                    ProfileImage = null;
+                }
+            }
+        }
+
+        public void UploadProfilePicture()
+        {
+            try
+            {
+                // Open file dialog
+                OpenFileDialog openFileDialog = new OpenFileDialog
+                {
+                    Title = "Select Profile Picture",
+                    Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif|All Files|*.*",
+                    Multiselect = false
+                };
+
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    string filePath = openFileDialog.FileName;
+
+                    // Read the file and convert to byte array
+                    byte[] imageBytes = File.ReadAllBytes(filePath);
+
+                    // Validate file size (e.g., max 5MB)
+                    if (imageBytes.Length > 5 * 1024 * 1024)
+                    {
+                        MessageBox.Show("Image file size must be less than 5MB.", "File Too Large",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    // Update the current user's profile picture
+                    CurrentUser.Profile = imageBytes;
+
+                    // Update the display
+                    LoadProfileImage();
+
+                    MessageBox.Show("Profile picture updated. Click 'Update Profile' to save changes.",
+                        "Picture Updated", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error uploading profile picture: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -166,10 +251,7 @@ namespace GreenBill.MVVM.ViewModel
                 CurrentUser.Username = Username.Trim();
                 CurrentUser.Email = Email.Trim();
 
-                // Here you would typically call a service to update the user in the database
-                // For example: await _userService.UpdateUserAsync(CurrentUser);
-
-                // Update the session
+                // Update the user in the database
                 await _userService.UpdateUserAsync(CurrentUser.Id, CurrentUser);
 
                 // Update original values to reflect the saved state
@@ -177,6 +259,7 @@ namespace GreenBill.MVVM.ViewModel
                 _originalLastName = LastName;
                 _originalUsername = Username;
                 _originalEmail = Email;
+                _originalProfile = CurrentUser.Profile;
 
                 MessageBox.Show("Profile updated successfully!", "Success",
                     MessageBoxButton.OK, MessageBoxImage.Information);
@@ -195,6 +278,10 @@ namespace GreenBill.MVVM.ViewModel
             LastName = _originalLastName;
             Username = _originalUsername;
             Email = _originalEmail;
+            CurrentUser.Profile = _originalProfile;
+
+            // Reload the profile image
+            LoadProfileImage();
 
             MessageBox.Show("Changes have been cancelled.", "Cancelled",
                 MessageBoxButton.OK, MessageBoxImage.Information);
@@ -211,6 +298,26 @@ namespace GreenBill.MVVM.ViewModel
             {
                 return false;
             }
+        }
+
+        private BitmapImage ByteArrayToImage(byte[] imageData)
+        {
+            if (imageData == null || imageData.Length == 0)
+                return null;
+
+            var image = new BitmapImage();
+            using (var mem = new MemoryStream(imageData))
+            {
+                mem.Position = 0;
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = null;
+                image.StreamSource = mem;
+                image.EndInit();
+            }
+            image.Freeze();
+            return image;
         }
     }
 }

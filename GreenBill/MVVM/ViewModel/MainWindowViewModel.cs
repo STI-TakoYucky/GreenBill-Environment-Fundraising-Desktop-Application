@@ -1,14 +1,16 @@
 ﻿using GreenBill.Core;
-using GreenBill.MVVM.ViewModel.Admin;
 using GreenBill.MVVM.Model;
+using GreenBill.MVVM.ViewModel.Admin;
 using GreenBill.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace GreenBill.MVVM.ViewModel
 {
@@ -19,12 +21,33 @@ namespace GreenBill.MVVM.ViewModel
         private bool _isUserLoggedIn;
         private IUserSessionService _sessionService;
 
+        private BitmapImage _profile;
+        public BitmapImage Profile
+        {
+            get => _profile;
+            set
+            {
+                _profile = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool IsUserLoggedIn
         {
             get => _isUserLoggedIn;
             set
             {
                 _isUserLoggedIn = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public User _currentUser;
+        public User CurrentUser
+        {
+            get => _currentUser;
+            set {
+                _currentUser = value;
                 OnPropertyChanged();
             }
         }
@@ -90,5 +113,7 @@ namespace GreenBill.MVVM.ViewModel
 
 
         }
+
+    
     }
 }

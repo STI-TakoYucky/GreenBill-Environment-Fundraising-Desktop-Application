@@ -182,6 +182,7 @@ namespace GreenBill.MVVM.ViewModel
                 {
                     mainVM.ShowNavigation = true;
                     mainVM.IsUserLoggedIn = true;
+                    mainVM.CurrentUser = user;
                 }
 
                 Navigation.NavigateTo<HomePageViewModel>(props);

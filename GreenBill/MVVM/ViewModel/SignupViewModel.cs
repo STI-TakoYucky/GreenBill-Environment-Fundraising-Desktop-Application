@@ -1,10 +1,14 @@
 ﻿using GreenBill.Core;
 using GreenBill.IServices;
 using GreenBill.MVVM.Model;
+using GreenBill.MVVM.View;
 using GreenBill.Services;
 using LiveCharts;
 using System;
+using System.IO;
+using System.Reflection;
 using System.Reflection.Emit;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -146,7 +150,7 @@ namespace GreenBill.MVVM.ViewModel
             CloseToast = new RelayCommand(o => ShowSuccessMessage = false);
             NavigateToHome = new RelayCommand(o => Navigation.NavigateTo<HomePageViewModel>());
 
-            CreateAccount =  new RelayCommand(async (o)=>
+            CreateAccount = new RelayCommand(async (o) =>
             {
                 try
                 {
@@ -158,11 +162,13 @@ namespace GreenBill.MVVM.ViewModel
                         return;
                     }
 
+                    NewUser.Profile = GetDefaultProfilePicture();
+
                     await _userService.Create(NewUser);
                     ShowSuccessMessage = true;
                     ResetInputs();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show($"Error: {ex.Message}");
                 }
@@ -172,6 +178,16 @@ namespace GreenBill.MVVM.ViewModel
                 }
             }, o => NewUser != null);
         }
+
+        private byte[] GetDefaultProfilePicture()
+        {
+            // Create a simple 100x100 gray circle as default profile picture
+            return Convert.FromBase64String(
+                "iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAADfklEQVR4nO2dS2sUQRSFv4kxJhFf+ELSQF5uXLhw4UKEgKB/wI0/wJ07Ff+BLt2JCxeKG18LF4ILQVDwgYqKbyVRo4kmcaTgVmgmM9PT3VV9q6vOBxcGZpKZe++p6qruW7cKJEmSJEmSJEmSJEnyCQUAbcAocBt4ATwH3gLfgWaiv++Bz8Bn4B3wAngCPABuAheBHqAQrZ4ioA04DjwCPpGfz8Bj4BawFbBQcqCJcRB4TzU+ACeAhcjFBgYwGxgB/uDGX+AGsBiwWCTACrJhDOgGLDYEsMBsxqH6qbIVsNgAwHygQhz/gP3km9PAX+L5DqwGLNYHHCU9vgGHyRdLgAnS5RuwBrDYXuA36fMN2Ede2An8Ip9UgQ2AxXqAr+SXb8AOoGIDeBMvgBY9u6KLEfTSAhYCfzARwF1gJfZZUhfSMB2Yk1n/ViSxhzRsqP8boIg9FgHfSceG+ncBFusD/pKej8AKwGLHgD+k6xtwGLBYJ/CCdI0DOwCL7SPbEOp1YBdgsV7gI9n4AGwCLHYQGCcbo8BuwGIHgL9kZwTYB1isB/hAdkaAPYDFuoBXZOsVsBWw2CLgI9l7D6wFLDYP+ET23gCrAIsVgBdk7xnQA1gMYCf5YBjoBiwGsJV8MARsBCwGsI588RDoAywGsIF88QDoBSwGsJ588QNYD1gMYDX54i2wArAYwBLyzctfN3xhCcAi8slzYB5gMYAl5JPnwGzAYgCLyScP678RsBhAO/nkYf03AhYDaCOfPABmABYDWE4+uQvMACxWYGqAhqy5A8wELEb9f0A+uQ3MBixWYKrDSTa9f88CLFZgapqIrLkFFAGLFZgawSIrbgLtgMUKTI3ulCW3gBmAxVrSLUtuADMBi7WkW5ZcB2YBFmtJtyx5ALQDFpsyuFk+uE79MISC3QEMAk9Jl4dMLQDMQx9z6l/5lkxNrLU4BaWUZpouO9cOWGwBU8s7ZcGYUlN/U9oqwGKdwAvS9RJYClisQPaTpF4o5bNSFp0n/YmRRpVqO03+rnQR2IY9upkaHDsdRoG1gMXagYuk5yJT71TsMRe4Q7wmgMuABTo1g9Jk/RGKy+SbOcAt4tEHbAcs1o6Zm4nxFugCLLaI7PdAvgX2Axab/3979x7aVBQGcPy7sVaxQhGhiqCCOkVF1IEgiguFggsHU1wcVHSgf4AOdKAUnbgpDqfiQB04FSsogoiIIqiIDhTFJ/iggPgAFbC+qKNf4IhIaZukuefe5PvB+Zfc9txz7rfTJLf3ngBmAy/Jz0tgNnCB/HwALgIXgUvkYwC4DFwDfpKPX8AN4DpwE/hNPm4DN4E7wCBQB/qBIeAP+fgL/AAGgTvAbeAO+bgL3AMeAI+Ax8AT4Cn5eAY8Bx6Qjxcjn/UmAJ2D2rOTZkmSpGymx2uAXuA9MET6uO0T8JboOW0H+lz/Q5IkKSP1Aa3AP0mSJEmSJEmSJElKwj/R+nJ6vvTXJgAAAABJRU5ErkJggg=="
+            );
+        }
+
+
 
         public void ResetInputs()
         {

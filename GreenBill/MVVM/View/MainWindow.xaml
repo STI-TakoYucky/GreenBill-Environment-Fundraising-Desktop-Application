@@ -65,7 +65,7 @@
                     <Image
                         Width="40"
                         Height="40"
-                        Source="/Assets/Images/defaultProfile.jpg"
+                        Source="{Binding CurrentUser.Profile, Converter={StaticResource ImageConverter}}"
                         Stretch="UniformToFill">
                         <Image.Clip>
                             <EllipseGeometry

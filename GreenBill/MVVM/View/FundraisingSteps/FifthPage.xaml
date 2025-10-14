@@ -121,9 +121,8 @@
                                 BorderThickness="1"
                                 CornerRadius="8">
                             <StackPanel>
-                                <!-- Image Placeholder -->
+                                <!-- Image Placeholder Tfadsfasdfadsf -->
                                 <Border Height="200"
-                                        Background="LightGray"
                                         CornerRadius="8,8,0,0">
                                     <Image Source="{Binding CurrentCampaign.Image, Converter={StaticResource ImageConverter}}"
                                            Stretch="UniformToFill"/>

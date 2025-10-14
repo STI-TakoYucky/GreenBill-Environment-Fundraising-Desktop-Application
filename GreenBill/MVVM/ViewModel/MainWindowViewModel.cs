@@ -14,6 +14,7 @@ namespace GreenBill.MVVM.ViewModel
 {
     public class MainWindowViewModel : Core.ViewModel
     {
+        // Tes tcomment zsdfasdfadsfadsf
         private bool _showNavigation = true;
         private bool _isUserLoggedIn;
         private IUserSessionService _sessionService;

@@ -40,7 +40,7 @@ namespace GreenBill.Services
                 {
                     Account = stripeAccount.Id,
                     RefreshUrl = "https://indiaesevakendra.in/wp-content/uploads/2020/08/Paymentsuccessful21-768x427.png",
-                    ReturnUrl = "https://docs.memberstack.com/hc/article_attachments/16017242490267",
+                    ReturnUrl = "https://indiaesevakendra.in/wp-content/uploads/2020/08/Paymentsuccessful21-768x427.png",
                     Type = "account_onboarding"
                 };
 

@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:GreenBill.MVVM.View"
              mc:Ignorable="d" 
              Background="#FFFFFF"
+             xmlns:components="clr-namespace:GreenBill.Components"
              d:DesignHeight="900" d:DesignWidth="1400">
 
 
@@ -16,6 +17,20 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+
+        <components:LoadingOverlay Grid.RowSpan="4"
+                             Margin="-100, -40, -100, -40"      
+                             Panel.ZIndex="999"
+                             IsVisible="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
+                             LoadingText="Please wait..."/>
+
+        <components:SuccessToast Grid.RowSpan="4"
+                           Margin="-100, -40, -100, -40"   
+                           Panel.ZIndex="999"
+                           IsVisible="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Title="Success!"
+                           Message="{Binding SuccessMessage}"/>
 
         <Grid Grid.Row="0">
             <Grid Grid.Row="0">

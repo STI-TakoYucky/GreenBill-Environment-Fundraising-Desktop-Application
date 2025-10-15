@@ -20,7 +20,39 @@ namespace GreenBill.MVVM.ViewModel
         private INavigationService _navigationService;
         private IDonationRecordService _donationRecordService;
         private ICampaignService _campaignService;
-      
+
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _showMessage;
+        public bool ShowMessage
+        {
+            get => _showMessage;
+            set
+            {
+                _showMessage = true;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _successMessage;
+        public string SuccessMessage
+        {
+            get => _successMessage;
+            set
+            {
+                _successMessage = value;
+                OnPropertyChanged();
+            }
+        }
 
         public INavigationService Navigation
         {
@@ -223,6 +255,7 @@ namespace GreenBill.MVVM.ViewModel
         {
             try
             {
+                IsLoading = true;
                 if (SelectedAmount <= 0)
                 {
                     MessageBox.Show("Please select a valid donation amount.");
@@ -319,6 +352,10 @@ namespace GreenBill.MVVM.ViewModel
                     FileName = session.Url,
                     UseShellExecute = true
                 });
+
+                ShowMessage = true;
+                SuccessMessage = "Thank you for your donation!";
+                LoadCampaign(SelectedCampaign.Id.ToString());
             }
             catch (StripeException stripeEx)
             {
@@ -330,7 +367,7 @@ namespace GreenBill.MVVM.ViewModel
             }
             finally
             {
-                Navigation.NavigateTo<FundraisingDetailsViewModel>(SelectedCampaign.Id.ToString());
+                IsLoading = false;
             }
         }
 
@@ -343,10 +380,15 @@ namespace GreenBill.MVVM.ViewModel
         {
             if (parameter == null) return;
             var id = parameter.ToString();
+            LoadCampaign(id);
+        }
+
+        public async void LoadCampaign(string id)
+        {
             SelectedCampaign = await _campaignService.GetCampaignByIdAsync(
-               id,
-               new CampaignIncludeOptions { IncludeUser = true, IncludeDonationRecord = true }
-            );
+            id,
+            new CampaignIncludeOptions { IncludeUser = true, IncludeDonationRecord = true }
+         );
             var total = $"${(SelectedCampaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0):N2} USD raised";
             TotalDonationRaised = total;
             var percentage = ((SelectedCampaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0) / SelectedCampaign.DonationGoal) * 100;

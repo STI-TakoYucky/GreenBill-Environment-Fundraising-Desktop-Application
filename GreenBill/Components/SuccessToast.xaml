@@ -50,7 +50,7 @@
             <!-- Message Content -->
             <StackPanel Grid.Column="1" 
                         VerticalAlignment="Center">
-                <TextBlock Text="{Binding Title, ElementName=ToastControl}"
+                <TextBlock Text="Success"
                           FontSize="16"
                           FontWeight="SemiBold"
                           Foreground="#2C2C2C"

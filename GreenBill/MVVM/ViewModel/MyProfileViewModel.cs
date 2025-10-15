@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,6 +19,38 @@ namespace GreenBill.MVVM.ViewModel
 {
     public class MyProfileViewModel : Core.ViewModel
     {
+        private bool _isLoading = false;
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _showMessage;
+        public bool ShowMessage
+        {
+            get => _showMessage;
+            set {
+                _showMessage = true;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _successMessage;
+        public string SuccessMessage
+        {
+            get => _successMessage;
+            set
+            {
+                _successMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
         private INavigationService _navigationService;
         private readonly IStripeService _stripeService;
         private readonly IUserSessionService _userSessionService;
@@ -223,6 +256,7 @@ namespace GreenBill.MVVM.ViewModel
         {
             try
             {
+                IsLoading = true;
                 // Validate input
                 if (string.IsNullOrWhiteSpace(FirstName) || string.IsNullOrWhiteSpace(LastName))
                 {
@@ -261,13 +295,17 @@ namespace GreenBill.MVVM.ViewModel
                 _originalEmail = Email;
                 _originalProfile = CurrentUser.Profile;
 
-                MessageBox.Show("Profile updated successfully!", "Success",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                ShowMessage = true;
+                SuccessMessage = "Profile details updated";
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error updating profile: {ex.Message}", "Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
 

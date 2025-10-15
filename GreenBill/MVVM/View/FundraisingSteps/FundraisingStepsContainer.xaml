@@ -6,10 +6,13 @@
              xmlns:local="clr-namespace:GreenBill.MVVM.View.FundraisingSteps"
                 xmlns:stepsView="clr-namespace:GreenBill.MVVM.View.FundraisingSteps"
              mc:Ignorable="d" 
+                xmlns:components="clr-namespace:GreenBill.Components"
               xmlns:converters="clr-namespace:GreenBill.Converters"
              d:DesignHeight="900" d:DesignWidth="1400"
              Background="#f5f5f5">
     <Grid>
+        
+
         <stepsView:FirstStep Visibility="{Binding CurrentStep, Converter={StaticResource StepVisibilityConverter}, ConverterParameter=1}"/>
         <stepsView:SecondStep Visibility="{Binding CurrentStep, Converter={StaticResource StepVisibilityConverter}, ConverterParameter=2}"/>
         <stepsView:ThirdStep Visibility="{Binding CurrentStep, Converter={StaticResource StepVisibilityConverter}, ConverterParameter=3}"/>

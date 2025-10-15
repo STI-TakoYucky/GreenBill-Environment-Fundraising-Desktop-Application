@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GreenBill.MVVM.View"
              mc:Ignorable="d" 
+             xmlns:components="clr-namespace:GreenBill.Components"
              d:DesignHeight="900" d:DesignWidth="1400"
              Background="#F5F5F5">
 
@@ -135,8 +136,12 @@
             </Setter>
         </Style>
     </UserControl.Resources>
+    
+
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+
+     
         <Grid Margin="40">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -145,6 +150,23 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <components:LoadingOverlay Grid.RowSpan="4"
+                                       Margin="-40"
+                                       Panel.ZIndex="999"
+                                       IsVisible="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                       LoadingText="Please wait..."/>
+
+
+
+
+
+            <components:SuccessToast Grid.RowSpan="4"
+                                      Margin="-40"
+                                      Panel.ZIndex="999"
+                                      IsVisible="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                      Title="Success!"
+                                      Message="{Binding SuccessMessage}"/>
+
             <StackPanel Grid.Row="0" Margin="0,0,0,30">
                 <TextBlock Text="My Profile" FontSize="32" FontWeight="Bold" 
                           Foreground="#333333" Margin="0,0,0,10"/>
@@ -152,48 +174,7 @@
                           FontSize="16" Foreground="#666666"/>
             </StackPanel>
 
-            <Border Grid.Row="1" Style="{StaticResource CardStyle}">
-                <StackPanel>
-                    <TextBlock Text="Account Status" FontSize="20" FontWeight="SemiBold" 
-                              Foreground="#333333" Margin="0,0,0,20"/>
-
-                    <WrapPanel Orientation="Horizontal">
-                        <Border x:Name="AccountStatusBadge" Style="{StaticResource BadgeStyle}"
-                               Background="#E8F5E8">
-                            <StackPanel Orientation="Horizontal">
-                                <Ellipse Width="8" Height="8" Fill="#4CAF50" 
-                                        VerticalAlignment="Center" Margin="0,0,6,0"/>
-                                <TextBlock x:Name="AccountStatusText" Text="Active" 
-                                          FontSize="12" FontWeight="SemiBold" 
-                                          Foreground="#4CAF50"/>
-                            </StackPanel>
-                        </Border>
-
-                        <Border x:Name="EmailVerificationBadge" Style="{StaticResource BadgeStyle}"
-                               Background="#FFF3E0">
-                            <StackPanel Orientation="Horizontal">
-                                <Ellipse Width="8" Height="8" Fill="#FF9800" 
-                                        VerticalAlignment="Center" Margin="0,0,6,0"/>
-                                <TextBlock x:Name="EmailVerificationText" Text="Email Pending" 
-                                          FontSize="12" FontWeight="SemiBold" 
-                                          Foreground="#FF9800"/>
-                            </StackPanel>
-                        </Border>
-
-                        <Border x:Name="StripeStatusBadge" Style="{StaticResource BadgeStyle}"
-                               Background="#FFEBEE">
-                            <StackPanel Orientation="Horizontal">
-                                <Ellipse Width="8" Height="8" Fill="#F44336" 
-                                        VerticalAlignment="Center" Margin="0,0,6,0"/>
-                                <TextBlock x:Name="StripeStatusText" Text="Not Connected" 
-                                          FontSize="12" FontWeight="SemiBold" 
-                                          Foreground="#F44336"/>
-                            </StackPanel>
-                        </Border>
-                    </WrapPanel>
-                </StackPanel>
-            </Border>
-
+            
             <Border Grid.Row="2" Style="{StaticResource CardStyle}">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -201,6 +182,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
+         
                     <StackPanel Grid.Column="0" Margin="0,0,40,0">
                         <TextBlock Text="Profile Picture" FontSize="18" FontWeight="SemiBold" 
                                   Foreground="#333333" Margin="0,0,0,20"/>

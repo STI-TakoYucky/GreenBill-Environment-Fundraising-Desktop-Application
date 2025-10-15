@@ -39,10 +39,14 @@ namespace GreenBill.Services
                 var linkOptions = new AccountLinkCreateOptions
                 {
                     Account = stripeAccount.Id,
-                    RefreshUrl = "https://google.com",
-                    ReturnUrl = "https://google.com",
+                    RefreshUrl = "https://indiaesevakendra.in/wp-content/uploads/2020/08/Paymentsuccessful21-768x427.png",
+                    ReturnUrl = "https://docs.memberstack.com/hc/article_attachments/16017242490267",
                     Type = "account_onboarding"
                 };
+
+  
+
+                var accountLink = await linkService.CreateAsync(linkOptions);
 
                 user.StripeAccountId = stripeAccount.Id;
                 user.VerificationStatus = "pending_onboarding";
@@ -50,7 +54,6 @@ namespace GreenBill.Services
 
                 await _userService.UpdateUserAsync(user.Id, user);
 
-                var accountLink = await linkService.CreateAsync(linkOptions);
                 Console.WriteLine("REDIRECTING");
                 Process.Start(new ProcessStartInfo
                 {

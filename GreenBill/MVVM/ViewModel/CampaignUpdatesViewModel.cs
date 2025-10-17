@@ -203,9 +203,8 @@ namespace GreenBill.MVVM.ViewModel
         {
             GoBackCommand = new RelayCommand(o =>
             {
-                Navigation.NavigateBack();
-                Debug.WriteLine("TEST BACK");
-            }, o => Navigation.CanNavigateBack);
+                Navigation.NavigateTo<CampaignDetailsViewModel>(CampaignId);
+            });
 
             SaveCommand = new RelayCommand(async o => await SaveUpdate(), o => CanSave());
             CancelCommand = new RelayCommand(o => ResetForm());

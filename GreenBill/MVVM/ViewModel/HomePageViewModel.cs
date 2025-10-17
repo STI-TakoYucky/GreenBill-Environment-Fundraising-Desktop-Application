@@ -64,6 +64,7 @@ namespace GreenBill.MVVM.ViewModel
         private ObservableCollection<Campaign> _campaigns;
         private ICampaignService _campaignService;
         private IDonationRecordService _donationRecordService;
+        private IUserSessionService _userSessionService;
         public string _successMessage;
         public string SuccessMessage
         {
@@ -110,13 +111,15 @@ namespace GreenBill.MVVM.ViewModel
         public ICommand NavigateToFundraisingDetails { get; set; }
         public ICommand LoadCampaignsCommand { get; set; }
         public ICommand ViewMore { get; set; }
+        public ICommand StartAChange { get; set; }
 
-        public HomePageViewModel(INavigationService navService, ICampaignService campaignService, IDonationRecordService donationRecordService)
+        public HomePageViewModel(INavigationService navService, ICampaignService campaignService, IDonationRecordService donationRecordService, IUserSessionService userSessionService)
         {
             Navigation = navService;
             _campaignService = campaignService;
             Campaigns = new ObservableCollection<Campaign>();
             _donationRecordService = donationRecordService;
+            _userSessionService = userSessionService;
 
             NavigateToFundraisingDetails = new RelayCommand(campaign_id =>
             {
@@ -127,6 +130,18 @@ namespace GreenBill.MVVM.ViewModel
             });
             ViewMore = new RelayCommand(o => Navigation.NavigateTo<CampaignsViewModel>());
             LoadCampaignsCommand = new RelayCommand(async o => await LoadCampaignsAsync());
+            StartAChange = new RelayCommand(o =>
+            {
+                if (_userSessionService.IsUserLoggedIn)
+                {
+                    Navigation.NavigateTo<FundraisingStepsViewModel>();
+                }
+                else
+                {
+                    Navigation.NavigateTo<SigninViewModel>();
+                }
+            });
+
 
             _ = LoadCampaignsAsync();
 

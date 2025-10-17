@@ -14,13 +14,32 @@ using System.Collections.Generic;
 
 namespace GreenBill.MVVM.ViewModel
 {
-    public class SigninViewModel : Core.ViewModel, INavigationAware
+    public class SigninViewModel : Core.ViewModel, INavigationAware, INavigatableService
     {
         public bool ShowNavigation => false;
 
-        public string _successMessage;
+        private bool _showMessage = false;
+        public bool ShowMessage
+        {
+            get => _showMessage;
+            set
+            {
+                _showMessage = value;
+                OnPropertyChanged();
+            }
+        }
 
-    
+        public string _successMessage;
+        public string SuccessMessage
+        {
+            get => _successMessage;
+            set
+            {
+                _successMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
         private IMongoCollection<User> _collection;
         private IUserService _userService;
         private IUserSessionService _sessionService; 
@@ -173,9 +192,7 @@ namespace GreenBill.MVVM.ViewModel
                 }
 
                 _sessionService.SetCurrentUser(user);
-                Dictionary<string, object> props = new Dictionary<string, object>();
-                props.Add("success", true);
-                props.Add("message", "Logged in Successfully.");
+              
 
                 var mainWindow = Application.Current.MainWindow;
                 if(mainWindow?.DataContext is MainWindowViewModel mainVM)
@@ -184,6 +201,10 @@ namespace GreenBill.MVVM.ViewModel
                     mainVM.IsUserLoggedIn = true;
                     mainVM.CurrentUser = user;
                 }
+
+                Dictionary<string, object> props = new Dictionary<string, object>();
+                props.Add("success", true);
+                props.Add("message", "Logged in Successfully.");
 
                 Navigation.NavigateTo<HomePageViewModel>(props);
 
@@ -218,6 +239,17 @@ namespace GreenBill.MVVM.ViewModel
                 OnPropertyChanged(nameof(Password));
             }
             ErrorMessage = string.Empty;
+        }
+
+        public async void ApplyNavigationParameter(object parameter)
+        {
+            if (parameter == null) return;
+            Dictionary<string, object> props = parameter as Dictionary<string, object>;
+
+            SuccessMessage = props["message"] as string;
+            ShowMessage = (bool)props["success"];
+
+
         }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using GreenBill.Core;
+using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.MVVM.ViewModel.Admin;
 using GreenBill.Services;
+using LiveCharts;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,6 +19,9 @@ namespace GreenBill.MVVM.ViewModel
 {
     public class MainWindowViewModel : Core.ViewModel
     {
+        private IMongoCollection<User> _collection;
+        private IUserService _userService;
+
         // Tes tcomment zsdfasdfadsfadsf
         private bool _showNavigation = true;
         private bool _isUserLoggedIn;
@@ -88,8 +94,9 @@ namespace GreenBill.MVVM.ViewModel
 
         
 
-        public MainWindowViewModel(INavigationService navService, IUserSessionService sessionService)
+        public MainWindowViewModel(INavigationService navService, IUserSessionService sessionService, IUserService userService)
         {
+            _userService = userService;
             Navigation = navService;
             _sessionService = sessionService;
             Navigation.NavigateTo<HomePageViewModel>();
@@ -110,6 +117,29 @@ namespace GreenBill.MVVM.ViewModel
             GoToAdminDashboard = new RelayCommand(o => Navigation.NavigateTo<AdminWindowViewModel>());
             GoToProfile = new RelayCommand(o => Navigation.NavigateTo<MyProfileViewModel>());
             Logout = new RelayCommand(o => _sessionService.ClearSession());
+
+
+            defaultLogin();
+
+
+        }
+
+        public async void defaultLogin()
+        {
+            _collection = _userService.Collection;
+            var filter = Builders<User>.Filter.Eq(u => u.Email, "admin@gmail.com");
+            var user = await _collection.Find(filter).FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return;
+            }
+
+
+           _sessionService.SetCurrentUser(user);
+
+           ShowNavigation = true;
+           IsUserLoggedIn = true;
 
 
         }

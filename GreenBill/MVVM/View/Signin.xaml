@@ -4,9 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GreenBill.MVVM.View"
-              xmlns:helpers="clr-namespace:GreenBill.Helpers"
+      xmlns:helpers="clr-namespace:GreenBill.Helpers"
       mc:Ignorable="d" 
-        d:DesignHeight="900" d:DesignWidth="1400"
+      xmlns:components="clr-namespace:GreenBill.Components"
+      d:DesignHeight="900" d:DesignWidth="1400"
  Background="#F5F5F5">
 
     <Grid>
@@ -197,5 +198,12 @@
 
             </StackPanel>
         </Border>
+
+        <components:SuccessToast Grid.RowSpan="3"
+                  IsVisible="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
+                  Title="Success!"
+                  Message="{Binding SuccessMessage}"/>
     </Grid>
+    
+    
 </UserControl>

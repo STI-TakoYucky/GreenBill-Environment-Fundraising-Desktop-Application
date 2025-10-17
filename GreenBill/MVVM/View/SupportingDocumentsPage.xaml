@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GreenBill.MVVM.View"
              mc:Ignorable="d" 
+               xmlns:components="clr-namespace:GreenBill.Components"
              Background="#FFFFFF"
              d:DesignHeight="900" d:DesignWidth="1400">
 
@@ -149,6 +150,18 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+
+        <components:LoadingOverlay Grid.RowSpan="2"
+                             Panel.ZIndex="999"
+                             IsVisible="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
+                             LoadingText="Please wait..."/>
+
+        <components:SuccessToast Grid.RowSpan="2"
+                           Panel.ZIndex="999"
+                           IsVisible="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Title="Success!"
+                           Message="{Binding SuccessMessage}"/>
 
         <Grid Grid.Row="0">
             <Grid Grid.Row="0" Margin="72,40,0,0">
@@ -295,38 +308,7 @@
                         </StackPanel>
                     </Border>
                     
-                    <Border Style="{StaticResource ModernCard}"
-                            Margin="0,0,0,32"
-                            Padding="24"
-                            Name="ProgressSection"
-                            Visibility="{Binding IsUploadingVisibility}">
-                        <StackPanel>
-                            <Grid Margin="0,0,0,12">
-                                <TextBlock Text="Uploading..."
-                                          FontWeight="SemiBold"
-                                          FontSize="16"
-                                          Foreground="#2C3E50"
-                                          HorizontalAlignment="Left"/>
-                                <TextBlock Text="{Binding UploadProgress}"
-                                          FontSize="14"
-                                          Foreground="#7F8C8D"
-                                          HorizontalAlignment="Right"/>
-                            </Grid>
-
-                            <Border Background="#F0F0F0"
-                                   CornerRadius="8"
-                                   Height="8">
-                                <Border Background="#00BCD4"
-                                       CornerRadius="8"
-                                       HorizontalAlignment="Left">
-                                    <Border.Width>
-                                        <Binding Path="UploadProgress" Converter="{StaticResource ProgressToWidthConverter}"/>
-                                    </Border.Width>
-                                </Border>
-                            </Border>
-                        </StackPanel>
-                    </Border>
-
+               
                     <Border Style="{StaticResource ModernCard}"
                             Margin="0,0,0,32"
                             Padding="32">

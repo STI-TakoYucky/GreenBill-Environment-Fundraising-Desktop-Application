@@ -236,6 +236,12 @@ namespace GreenBill.MVVM.ViewModel
 
                 await _campaignUpdateService.UpdateAsync(EditingUpdate.Id, EditingUpdate);
 
+       
+
+                Updates.Clear();
+                FilteredUpdates.Clear();
+                await LoadUpdatesAsync();
+
                 OnSuccessMessage?.Invoke("Update modified successfully!");
                 SuccessMessage = "Update Modified Successfully";
                 ShowMessage = true;

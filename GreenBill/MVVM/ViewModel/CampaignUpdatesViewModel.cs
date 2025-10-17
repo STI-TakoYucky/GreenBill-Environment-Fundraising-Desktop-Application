@@ -225,7 +225,7 @@ namespace GreenBill.MVVM.ViewModel
                 OnValidationFailed?.Invoke(validationResult.ErrorMessage);
                 return;
             }
-
+            Debug.WriteLine("IS EDITING: " + IsEditing);
             if (IsEditing && EditingUpdate != null)
             {
 
@@ -234,9 +234,14 @@ namespace GreenBill.MVVM.ViewModel
                 EditingUpdate.Category = SelectedCategory;
                 EditingUpdate.UpdatedAt = DateTime.Now;
 
+                await _campaignUpdateService.UpdateAsync(EditingUpdate.Id, EditingUpdate);
+
                 OnSuccessMessage?.Invoke("Update modified successfully!");
                 SuccessMessage = "Update Modified Successfully";
                 ShowMessage = true;
+
+                Debug.WriteLine("EDITED: " + EditingUpdate.Id);
+
             }
             else
             {
@@ -255,6 +260,7 @@ namespace GreenBill.MVVM.ViewModel
                 OnSuccessMessage?.Invoke("Update added successfully!");
                 SuccessMessage = "Updated Added Successfully";
                 ShowMessage = true;
+                Debug.WriteLine("CREATE");
             }
             IsLoading = false;
             ResetForm();

@@ -53,6 +53,24 @@ namespace GreenBill.Services
             }
         }
 
+        public async Task UpdateAsync(ObjectId updateId, CampaignUpdate campaignUpdate)
+        {
+            try
+            {
+                var filter = Builders<CampaignUpdate>.Filter.Eq(x => x.Id, updateId);
+                var options = new ReplaceOptions { IsUpsert = false };
+                var result = await _collection.ReplaceOneAsync(filter, campaignUpdate, options);
+                if (result.MatchedCount == 0)
+                {
+                    throw new Exception("Document not found or could not be updated");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error updating document {updateId}: {ex.Message}", ex);
+            }
+        }
+
         public async Task DeleteAsync(ObjectId updateId)
         {
             try

@@ -12,5 +12,6 @@ namespace GreenBill.IServices
     {
         Task Create(DonationRecord donationRecord);
         Task<List<DonationRecord>> GetByCampaignIdAsync(ObjectId campaignId);
+        Task<List<DonationRecord>> GetAllCampaignsAsync();
     }
 }

@@ -8,16 +8,62 @@ using GreenBill.MVVM.Model;
 using System.Collections.ObjectModel;
 using GreenBill.IServices;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GreenBill.MVVM.ViewModel
 {
     public class HomePageViewModel : Core.ViewModel, INavigationAware, INavigatableService
     {
+
+        // Projects Funded
+        private int _projectsFunded;
+        public int ProjectsFunded
+        {
+            get => _projectsFunded;
+            set
+            {
+                _projectsFunded = value;
+                OnPropertyChanged();
+            }
+        }
+        // Raised
+        private decimal _raised;
+        public decimal Raised
+        {
+            get => _raised;
+            set
+            {
+                _raised = value;
+                OnPropertyChanged();
+            }
+        }
+        // Donors
+        private int _donors;
+        public int Donors
+        {
+            get => _donors;
+            set
+            {
+                _donors = value;
+                OnPropertyChanged();
+            }
+        }
+        // Campaigns
+        private int _campaignCount;
+        public int CampaignCount
+        {
+            get => _campaignCount;
+            set
+            {
+                _campaignCount = value;
+                OnPropertyChanged();
+            }
+        }
         public bool ShowNavigation => true;
         private INavigationService _navigationService;
         private ObservableCollection<Campaign> _campaigns;
         private ICampaignService _campaignService;
-
+        private IDonationRecordService _donationRecordService;
         public string _successMessage;
         public string SuccessMessage
         {
@@ -65,11 +111,12 @@ namespace GreenBill.MVVM.ViewModel
         public ICommand LoadCampaignsCommand { get; set; }
         public ICommand ViewMore { get; set; }
 
-        public HomePageViewModel(INavigationService navService, ICampaignService campaignService)
+        public HomePageViewModel(INavigationService navService, ICampaignService campaignService, IDonationRecordService donationRecordService)
         {
             Navigation = navService;
             _campaignService = campaignService;
             Campaigns = new ObservableCollection<Campaign>();
+            _donationRecordService = donationRecordService;
 
             NavigateToFundraisingDetails = new RelayCommand(campaign_id =>
             {
@@ -82,6 +129,20 @@ namespace GreenBill.MVVM.ViewModel
             LoadCampaignsCommand = new RelayCommand(async o => await LoadCampaignsAsync());
 
             _ = LoadCampaignsAsync();
+
+            InitializeCounts();
+
+
+        }
+
+        private async void InitializeCounts()
+        {
+            List<Campaign> campaignsData = await _campaignService.GetAllCampaignsAsync(new CampaignIncludeOptions { IncludeDonationRecord = true });
+            List<DonationRecord> donationsData = await _donationRecordService.GetAllCampaignsAsync();
+            ProjectsFunded = campaignsData.FindAll(item => item.DonationRaised > 0).Count;
+            Raised = donationsData.Sum(item => item.Amount);
+            Donors = donationsData.Count;
+            CampaignCount = campaignsData.Count;
         }
 
         private async Task LoadCampaignsAsync()
@@ -110,7 +171,6 @@ namespace GreenBill.MVVM.ViewModel
             SuccessMessage = props["message"] as string;
             ShowMessage = (bool) props["success"];
 
-           
         }
     }
 }

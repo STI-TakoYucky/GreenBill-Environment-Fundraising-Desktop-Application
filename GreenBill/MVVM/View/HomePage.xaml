@@ -181,7 +181,7 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" HorizontalAlignment="Center">
-                        <TextBlock Text="0"
+                        <TextBlock Text="{Binding ProjectsFunded}"
                      FontSize="32"
                      FontWeight="Bold"
                      Foreground="#00BCD4"
@@ -193,7 +193,7 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" HorizontalAlignment="Center">
-                        <TextBlock Text="0"
+                        <TextBlock Text="{Binding Raised}"
                      FontSize="32"
                      FontWeight="Bold"
                      Foreground="#4CAF50"
@@ -205,7 +205,7 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="2" HorizontalAlignment="Center">
-                        <TextBlock Text="0"
+                        <TextBlock Text="{Binding Donors}"
                      FontSize="32"
                      FontWeight="Bold"
                      Foreground="#FF9800"
@@ -217,12 +217,12 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="3" HorizontalAlignment="Center">
-                        <TextBlock Text="0"
+                        <TextBlock Text="{Binding CampaignCount}"
                      FontSize="32"
                      FontWeight="Bold"
                      Foreground="#E91E63"
                      HorizontalAlignment="Center"/>
-                        <TextBlock Text="Countries"
+                        <TextBlock Text="Campaigns"
                      FontSize="14"
                      Foreground="#666666"
                      HorizontalAlignment="Center"/>

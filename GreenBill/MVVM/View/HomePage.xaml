@@ -246,6 +246,7 @@
                             <Button Style="{StaticResource GradientButton}"
                                    Content="Start a Change"
                                     Command="{Binding StartAChange}"
+                                    Cursor="Hand"
                                    Background="White"
                                    Foreground="#00695C"
                                    Margin="0,0,0,0"/>

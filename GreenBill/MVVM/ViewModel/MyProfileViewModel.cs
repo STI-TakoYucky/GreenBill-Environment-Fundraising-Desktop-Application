@@ -3,6 +3,7 @@ using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.Services;
 using Microsoft.Win32;
+using Stripe.Radar;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,6 +20,7 @@ namespace GreenBill.MVVM.ViewModel
 {
     public class MyProfileViewModel : Core.ViewModel
     {
+   
         private bool _isLoading = false;
         public bool IsLoading
         {
@@ -145,6 +147,7 @@ namespace GreenBill.MVVM.ViewModel
         public ICommand ConnectStripeAccountCommand { get; }
         public ICommand UpdateProfileCommand { get; }
         public ICommand CancelCommand { get; }
+        public ICommand BackCommand {  get; }
 
         public MyProfileViewModel(INavigationService navigationService, IStripeService stripeService,
             IUserSessionService userSessionService, IUserService userService)
@@ -163,6 +166,7 @@ namespace GreenBill.MVVM.ViewModel
 
             UpdateProfileCommand = new RelayCommand(async (o) => await UpdateProfile());
             CancelCommand = new RelayCommand(o => CancelChanges());
+            BackCommand = new RelayCommand(o => Navigation.NavigateBack(), o => Navigation.CanNavigateBack);
         }
 
         private void LoadUserData()

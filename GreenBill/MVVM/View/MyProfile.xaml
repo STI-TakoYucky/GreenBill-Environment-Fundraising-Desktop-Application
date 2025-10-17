@@ -142,23 +142,34 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <components:LoadingOverlay Grid.RowSpan="4"
+            <Grid Grid.Row="0">
+                <Grid Grid.Row="0">
+                    <Button Content="Back"
+                   Margin="0,0,0,30"
+                   Style="{StaticResource BackButtonStyle}"
+                   HorizontalAlignment="Left"
+                   Command="{Binding BackCommand}"/>
+                </Grid>
+            </Grid>
+
+            <components:LoadingOverlay Grid.RowSpan="5"
                                        Margin="-40"
                                        Panel.ZIndex="999"
                                        IsVisible="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
                                        LoadingText="Please wait..."/>
 
-            <components:SuccessToast Grid.RowSpan="4"
+            <components:SuccessToast Grid.RowSpan="5"
                                       Margin="-40"
                                       Panel.ZIndex="999"
                                       IsVisible="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
                                       Title="Success!"
                                       Message="{Binding SuccessMessage}"/>
 
-            <StackPanel Grid.Row="0" Margin="0,0,0,30">
+            <StackPanel Grid.Row="1" Margin="0,0,0,30">
                 <TextBlock Text="My Profile" FontSize="32" FontWeight="Bold" 
                           Foreground="#333333" Margin="0,0,0,10"/>
                 <TextBlock Text="Manage your personal information and account settings" 

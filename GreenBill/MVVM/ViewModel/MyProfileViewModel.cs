@@ -299,6 +299,15 @@ namespace GreenBill.MVVM.ViewModel
                 _originalEmail = Email;
                 _originalProfile = CurrentUser.Profile;
 
+                var mainWindow = Application.Current.MainWindow;
+                if (mainWindow?.DataContext is MainWindowViewModel mainVM)
+                {
+                    mainVM.ShowNavigation = true;
+                    mainVM.IsUserLoggedIn = true;
+                    mainVM.Profile = CurrentUser.Profile;
+                }
+
+
                 ShowMessage = true;
                 SuccessMessage = "Profile details updated";
             }

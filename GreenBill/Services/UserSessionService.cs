@@ -1,5 +1,7 @@
 ﻿using GreenBill.MVVM.Model;
+using GreenBill.MVVM.ViewModel;
 using System;
+using System.Windows;
 
 namespace GreenBill.Services
 {
@@ -55,6 +57,11 @@ namespace GreenBill.Services
         {
             _currentUser = null;
             UserLoggedOut?.Invoke(this, EventArgs.Empty);
+            var mainWindow = Application.Current.MainWindow;
+            if (mainWindow?.DataContext is MainWindowViewModel mainVM)
+            {
+                mainVM.Profile = null;
+            }
         }
     }
 }

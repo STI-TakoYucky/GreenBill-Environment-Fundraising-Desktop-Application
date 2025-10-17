@@ -199,7 +199,7 @@ namespace GreenBill.MVVM.ViewModel
                 {
                     mainVM.ShowNavigation = true;
                     mainVM.IsUserLoggedIn = true;
-                    mainVM.CurrentUser = user;
+                    mainVM.Profile = user.Profile;
                 }
 
                 Dictionary<string, object> props = new Dictionary<string, object>();

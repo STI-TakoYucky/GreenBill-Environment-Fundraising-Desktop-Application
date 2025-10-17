@@ -137,7 +137,7 @@
     </UserControl.Resources>
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        <Grid Margin="40">
+        <Grid Margin="40, 10, 40, 40">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -149,7 +149,7 @@
             <Grid Grid.Row="0">
                 <Grid Grid.Row="0">
                     <Button Content="Back"
-                   Margin="0,0,0,30"
+                   Margin="0,0,0,0"
                    Style="{StaticResource BackButtonStyle}"
                    HorizontalAlignment="Left"
                    Command="{Binding BackCommand}"/>

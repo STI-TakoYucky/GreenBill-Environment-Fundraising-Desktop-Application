@@ -27,8 +27,8 @@ namespace GreenBill.MVVM.ViewModel
         private bool _isUserLoggedIn;
         private IUserSessionService _sessionService;
 
-        private BitmapImage _profile;
-        public BitmapImage Profile
+        private byte[] _profile;
+        public byte[] Profile
         {
             get => _profile;
             set
@@ -140,6 +140,7 @@ namespace GreenBill.MVVM.ViewModel
 
            ShowNavigation = true;
            IsUserLoggedIn = true;
+            Profile = user.Profile;
 
 
         }

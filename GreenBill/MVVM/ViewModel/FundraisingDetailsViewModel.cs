@@ -105,7 +105,7 @@ namespace GreenBill.MVVM.ViewModel
             var id = parameter.ToString();
             SelectedCampaign = await _campaignService.GetCampaignByIdAsync(
                 id,
-                new CampaignIncludeOptions { IncludeUser = true, IncludeDonationRecord = true }
+                new CampaignIncludeOptions { IncludeUser = true, IncludeDonationRecord = true, IncludeCampaignUpdate = true, }
              );
 
             //var total = $"${(SelectedCampaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0):N2} USD raised";

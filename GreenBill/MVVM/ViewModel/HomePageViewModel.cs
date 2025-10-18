@@ -155,7 +155,7 @@ namespace GreenBill.MVVM.ViewModel
             List<Campaign> campaignsData = await _campaignService.GetAllCampaignsAsync(new CampaignIncludeOptions { IncludeDonationRecord = true });
             List<DonationRecord> donationsData = await _donationRecordService.GetAllCampaignsAsync();
             ProjectsFunded = campaignsData.FindAll(item => item.DonationRaised > 0).Count;
-            Raised = donationsData.Sum(item => item.Amount);
+            Raised = donationsData.Sum(item => item.Amount / 100);
             Donors = donationsData.Count;
             CampaignCount = campaignsData.Count;
         }

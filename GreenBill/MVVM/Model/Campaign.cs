@@ -29,14 +29,14 @@ namespace GreenBill.MVVM.Model
             set {
                 if (_status != value) {
                     _status = value;
-                    OnPropertyChanged(nameof(Status));
+                    //OnPropertyChanged(nameof(Status));
                 }
             }
         }
 
-        private void OnPropertyChanged(string v) {
-            throw new NotImplementedException();
-        }
+        //private void OnPropertyChanged(string v) {
+        //    throw new NotImplementedException();
+        //}
 
         [BsonIgnore]
         public User User { get; set; }

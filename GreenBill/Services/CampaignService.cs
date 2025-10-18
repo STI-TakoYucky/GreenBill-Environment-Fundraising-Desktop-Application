@@ -52,10 +52,9 @@ namespace GreenBill.Services
                 .Find(c => c.UserId == id)
                 .ToListAsync();
 
-            // Load related data if requested
+
             if (options?.IncludeUser == true)
             {
-                // Since all campaigns belong to the same user, we can load it once
                 var user = await _userService.GetUserByIdAsync(id.ToString());
                 campaigns.ForEach(c => c.User = user);
             }
@@ -148,11 +147,11 @@ namespace GreenBill.Services
                 try
                 {
                     campaign.DonationRecord = await _donationRecordService.GetByCampaignIdAsync(campaign.Id);
-                    campaign.DonationsCount = campaign.DonationRecord.Count.ToString() + " donations"; 
+                    campaign.DonationsCount = campaign.DonationRecord.Count.ToString() + " donations";
                     var total = $"${(campaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0):N2} USD raised";
                     campaign.TotalAmountRaised = total;
                     var percentage = ((campaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0) / campaign.DonationGoal) * 100;
-                    campaign.Percentage = $"{percentage}% Funded";
+                    campaign.Percentage = $"{percentage:N0}% Funded";
                 }
                 catch (Exception ex)
                 {

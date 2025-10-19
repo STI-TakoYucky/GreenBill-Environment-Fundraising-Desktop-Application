@@ -1,4 +1,5 @@
 ﻿using GreenBill.Core;
+using GreenBill.Helpers;
 using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.MVVM.View;
@@ -227,15 +228,30 @@ namespace GreenBill.MVVM.ViewModel
             {
                 UsernameError = "This field is Required";
                 HasErrors = true;
+            }else if (!Validator.ShouldContainLetter(NewUser.Username)) 
+            {
+                UsernameError = "Username should contain letters.";
             }
+
             if (string.IsNullOrEmpty(NewUser.Email))
             {
                 EmailError = "This field is Required";
                 HasErrors = true;
             }
+            else if (!Validator.IsValidEmail(NewUser.Email))
+            {
+                EmailError = "Invalid Email";
+                HasErrors = true;
+            }
+
+
             if (string.IsNullOrEmpty(NewUser.Password))
             {
-                PasswordError = "This field is Required";
+                 PasswordError = "This field is Required";
+                 HasErrors = true;
+            }else if (!Validator.IsValidPassword(NewUser.Password))
+            {
+                PasswordError = "Password should be at least 8 characters.";
                 HasErrors = true;
             }
 

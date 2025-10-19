@@ -296,6 +296,7 @@
     <Compile Include="Converters\StepVisibilityConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
+    <Compile Include="Helpers\Validator.cs" />
     <Compile Include="IServices\ICampaignService.cs" />
     <Compile Include="IServices\ICampaignUpdateService.cs" />
     <Compile Include="IServices\IDonationRecordService.cs" />

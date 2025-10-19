@@ -38,7 +38,7 @@
                       Style="{StaticResource BackButtonStyle}"
                        Command="{Binding NavigateBack}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="← Back" FontSize="14"/>
+                            <TextBlock Text="Back" FontSize="14"/>
                         </StackPanel>
                     </Button>
                 </Grid>

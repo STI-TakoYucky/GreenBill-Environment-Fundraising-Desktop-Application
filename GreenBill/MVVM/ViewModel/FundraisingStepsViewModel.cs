@@ -219,7 +219,7 @@ namespace GreenBill.MVVM.ViewModel
                 if (CurrentCampaign != null)
                 {
                     CurrentCampaign.Image = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(Image));
                     ValidateField(nameof(ImageError));
                 }
             }
@@ -308,6 +308,7 @@ namespace GreenBill.MVVM.ViewModel
             GoToStep5 = new RelayCommand(o =>
             {
                 if(ValidateStep4()) CurrentStep = 5;
+                OnPropertyChanged(nameof(Image));
             });
 
             SaveCampaign = new RelayCommand(o => SaveCampaignAsync());

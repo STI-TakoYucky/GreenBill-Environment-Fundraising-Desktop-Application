@@ -210,7 +210,7 @@
                      FontWeight="Bold"
                      Foreground="#FF9800"
                      HorizontalAlignment="Center"/>
-                        <TextBlock Text="Donors"
+                        <TextBlock Text="Donators"
                      FontSize="14"
                      Foreground="#666666"
                      HorizontalAlignment="Center"/>

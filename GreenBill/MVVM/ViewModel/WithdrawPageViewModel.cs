@@ -3,6 +3,7 @@ using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.Services;
 using MongoDB.Bson;
+using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +20,7 @@ namespace GreenBill.MVVM.ViewModel
         private IStripeService _stripeService;
         private IUserSessionService _userSessionService;
         private INavigationService _navigationService;
-
+        private IWithdrawalRecordService _withdrawalRecordService;
         public INavigationService Navigation
         {
             get => _navigationService;
@@ -90,7 +91,31 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        public WithdrawPageViewModel(INavigationService navigationService, ICampaignService campaignService, IUserSessionService userSessionService, IStripeService stripeService)
+        private long _pending;
+        public long Pending
+        {
+            get => _pending;
+            set
+            {
+                _pending = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private long _amount;
+        public long Amount
+        {
+            get => _amount;
+            set
+            {
+                _amount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand Withdraw { get; }
+
+        public WithdrawPageViewModel(INavigationService navigationService, ICampaignService campaignService, IUserSessionService userSessionService, IStripeService stripeService, IWithdrawalRecordService withdrawalRecordService)
         {
             Navigation = navigationService;
             BackCommand = new RelayCommand(op => Navigation.NavigateBack(), o => Navigation.CanNavigateBack);
@@ -98,10 +123,27 @@ namespace GreenBill.MVVM.ViewModel
             _userSessionService = userSessionService;
             _stripeService = stripeService;
             BankAccounts = new ObservableCollection<dynamic>();
+            _withdrawalRecordService = withdrawalRecordService;
+            Withdraw = new RelayCommand(o => RequestWithdrawal());
+        }
+
+        public async void RequestWithdrawal()
+        {
+            User user = _userSessionService.CurrentUser;
+           
+            Debug.WriteLine($"Amount: {Amount * 100}");
+            Debug.WriteLine($"Bank Number: {SelectedBankAccount}");
+            var payout = await _stripeService.PayoutFundsAsync(user.StripeAccountId, Amount * 100, SelectedBankAccount.Id);
+            Debug.WriteLine($"PAYOUT: {payout}");
+            if (payout)
+            {
+                await _withdrawalRecordService.Create(new WithdrawalRecord { CampaignId = SelectedCampaign.Id, Amount = this.Amount });
+            }
         }
 
         public async void ApplyNavigationParameter(object parameter)
         {
+            User user = _userSessionService.CurrentUser;
             if (parameter == null) return;
             CampaignId = (ObjectId)parameter;
             SelectedCampaign = await _campaignService.GetCampaignByIdAsync(CampaignId.ToString(), new CampaignIncludeOptions
@@ -110,15 +152,22 @@ namespace GreenBill.MVVM.ViewModel
                 IncludeDonationRecord = true
             });
 
+            var balanceService = new BalanceService();
+            var requestOptions = new RequestOptions { StripeAccount = user.StripeAccountId };
+            var balance = await balanceService.GetAsync(requestOptions);
+
+
             // Get the withdrawed amount
             var withdrawedAmount = SelectedCampaign.WithdrawalRecord.Sum(item => item.Amount);
             WithdrawedAmount = withdrawedAmount;
 
             // Get the withdrawable amount
             var donationsAmount = SelectedCampaign.DonationRecord.Sum(item => item.Amount / 100);
-            WithdrawableAmount = donationsAmount - withdrawedAmount;
+            WithdrawableAmount = balance.Available[0].Amount;
 
-            User user = _userSessionService.CurrentUser;
+            Pending = balance.Pending[0].Amount / 100;
+
+
             var bankAccounts = await _stripeService.GetConnectedBankAccountsAsync(user.StripeAccountId);
 
             // Bind bank accounts to the observable collection

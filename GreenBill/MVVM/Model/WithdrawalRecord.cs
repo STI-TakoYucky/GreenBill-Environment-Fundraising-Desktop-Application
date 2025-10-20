@@ -7,10 +7,12 @@ namespace GreenBill.MVVM.Model
     {
         public ObjectId Id { get; set; }
         public ObjectId CampaignId { get; set; }
-        public string Status { get; set; }
+        public string Status { get; set; } = "successful";
         public long Amount { get; set; }
-        public long ProcessingFee { get; set; }
-        public long Remarks { get; set; }
+        public long ProcessingFee { get; set; } = 0;
+        public string Remarks { get; set; } = "None";
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    
     }
 }

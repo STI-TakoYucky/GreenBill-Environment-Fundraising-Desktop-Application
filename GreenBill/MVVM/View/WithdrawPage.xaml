@@ -28,6 +28,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Available Balance Card -->
@@ -45,6 +46,13 @@
                         <TextBlock Text="{Binding WithdrawedAmount}" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF"/>
                     </StackPanel>
                 </Border>
+
+                <Border Grid.Column="2" Background="#00695C" CornerRadius="12" Padding="20" Margin="10,0,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Pending Amount" FontSize="12" Foreground="#FFFFFF" Opacity="0.9" Margin="0,0,0,10"/>
+                        <TextBlock Text="{Binding Pending}" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF"/>
+                    </StackPanel>
+                </Border>
             </Grid>
 
             <!-- Withdraw Form Card -->
@@ -56,7 +64,7 @@
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Amount (₱)" FontSize="12" Foreground="#666666" Margin="0,0,0,8"/>
                         <Border Background="#F9F9F9" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="8" Padding="12">
-                            <TextBox Text="0.00" FontSize="14" Foreground="#333333" Background="Transparent" BorderThickness="0" TextAlignment="Right"/>
+                            <TextBox Text="{Binding Amount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="14" Foreground="#333333" Background="Transparent" BorderThickness="0" TextAlignment="Right"/>
                         </Border>
                     </StackPanel>
 
@@ -73,8 +81,8 @@
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding bank_name}" Margin="0,0,10,0" />
-                                            <TextBlock Text="{Binding last4, StringFormat='(****{0})'}" Foreground="Gray" />
+                                            <TextBlock Text="{Binding BankName}" Margin="0,0,10,0" />
+                                            <TextBlock Text="{Binding Last4, StringFormat='(****{0})'}" Foreground="Gray" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
@@ -106,7 +114,7 @@
                     </Border>
 
                     <!-- Withdraw Button -->
-                    <Button Background="#00A651" Foreground="#FFFFFF" FontSize="14" FontWeight="SemiBold" Padding="15" Margin="0,0,0,10">
+                    <Button Command="{Binding Withdraw}" Background="#00A651" Foreground="#FFFFFF" FontSize="14" FontWeight="SemiBold" Padding="15" Margin="0,0,0,10">
                         Request Withdrawal
                     </Button>
 

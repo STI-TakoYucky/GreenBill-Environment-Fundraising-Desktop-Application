@@ -14,5 +14,7 @@ namespace GreenBill.IServices
         Task<List<dynamic>> GetConnectedBankAccountsAsync(string stripeAccountId);
         Task<List<dynamic>> GetFormattedBankAccountsAsync(string stripeAccountId);
 
+        Task<bool> PayoutFundsAsync(string stripeAccountId, long amountInCents, string bankAccountId);
+        Task<Payout> GetPayoutDetailsAsync(string stripeAccountId, string payoutId);
     }
 }

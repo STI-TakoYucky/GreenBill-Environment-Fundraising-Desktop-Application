@@ -21,6 +21,74 @@ namespace GreenBill.Services
      
         }
 
+        public async Task<bool> PayoutFundsAsync(string stripeAccountId, long amountInCents, string bankAccountId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(stripeAccountId))
+                {
+                    Console.WriteLine("No Stripe account ID provided");
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(bankAccountId))
+                {
+                    Console.WriteLine("No bank account selected");
+                    return false;
+                }
+
+                var payoutService = new PayoutService();
+                var payoutOptions = new PayoutCreateOptions
+                {
+                    Amount = amountInCents,
+                    Currency = "usd",
+                    Method = "instant"
+                };
+
+                var requestOptions = new RequestOptions();
+                requestOptions.StripeAccount = stripeAccountId;
+
+                var payout = await payoutService.CreateAsync(payoutOptions, requestOptions);
+
+                if (payout != null && !string.IsNullOrEmpty(payout.Id))
+                {
+                    Console.WriteLine($"Payout successful: {payout.Id}");
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine($"Payout failed");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to process payout: {ex.Message}");
+                return false;
+            }
+        }
+
+        public async Task<Payout> GetPayoutDetailsAsync(string stripeAccountId, string payoutId)
+        {
+            try
+            {
+                var payoutService = new PayoutService();
+
+                var requestOptions = new RequestOptions
+                {
+                    StripeAccount = stripeAccountId
+                };
+
+                var payout = await payoutService.GetAsync(payoutId, null, requestOptions);
+
+                return payout;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to retrieve payout details: {ex.Message}");
+                return null;
+            }
+        }
         public async Task CreateConnectAccountAsync(User user)
         {
             try

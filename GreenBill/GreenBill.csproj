@@ -304,6 +304,7 @@
     <Compile Include="IServices\IStripeService.cs" />
     <Compile Include="IServices\ISupportingDocumentService.cs" />
     <Compile Include="IServices\IUserService.cs" />
+    <Compile Include="IServices\IWithdrawalRecordService.cs" />
     <Compile Include="MVVM\Model\Campaign.cs" />
     <Compile Include="MVVM\Model\CampaignIncludeOptions.cs" />
     <Compile Include="MVVM\Model\CampaignUpdate.cs" />
@@ -311,6 +312,7 @@
     <Compile Include="MVVM\Model\DonationRecord.cs" />
     <Compile Include="MVVM\Model\SupportingDocument.cs" />
     <Compile Include="MVVM\Model\User.cs" />
+    <Compile Include="MVVM\Model\WithdrawalRecord.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminCampaignAnalyticsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminDashboardViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminWindowViewModel.cs" />
@@ -433,6 +435,7 @@
     <Compile Include="Services\SupportingDocumentService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserSessionService.cs" />
+    <Compile Include="Services\WithdrawalRecordService.cs" />
     <Compile Include="Validators\CampaignValidator.cs" />
     <Page Include="Components\LoadingOverlay.xaml">
       <SubType>Designer</SubType>

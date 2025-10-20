@@ -14,6 +14,7 @@ namespace GreenBill.Services
     public class StripeService : IStripeService
     {
         private readonly IUserService _userService;
+
         public StripeService(IUserService userService) 
         {
             _userService = userService;
@@ -71,6 +72,75 @@ namespace GreenBill.Services
 
                 await _userService.UpdateUserAsync(user.Id, user);
 
+            }
+        }
+
+        public async Task<List<dynamic>> GetConnectedBankAccountsAsync(string stripeAccountId)
+        {
+            try
+            {
+                var accountService = new AccountService();
+
+                // Get the connected account with its external accounts
+                var account = await accountService.GetAsync(stripeAccountId);
+
+                var externalAccounts = new List<dynamic>();
+
+                if (account?.ExternalAccounts?.Data != null)
+                {
+                    foreach (var externalAccount in account.ExternalAccounts.Data)
+                    {
+                        externalAccounts.Add(externalAccount);
+                    }
+                }
+
+                return externalAccounts;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to retrieve bank accounts for Stripe account {stripeAccountId}: {ex.Message}");
+                return new List<dynamic>();
+            }
+        }
+        public async Task<List<dynamic>> GetFormattedBankAccountsAsync(string stripeAccountId)
+        {
+            try
+            {
+                var externalAccounts = await GetConnectedBankAccountsAsync(stripeAccountId);
+
+                var formattedAccounts = new List<dynamic>();
+
+                foreach (var account in externalAccounts)
+                {
+                    var accountDict = new Dictionary<string, object>
+                    {
+                        { "Id", account.Id },
+                        { "Last4", account.Last4 ?? "N/A" },
+                        { "Type", account.Object ?? "Unknown" }
+                    };
+
+                    // Handle both BankAccount and Card types
+                    if (account is BankAccount bankAccount)
+                    {
+                        accountDict["BankName"] = bankAccount.BankName ?? "Unknown";
+                        accountDict["AccountHolderName"] = bankAccount.AccountHolderName ?? "Unknown";
+                        accountDict["Status"] = bankAccount.Status ?? "unknown";
+                    }
+                    else if (account is Card card)
+                    {
+                        accountDict["Brand"] = card.Brand ?? "Unknown";
+                        accountDict["Status"] = "active";
+                    }
+
+                    formattedAccounts.Add(accountDict);
+                }
+
+                return formattedAccounts;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to format bank accounts: {ex.Message}");
+                return new List<dynamic>();
             }
         }
     }

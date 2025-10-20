@@ -45,6 +45,8 @@ namespace GreenBill.MVVM.Model
         [BsonIgnore]
         public List<CampaignUpdate> CampaignUpdate { get; set; }
         [BsonIgnore]
+        public List<WithdrawalRecord> WithdrawalRecord { get; set; }
+        [BsonIgnore]
         public string TotalAmountRaised { get; set; }
         
         [BsonIgnore]

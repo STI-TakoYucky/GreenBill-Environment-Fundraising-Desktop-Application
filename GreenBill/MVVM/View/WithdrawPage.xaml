@@ -34,7 +34,7 @@
                 <Border Grid.Column="0" Background="#00A651" CornerRadius="12" Padding="20" Margin="0,0,10,0">
                     <StackPanel>
                         <TextBlock Text="Available to Withdraw" FontSize="12" Foreground="#FFFFFF" Opacity="0.9" Margin="0,0,0,10"/>
-                        <TextBlock Text="₱ 45,250.00" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF"/>
+                        <TextBlock Text="{Binding WithdrawableAmount}" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF"/>
                     </StackPanel>
                 </Border>
 
@@ -42,7 +42,7 @@
                 <Border Grid.Column="1" Background="#00695C" CornerRadius="12" Padding="20" Margin="10,0,0,0">
                     <StackPanel>
                         <TextBlock Text="Already Withdrawn" FontSize="12" Foreground="#FFFFFF" Opacity="0.9" Margin="0,0,0,10"/>
-                        <TextBlock Text="₱ 18,500.00" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF"/>
+                        <TextBlock Text="{Binding WithdrawedAmount}" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF"/>
                     </StackPanel>
                 </Border>
             </Grid>
@@ -64,10 +64,20 @@
                     <StackPanel Margin="0,0,0,20">
                         <TextBlock Text="Bank Account" FontSize="12" Foreground="#666666" Margin="0,0,0,8"/>
                         <Border Background="#F9F9F9" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="8" Padding="0">
-                            <ComboBox Background="Transparent" BorderThickness="0" Padding="12" FontSize="14" Foreground="#333333">
-                                <ComboBoxItem>Metrobank - XX8502</ComboBoxItem>
-                                <ComboBoxItem>BDO - XX7801</ComboBoxItem>
-                                <ComboBoxItem>Add New Bank Account</ComboBoxItem>
+                            <ComboBox 
+    Height="40"
+    ItemsSource="{Binding BankAccounts}"
+    SelectedItem="{Binding SelectedBankAccount, Mode=TwoWay}"
+    Style="{StaticResource ComboBox}"
+    ItemContainerStyle="{StaticResource ComboBoxItem}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding bank_name}" Margin="0,0,10,0" />
+                                            <TextBlock Text="{Binding last4, StringFormat='(****{0})'}" Foreground="Gray" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
                             </ComboBox>
                         </Border>
                     </StackPanel>

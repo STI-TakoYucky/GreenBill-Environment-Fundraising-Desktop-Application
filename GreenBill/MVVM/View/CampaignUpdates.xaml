@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:GreenBill.MVVM.View"
              mc:Ignorable="d" 
              Background="#FFFFFF"
+             xmlns:components="clr-namespace:GreenBill.Components"
              d:DesignHeight="900" d:DesignWidth="1400">
 
 
@@ -16,6 +17,20 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+
+
+        <components:LoadingOverlay Grid.RowSpan="4"
+                             Margin="-100, -40, -100, -40"      
+                             Panel.ZIndex="999"
+                             IsVisible="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
+                             LoadingText="Please wait..."/>
+
+        <components:SuccessToast Grid.RowSpan="4"
+                           Margin="-100, -40, -100, -40"   
+                           Panel.ZIndex="999"
+                           IsVisible="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Title="Success!"
+                           Message="{Binding SuccessMessage}"/>
 
         <Grid Grid.Row="0">
             <Grid Grid.Row="0">
@@ -90,7 +105,6 @@
             </Grid>
         </Border>
 
-        <!-- Updates List -->
         <Border Grid.Row="3" Style="{StaticResource CardStyle}" Padding="20">
             <Grid>
                 <Grid.RowDefinitions>
@@ -98,7 +112,6 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- List Header -->
                 <Grid Grid.Row="0" Margin="0,0,0,15">
                     <TextBlock Text="Recent Updates" FontSize="18" FontWeight="SemiBold" 
                               Foreground="#333" VerticalAlignment="Center"/>
@@ -110,7 +123,6 @@
                     </StackPanel>
                 </Grid>
 
-                <!-- Updates ListView -->
                 <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <ItemsControl x:Name="UpdatesItemsControl" ItemsSource="{Binding FilteredUpdates}">
                         <ItemsControl.ItemTemplate>
@@ -124,7 +136,6 @@
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
 
-                                        <!-- Header -->
                                         <Grid Grid.Row="0">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="{Binding Title}" FontSize="16" FontWeight="SemiBold" 
@@ -146,11 +157,9 @@
                                             </StackPanel>
                                         </Grid>
 
-                                        <!-- Date -->
                                         <TextBlock Grid.Row="1" Text="{Binding CreatedAt, StringFormat='Posted on {0:MMMM dd, yyyy} at {0:HH:mm}'}" 
                                                   FontSize="12" Foreground="#666" Margin="0,5,0,10"/>
 
-                                        <!-- Description -->
                                         <TextBlock Grid.Row="2" Text="{Binding Description}" 
                                                   FontSize="14" Foreground="#444" 
                                                   TextWrapping="Wrap" Margin="0,0,0,10"/>

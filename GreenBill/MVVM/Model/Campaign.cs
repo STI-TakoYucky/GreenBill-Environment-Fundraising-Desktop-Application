@@ -30,7 +30,7 @@ namespace GreenBill.MVVM.Model
             set {
                 if (_status != value) {
                     _status = value;
-                    OnPropertyChanged(nameof(Status));
+                    //OnPropertyChanged(nameof(Status));
                 }
             }
         }
@@ -45,6 +45,8 @@ namespace GreenBill.MVVM.Model
         public List<DonationRecord> DonationRecord { get; set; }
         [BsonIgnore]
         public List<CampaignUpdate> CampaignUpdate { get; set; }
+        [BsonIgnore]
+        public List<WithdrawalRecord> WithdrawalRecord { get; set; }
         [BsonIgnore]
         public string TotalAmountRaised { get; set; }
         

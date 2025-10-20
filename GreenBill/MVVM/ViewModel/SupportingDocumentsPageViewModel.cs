@@ -14,11 +14,44 @@ using System.Windows;
 using System.Collections.ObjectModel;
 using MongoDB.Bson;
 using System.Diagnostics;
+using MongoDB.Bson.IO;
 
 namespace GreenBill.MVVM.ViewModel
 {
     public class SupportingDocumentsPageViewModel : Core.ViewModel, INavigationAware, INavigatableService
     {
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _showMessage;
+        public bool ShowMessage
+        {
+            get => _showMessage;
+            set
+            {
+                _showMessage = true;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _successMessage;
+        public string SuccessMessage
+        {
+            get => _successMessage;
+            set
+            {
+                _successMessage = value;
+                OnPropertyChanged();
+            }
+        }
         public bool ShowNavigation => false;
 
         private INavigationService _navigationService;
@@ -214,20 +247,27 @@ namespace GreenBill.MVVM.ViewModel
             var result = MessageBox.Show($"Are you sure you want to delete '{document.DocumentName}'?",
                                        "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
+
+
             if (result == MessageBoxResult.Yes)
             {
+                IsLoading = true;
                 try
                 {
                     await _supportingDocumentService.DeleteAsync(document.Id);
                     Documents.Remove(document);
 
-                    MessageBox.Show("Document deleted successfully.", "Success",
-                                  MessageBoxButton.OK, MessageBoxImage.Information);
+                    SuccessMessage = "Document Deleted Successfully!";
+                    ShowMessage = true;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error deleting document: {ex.Message}", "Error",
                                   MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                finally 
+                {
+                    IsLoading = false;
                 }
             }
         }
@@ -284,6 +324,7 @@ namespace GreenBill.MVVM.ViewModel
 
             try
             {
+                IsLoading = true;
                 IsUploading = true;
                 UploadProgress = 0;
 
@@ -329,9 +370,11 @@ namespace GreenBill.MVVM.ViewModel
                 // Reset form
                 ResetUploadForm();
 
-                MessageBox.Show("Document uploaded successfully! It will be reviewed by our team within 2-3 business days.",
-                              "Upload Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                SuccessMessage = "Document uploaded successfully! It will be reviewed by our team within 2-3 business days.";
+                ShowMessage = true;
             }
+
+
             catch (Exception ex)
             {
                 MessageBox.Show($"Error uploading document: {ex.Message}", "Upload Error",
@@ -340,6 +383,7 @@ namespace GreenBill.MVVM.ViewModel
             finally
             {
                 IsUploading = false;
+                IsLoading = false;
                 UploadProgress = 0;
             }
         }

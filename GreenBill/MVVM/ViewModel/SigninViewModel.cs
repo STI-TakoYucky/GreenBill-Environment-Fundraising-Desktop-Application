@@ -3,7 +3,6 @@ using GreenBill.MVVM.Model;
 using GreenBill.Services;
 using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -11,13 +10,36 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using GreenBill.IServices;
+using System.Collections.Generic;
 
 namespace GreenBill.MVVM.ViewModel
 {
-    public class SigninViewModel : Core.ViewModel, INavigationAware
+    public class SigninViewModel : Core.ViewModel, INavigationAware, INavigatableService
     {
         public bool ShowNavigation => false;
-       
+
+        private bool _showMessage = false;
+        public bool ShowMessage
+        {
+            get => _showMessage;
+            set
+            {
+                _showMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string _successMessage;
+        public string SuccessMessage
+        {
+            get => _successMessage;
+            set
+            {
+                _successMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
         private IMongoCollection<User> _collection;
         private IUserService _userService;
         private IUserSessionService _sessionService; 
@@ -170,15 +192,21 @@ namespace GreenBill.MVVM.ViewModel
                 }
 
                 _sessionService.SetCurrentUser(user);
+              
 
                 var mainWindow = Application.Current.MainWindow;
-                if (mainWindow?.DataContext is MainWindowViewModel mainVM)
+                if(mainWindow?.DataContext is MainWindowViewModel mainVM)
                 {
                     mainVM.ShowNavigation = true;
                     mainVM.IsUserLoggedIn = true;
+                    mainVM.Profile = user.Profile;
                 }
 
-                Navigation.NavigateTo<HomePageViewModel>();
+                Dictionary<string, object> props = new Dictionary<string, object>();
+                props.Add("success", true);
+                props.Add("message", "Logged in Successfully.");
+
+                Navigation.NavigateTo<HomePageViewModel>(props);
 
                 Debug.WriteLine("Current User: " + _sessionService.CurrentUser.Username);
 
@@ -211,6 +239,17 @@ namespace GreenBill.MVVM.ViewModel
                 OnPropertyChanged(nameof(Password));
             }
             ErrorMessage = string.Empty;
+        }
+
+        public async void ApplyNavigationParameter(object parameter)
+        {
+            if (parameter == null) return;
+            Dictionary<string, object> props = parameter as Dictionary<string, object>;
+
+            SuccessMessage = props["message"] as string;
+            ShowMessage = (bool)props["success"];
+
+
         }
     }
 }

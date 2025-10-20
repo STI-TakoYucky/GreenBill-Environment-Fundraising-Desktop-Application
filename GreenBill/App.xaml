@@ -31,6 +31,9 @@
             <converters:ProgressToWidthConverter x:Key="ProgressToWidthConverter" />
             <converters:BytesToMBConverter x:Key="BytesToMBConverter" />
 
+            <CubicEase x:Key="EaseOut" EasingMode="EaseOut"/>
+            <CubicEase x:Key="EaseIn" EasingMode="EaseIn"/>
+
             <DataTemplate DataType="{x:Type viewModel:FundraisingStepsViewModel}">
                 <stepsView:FundraisingStepsContainer />
             </DataTemplate>
@@ -109,6 +112,11 @@
             <DataTemplate DataType="{x:Type viewModel:MyProfileViewModel}">
                 <view:MyProfile />
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:WithdrawPageViewModel}">
+                <view:WithdrawPage/>
+            </DataTemplate>
+
 
             <Style x:Key="HeadingText" TargetType="TextBlock">
 

@@ -28,6 +28,12 @@ namespace GreenBill.Services
             await _collection.InsertOneAsync(donationRecord);
         }
 
+        public async Task<List<DonationRecord>> GetAllCampaignsAsync()
+        {
+            var donations = await _collection.Find(_ => true).ToListAsync();
+            return donations;
+        }
+
         public async Task<List<DonationRecord>> GetByCampaignIdAsync(ObjectId campaignId)
         {
             try

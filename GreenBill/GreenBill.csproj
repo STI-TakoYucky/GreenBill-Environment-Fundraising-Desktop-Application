@@ -283,6 +283,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToTabStyleConverter.cs" />
+    <Compile Include="Components\LoadingOverlay.xaml.cs">
+      <DependentUpon>LoadingOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\SuccessToast.xaml.cs">
+      <DependentUpon>SuccessToast.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\BytesToMBConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\ProgressToWidthConverter.cs" />
@@ -291,6 +297,7 @@
     <Compile Include="Converters\StepVisibilityConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
+    <Compile Include="Helpers\Validator.cs" />
     <Compile Include="IServices\ICampaignService.cs" />
     <Compile Include="IServices\ICampaignUpdateService.cs" />
     <Compile Include="IServices\IDonationRecordService.cs" />
@@ -298,6 +305,7 @@
     <Compile Include="IServices\IStripeService.cs" />
     <Compile Include="IServices\ISupportingDocumentService.cs" />
     <Compile Include="IServices\IUserService.cs" />
+    <Compile Include="IServices\IWithdrawalRecordService.cs" />
     <Compile Include="MVVM\Model\Campaign.cs" />
     <Compile Include="MVVM\Model\CampaignIncludeOptions.cs" />
     <Compile Include="MVVM\Model\CampaignUpdate.cs" />
@@ -305,6 +313,7 @@
     <Compile Include="MVVM\Model\DonationRecord.cs" />
     <Compile Include="MVVM\Model\SupportingDocument.cs" />
     <Compile Include="MVVM\Model\User.cs" />
+    <Compile Include="MVVM\Model\WithdrawalRecord.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminCampaignAnalyticsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminDashboardViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminWindowViewModel.cs" />
@@ -325,6 +334,7 @@
     <Compile Include="MVVM\ViewModel\SignupViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SupportingDocumentsPageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\UserCampaignsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\WithdrawPageViewModel.cs" />
     <Compile Include="MVVM\View\Admin\AdminCampaignAnalytics.xaml.cs">
       <DependentUpon>AdminCampaignAnalytics.xaml</DependentUpon>
     </Compile>
@@ -414,6 +424,9 @@
     <Compile Include="MVVM\View\UserCampaigns.xaml.cs">
       <DependentUpon>UserCampaigns.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\WithdrawPage.xaml.cs">
+      <DependentUpon>WithdrawPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Services\CampaignService.cs" />
     <Compile Include="Services\CampaignUpdateService.cs" />
     <Compile Include="Services\DonationRecordService.cs" />
@@ -423,7 +436,16 @@
     <Compile Include="Services\SupportingDocumentService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\UserSessionService.cs" />
+    <Compile Include="Services\WithdrawalRecordService.cs" />
     <Compile Include="Validators\CampaignValidator.cs" />
+    <Page Include="Components\LoadingOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\SuccessToast.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Admin\AdminCampaignAnalytics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -555,6 +577,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\WithdrawPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\Buttons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -618,9 +644,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Components\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Assets\Images\deforestation.jpg" />
     <Resource Include="Assets\Images\flooding.jpg" />
@@ -630,7 +654,7 @@
     <Resource Include="Assets\Images\wildfire.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\Images\defaultProfile.jpg" />
+    <EmbeddedResource Include="Assets\Images\defaultProfile.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\AWSSDK.SecurityToken.3.7.100.27\analyzers\dotnet\cs\AWSSDK.SecurityToken.CodeAnalysis.dll" />

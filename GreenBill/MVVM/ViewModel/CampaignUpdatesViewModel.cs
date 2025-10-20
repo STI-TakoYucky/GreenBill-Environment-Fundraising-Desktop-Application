@@ -16,6 +16,39 @@ namespace GreenBill.MVVM.ViewModel
 {
     public class CampaignUpdatesViewModel : Core.ViewModel, INavigationAware, INavigatableService
     {
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _showMessage;
+        public bool ShowMessage
+        {
+            get => _showMessage;
+            set
+            {
+                _showMessage = true;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _successMessage;
+        public string SuccessMessage
+        {
+            get => _successMessage;
+            set
+            {
+                _successMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool ShowNavigation => false;
         private INavigationService _navigationService;
         private readonly ICampaignUpdateService _campaignUpdateService;
@@ -170,9 +203,8 @@ namespace GreenBill.MVVM.ViewModel
         {
             GoBackCommand = new RelayCommand(o =>
             {
-                Navigation.NavigateBack();
-                Debug.WriteLine("TEST BACK");
-            }, o => Navigation.CanNavigateBack);
+                Navigation.NavigateTo<CampaignDetailsViewModel>(CampaignId);
+            });
 
             SaveCommand = new RelayCommand(async o => await SaveUpdate(), o => CanSave());
             CancelCommand = new RelayCommand(o => ResetForm());
@@ -185,13 +217,14 @@ namespace GreenBill.MVVM.ViewModel
         #region Command Implementations
         private async Task SaveUpdate()
         {
+            IsLoading = true;
             var validationResult = ValidateForm();
             if (!validationResult.IsValid)
             {
                 OnValidationFailed?.Invoke(validationResult.ErrorMessage);
                 return;
             }
-
+            Debug.WriteLine("IS EDITING: " + IsEditing);
             if (IsEditing && EditingUpdate != null)
             {
 
@@ -200,11 +233,23 @@ namespace GreenBill.MVVM.ViewModel
                 EditingUpdate.Category = SelectedCategory;
                 EditingUpdate.UpdatedAt = DateTime.Now;
 
+                await _campaignUpdateService.UpdateAsync(EditingUpdate.Id, EditingUpdate);
+
+       
+
+                Updates.Clear();
+                FilteredUpdates.Clear();
+                await LoadUpdatesAsync();
+
                 OnSuccessMessage?.Invoke("Update modified successfully!");
+                SuccessMessage = "Update Modified Successfully";
+                ShowMessage = true;
+
+                Debug.WriteLine("EDITED: " + EditingUpdate.Id);
+
             }
             else
             {
-                // Create new
                 var newUpdate = new CampaignUpdate
                 {
                     Title = Title?.Trim(),
@@ -218,8 +263,11 @@ namespace GreenBill.MVVM.ViewModel
                 Updates.Add(newUpdate);
                 ApplySearch();
                 OnSuccessMessage?.Invoke("Update added successfully!");
+                SuccessMessage = "Updated Added Successfully";
+                ShowMessage = true;
+                Debug.WriteLine("CREATE");
             }
-
+            IsLoading = false;
             ResetForm();
         }
 
@@ -235,6 +283,7 @@ namespace GreenBill.MVVM.ViewModel
 
         private void StartEditing(ObjectId updateId)
         {
+            Debug.WriteLine("START EDITING 1");
             var update = Updates.FirstOrDefault(u => u.Id == updateId);
             if (update != null)
             {
@@ -246,15 +295,16 @@ namespace GreenBill.MVVM.ViewModel
                 SelectedCategory = update.Category;
 
                 OnStartEditing?.Invoke();
+                Debug.WriteLine("START EDITING 2");
             }
+            Debug.WriteLine("START EDITING 3");
         }
 
         private async Task DeleteUpdate(ObjectId updateId)
         {
-            Debug.WriteLine("TEST 1");
             var confirmResult = await OnConfirmDelete?.Invoke("Are you sure you want to delete this update? This action cannot be undone.");
             if (confirmResult != true) return;
-            Debug.WriteLine("TEST 2");
+            IsLoading = true;
 
             var update = Updates.FirstOrDefault(u => u.Id == updateId);
             if (update != null)
@@ -263,13 +313,15 @@ namespace GreenBill.MVVM.ViewModel
                 ApplySearch();
                 await _campaignUpdateService.DeleteAsync(updateId);
                 OnSuccessMessage?.Invoke("Update deleted successfully!");
+                SuccessMessage = "Update Deleted Successfully!";
+                ShowMessage = true;
 
-                // If we were editing this update, reset the form
                 if (IsEditing && EditingUpdate?.Id == updateId)
                 {
                     ResetForm();
                 }
             }
+            IsLoading = false;
         }
 
         private void ResetForm()

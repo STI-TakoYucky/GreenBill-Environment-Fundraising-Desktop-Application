@@ -6,6 +6,7 @@ using GreenBill.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -50,6 +51,9 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
+        public ICommand GoToWithdrawPage { get; }
+
+
         public CampaignDetailsViewModel(INavigationService navService, ICampaignService campaignService)
         {
             _navigationService = navService;
@@ -63,6 +67,7 @@ namespace GreenBill.MVVM.ViewModel
             GoBackCommand = new RelayCommand(o => Navigation.NavigateTo<UserCampaignsViewModel>());
             GoToSupportingDocumentsPage = new RelayCommand(campaign_id => Navigation.NavigateTo<SupportingDocumentsPageViewModel>(campaign_id));
             GoToUpdatesPage = new RelayCommand(campaign_id => Navigation.NavigateTo<CampaignUpdatesViewModel>(campaign_id));
+            GoToWithdrawPage = new RelayCommand(campaign_id => Navigation.NavigateTo<WithdrawPageViewModel>(campaign_id));
         }
 
         public UserControl CurrentTabContent

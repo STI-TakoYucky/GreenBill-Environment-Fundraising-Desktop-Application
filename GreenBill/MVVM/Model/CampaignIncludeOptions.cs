@@ -12,5 +12,6 @@ namespace GreenBill.MVVM.Model
         public bool IncludeSupportingDocument { get; set; }
         public bool IncludeDonationRecord { get; set; }
         public bool IncludeCampaignUpdate { get; set; }
+        public bool IncludeWithdrawalRecord { get; set; }
     }
 }

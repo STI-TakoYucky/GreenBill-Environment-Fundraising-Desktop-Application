@@ -60,12 +60,13 @@ namespace GreenBill
             services.AddSingleton<SettingsViewModel>();
             services.AddTransient<SupportingDocumentsPageViewModel>();
             services.AddTransient<DonationPageViewModel>();
+            
 
             services.AddSingleton<ReviewCampaignViewModel>();
 
             services.AddTransient<CampaignUpdatesViewModel>();
             services.AddTransient<MyProfileViewModel>();
-
+            services.AddTransient<WithdrawPageViewModel>();
 
             services.AddSingleton<INavigationService, NavigationService>();
 
@@ -76,6 +77,7 @@ namespace GreenBill
             services.AddSingleton<ICampaignUpdateService, CampaignUpdateService>();
             services.AddSingleton<IStripeService, StripeService>();
             services.AddSingleton<IDonationRecordService, DonationRecordService>();
+            services.AddSingleton<IWithdrawalRecordService, WithdrawalRecordService>();
 
 
             services.AddTransient<ITabNavigationService, TabNavigationService>();

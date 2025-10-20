@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GreenBill.MVVM.View"
              mc:Ignorable="d" 
+             xmlns:components="clr-namespace:GreenBill.Components"
              d:DesignHeight="900" d:DesignWidth="1400"
              Background="White">
 
@@ -180,7 +181,7 @@
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" HorizontalAlignment="Center">
-                        <TextBlock Text="2.5M+"
+                        <TextBlock Text="{Binding ProjectsFunded}"
                      FontSize="32"
                      FontWeight="Bold"
                      Foreground="#00BCD4"
@@ -192,7 +193,7 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" HorizontalAlignment="Center">
-                        <TextBlock Text="$15B+"
+                        <TextBlock Text="{Binding Raised}"
                      FontSize="32"
                      FontWeight="Bold"
                      Foreground="#4CAF50"
@@ -204,24 +205,24 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="2" HorizontalAlignment="Center">
-                        <TextBlock Text="100M+"
+                        <TextBlock Text="{Binding Donors}"
                      FontSize="32"
                      FontWeight="Bold"
                      Foreground="#FF9800"
                      HorizontalAlignment="Center"/>
-                        <TextBlock Text="Donors"
+                        <TextBlock Text="Donators"
                      FontSize="14"
                      Foreground="#666666"
                      HorizontalAlignment="Center"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="3" HorizontalAlignment="Center">
-                        <TextBlock Text="190+"
+                        <TextBlock Text="{Binding CampaignCount}"
                      FontSize="32"
                      FontWeight="Bold"
                      Foreground="#E91E63"
                      HorizontalAlignment="Center"/>
-                        <TextBlock Text="Countries"
+                        <TextBlock Text="Campaigns"
                      FontSize="14"
                      Foreground="#666666"
                      HorizontalAlignment="Center"/>
@@ -243,7 +244,9 @@
                                       Margin="0,0,0,20"/>
 
                             <Button Style="{StaticResource GradientButton}"
-                                   Content="Learn More About Trust and Safety"
+                                   Content="Start a Change"
+                                    Command="{Binding StartAChange}"
+                                    Cursor="Hand"
                                    Background="White"
                                    Foreground="#00695C"
                                    Margin="0,0,0,0"/>
@@ -314,5 +317,11 @@
                 </Grid>
             </StackPanel>
         </ScrollViewer>
+
+        <components:SuccessToast Grid.RowSpan="3"
+                      IsVisible="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
+                      Title="Account Created!"
+                      CloseCommand="{Binding CloseToast}"
+                      Message="{Binding SuccessMessage}"/>
     </Grid>
 </UserControl>

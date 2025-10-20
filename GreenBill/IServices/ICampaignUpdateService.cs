@@ -13,5 +13,7 @@ namespace GreenBill.IServices
         Task Create(CampaignUpdate campaignUpdate);
         Task<List<CampaignUpdate>> GetByCampaignIdAsync(ObjectId campaignId);
         Task DeleteAsync(ObjectId updateId);
+
+        Task UpdateAsync(ObjectId updateId, CampaignUpdate campaignUpdate);
     }
 }

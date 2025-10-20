@@ -21,6 +21,9 @@ namespace GreenBill.MVVM.ViewModel
 {
     public class CategoryItem : INotifyPropertyChanged
     {
+        private bool _isLoading = true;
+
+
         private bool _isSelected;
 
         public string Name { get; set; }
@@ -50,6 +53,17 @@ namespace GreenBill.MVVM.ViewModel
         private Dictionary<String, String> _errorsList;
         private IUserSessionService _sessionService;
         private readonly IStripeService _stripeService;
+
+        public bool _isLoading;
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
         public string ZipCodeError
         {
             get => _errorsList?.ContainsKey("ZipCode") == true ? _errorsList["ZipCode"] : null;
@@ -205,7 +219,7 @@ namespace GreenBill.MVVM.ViewModel
                 if (CurrentCampaign != null)
                 {
                     CurrentCampaign.Image = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(Image));
                     ValidateField(nameof(ImageError));
                 }
             }
@@ -294,6 +308,7 @@ namespace GreenBill.MVVM.ViewModel
             GoToStep5 = new RelayCommand(o =>
             {
                 if(ValidateStep4()) CurrentStep = 5;
+                OnPropertyChanged(nameof(Image));
             });
 
             SaveCampaign = new RelayCommand(o => SaveCampaignAsync());
@@ -386,10 +401,11 @@ namespace GreenBill.MVVM.ViewModel
         {
             try
             {
+                IsLoading = true;
                 while (!_sessionService.CurrentUser.CanReceiveFunds)
                 {
                     var result = MessageBox.Show(
-                        "Setup your Stripe Connect Account to create campaign",
+                        "Setup your Stripe Connect Account to receive the donations from this campaign",
                         "Stripe Connect Setup Required",
                         MessageBoxButton.OKCancel,
                         MessageBoxImage.Information);
@@ -398,7 +414,7 @@ namespace GreenBill.MVVM.ViewModel
                     {
                         return;
                     }
-                    else if (result == MessageBoxResult.OK) 
+                    else if (result == MessageBoxResult.OK)
                     {
                         try
                         {
@@ -430,12 +446,20 @@ namespace GreenBill.MVVM.ViewModel
 
                 CurrentCampaign.UserId = _sessionService.CurrentUser.Id;
                 _campaignService.Create(CurrentCampaign);
-                MessageBox.Show("Campaign saved successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                Navigation.NavigateTo<HomePageViewModel>();
+            
+
+                Dictionary<string, object> props = new Dictionary<string, object>();
+                props.Add("success", true);
+                props.Add("message", "Campaign Created Successfully.");
+                Navigation.NavigateTo<HomePageViewModel>(props);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while saving: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                IsLoading = false;
             }
         }
         private bool ValidateCampaignForSaving()

@@ -44,7 +44,7 @@ namespace GreenBill.MVVM.View
 
         private void ShowSuccessMessage(string message)
         {
-            MessageBox.Show(message, "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            
         }
 
         private void ShowValidationError(string message)
@@ -74,9 +74,11 @@ namespace GreenBill.MVVM.View
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && button.Tag is Guid updateId)
+            Debug.WriteLine("CLICKED");
+            if (sender is Button button && button.Tag is ObjectId updateId)
             {
                 ViewModel?.EditCommand?.Execute(updateId);
+                Debug.WriteLine("CLICKED GUI");
             }
         }
 

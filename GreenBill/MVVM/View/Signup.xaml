@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GreenBill.MVVM.View"
              xmlns:helpers="clr-namespace:GreenBill.Helpers"
+             xmlns:components="clr-namespace:GreenBill.Components"
              mc:Ignorable="d" 
              d:DesignHeight="900" d:DesignWidth="1400"
              Background="#F5F5F5">
@@ -16,7 +17,6 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!-- Main signup form container -->
         <Border Grid.Row="1" 
             Background="White"
             CornerRadius="16"
@@ -32,7 +32,6 @@
             </Border.Effect>
 
             <StackPanel>
-                <!-- Logo -->
                 <Image Source="/Assets/Images/logo.png"
                   Width="100"
                   Height="86"
@@ -40,7 +39,6 @@
                   Margin="0,0,0,0"
                   Stretch="Uniform"/>
 
-                <!-- Sign up title -->
                 <TextBlock Text="Sign up"
                       FontSize="32"
                       FontWeight="SemiBold"
@@ -48,7 +46,6 @@
                       HorizontalAlignment="Left"
                       Margin="0,0,0,24"/>
 
-                <!-- Email Address field -->
                 <StackPanel Margin="0,0,0,24">
                     <Grid>
                         <TextBox Name="EmailTextBox"
@@ -79,7 +76,6 @@
                         </TextBlock>
                     </Grid>
 
-                    <!-- Validation message -->
                     <TextBlock Name="EmailValidation"
                                 Text="{Binding EmailError, Mode=TwoWay}"
                           FontSize="14"
@@ -87,7 +83,6 @@
                           Margin="0,4,0,0"/>
                 </StackPanel>
 
-                <!-- Username field -->
                 <StackPanel Margin="0,0,0,24">
                     <Grid>
                         <TextBox Name="UsernameTextBox"
@@ -118,7 +113,6 @@
                         </TextBlock>
                     </Grid>
 
-                    <!-- Validation message -->
                     <TextBlock Name="UsernameValidation"
                           Text="{Binding UsernameError, Mode=TwoWay}"
                           FontSize="14"
@@ -126,10 +120,8 @@
                           Margin="0,4,0,0"/>
                 </StackPanel>
 
-                <!-- Password field -->
                 <StackPanel Margin="0,0,0,24">
                     <Grid>
-                        <!-- PasswordBox (hidden password) -->
                         <PasswordBox Name="PasswordBox"
                                     helpers:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay}"
                                     helpers:PasswordBoxHelper.BindPassword="True"
@@ -142,7 +134,6 @@
                                     Background="White"
                                     Foreground="#2C2C2C"/>
 
-                        <!-- TextBox (visible password) -->
                         <TextBox Name="PasswordTextBox"
                                 Text=""
                                 TextChanged="PasswordTextBox_TextChanged"
@@ -155,7 +146,6 @@
                                 Foreground="#2C2C2C"
                                 Visibility="Collapsed"/>
 
-                        <!-- Placeholder for password -->
                         <TextBlock Name="PasswordPlaceholder"
                                   Text="Password"
                                   Foreground="#999"
@@ -163,7 +153,6 @@
                                   Margin="18,0,50,0"
                                   IsHitTestVisible="False"/>
 
-                        <!-- Show/Hide password button -->
                         <Button Name="ShowPasswordButton"
                            Width="24"
                            Height="24"
@@ -183,7 +172,6 @@
                         </Button>
                     </Grid>
 
-                    <!-- Validation message -->
                     <TextBlock Name="PasswordValidation"
                                Text="{Binding PasswordError, Mode=TwoWay}"
                           FontSize="14"
@@ -191,7 +179,6 @@
                           Margin="0,4,0,0"/>
                 </StackPanel>
 
-                <!-- Terms and conditions text -->
                 <TextBlock FontSize="14"
                       Foreground="#666"
                       TextWrapping="Wrap"
@@ -208,7 +195,6 @@
                 <Run Text="."/>
                 </TextBlock>
 
-                <!-- Sign up button -->
                 <Button Name="SignUpButton"
                    Tag="{Binding IsLoading}"
                    Style="{StaticResource PrimaryButton}"
@@ -219,7 +205,6 @@
                    FontWeight="SemiBold"
                    Margin="0,16,0,0"/>
 
-                <!-- Back link -->
                 <Button Name="BackButton"
                    Content="Back"
                    Command="{Binding NavigateToHome}"
@@ -254,5 +239,16 @@
 
             </StackPanel>
         </Border>
+
+
+        <components:SuccessToast Grid.RowSpan="3"
+                         IsVisible="{Binding ShowSuccessMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
+                         Title="Account Created!"
+                         CloseCommand="{Binding CloseToast}"
+                         Message="Your account has been successfully created."/>
+
+        <components:LoadingOverlay Grid.RowSpan="3"
+                                   IsVisible="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                   LoadingText="Creating account..."/>
     </Grid>
 </UserControl>

@@ -16,8 +16,9 @@ namespace GreenBill.Services
         private readonly IUserService _userService;
         private readonly ICampaignUpdateService _campaignUpdateService;
         private readonly IDonationRecordService _donationRecordService;
+        private readonly IWithdrawalRecordService _withdrawalRecordService;
 
-        public CampaignService(IUserService userService, IDonationRecordService donationRecordService, ICampaignUpdateService campaignUpdateService)
+        public CampaignService(IUserService userService, IDonationRecordService donationRecordService, ICampaignUpdateService campaignUpdateService, IWithdrawalRecordService withdrawalRecordService)
         {
             string connectionString = "mongodb://localhost:27017";
             var client = new MongoClient(connectionString);
@@ -26,6 +27,7 @@ namespace GreenBill.Services
             _userService = userService;
             _donationRecordService = donationRecordService;
             _campaignUpdateService = campaignUpdateService;
+            _withdrawalRecordService = withdrawalRecordService;
         }
 
         public async Task<List<Campaign>> GetAllCampaignsAsync(CampaignIncludeOptions options = null)
@@ -52,10 +54,9 @@ namespace GreenBill.Services
                 .Find(c => c.UserId == id)
                 .ToListAsync();
 
-            // Load related data if requested
+
             if (options?.IncludeUser == true)
             {
-                // Since all campaigns belong to the same user, we can load it once
                 var user = await _userService.GetUserByIdAsync(id.ToString());
                 campaigns.ForEach(c => c.User = user);
             }
@@ -88,12 +89,17 @@ namespace GreenBill.Services
                 var total = $"${(campaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0):N2} USD raised";
                 campaign.TotalAmountRaised = total;
                 var percentage = ((campaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0) / campaign.DonationGoal) * 100;
-                campaign.Percentage = $"{percentage}% Funded";
+                campaign.Percentage = $"{percentage:N0}% Funded";
 
             }
             if(options?.IncludeCampaignUpdate == true)
             {
                 campaign.CampaignUpdate = await _campaignUpdateService.GetByCampaignIdAsync(campaign.Id);
+            }
+
+            if(options?.IncludeWithdrawalRecord == true)
+            {
+                campaign.WithdrawalRecord = await _withdrawalRecordService.GetAllDonationsByIdAsync(campaign.Id);
             }
 
             return campaign;
@@ -148,11 +154,11 @@ namespace GreenBill.Services
                 try
                 {
                     campaign.DonationRecord = await _donationRecordService.GetByCampaignIdAsync(campaign.Id);
-                    campaign.DonationsCount = campaign.DonationRecord.Count.ToString() + " donations"; 
+                    campaign.DonationsCount = campaign.DonationRecord.Count.ToString() + " donations";
                     var total = $"${(campaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0):N2} USD raised";
                     campaign.TotalAmountRaised = total;
                     var percentage = ((campaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0) / campaign.DonationGoal) * 100;
-                    campaign.Percentage = $"{percentage}% Funded";
+                    campaign.Percentage = $"{percentage:N0}% Funded";
                 }
                 catch (Exception ex)
                 {

@@ -17,14 +17,12 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <!--  Top Navigation Bar  -->
         <DockPanel
             Grid.Row="0"
             VerticalAlignment="Top"
             Background="White"
             Visibility="{Binding ShowNavigation, Converter={StaticResource BooleanToVisibilityConverter}}">
 
-            <!--  Logo  -->
             <Button
                 Height="60"
                 Margin="100,0,0,0"
@@ -40,7 +38,6 @@
             </Button>
 
 
-            <!--  Right Side Controls  -->
             <StackPanel
                 Margin="0,0,100,0"
                 HorizontalAlignment="Right"
@@ -48,38 +45,47 @@
                 DockPanel.Dock="Right"
                 Orientation="Horizontal">
 
-                <!--  Start a Change Button  -->
                 <Button
                     Height="30"
                     Command="{Binding GoToStep1}"
                     Content="Start a Change"
                     Style="{StaticResource PrimaryButton}" />
 
-                <!--  Profile Image with Dropdown  -->
                 <Button
-                    Width="40"
-                    Height="40"
-                    Margin="15,0,0,0"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Click="ProfileButton_Click"
-                    Cursor="Hand"
-                    Style="{StaticResource TransparentButton}"
-                    Visibility="{Binding IsUserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
-
+    Width="40"
+    Height="40"
+    Margin="15,0,0,0"
+    Background="DarkGray"
+    BorderThickness="0"
+    Click="ProfileButton_Click"
+    Cursor="Hand"
+    Style="{StaticResource TransparentButton}"
+    Visibility="{Binding IsUserLoggedIn, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                Background="{TemplateBinding Background}"
+                CornerRadius="20"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                BorderBrush="{TemplateBinding BorderBrush}">
+                                <ContentPresenter
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
                     <Image
-                        Width="40"
-                        Height="40"
-                        Source="/Assets/Images/defaultProfile.jpg"
-                        Stretch="UniformToFill">
+        Width="40"
+        Height="40"
+        Source="{Binding Profile, Converter={StaticResource ImageConverter}}"
+        Stretch="UniformToFill">
                         <Image.Clip>
                             <EllipseGeometry
-                                Center="20,20"
-                                RadiusX="20"
-                                RadiusY="20" />
+                Center="20,20"
+                RadiusX="20"
+                RadiusY="20" />
                         </Image.Clip>
                     </Image>
-
                     <!--  Dropdown Menu  -->
                     <Button.ContextMenu>
                         <ContextMenu x:Name="ProfileMenu">
@@ -91,7 +97,6 @@
                     </Button.ContextMenu>
                 </Button>
 
-                <!--  Sign In Button (shown when not logged in)  -->
                 <Button
                     Margin="15,0,0,0"
                     VerticalAlignment="Center"
@@ -109,7 +114,6 @@
             </StackPanel>
         </DockPanel>
 
-        <!--  Main Content Area  -->
         <ContentControl Grid.Row="1" Content="{Binding Navigation.CurrentView}" />
     </Grid>
 </Window>

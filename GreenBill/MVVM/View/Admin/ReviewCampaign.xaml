@@ -14,12 +14,9 @@
             <StackPanel>
 
                 <!--  Header  -->
-                <DockPanel Margin="0,0,0,20">
-                    <Button
-                        Margin="0,0,10,0"
-                        Content="Back"
-                        Style="{StaticResource BackButtonStyle}" />
-                </DockPanel>
+                <StackPanel Margin="0,0,0,20" HorizontalAlignment="Left">
+                    <Button Content="Back" Style="{StaticResource BackButtonStyle}" />
+                </StackPanel>
 
                 <!--  Campaign Card  -->
                 <Border
@@ -37,69 +34,113 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <StackPanel Grid.Column="0" Orientation="Vertical">
 
-                            <!--  Image  -->
-                            <Border
-                                Height="200"
-                                VerticalAlignment="Top"
-                                CornerRadius="8">
-                                <Button
-                                    Background="Transparent"
-                                    BorderThickness="0"
-                                    Command="{Binding PreviewImageCommand}"
-                                    CommandParameter="{Binding SelectedCampaign.Image}"
-                                    Cursor="Hand"
-                                    Focusable="False">
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Grid>
-                                                <!--  Image  -->
-                                                <Image
-                                                    Height="350"
-                                                    Source="{Binding SelectedCampaign.Image, Converter={StaticResource ImageConverter}}"
-                                                    Stretch="UniformToFill" />
+                            <DockPanel VerticalAlignment="Top">
+                                <StackPanel Orientation="Horizontal">
+                                    <!--  Image  -->
+                                    <Border
+                                        Width="200"
+                                        Height="200"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        CornerRadius="8">
+                                        <Button
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Command="{Binding PreviewImageCommand}"
+                                            CommandParameter="{Binding SelectedCampaign.Image}"
+                                            Cursor="Hand"
+                                            Focusable="False">
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Grid>
+                                                        <!--  Image  -->
+                                                        <Image
+                                                            Height="350"
+                                                            Source="{Binding SelectedCampaign.Image, Converter={StaticResource ImageConverter}}"
+                                                            Stretch="UniformToFill" />
 
-                                                <!--  Dark overlay  -->
-                                                <Rectangle
-                                                    x:Name="Overlay"
-                                                    Fill="Black"
-                                                    IsHitTestVisible="False"
-                                                    Opacity="0" />
-                                            </Grid>
+                                                        <!--  Dark overlay  -->
+                                                        <Rectangle
+                                                            x:Name="Overlay"
+                                                            Fill="Black"
+                                                            IsHitTestVisible="False"
+                                                            Opacity="0" />
+                                                    </Grid>
 
-                                            <!--  Hover trigger  -->
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="Overlay" Property="Opacity" Value="0.2" />
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-                            </Border>
+                                                    <!--  Hover trigger  -->
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter TargetName="Overlay" Property="Opacity" Value="0.2" />
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
+                                    </Border>
+                                    <!--  Image  -->
+                                </StackPanel>
 
-                            <!--  Image  -->
+                                <StackPanel
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Orientation="Horizontal">
+                                    <Button Margin="0,0,20,0" Command="{Binding Approve_ReviewCampaign}">
+                                        <Button.Style>
+                                            <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                                <Setter Property="Content" Value="Approve" />
 
-                            <StackPanel
-                                Width="Auto"
-                                Margin="30,0,0,0"
-                                Orientation="Vertical">
-                                <StackPanel.Resources>
+                                                <Style.Triggers>
+                                                    <!--  When Status == Approved  -->
+                                                    <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Verified">
+                                                        <Setter Property="Content" Value="Review" />
+                                                    </DataTrigger>
+
+                                                    <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="in review">
+                                                        <Setter Property="Content" Value="Approve" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+
+                                    <Button
+                                        Command="{Binding RejectCampaign}"
+                                        CommandParameter="{Binding SelectedCampaign.Id}"
+                                        Content="Reject"
+                                        Style="{StaticResource SecondaryButton}" />
+                                </StackPanel>
+                            </DockPanel>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.Resources>
                                     <Style TargetType="TextBlock">
-                                        <Setter Property="Margin" Value="0,0,0,10" />
+                                        <Setter Property="Margin" Value="0,0,20,20" />
                                     </Style>
-                                </StackPanel.Resources>
-                                <TextBlock TextWrapping="Wrap">
+                                </Grid.Resources>
+                                <TextBlock Grid.Column="0" TextWrapping="Wrap">
                                     <Run
                                         FontSize="12"
                                         Foreground="Gray"
                                         Text="ID" />
                                     <LineBreak />
-                                    <Run FontSize="14" Text="{Binding SelectedCampaign._id}" />
+                                    <Run FontSize="14" Text="{Binding SelectedCampaign.IdString}" />
                                 </TextBlock>
 
-                                <TextBlock TextWrapping="Wrap">
+                                <TextBlock Grid.Column="1" TextWrapping="Wrap">
                                     <Run
                                         FontSize="12"
                                         Foreground="Gray"
@@ -108,7 +149,7 @@
                                     <Run FontSize="14" Text="{Binding SelectedCampaign.Title}" />
                                 </TextBlock>
 
-                                <TextBlock TextWrapping="Wrap">
+                                <TextBlock Grid.Column="2" TextWrapping="Wrap">
                                     <Run
                                         FontSize="12"
                                         Foreground="Gray"
@@ -117,7 +158,7 @@
                                     <Run FontSize="14" Text="{Binding SelectedCampaign.UserId}" />
                                 </TextBlock>
 
-                                <TextBlock TextWrapping="Wrap">
+                                <TextBlock Grid.Column="3" TextWrapping="Wrap">
                                     <Run
                                         FontSize="12"
                                         Foreground="Gray"
@@ -126,7 +167,7 @@
                                     <Run FontSize="14" Text="{Binding SelectedCampaign.Description}" />
                                 </TextBlock>
 
-                                <TextBlock TextWrapping="Wrap">
+                                <TextBlock Grid.Column="4" TextWrapping="Wrap">
                                     <Run
                                         FontSize="12"
                                         Foreground="Gray"
@@ -135,7 +176,7 @@
                                     <Run FontSize="14" Text="{Binding SelectedCampaign.Category}" />
                                 </TextBlock>
 
-                                <TextBlock TextWrapping="Wrap">
+                                <TextBlock Grid.Row="1" TextWrapping="Wrap">
                                     <Run
                                         FontSize="12"
                                         Foreground="Gray"
@@ -144,7 +185,10 @@
                                     <Run FontSize="14" Text="{Binding SelectedCampaign.Country}" />
                                 </TextBlock>
 
-                                <TextBlock TextWrapping="Wrap">
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    TextWrapping="Wrap">
                                     <Run
                                         FontSize="12"
                                         Foreground="Gray"
@@ -153,7 +197,10 @@
                                     <Run FontSize="14" Text="{Binding SelectedCampaign.ZipCode}" />
                                 </TextBlock>
 
-                                <TextBlock TextWrapping="Wrap">
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    TextWrapping="Wrap">
                                     <Run
                                         FontSize="12"
                                         Foreground="Gray"
@@ -162,7 +209,10 @@
                                     <Run FontSize="14" Text="{Binding SelectedCampaign.DonationGoal}" />
                                 </TextBlock>
 
-                                <TextBlock TextWrapping="Wrap">
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="3"
+                                    TextWrapping="Wrap">
                                     <Run
                                         FontSize="12"
                                         Foreground="Gray"
@@ -171,47 +221,60 @@
                                     <Run FontSize="14" Text="{Binding SelectedCampaign.CreatedAt}" />
                                 </TextBlock>
 
-                                <TextBlock TextWrapping="Wrap">
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="4"
+                                    TextWrapping="Wrap">
                                     <Run
                                         FontSize="12"
                                         Foreground="Gray"
                                         Text="Status" />
                                     <LineBreak />
-                                    <Run FontSize="14" Text="{Binding SelectedCampaign.Status}" />
+
+                                    <InlineUIContainer>
+                                        <Border Padding="6,2" CornerRadius="10">
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                Text="{Binding SelectedCampaign.Status}">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="in review">
+                                                                <Setter Property="Foreground" Value="#856404" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Verified">
+                                                                <Setter Property="Foreground" Value="#1B5E20" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Rejected">
+                                                                <Setter Property="Foreground" Value="#721C24" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="in review">
+                                                            <Setter Property="Background" Value="#FFF3CD" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Verified">
+                                                            <Setter Property="Background" Value="#C8E6C9" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Rejected">
+                                                            <Setter Property="Background" Value="#F8D7DA" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                        </Border>
+                                    </InlineUIContainer>
                                 </TextBlock>
 
-
-                            </StackPanel>
-                        </StackPanel>
-
-                        <StackPanel
-                            Grid.Column="1"
-                            VerticalAlignment="Top"
-                            Orientation="Horizontal">
-                            <Button Margin="0,0,20,0" Command="{Binding Approve_ReviewCampaign}">
-                                <Button.Style>
-                                    <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
-                                        <Setter Property="Content" Value="Approve" />
-
-                                        <Style.Triggers>
-                                            <!--  When Status == Approved  -->
-                                            <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Verified">
-                                                <Setter Property="Content" Value="Review" />
-                                            </DataTrigger>
-
-                                            <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="in review">
-                                                <Setter Property="Content" Value="Approve" />
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                            </Button>
-
-                            <Button
-                                Command="{Binding RejectCampaign}"
-                                CommandParameter="{Binding SelectedCampaign.Id}"
-                                Content="Reject"
-                                Style="{StaticResource SecondaryButton}" />
+                            </Grid>
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -383,13 +446,57 @@
                                                     <Run FontSize="14" Text="{Binding UploadDate}" />
                                                 </TextBlock>
 
-                                                <TextBlock TextWrapping="Wrap">
+                                                <TextBlock
+                                                    Grid.Row="1"
+                                                    Grid.Column="4"
+                                                    TextWrapping="Wrap">
                                                     <Run
                                                         FontSize="12"
                                                         Foreground="Gray"
                                                         Text="Status" />
                                                     <LineBreak />
-                                                    <Run FontSize="14" Text="{Binding Status}" />
+
+                                                    <InlineUIContainer>
+                                                        <Border Padding="6,2" CornerRadius="10">
+                                                            <TextBlock
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Center"
+                                                                FontSize="14"
+                                                                Text="{Binding Status}">
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock">
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding Status}" Value="in review">
+                                                                                <Setter Property="Foreground" Value="#856404" />
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Status}" Value="Verified">
+                                                                                <Setter Property="Foreground" Value="#1B5E20" />
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Status}" Value="Rejected">
+                                                                                <Setter Property="Foreground" Value="#721C24" />
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
+
+                                                            <Border.Style>
+                                                                <Style TargetType="Border">
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding Status}" Value="in review">
+                                                                            <Setter Property="Background" Value="#FFF3CD" />
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding Status}" Value="Verified">
+                                                                            <Setter Property="Background" Value="#C8E6C9" />
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding Status}" Value="Rejected">
+                                                                            <Setter Property="Background" Value="#F8D7DA" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </Border.Style>
+                                                        </Border>
+                                                    </InlineUIContainer>
                                                 </TextBlock>
                                             </StackPanel>
 

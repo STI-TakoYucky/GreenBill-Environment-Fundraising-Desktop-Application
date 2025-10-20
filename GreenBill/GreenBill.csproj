@@ -282,6 +282,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\BoolToTabStyleConverter.cs" />
     <Compile Include="Converters\BytesToMBConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\ProgressToWidthConverter.cs" />

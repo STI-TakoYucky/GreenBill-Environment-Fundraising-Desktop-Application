@@ -3,6 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Documents;
 
 namespace GreenBill.MVVM.Model
@@ -34,8 +35,8 @@ namespace GreenBill.MVVM.Model
             }
         }
 
-        private void OnPropertyChanged(string v) {
-            throw new NotImplementedException();
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         [BsonIgnore]

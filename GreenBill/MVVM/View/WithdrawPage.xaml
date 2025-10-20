@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GreenBill.MVVM.View"
              mc:Ignorable="d" 
+             xmlns:components="clr-namespace:GreenBill.Components"
              d:DesignHeight="900" d:DesignWidth="1400"
              Background="#F5F5F5">
     <Grid>
@@ -12,6 +13,17 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+
+        <components:SuccessToast Grid.ColumnSpan="2"
+                                 Panel.ZIndex="999"
+                  IsVisible="{Binding ShowSuccessMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
+                  Title="Success!"
+                  Message="Withdrawn successfully."/>
+
+        <components:LoadingOverlay Grid.ColumnSpan="2"
+                                      Panel.ZIndex="999"
+                            IsVisible="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            LoadingText="Please wait..."/>
 
         <!-- LEFT SECTION - Withdraw Form -->
         <StackPanel Grid.Column="0" Margin="40,40,20,40" VerticalAlignment="Top">
@@ -70,7 +82,7 @@
 
                     <!-- Bank Account Selection -->
                     <StackPanel Margin="0,0,0,20">
-                        <TextBlock Text="Bank Account" FontSize="12" Foreground="#666666" Margin="0,0,0,8"/>
+                        <TextBlock Text="Destination Bank Account" FontSize="12" Foreground="#666666" Margin="0,0,0,8"/>
                         <Border Background="#F9F9F9" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="8" Padding="0">
                             <ComboBox 
     Height="40"
@@ -114,7 +126,7 @@
                     </Border>
 
                     <!-- Withdraw Button -->
-                    <Button Command="{Binding Withdraw}" Background="#00A651" Foreground="#FFFFFF" FontSize="14" FontWeight="SemiBold" Padding="15" Margin="0,0,0,10">
+                    <Button Cursor="Hand" Command="{Binding Withdraw}" Background="#00A651" Foreground="#FFFFFF" FontSize="14" FontWeight="SemiBold" Padding="15" Margin="0,0,0,10">
                         Request Withdrawal
                     </Button>
 

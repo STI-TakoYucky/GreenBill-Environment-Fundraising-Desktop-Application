@@ -17,6 +17,39 @@ namespace GreenBill.MVVM.ViewModel
 {
     public class WithdrawPageViewModel : Core.ViewModel, INavigatableService
     {
+        private bool _showSuccessMessage = false;
+        public bool ShowSuccessMessage
+        {
+            get => _showSuccessMessage;
+            set
+            {
+                _showSuccessMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool _showMessage;
+        public bool ShowMessage
+        {
+            get => _showMessage;
+            set
+            {
+                _showMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool _isLoading = false;
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged();
+            }
+        }
+
         private IStripeService _stripeService;
         private IUserSessionService _userSessionService;
         private INavigationService _navigationService;
@@ -129,6 +162,7 @@ namespace GreenBill.MVVM.ViewModel
 
         public async void RequestWithdrawal()
         {
+            IsLoading = true;
             User user = _userSessionService.CurrentUser;
            
             Debug.WriteLine($"Amount: {Amount * 100}");
@@ -139,10 +173,12 @@ namespace GreenBill.MVVM.ViewModel
             {
                 await _withdrawalRecordService.Create(new WithdrawalRecord { CampaignId = SelectedCampaign.Id, Amount = this.Amount });
             }
+            IsLoading = false;
         }
 
         public async void ApplyNavigationParameter(object parameter)
         {
+            IsLoading = true;
             User user = _userSessionService.CurrentUser;
             if (parameter == null) return;
             CampaignId = (ObjectId)parameter;
@@ -182,6 +218,7 @@ namespace GreenBill.MVVM.ViewModel
             {
                 SelectedBankAccount = BankAccounts[0];
             }
+            IsLoading = false;
         }
     }
 }

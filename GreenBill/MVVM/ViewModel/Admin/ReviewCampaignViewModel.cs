@@ -239,21 +239,13 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 }
 
                 if (SelectedCampaign == null) return;
+                Console.WriteLine(SelectedCampaign.Id);
 
                 Campaigns.Add(new MVVM.Model.Campaign {
                     Id = SelectedCampaign.Id,
-
                 });
-
-                test();
             } catch (Exception ex) { 
                 Console.WriteLine(ex.ToString());
-            }
-        }
-
-        public void test() {
-            foreach (var item in SupportingDocument) {
-                Console.WriteLine(item.FileName);
             }
         }
     }

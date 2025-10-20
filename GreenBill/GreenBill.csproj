@@ -331,6 +331,7 @@
     <Compile Include="MVVM\ViewModel\SignupViewModel.cs" />
     <Compile Include="MVVM\ViewModel\SupportingDocumentsPageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\UserCampaignsViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\WithdrawPageViewModel.cs" />
     <Compile Include="MVVM\View\Admin\AdminCampaignAnalytics.xaml.cs">
       <DependentUpon>AdminCampaignAnalytics.xaml</DependentUpon>
     </Compile>
@@ -419,6 +420,9 @@
     </Compile>
     <Compile Include="MVVM\View\UserCampaigns.xaml.cs">
       <DependentUpon>UserCampaigns.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\WithdrawPage.xaml.cs">
+      <DependentUpon>WithdrawPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\CampaignService.cs" />
     <Compile Include="Services\CampaignUpdateService.cs" />
@@ -566,6 +570,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\UserCampaigns.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\WithdrawPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

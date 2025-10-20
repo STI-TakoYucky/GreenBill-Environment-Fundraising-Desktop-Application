@@ -114,6 +114,11 @@
                 <view:MyProfile/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:WithdrawPageViewModel}">
+                <view:WithdrawPage/>
+            </DataTemplate>
+
+
             <Style x:Key="HeadingText" TargetType="TextBlock">
 
                 <Setter Property="FontFamily" Value="pack://application:,,,/Assets/Fonts/#Poppins" />

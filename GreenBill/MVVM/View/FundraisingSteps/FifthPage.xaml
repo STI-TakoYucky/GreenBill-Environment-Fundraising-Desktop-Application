@@ -20,7 +20,7 @@
                                    LoadingText="Please wait..."/>
 
         <Border Grid.Column="0" Background="White" CornerRadius="0, 20, 20, 0"/>
- 
+
         <!-- Left Side - Content -->
         <StackPanel Grid.Column="0" 
                     
@@ -212,18 +212,17 @@
                 </Button>
 
                 <!-- Continue Button -->
-                <Button Grid.Column="2"
+                <Button Grid.Column="1"
                         Content="Continue"
                         Command="{Binding SaveCampaign}"
-                        Style="{StaticResource PrimaryButton}"
-                        HorizontalAlignment="Right"/>
-                
-                
+                        Style="{StaticResource PrimaryButton}" Grid.ColumnSpan="2" Margin="593,0,0,0"/>
+
+
             </Grid>
 
-        
+
         </StackPanel>
 
-      
+
     </Grid>
 </UserControl>

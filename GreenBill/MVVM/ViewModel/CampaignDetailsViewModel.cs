@@ -51,6 +51,8 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
+        public ICommand GoToWithdrawPage { get; }
+
 
         public CampaignDetailsViewModel(INavigationService navService, ICampaignService campaignService)
         {
@@ -65,6 +67,7 @@ namespace GreenBill.MVVM.ViewModel
             GoBackCommand = new RelayCommand(o => Navigation.NavigateTo<UserCampaignsViewModel>());
             GoToSupportingDocumentsPage = new RelayCommand(campaign_id => Navigation.NavigateTo<SupportingDocumentsPageViewModel>(campaign_id));
             GoToUpdatesPage = new RelayCommand(campaign_id => Navigation.NavigateTo<CampaignUpdatesViewModel>(campaign_id));
+            GoToWithdrawPage = new RelayCommand(campaign_id => Navigation.NavigateTo<WithdrawPageViewModel>(campaign_id));
         }
 
         public UserControl CurrentTabContent

@@ -60,12 +60,13 @@ namespace GreenBill
             services.AddSingleton<SettingsViewModel>();
             services.AddTransient<SupportingDocumentsPageViewModel>();
             services.AddTransient<DonationPageViewModel>();
+            
 
             services.AddSingleton<ReviewCampaignViewModel>();
 
             services.AddTransient<CampaignUpdatesViewModel>();
             services.AddTransient<MyProfileViewModel>();
-
+            services.AddTransient<WithdrawPageViewModel>();
 
             services.AddSingleton<INavigationService, NavigationService>();
 

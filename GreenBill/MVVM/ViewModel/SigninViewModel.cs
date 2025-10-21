@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Input;
 using GreenBill.IServices;
 using System.Collections.Generic;
+using GreenBill.Helpers;
 
 namespace GreenBill.MVVM.ViewModel
 {
@@ -153,6 +154,8 @@ namespace GreenBill.MVVM.ViewModel
 
         private async Task LoginAsync()
         {
+            if (!ValidateLoginInput())
+                return;
           
             if (_userService.Collection  == null)
             {
@@ -249,7 +252,22 @@ namespace GreenBill.MVVM.ViewModel
             SuccessMessage = props["message"] as string;
             ShowMessage = (bool)props["success"];
 
-
         }
+        public bool ValidateLoginInput()
+        {
+            if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
+            {
+                ErrorMessage = "Please enter both email and password.";
+                return false;
+            }
+            
+            if (!Validator.IsValidEmail(Email))
+            {
+                ErrorMessage = "Invalid email format.";
+                return false;
+            }
+            return true;
+        }
+
     }
 }

@@ -61,5 +61,7 @@ namespace GreenBill.Helpers
 
             return text.Any(char.IsLetter);
         }
+
+       
     }
 }

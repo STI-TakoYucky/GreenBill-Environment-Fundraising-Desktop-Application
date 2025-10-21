@@ -10,6 +10,7 @@
       d:DesignHeight="900" d:DesignWidth="1400"
  Background="#F5F5F5">
 
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -60,22 +61,119 @@
             Background="White"
             Foreground="#2C2C2C"/>
 
-                        <TextBlock Text="Email Address"
+                 <TextBlock Text="Email Address"
                   Foreground="#999"
                   VerticalAlignment="Center"
                   Margin="18,0"
                   IsHitTestVisible="False">
                             <TextBlock.Style>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Text, ElementName=EmailTextBox}" Value="">
-                                            <Setter Property="Visibility" Value="Visible"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
+                             <Style TargetType="TextBlock">
+                             <Setter Property="Visibility" Value="Collapsed"/>
+                             <Style.Triggers>
+                             <DataTrigger Binding="{Binding Text, ElementName=EmailTextBox}" Value="">
+                             <Setter Property="Visibility" Value="Visible"/>
+                             </DataTrigger>
+                             </Style.Triggers>
+                             </Style>
+                             </TextBlock.Style>
+                             </TextBlock>
+               <Grid x:Name="LoadingOverlay" 
+                Background="Transparent" 
+                Visibility="Collapsed"
+                Grid.RowSpan="3"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                Panel.ZIndex="99">
+                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+                         <Ellipse Width="30" Height="30" Fill="#2E7D32" Margin="5">
+                         <Ellipse.RenderTransform>
+                         <TranslateTransform Y="0"/>
+                         </Ellipse.RenderTransform>
+                         <Ellipse.Triggers>
+                         <EventTrigger RoutedEvent="Loaded">
+                         <BeginStoryboard>
+                         <Storyboard RepeatBehavior="Forever">
+                         <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                         From="0" To="-15" Duration="0:0:0.3" 
+                         AutoReverse="True" BeginTime="0:0:0"/>
+                         </Storyboard>
+                         </BeginStoryboard>
+                         </EventTrigger>
+                         </Ellipse.Triggers>
+                         </Ellipse>
+                         <Ellipse Width="30" Height="30" Fill="#2E7D32" Margin="5">
+                         <Ellipse.RenderTransform>
+                         <TranslateTransform Y="0"/>
+                         </Ellipse.RenderTransform>
+                         <Ellipse.Triggers>
+                          <EventTrigger RoutedEvent="Loaded">
+                                  <BeginStoryboard>
+                                  <Storyboard RepeatBehavior="Forever">
+                                  <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                   From="0" To="-15" Duration="0:0:0.3" 
+                                   AutoReverse="True" BeginTime="0:0:0.1"/>
+                                  </Storyboard>
+                                  </BeginStoryboard>
+                                  </EventTrigger>
+                                  </Ellipse.Triggers>
+                                  </Ellipse>
+
+                                  <Ellipse Width="30" Height="30" Fill="#2E7D32" Margin="5">
+                                  <Ellipse.RenderTransform>
+                                  <TranslateTransform Y="0"/>
+                                  </Ellipse.RenderTransform>
+                                  <Ellipse.Triggers>
+                                  <EventTrigger RoutedEvent="Loaded">
+                                  <BeginStoryboard>
+                                  <Storyboard RepeatBehavior="Forever">
+                                  <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                   From="0" To="-15" Duration="0:0:0.3" 
+                                   AutoReverse="True" BeginTime="0:0:0.2"/>
+                                  </Storyboard>
+                                  </BeginStoryboard>
+                                  </EventTrigger>
+                                  </Ellipse.Triggers>
+                                  </Ellipse>
+
+                                   <Ellipse Width="30" Height="30" Fill="#2E7D32" Margin="5">
+                                   <Ellipse.RenderTransform>
+                                   <TranslateTransform Y="0"/>
+                                   </Ellipse.RenderTransform>
+                                   <Ellipse.Triggers>
+                                   <EventTrigger RoutedEvent="Loaded">
+                                   <BeginStoryboard>
+                                   <Storyboard RepeatBehavior="Forever">
+                                   <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                    From="0" To="-15" Duration="0:0:0.3" 
+                                    AutoReverse="True" BeginTime="0:0:0.3"/>
+                                   </Storyboard>
+                                   </BeginStoryboard>
+                                   </EventTrigger>
+                                   </Ellipse.Triggers>
+                                   </Ellipse>
+
+                                    <Ellipse Width="30" Height="30" Fill="#2E7D32" Margin="5">
+                                    <Ellipse.RenderTransform>
+                                    <TranslateTransform Y="0"/>
+                                    </Ellipse.RenderTransform>
+                                    <Ellipse.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                    <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                    <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                     From="0" To="-15" Duration="0:0:0.3" 
+                                     AutoReverse="True" BeginTime="0:0:0.4"/>
+                                     </Storyboard>
+                                     </BeginStoryboard>
+                                     </EventTrigger>
+                                     </Ellipse.Triggers>
+                                    </Ellipse>
+                                             
+                                </StackPanel>
+     
+                            </StackPanel>
+                          </Grid>
                     </Grid>
 
                     <TextBlock Name="EmailValidation"
@@ -153,16 +251,16 @@
                           Height="50"
                           FontSize="16"
                           FontWeight="SemiBold"
-                          Margin="0,0,0,0"/>
+                          Margin="0,0,0,0" Click="SignUpButton_Click"/>
 
                 <Button FontSize="14"
                         Style="{StaticResource TransparentButton}"
                         Command="{Binding NavigateToSignup}"
-          Foreground="#666"
+                Foreground="#666"
                 BorderThickness="0"
                         Cursor="Hand"
-           Background="Transparent"
-          Width="340" Content="Don't have an account?"/>
+                    Background="Transparent"
+                         Width="340" Content="Don't have an account?"/>
 
                 <Button Name="BackButton"
                         Command="{Binding NavigateToHome}"

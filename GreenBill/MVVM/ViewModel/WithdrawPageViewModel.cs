@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace GreenBill.MVVM.ViewModel
@@ -162,6 +163,15 @@ namespace GreenBill.MVVM.ViewModel
 
         public async void RequestWithdrawal()
         {
+            if(WithdrawableAmount == 0)
+            {
+                MessageBox.Show("There is nothing to withdraw");
+            }
+            if(Amount > WithdrawableAmount)
+            {
+                MessageBox.Show("Amount to be withdrawn should be less than or equal to withdrawable amount");
+                return;
+            }
             IsLoading = true;
             User user = _userSessionService.CurrentUser;
            
@@ -173,7 +183,7 @@ namespace GreenBill.MVVM.ViewModel
             {
                 await _withdrawalRecordService.Create(new WithdrawalRecord { CampaignId = SelectedCampaign.Id, Amount = this.Amount });
             }
-            IsLoading = false;
+                IsLoading = false;
         }
 
         public async void ApplyNavigationParameter(object parameter)

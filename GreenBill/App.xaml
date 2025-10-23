@@ -17,8 +17,8 @@
                 <ResourceDictionary Source="/Styles/ComboBox.xaml" />
                 <ResourceDictionary Source="/Styles/ComboBoxItem.xaml" />
                 <ResourceDictionary Source="/Styles/CategoryButton.xaml" />
-                <ResourceDictionary Source="/Styles/Conatiners.xaml"/>
-                <ResourceDictionary Source="/Styles/TextBoxes.xaml"/>
+                <ResourceDictionary Source="/Styles/Conatiners.xaml" />
+                <ResourceDictionary Source="/Styles/TextBoxes.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -94,7 +94,6 @@
                 <adminView:ReviewCampaign />
             </DataTemplate>
 
-
             <DataTemplate DataType="{x:Type viewModel:SupportingDocumentsPageViewModel}">
                 <view:SupportingDocumentsPage />
             </DataTemplate>
@@ -102,16 +101,16 @@
 
 
             <DataTemplate DataType="{x:Type viewModel:CampaignUpdatesViewModel}">
-                <view:CampaignUpdates/>
+                <view:CampaignUpdates />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:DonationPageViewModel}">
-                <view:DonationPage/>
+                <view:DonationPage />
             </DataTemplate>
 
 
             <DataTemplate DataType="{x:Type viewModel:MyProfileViewModel}">
-                <view:MyProfile/>
+                <view:MyProfile />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:WithdrawPageViewModel}">

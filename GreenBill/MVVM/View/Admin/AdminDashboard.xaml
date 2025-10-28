@@ -85,7 +85,7 @@
                                 FontSize="28"
                                 FontWeight="Bold"
                                 Foreground="#00A86B"
-                                Text="2,665" />
+                                Text="{Binding UserCount}" />
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     Margin="0,0,5,0"
@@ -124,7 +124,7 @@
                                 FontSize="28"
                                 FontWeight="Bold"
                                 Foreground="#3498DB"
-                                Text="32" />
+                                Text="{Binding TotalCampaigns}" />
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     Margin="0,0,5,0"
@@ -163,7 +163,7 @@
                                 FontSize="28"
                                 FontWeight="Bold"
                                 Foreground="#E67E22"
-                                Text="2" />
+                                Text="{Binding PendingCampaigns}" />
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     Margin="0,0,5,0"
@@ -202,7 +202,7 @@
                                 FontSize="28"
                                 FontWeight="Bold"
                                 Foreground="#9B59B6"
-                                Text="6" />
+                                Text="{Binding ActiveCampaigns}" />
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     Margin="0,0,5,0"

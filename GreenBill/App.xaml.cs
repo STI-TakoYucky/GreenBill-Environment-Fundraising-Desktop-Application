@@ -80,7 +80,7 @@ namespace GreenBill
             services.AddSingleton<IWithdrawalRecordService, WithdrawalRecordService>();
 
 
-            services.AddTransient<ITabNavigationService, TabNavigationService>();
+            services.AddSingleton<ITabNavigationService, TabNavigationService>();
 
             services.AddSingleton<IUserSessionService>(UserSessionService.Instance);
 

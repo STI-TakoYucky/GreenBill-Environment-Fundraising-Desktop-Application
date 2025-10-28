@@ -30,7 +30,7 @@ namespace GreenBill.MVVM.Model
             set {
                 if (_status != value) {
                     _status = value;
-                    //OnPropertyChanged(nameof(Status));
+                    OnPropertyChanged(nameof(Status));
                 }
             }
         }

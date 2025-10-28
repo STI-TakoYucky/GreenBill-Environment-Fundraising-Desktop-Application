@@ -2,6 +2,7 @@
 using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.MVVM.View.CampaignDetailsTabs;
+using GreenBill.Services;
 using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GreenBill.Services;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 
 namespace GreenBill.MVVM.ViewModel.Admin {
     public class ReviewCampaignViewModel : Core.ViewModel, INavigatableService {
@@ -51,23 +52,39 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
         //supporting docs for that campaign
         private ObservableCollection<SupportingDocument> _supportingDocument = new ObservableCollection<SupportingDocument>();
+        private ITabNavigationService _navigationService;
+
         public ObservableCollection<SupportingDocument> SupportingDocument {
-            get => _supportingDocument; 
+            get => _supportingDocument;
             set {
                 _supportingDocument = value;
                 OnPropertyChanged();
-            } 
+            }
+        }
+        public ICommand NavigateBack { get; set; }
+        public ITabNavigationService Navigation {
+            get => _navigationService;
+            set {
+                _navigationService = value;
+                OnPropertyChanged();
+            }
         }
 
+
         //Constructor
-        public ReviewCampaignViewModel(ICampaignService campaignService, ISupportingDocumentService supportingDocumentService) { 
+        public ReviewCampaignViewModel(ICampaignService campaignService, ISupportingDocumentService supportingDocumentService, ITabNavigationService navService) {
             _campaignService = campaignService;
             _supportingDocumentService = supportingDocumentService;
+            Navigation = navService;
             Approve_ReviewCampaign = new RelayCommand(o => Approve_ReviewCampaignAsync());
             Approve_ReviewSupportingDocument = new RelayCommand(o => Approve_ReviewSupportingDocumentAsync(o));
-            RejectCampaign = new RelayCommand(o =>  RejectCampaignAsync(o));
+            RejectCampaign = new RelayCommand(o => RejectCampaignAsync(o));
             RejectDocument = new RelayCommand(o => RejectDocumentAsync(o));
             PreviewImageCommand = new RelayCommand(param => PreviewImage(param));
+
+            NavigateBack = new RelayCommand(o => Navigation.NavigateToTab<AdminCampaignAnalyticsViewModel>());
+
+
         }
 
         public void PreviewImage(object parameter) {
@@ -185,7 +202,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 _supportingDocumentService.StageReviewSupportingDocument(_id);
                 selectedDoc.Status = "in review";
                 return;
-            } 
+            }
 
             MessageBoxResult msg = MessageBox.Show(
                     "Verify this document now?",
@@ -244,7 +261,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 Campaigns.Add(new MVVM.Model.Campaign {
                     Id = SelectedCampaign.Id,
                 });
-            } catch (Exception ex) { 
+            } catch (Exception ex) {
                 Console.WriteLine(ex.ToString());
             }
         }

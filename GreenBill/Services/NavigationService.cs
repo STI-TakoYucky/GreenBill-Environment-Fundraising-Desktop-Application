@@ -1,9 +1,10 @@
 ﻿using GreenBill.Core;
-using GreenBill.MVVM.ViewModel;
-using System;
-using System.Windows;
 using GreenBill.IServices;
+using GreenBill.MVVM.ViewModel;
+using GreenBill.MVVM.ViewModel.Admin;
+using System;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace GreenBill.Services
 {
@@ -95,14 +96,25 @@ namespace GreenBill.Services
             _navigationHistory.Clear();
         }
 
-        private void ApplyNavigationSettings(ViewModel viewModel)
-        {
+        private void ApplyNavigationSettings(ViewModel viewModel) {
+            // Handle when the navigation service is used inside an AdminWindow
+            if (Application.Current.Windows.Count > 0) {
+                foreach (Window window in Application.Current.Windows) {
+                    if (window.DataContext is AdminWindowViewModel adminVM &&
+                        viewModel is INavigationAware navigationAwareAdmin) {
+                        adminVM.ShowNavigation = navigationAwareAdmin.ShowNavigation;
+                        return;
+                    }
+                }
+            }
+
+            // Handle when the navigation service is used in the MainWindow
             if (Application.Current.MainWindow?.DataContext is MainWindowViewModel mainVM &&
-                viewModel is INavigationAware navigationAware)
-            {
+                viewModel is INavigationAware navigationAware) {
                 mainVM.ShowNavigation = navigationAware.ShowNavigation;
             }
         }
+
 
         private object GetCurrentViewParameter()
         {

@@ -15,7 +15,10 @@
 
                 <!--  Header  -->
                 <StackPanel Margin="0,0,0,20" HorizontalAlignment="Left">
-                    <Button Content="Back" Style="{StaticResource BackButtonStyle}" />
+                    <Button
+                        Command="{Binding NavigateBack}"
+                        Content="Back"
+                        Style="{StaticResource BackButtonStyle}" />
                 </StackPanel>
 
                 <!--  Campaign Card  -->

@@ -14,70 +14,70 @@
 
     <UserControl.Resources>
 
-        <!--  Tab Button Style  -->
-        <Style x:Key="TabButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="#666666" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Padding" Value="20,15" />
-            <Setter Property="FontWeight" Value="Medium" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                            Padding="{TemplateBinding Padding}"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="#E0E0E0"
-                            BorderThickness="0,0,0,2">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="#4CAF50" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
 
-        <!--  Active Tab Style  -->
-        <Style x:Key="ActiveTabButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="#4CAF50" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Padding" Value="20,15" />
-            <Setter Property="FontWeight" Value="Medium" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                            Padding="{TemplateBinding Padding}"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="#4CAF50"
-                            BorderThickness="0,0,0,2">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <ResourceDictionary x:Key="Dropdownstyles">
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/DropdownButton.xaml" />
                 <ResourceDictionary Source="/Styles/Buttons.xaml" />
             </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+            <!--  Tab Button Style  -->
+            <Style x:Key="TabButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="#666666" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="20,15" />
+                <Setter Property="FontWeight" Value="Medium" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="#E0E0E0"
+                                BorderThickness="0,0,0,2">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="#4CAF50" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
-        <conv:BoolToTabStyleConverter
-            x:Key="TabStyleConverter"
-            ActiveStyle="{StaticResource ActiveTabButtonStyle}"
-            InactiveStyle="{StaticResource TabButtonStyle}" />
+            <!--  Active Tab Style  -->
+            <Style x:Key="ActiveTabButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="#4CAF50" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="20,15" />
+                <Setter Property="FontWeight" Value="Medium" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="#4CAF50"
+                                BorderThickness="0,0,0,2">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <conv:BoolToTabStyleConverter
+                x:Key="TabStyleConverter"
+                ActiveStyle="{StaticResource ActiveTabButtonStyle}"
+                InactiveStyle="{StaticResource TabButtonStyle}" />
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
@@ -306,6 +306,7 @@
                         GridLinesVisibility="None"
                         HeadersVisibility="Column"
                         ItemsSource="{Binding Campaigns}"
+                        PreviewMouseWheel="MyDataGrid_PreviewMouseWheel"
                         RowHeight="50"
                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
                         ScrollViewer.VerticalScrollBarVisibility="Auto">
@@ -488,15 +489,13 @@
                                                             Width="20"
                                                             Height="20"
                                                             HorizontalAlignment="Center">
-                                                            <Button Style="{StaticResource circleBtn}">
-                                                                <Path
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    HorizontalAlignment="Center"
-                                                                    Data="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"
-                                                                    Fill="Black"
-                                                                    Stretch="Uniform" />
-                                                            </Button>
+                                                            <Path
+                                                                Width="20"
+                                                                Height="20"
+                                                                HorizontalAlignment="Center"
+                                                                Data="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"
+                                                                Fill="Black"
+                                                                Stretch="Uniform" />
                                                         </Viewbox>
                                                     </Grid>
                                                 </MenuItem.Header>

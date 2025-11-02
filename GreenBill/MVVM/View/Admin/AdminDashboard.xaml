@@ -297,6 +297,7 @@
                         <Button
                             Background="Transparent"
                             BorderThickness="0"
+                            Command="{Binding NavigateToCampaignAnalytics}"
                             Content="See More"
                             Cursor="Hand"
                             DockPanel.Dock="Right">
@@ -313,26 +314,27 @@
                     <Border
                         Name="Border"
                         Grid.Row="1"
+                        Margin="0,0,0,50"
                         Background="White"
                         CornerRadius="8"
                         SnapsToDevicePixels="True">
-
-
                         <DataGrid
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            AlternatingRowBackground="#f7f9fa"
                             AutoGenerateColumns="False"
                             BorderThickness="0"
                             CanUserAddRows="False"
                             CanUserDeleteRows="False"
                             CanUserReorderColumns="False"
+                            CanUserResizeColumns="True"
                             CanUserSortColumns="False"
-                            ColumnWidth="*"
                             GridLinesVisibility="None"
                             HeadersVisibility="Column"
                             ItemsSource="{Binding Campaigns}"
-                            RowHeight="50">
+                            PreviewMouseWheel="MyDataGrid_PreviewMouseWheel"
+                            RowHeight="50"
+                            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto">
 
                             <DataGrid.Resources>
                                 <!--  Remove selection style  -->
@@ -343,15 +345,16 @@
                                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
                             </DataGrid.Resources>
 
-                            <!--  Header Style: Ensures text is NOT bold  -->
+
+                            <!--  Header Style  -->
                             <DataGrid.ColumnHeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
                                     <Setter Property="Background" Value="#e1e7e9" />
                                     <Setter Property="Foreground" Value="#333" />
-                                    <Setter Property="FontWeight" Value="Normal" />
+                                    <Setter Property="FontWeight" Value="SemiBold" />
                                     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                                     <Setter Property="FontSize" Value="14" />
-                                    <Setter Property="Padding" Value="15,20" />
+                                    <Setter Property="Padding" Value="10,20" />
                                     <Setter Property="BorderThickness" Value="0" />
                                     <Setter Property="HorizontalContentAlignment" Value="Left" />
                                     <!--  Override default template to prevent implicit bold  -->
@@ -379,18 +382,19 @@
                             <DataGrid.RowStyle>
                                 <Style TargetType="DataGridRow">
                                     <Setter Property="FontSize" Value="14" />
-                                    <Setter Property="BorderThickness" Value="0" />
+                                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                    <Setter Property="BorderBrush" Value="#e1e7e9" />
                                 </Style>
                             </DataGrid.RowStyle>
 
                             <DataGrid.CellStyle>
                                 <Style TargetType="DataGridCell">
-                                    <Setter Property="Padding" Value="9,6" />
+                                    <Setter Property="Padding" Value="10,0" />
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="DataGridCell">
                                                 <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
-                                                    <ContentPresenter VerticalAlignment="Center" />
+                                                    <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
                                                 </Border>
                                             </ControlTemplate>
                                         </Setter.Value>
@@ -401,33 +405,108 @@
                             <!--  Define the columns  -->
                             <DataGrid.Columns>
                                 <DataGridTextColumn
-                                    Width="50"
-                                    Binding="{Binding CampaignID}"
+                                    MinWidth="50"
+                                    Binding="{Binding Id}"
                                     Header="ID" />
                                 <DataGridTextColumn
-                                    Width="80"
-                                    Binding="{Binding Title}"
+                                    MinWidth="50"
+                                    Binding="{Binding UserId}"
                                     Header="UserID" />
-                                <DataGridTextColumn Binding="{Binding Title}" Header="Title" />
-                                <DataGridTextColumn Binding="{Binding Description}" Header="Description" />
                                 <DataGridTextColumn
-                                    Width="90"
-                                    Binding="{Binding Status}"
-                                    Header="Status" />
+                                    MinWidth="120"
+                                    Binding="{Binding Country}"
+                                    Header="Country" />
                                 <DataGridTextColumn
-                                    Width="90"
-                                    Binding="{Binding Verified}"
-                                    Header="Verified" />
+                                    MinWidth="150"
+                                    Binding="{Binding ZipCode}"
+                                    Header="ZipCode" />
                                 <DataGridTextColumn
-                                    Width="90"
-                                    Binding="{Binding DateSubmitted}"
+                                    MinWidth="150"
+                                    Binding="{Binding Category}"
+                                    Header="Category" />
+                                <DataGridTextColumn
+                                    MinWidth="150"
+                                    Binding="{Binding DonationGoal}"
+                                    Header="Donation Goal" />
+                                <DataGridTextColumn
+                                    MinWidth="200"
+                                    Binding="{Binding DonationRaised}"
+                                    Header="Donation Raised" />
+                                <DataGridTextColumn
+                                    MinWidth="150"
+                                    Binding="{Binding Image}"
+                                    Header="Image" />
+                                <DataGridTextColumn
+                                    MinWidth="100"
+                                    Binding="{Binding Title}"
+                                    Header="Title" />
+                                <DataGridTextColumn
+                                    MinWidth="100"
+                                    Binding="{Binding Description}"
+                                    Header="Description" />
+                                <DataGridTextColumn
+                                    MinWidth="150"
+                                    Binding="{Binding CreatedAt}"
                                     Header="Created At" />
+                                <DataGridTemplateColumn MinWidth="100" Header="Status">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock
+                                                Grid.Row="1"
+                                                Grid.Column="4"
+                                                TextWrapping="Wrap">
+
+                                                <InlineUIContainer>
+                                                    <Border Padding="6,2" CornerRadius="10">
+                                                        <TextBlock
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            FontSize="14"
+                                                            Text="{Binding Status}">
+                                                            <TextBlock.Style>
+                                                                <Style TargetType="TextBlock">
+                                                                    <Style.Triggers>
+                                                                        <DataTrigger Binding="{Binding Status}" Value="in review">
+                                                                            <Setter Property="Foreground" Value="#856404" />
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding Status}" Value="Verified">
+                                                                            <Setter Property="Foreground" Value="#1B5E20" />
+                                                                        </DataTrigger>
+                                                                        <DataTrigger Binding="{Binding Status}" Value="Rejected">
+                                                                            <Setter Property="Foreground" Value="#721C24" />
+                                                                        </DataTrigger>
+                                                                    </Style.Triggers>
+                                                                </Style>
+                                                            </TextBlock.Style>
+                                                        </TextBlock>
+
+                                                        <Border.Style>
+                                                            <Style TargetType="Border">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding Status}" Value="in review">
+                                                                        <Setter Property="Background" Value="#FFF3CD" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding Status}" Value="Verified">
+                                                                        <Setter Property="Background" Value="#C8E6C9" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding Status}" Value="Rejected">
+                                                                        <Setter Property="Background" Value="#F8D7DA" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </Border.Style>
+                                                    </Border>
+                                                </InlineUIContainer>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
                                 <DataGridTemplateColumn Width="50">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
 
-                                            <Menu Background="Transparent">
+                                            <Menu Background="Transparent" BorderBrush="Transparent">
                                                 <MenuItem Style="{DynamicResource Services_MenuItem_With_Dropdown}">
                                                     <MenuItem.Header>
                                                         <Grid>
@@ -446,198 +525,19 @@
                                                         </Grid>
                                                     </MenuItem.Header>
 
-                                                    <MenuItem Cursor="Hand" Header="Reject" />
-                                                    <MenuItem Cursor="Hand" Header="Approve" />
+                                                    <MenuItem
+                                                        Command="{Binding DataContext.NavigateToCampaignDetails, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                        CommandParameter="{Binding Id}"
+                                                        Cursor="Hand"
+                                                        Header="Review" />
                                                 </MenuItem>
                                             </Menu>
 
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-
-
                             </DataGrid.Columns>
                         </DataGrid>
-
-                    </Border>
-                </StackPanel>
-
-                <!--  TABLE  -->
-                <StackPanel Margin="0,40,0,0">
-                    <DockPanel LastChildFill="False">
-                        <TextBlock
-                            Margin="0,0,20,10"
-                            DockPanel.Dock="Left"
-                            FontFamily="./Assets/Fonts/#Poppins"
-                            FontSize="18"
-                            FontWeight="Bold"
-                            Foreground="#2D2D2D"
-                            Text="User Verification Requests" />
-                        <Button
-                            Background="Transparent"
-                            BorderThickness="0"
-                            Content="See More"
-                            Cursor="Hand"
-                            DockPanel.Dock="Right">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                    </DockPanel>
-
-                    <Border
-                        Grid.Row="1"
-                        Margin="0,0,0,40"
-                        Background="White"
-                        CornerRadius="8"
-                        SnapsToDevicePixels="True">
-
-
-                        <DataGrid
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            AlternatingRowBackground="#f7f9fa"
-                            AutoGenerateColumns="False"
-                            BorderThickness="0"
-                            CanUserAddRows="False"
-                            CanUserDeleteRows="False"
-                            CanUserReorderColumns="False"
-                            CanUserSortColumns="False"
-                            ColumnWidth="*"
-                            GridLinesVisibility="None"
-                            HeadersVisibility="Column"
-                            ItemsSource="{Binding Campaigns}"
-                            RowHeight="50">
-
-                            <DataGrid.Resources>
-                                <!--  Remove selection style  -->
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
-                                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
-                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
-                            </DataGrid.Resources>
-
-                            <!--  Header Style: Ensures text is NOT bold  -->
-                            <DataGrid.ColumnHeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="Background" Value="#e1e7e9" />
-                                    <Setter Property="Foreground" Value="#333" />
-                                    <Setter Property="FontWeight" Value="Normal" />
-                                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                                    <Setter Property="FontSize" Value="14" />
-                                    <Setter Property="Padding" Value="15,20" />
-                                    <Setter Property="BorderThickness" Value="0" />
-                                    <Setter Property="HorizontalContentAlignment" Value="Left" />
-                                    <!--  Override default template to prevent implicit bold  -->
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="DataGridColumnHeader">
-                                                <Border
-                                                    Background="{TemplateBinding Background}"
-                                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                                    CornerRadius="5">
-                                                    <ContentPresenter
-                                                        Margin="{TemplateBinding Padding}"
-                                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                        VerticalAlignment="Center"
-                                                        RecognizesAccessKey="True" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </DataGrid.ColumnHeaderStyle>
-
-                            <!--  Row Style  -->
-                            <DataGrid.RowStyle>
-                                <Style TargetType="DataGridRow">
-                                    <Setter Property="FontSize" Value="14" />
-                                    <Setter Property="BorderThickness" Value="0" />
-                                </Style>
-                            </DataGrid.RowStyle>
-
-                            <DataGrid.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Setter Property="Padding" Value="9,6" />
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="DataGridCell">
-                                                <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
-                                                    <ContentPresenter VerticalAlignment="Center" />
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </DataGrid.CellStyle>
-
-                            <!--  Define the columns  -->
-                            <DataGrid.Columns>
-                                <DataGridTextColumn
-                                    Width="50"
-                                    Binding="{Binding CampaignID}"
-                                    Header="ID" />
-                                <DataGridTextColumn
-                                    Width="80"
-                                    Binding="{Binding Title}"
-                                    Header="UserID" />
-                                <DataGridTextColumn Binding="{Binding Title}" Header="Title" />
-                                <DataGridTextColumn Binding="{Binding Description}" Header="Description" />
-                                <DataGridTextColumn
-                                    Width="90"
-                                    Binding="{Binding Status}"
-                                    Header="Status" />
-                                <DataGridTextColumn
-                                    Width="90"
-                                    Binding="{Binding Verified}"
-                                    Header="Verified" />
-                                <DataGridTextColumn
-                                    Width="90"
-                                    Binding="{Binding DateSubmitted}"
-                                    Header="Created At" />
-
-                                <DataGridTemplateColumn Width="50">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-
-                                            <Menu Background="Transparent">
-                                                <MenuItem Style="{DynamicResource Services_MenuItem_With_Dropdown}">
-                                                    <MenuItem.Header>
-                                                        <Grid>
-                                                            <Viewbox
-                                                                Width="20"
-                                                                Height="20"
-                                                                HorizontalAlignment="Center">
-                                                                <Path
-                                                                    Width="20"
-                                                                    Height="20"
-                                                                    HorizontalAlignment="Center"
-                                                                    Data="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"
-                                                                    Fill="Black"
-                                                                    Stretch="Uniform" />
-                                                            </Viewbox>
-                                                        </Grid>
-                                                    </MenuItem.Header>
-
-                                                    <MenuItem Cursor="Hand" Header="Reject" />
-                                                    <MenuItem Cursor="Hand" Header="Approve" />
-                                                </MenuItem>
-                                            </Menu>
-
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-
-
-                            </DataGrid.Columns>
-                        </DataGrid>
-
                     </Border>
                 </StackPanel>
 

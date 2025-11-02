@@ -1,3 +1,4 @@
+using GreenBill.Core;
 using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.Services;
@@ -6,9 +7,12 @@ using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace GreenBill.MVVM.ViewModel.Admin {
 
@@ -23,9 +27,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         public bool Verified { get; set; }
         public DateTime DateSubmitted { get; set; }
     }
-    public class AdminDashboardViewModel : Core.ViewModel, INavigationAware {
-
-        public ObservableCollection<Campaign> Campaigns { get; set; }
+    public class AdminDashboardViewModel : Core.ViewModel, INavigationAware, INotifyPropertyChanged, INavigatableService {
 
         public SeriesCollection Series { get; set; }
             = new SeriesCollection
@@ -60,10 +62,18 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
         public bool ShowNavigation => true;
 
-        // --- User counting (from earlier change) ---
         private readonly IUserService _userService;
+        private ITabNavigationService _navigationService;
+        public ITabNavigationService Navigation {
+            get => _navigationService;
+            set {
+                _navigationService = value;
+                OnPropertyChanged();
+            }
+        }
         public List<User> usersFromDB { get; private set; }
         public ObservableCollection<User> Users { get; set; } = new ObservableCollection<User>();
+        public ObservableCollection<MVVM.Model.Campaign> Campaigns { get; set; } = new ObservableCollection<MVVM.Model.Campaign>();
 
         private string _userCount;
         public string UserCount {
@@ -75,7 +85,6 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 }
             }
         }
-        // --- end user counting ---
 
         // --- Campaign counts ---
         private readonly ICampaignService _campaignService;
@@ -112,43 +121,22 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 }
             }
         }
-        // --- end campaign counts ---
 
-        // Constructor: ICampaignService injected by DI
-        public AdminDashboardViewModel(ICampaignService campaignService) {
-            _campaignService = campaignService ?? throw new ArgumentNullException(nameof(campaignService));
+        public ICommand NavigateToCampaignDetails { get; set; }
+        public ICommand NavigateToCampaignAnalytics { get; set; }
 
-            Campaigns = new ObservableCollection<Campaign>();
+        public AdminDashboardViewModel(ICampaignService campaignService, ITabNavigationService navService) {
+            
+            _campaignService = campaignService;
+            _navigationService = navService;
 
-            // sample placeholder (kept for immediate UI)
-            Campaigns.Add(new Campaign {
-                CampaignID = 1,
-                Title = "Charity Run",
-                Description = "A charity run for climate change",
-                TargetDonation = "1000PHP",
-                AccumulatedDonation = "200PHP",
-                Status = "Ongoing",
-                Verified = true,
-                DateSubmitted = DateTime.Now
-            });
-
-            Campaigns.Add(new Campaign {
-                CampaignID = 2,
-                Title = "School Build",
-                Description = "Fund a local school",
-                TargetDonation = "5000PHP",
-                AccumulatedDonation = "1200PHP",
-                Status = "Ongoing",
-                Verified = true,
-                DateSubmitted = DateTime.Now
-            });
-
-            // keep same pattern as UserAnalyticsViewModel for user loading
             _userService = new UserService();
             _ = LoadUsersAsync();
 
             // start loading campaigns and counts
             _ = LoadCampaignCountsAsync();
+            NavigateToCampaignDetails = new RelayCommand(campaign_id => { Navigation?.NavigateToTab<ReviewCampaignViewModel>(campaign_id.ToString()); });
+            NavigateToCampaignAnalytics = new RelayCommand(o => Navigation.NavigateToTab<AdminCampaignAnalyticsViewModel>());
         }
 
         private async Task LoadUsersAsync() {
@@ -196,20 +184,21 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
                 // populate the Campaigns collection (map minimal fields)
                 Campaigns.Clear();
-                int idx = 1;
                 foreach (var c in campaignsFromDb) {
-                    Campaigns.Add(new Campaign {
-                        CampaignID = idx++,
-                        Title = c.Title,
-                        Description = c.Description,
-                        Status = c.Status,
-                        Verified = string.Equals(c.Status, "Verified", StringComparison.OrdinalIgnoreCase),
-                        DateSubmitted = c.CreatedAt
-                    });
+                    if (c.Status == "in review") {
+                        Campaigns.Add(c);
+                    }
                 }
+
+                OnPropertyChanged(nameof(Campaigns));
             } catch (Exception ex) {
                 MessageBox.Show($"Error loading campaigns: {ex.Message}");
             }
+        }
+
+        public void ApplyNavigationParameter(object parameter) {
+            // we don't use parameter here, just refresh when navigated to
+            _ = LoadCampaignCountsAsync();
         }
     }
 }

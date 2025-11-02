@@ -6,6 +6,7 @@ using Stripe;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -92,15 +93,32 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         public RelayCommand SelectPendingCampaigns { get; set; }
         public RelayCommand SelectRejectedCampaigns { get; set; }
 
-        public AdminCampaignAnalyticsViewModel(ICampaignService campaignService, IUserService userService) {
+        public AdminCampaignAnalyticsViewModel(ICampaignService campaignService, IUserService userService, ITabNavigationService navService) {
             _campaignService = campaignService;
             _userService = userService;
+            _navigationService = navService;
             _ = LoadCampaignsAsync();
 
             SelectAllCampaigns = new RelayCommand(o => SelectedTab = "All");
             SelectVerifiedCampaigns = new RelayCommand(o => SelectedTab = "Verified");
             SelectPendingCampaigns = new RelayCommand(o => SelectedTab = "in review");
             SelectRejectedCampaigns = new RelayCommand(o => SelectedTab = "rejected");
+            NavigateToCampaignDetails = new RelayCommand(campaign_id => {Navigation?.NavigateToTab<ReviewCampaignViewModel>(campaign_id.ToString());});
+        }
+
+        // Called by navigation service (reflection) and view code to refresh data
+        public void Refresh() {
+            _ = LoadCampaignsAsync();
+        }
+
+        // Support navigation parameter injection (keeps backward compatibility)
+        public void ApplyNavigationParameter(object parameter) {
+            if (parameter is ICommand cmd) {
+                // only set if caller provided a navigation command
+                NavigateToCampaignDetails = cmd;
+            }
+            // always refresh when navigated to
+            Refresh();
         }
 
         private void FilterCampaignsByTab() {
@@ -120,13 +138,6 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             foreach (var campaign in filteredCampaigns) {
                 Campaigns.Add(campaign);
             }
-        }
-
-        public void ApplyNavigationParameter(object parameter) {
-            if (parameter is ICommand cmd) {
-                NavigateToCampaignDetails = cmd;
-            }
-            _ = LoadCampaignsAsync();
         }
 
         private async Task LoadCampaignsAsync() {

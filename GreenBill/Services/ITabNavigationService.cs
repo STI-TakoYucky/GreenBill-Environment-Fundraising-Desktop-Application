@@ -1,6 +1,9 @@
 ﻿using GreenBill.Core;
 using GreenBill.IServices;
 using System;
+using System.ComponentModel;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace GreenBill.Services {
     public interface ITabNavigationService {
@@ -10,38 +13,50 @@ namespace GreenBill.Services {
         void NavigateToTab<T>(object parameter) where T : ViewModel;
     }
 
-    public class TabNavigationService : ObservableObject, ITabNavigationService {
-        private readonly Func<Type, ViewModel> _factory;
+    public class TabNavigationService : ITabNavigationService, INotifyPropertyChanged {
+        private readonly Func<Type, ViewModel> _viewModelFactory;
 
-        /// <summary>
-        /// Pass a factory (e.g. from DI container) that knows how to create your ViewModels.
-        /// </summary>
-        public TabNavigationService(Func<Type, ViewModel> factory) {
-            _factory = factory ?? throw new ArgumentNullException(nameof(factory));
+        public TabNavigationService(Func<Type, ViewModel> viewModelFactory) {
+            _viewModelFactory = viewModelFactory;
         }
 
         private ViewModel _currentTabView;
         public ViewModel CurrentTabView {
             get => _currentTabView;
-            set {
-                _currentTabView = value;
-                OnPropertyChanged();
+            private set {
+                if (!Equals(_currentTabView, value)) {
+                    _currentTabView = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
         public void NavigateToTab<T>() where T : ViewModel {
-            var viewModel = (T)_factory(typeof(T));
-            CurrentTabView = viewModel;
+            NavigateToTab<T>(null);
         }
 
         public void NavigateToTab<T>(object parameter) where T : ViewModel {
-            var viewModel = (T)_factory(typeof(T));
+            // Resolve VM from DI (singleton/transient behavior is controlled by DI registration)
+            var vm = (ViewModel)_viewModelFactory(typeof(T));
+            if (vm == null) return;
 
-            if (viewModel is INavigatableService navigatableVm) {
-                navigatableVm.ApplyNavigationParameter(parameter);
+            // If viewmodel supports navigation parameters, call it
+            if (vm is INavigatableService navigatable) {
+                try { navigatable.ApplyNavigationParameter(parameter); } catch { /* swallow */ }
             }
 
-            CurrentTabView = viewModel;
+            // If the VM exposes a public Refresh() method, call it
+            var refreshMethod = vm.GetType().GetMethod("Refresh", BindingFlags.Public | BindingFlags.Instance);
+            try { refreshMethod?.Invoke(vm, null); } catch { /* swallow */ }
+
+            // Set CurrentTabView so UI bound to this property updates
+            CurrentTabView = vm;
+        }
+
+        // Simple INotifyPropertyChanged implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null) {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

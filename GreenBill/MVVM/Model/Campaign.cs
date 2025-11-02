@@ -4,74 +4,33 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows.Documents;
 
-namespace GreenBill.MVVM.Model {
+namespace GreenBill.MVVM.Model
+{
     public class Campaign : INotifyPropertyChanged {
         public ObjectId Id { get; set; }
         public ObjectId UserId { get; set; }
+        public string Country { get; set; }
+        public string ZipCode { get; set; } 
+        public string Category { get; set; }
+        public decimal DonationGoal { get; set; }
+        public decimal DonationRaised { get; set; }
+        public byte[] Image { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+         public DateTime CreatedAt { get; set; }
 
-        private string _country;
-        public string Country {
-            get => _country;
-            set { if (_country != value) { _country = value; OnPropertyChanged(); } }
-        }
-
-        private string _zipCode;
-        public string ZipCode {
-            get => _zipCode;
-            set { if (_zipCode != value) { _zipCode = value; OnPropertyChanged(); } }
-        }
-
-        private string _category;
-        public string Category {
-            get => _category;
-            set { if (_category != value) { _category = value; OnPropertyChanged(); } }
-        }
-
-        private decimal _donationGoal;
-        public decimal DonationGoal {
-            get => _donationGoal;
-            set { if (_donationGoal != value) { _donationGoal = value; OnPropertyChanged(); } }
-        }
-
-        private decimal _donationRaised;
-        public decimal DonationRaised {
-            get => _donationRaised;
-            set { if (_donationRaised != value) { _donationRaised = value; OnPropertyChanged(); } }
-        }
-
-        private byte[] _image;
-        public byte[] Image {
-            get => _image;
-            set { if (_image != value) { _image = value; OnPropertyChanged(); } }
-        }
-
-        private string _title;
-        public string Title {
-            get => _title;
-            set { if (_title != value) { _title = value; OnPropertyChanged(); } }
-        }
-
-        private string _description;
-        public string Description {
-            get => _description;
-            set { if (_description != value) { _description = value; OnPropertyChanged(); } }
-        }
-
-        private DateTime _createdAt;
-        public DateTime CreatedAt {
-            get => _createdAt;
-            set { if (_createdAt != value) { _createdAt = value; OnPropertyChanged(); } }
-        }
-
-        // IMPORTANT: Status must notify changes for bindings in DataGrid to update.
         private string _status = "in review";
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public string Status {
             get => _status;
             set {
                 if (_status != value) {
                     _status = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(Status));
                 }
             }
         }
@@ -82,28 +41,64 @@ namespace GreenBill.MVVM.Model {
 
         [BsonIgnore]
         public User User { get; set; }
-
         [BsonIgnore]
         public List<DonationRecord> DonationRecord { get; set; }
-
         [BsonIgnore]
         public List<CampaignUpdate> CampaignUpdate { get; set; }
-
         [BsonIgnore]
         public List<WithdrawalRecord> WithdrawalRecord { get; set; }
-
         [BsonIgnore]
         public string TotalAmountRaised { get; set; }
+        
+        [BsonIgnore]
+        public string DonationsCount {  get; set; }
+        [BsonIgnore]
+        public string Percentage {  get; set; }
 
         [BsonIgnore]
-        public string DonationsCount { get; set; }
+        public string DaySpan
+        {
+            get
+            {
+                var timeSpan = DateTime.Now - CreatedAt;
 
-        [BsonIgnore]
-        public string Percentage { get; set; }
+                if (timeSpan.TotalDays >= 365)
+                {
+                    int years = (int)(timeSpan.TotalDays / 365);
+                    return years == 1 ? "1 year ago" : $"{years} years ago";
+                }
+                else if (timeSpan.TotalDays >= 30)
+                {
+                    int months = (int)(timeSpan.TotalDays / 30);
+                    return months == 1 ? "1 month ago" : $"{months} months ago";
+                }
+                else if (timeSpan.TotalDays >= 7)
+                {
+                    int weeks = (int)(timeSpan.TotalDays / 7);
+                    return weeks == 1 ? "1 week ago" : $"{weeks} weeks ago";
+                }
+                else if (timeSpan.TotalDays >= 1)
+                {
+                    int days = (int)timeSpan.TotalDays;
+                    return days == 1 ? "1 day ago" : $"{days} days ago";
+                }
+                else if (timeSpan.TotalHours >= 1)
+                {
+                    int hours = (int)timeSpan.TotalHours;
+                    return hours == 1 ? "1 hour ago" : $"{hours} hours ago";
+                }
+                else if (timeSpan.TotalMinutes >= 1)
+                {
+                    int minutes = (int)timeSpan.TotalMinutes;
+                    return minutes == 1 ? "1 minute ago" : $"{minutes} minutes ago";
+                }
+                else
+                {
+                    return "Just now";
+                }
+            }
+        }
 
-        [BsonIgnore]
-        public string DaySpan { get; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

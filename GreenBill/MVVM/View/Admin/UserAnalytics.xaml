@@ -7,69 +7,71 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="900"
     d:DesignWidth="1400"
-    Background="White"
+    Background="#f4f4f4"
     mc:Ignorable="d">
 
+
+
     <UserControl.Resources>
-
-        <!--  Tab Button Style  -->
-        <Style x:Key="TabButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="#666666" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Padding" Value="20,15" />
-            <Setter Property="FontWeight" Value="Medium" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                            Padding="{TemplateBinding Padding}"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="#E0E0E0"
-                            BorderThickness="0,0,0,2">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="#4CAF50" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!--  Active Tab Style  -->
-        <Style x:Key="ActiveTabButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="#4CAF50" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Padding" Value="20,15" />
-            <Setter Property="FontWeight" Value="Medium" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                            Padding="{TemplateBinding Padding}"
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="#4CAF50"
-                            BorderThickness="0,0,0,2">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <ResourceDictionary x:Key="Dropdownstyles">
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Styles/DropdownButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!--  Tab Button Style  -->
+            <Style x:Key="TabButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="#666666" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="20,15" />
+                <Setter Property="FontWeight" Value="Medium" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="#E0E0E0"
+                                BorderThickness="0,0,0,2">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="#4CAF50" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!--  Active Tab Style  -->
+            <Style x:Key="ActiveTabButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Foreground" Value="#4CAF50" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="20,15" />
+                <Setter Property="FontWeight" Value="Medium" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                                Padding="{TemplateBinding Padding}"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="#4CAF50"
+                                BorderThickness="0,0,0,2">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
+
     </UserControl.Resources>
     <Grid>
         <ScrollViewer Padding="30,0,30,0" VerticalScrollBarVisibility="Auto">
@@ -148,7 +150,6 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-            
                                 Text="Verified Users" />
                             <TextBlock
                                 Margin="0,0,0,5"
@@ -188,7 +189,6 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-                            
                                 Text="Unverified Users" />
                             <TextBlock
                                 Margin="0,0,0,5"
@@ -228,7 +228,6 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-                       
                                 Text="Reported Users" />
                             <TextBlock
                                 Margin="0,0,0,5"
@@ -361,10 +360,6 @@
                                 Binding="{Binding Id}"
                                 Header="ID" />
                             <DataGridTextColumn
-                                MinWidth="120"
-                                Binding="{Binding Profile}"
-                                Header="Profile Picture" />
-                            <DataGridTextColumn
                                 MinWidth="150"
                                 Binding="{Binding FirstName}"
                                 Header="First Name" />
@@ -384,7 +379,14 @@
                                 MinWidth="150"
                                 Binding="{Binding Password}"
                                 Header="Password" />
-                            <DataGridTextColumn MinWidth="100" Header="Role" />
+                            <DataGridTextColumn
+                                MinWidth="150"
+                                Binding="{Binding}"
+                                Header="Verification Status" />
+                            <DataGridTextColumn
+                                MinWidth="150"
+                                Binding="{Binding}"
+                                Header="Can Receive Funds" />
                             <DataGridTextColumn
                                 MinWidth="150"
                                 Binding="{Binding CreatedAt}"
@@ -394,7 +396,7 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
 
-                                        <Menu Background="Transparent">
+                                        <Menu Background="Transparent" BorderBrush="Transparent">
                                             <MenuItem Style="{DynamicResource Services_MenuItem_With_Dropdown}">
                                                 <MenuItem.Header>
                                                     <Grid>
@@ -413,8 +415,11 @@
                                                     </Grid>
                                                 </MenuItem.Header>
 
-                                                <MenuItem Cursor="Hand" Header="Reject" />
-                                                <MenuItem Cursor="Hand" Header="Approve" />
+                                                <MenuItem
+                                                    Command="{Binding DataContext.NavigateToReviewUser, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                    CommandParameter="{Binding Id}"
+                                                    Cursor="Hand"
+                                                    Header="Review" />
                                             </MenuItem>
                                         </Menu>
 

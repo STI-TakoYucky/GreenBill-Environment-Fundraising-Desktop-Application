@@ -31,8 +31,8 @@
             <converters:ProgressToWidthConverter x:Key="ProgressToWidthConverter" />
             <converters:BytesToMBConverter x:Key="BytesToMBConverter" />
 
-            <CubicEase x:Key="EaseOut" EasingMode="EaseOut"/>
-            <CubicEase x:Key="EaseIn" EasingMode="EaseIn"/>
+            <CubicEase x:Key="EaseOut" EasingMode="EaseOut" />
+            <CubicEase x:Key="EaseIn" EasingMode="EaseIn" />
 
             <DataTemplate DataType="{x:Type viewModel:FundraisingStepsViewModel}">
                 <stepsView:FundraisingStepsContainer />
@@ -68,6 +68,10 @@
 
             <DataTemplate DataType="{x:Type adminViewModel:AdminWindowViewModel}">
                 <adminView:AdminWindow />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type adminViewModel:ReviewUserViewModel}">
+                <adminView:ReviewUser />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type adminViewModel:AdminDashboardViewModel}">
@@ -114,7 +118,7 @@
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewModel:WithdrawPageViewModel}">
-                <view:WithdrawPage/>
+                <view:WithdrawPage />
             </DataTemplate>
 
 

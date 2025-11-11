@@ -318,6 +318,7 @@
     <Compile Include="MVVM\ViewModel\Admin\AdminDashboardViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminWindowViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\ReviewCampaignViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\ReviewUserViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\SettingsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\UserAnalyticsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\CampaignAnalyticsViewModel.cs" />
@@ -346,6 +347,9 @@
     </Compile>
     <Compile Include="MVVM\View\Admin\ReviewCampaign.xaml.cs">
       <DependentUpon>ReviewCampaign.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\ReviewUser.xaml.cs">
+      <DependentUpon>ReviewUser.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Admin\Sample.xaml.cs">
       <DependentUpon>Sample.xaml</DependentUpon>
@@ -459,6 +463,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Admin\ReviewCampaign.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\ReviewUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

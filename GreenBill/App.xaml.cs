@@ -63,7 +63,7 @@ namespace GreenBill
             
 
             services.AddSingleton<ReviewCampaignViewModel>();
-
+            services.AddSingleton<ReviewUserViewModel>();   
             services.AddTransient<CampaignUpdatesViewModel>();
             services.AddTransient<MyProfileViewModel>();
             services.AddTransient<WithdrawPageViewModel>();

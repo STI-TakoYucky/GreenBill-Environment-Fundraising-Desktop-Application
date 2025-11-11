@@ -103,7 +103,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             SelectVerifiedCampaigns = new RelayCommand(o => SelectedTab = "Verified");
             SelectPendingCampaigns = new RelayCommand(o => SelectedTab = "in review");
             SelectRejectedCampaigns = new RelayCommand(o => SelectedTab = "rejected");
-            NavigateToCampaignDetails = new RelayCommand(campaign_id => {Navigation?.NavigateToTab<ReviewCampaignViewModel>(campaign_id.ToString());});
+            NavigateToCampaignDetails = new RelayCommand(campaign_id => { Navigation?.NavigateToTab<ReviewCampaignViewModel>(campaign_id.ToString()); });
         }
 
         // Called by navigation service (reflection) and view code to refresh data

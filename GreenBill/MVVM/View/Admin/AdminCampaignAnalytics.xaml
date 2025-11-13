@@ -236,13 +236,13 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-                                Text="Reported Campaigns" />
+                                Text="Rejected Campaigns" />
                             <TextBlock
                                 Margin="0,0,0,5"
                                 FontSize="28"
                                 FontWeight="Bold"
                                 Foreground="#E67E22"
-                                Text="2" />
+                                Text="{Binding RejectedCampaignsCount}" />
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     Margin="0,0,5,0"

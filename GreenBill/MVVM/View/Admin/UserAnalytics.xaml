@@ -80,6 +80,7 @@
                     Margin="0,20,0,0"
                     FontSize="24"
                     FontWeight="SemiBold"
+                    Foreground="#00695C"
                     Text="Users" />
 
                 <Grid Margin="0,20,0,0">
@@ -111,7 +112,7 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-                                Text="Total Users" />
+                                Text="All Users" />
                             <TextBlock
                                 Margin="0,0,0,5"
                                 FontSize="28"
@@ -150,7 +151,7 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-                                Text="Verified Users" />
+                                Text="Verified Stripe Users" />
                             <TextBlock
                                 Margin="0,0,0,5"
                                 FontSize="28"
@@ -189,7 +190,7 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-                                Text="Unverified Users" />
+                                Text="Pending Verification Users" />
                             <TextBlock
                                 Margin="0,0,0,5"
                                 FontSize="28"
@@ -266,7 +267,7 @@
                             <!--  Tabs  -->
                             <StackPanel Orientation="Horizontal">
                                 <Button Content="All" Style="{StaticResource ActiveTabButtonStyle}" />
-                                <Button Content="Pending Verification" Style="{StaticResource TabButtonStyle}" />
+                                <Button Content="Pending" Style="{StaticResource TabButtonStyle}" />
                                 <Button Content="Reported" Style="{StaticResource TabButtonStyle}" />
                             </StackPanel>
                         </Grid>
@@ -356,39 +357,35 @@
                         <!--  Define the columns  -->
                         <DataGrid.Columns>
                             <DataGridTextColumn
-                                MinWidth="50"
-                                Binding="{Binding Id}"
-                                Header="ID" />
-                            <DataGridTextColumn
-                                MinWidth="150"
+                                Width="*"
                                 Binding="{Binding FirstName}"
                                 Header="First Name" />
                             <DataGridTextColumn
-                                MinWidth="150"
+                                Width="*"
                                 Binding="{Binding LastName}"
                                 Header="Last Name" />
                             <DataGridTextColumn
-                                MinWidth="150"
+                                Width="*"
                                 Binding="{Binding Username}"
                                 Header="Username" />
                             <DataGridTextColumn
-                                MinWidth="200"
+                                Width="*"
                                 Binding="{Binding Email}"
                                 Header="Email" />
                             <DataGridTextColumn
-                                MinWidth="150"
+                                Width="*"
                                 Binding="{Binding Password}"
                                 Header="Password" />
                             <DataGridTextColumn
-                                MinWidth="150"
+                                Width="*"
                                 Binding="{Binding}"
                                 Header="Verification Status" />
                             <DataGridTextColumn
-                                MinWidth="150"
+                                Width="*"
                                 Binding="{Binding}"
                                 Header="Can Receive Funds" />
                             <DataGridTextColumn
-                                MinWidth="150"
+                                Width="*"
                                 Binding="{Binding CreatedAt}"
                                 Header="Created At" />
 

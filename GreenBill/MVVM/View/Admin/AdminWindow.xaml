@@ -42,6 +42,7 @@
                         <TextBlock
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
+                            Foreground="#00695C"
                             Text="Dashboard" />
                     </StackPanel>
                 </Button>
@@ -63,6 +64,7 @@
                         <TextBlock
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
+                            Foreground="#00695C"
                             Text="Users" />
                     </StackPanel>
                 </Button>
@@ -84,6 +86,7 @@
                         <TextBlock
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
+                            Foreground="#00695C"
                             Text="Campaigns" />
                     </StackPanel>
                 </Button>
@@ -105,6 +108,7 @@
                         <TextBlock
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
+                            Foreground="#00695C"
                             Text="Settings" />
                     </StackPanel>
                 </Button>

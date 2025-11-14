@@ -61,6 +61,17 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             }
         }
         public ICommand NavigateToReviewUser { get; set; }
+        public ICommand TabSelect { get; set; }
+        private string _activeTab = "all";
+
+        public string activeTab {
+            get => _activeTab;
+            set {
+                _activeTab = value;
+                OnPropertyChanged();
+                FilterTab();
+            }
+        }
 
         // Default constructor used by TabNavigationService
         public UserAnalyticsViewModel(ITabNavigationService navigationService) {
@@ -70,31 +81,59 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             _ = LoadUsersAsync();
 
             NavigateToReviewUser = new RelayCommand(userId => Navigation.NavigateToTab<ReviewUserViewModel>(userId.ToString()));
+            TabSelect = new RelayCommand(tab => activeTab = tab.ToString().ToLower());
+        }
+
+        private void FilterTab() {
+            Users.Clear();
+            if (activeTab.ToLower() == "all") {
+                foreach (var item in usersFromDB) {
+                    Users.Add(item);
+                }
+                return;
+            }
+
+            var filteredUsers = usersFromDB.Where(c => string.Equals(c.VerificationStatus.ToLower(), activeTab, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            foreach (var item in filteredUsers) {
+                Users.Add(item);
+            }
         }
 
         private async Task LoadUsersAsync() {
             usersFromDB = await _userService.GetAllUsersAsync();
             if (usersFromDB == null) return;
+            Users.Clear();
 
             try {
                 UserCount = usersFromDB.Count.ToString();
                 VerifiedUserCount = usersFromDB.Count(item => item.VerificationStatus.ToLower() == "verified").ToString();
                 PendingUserCount = usersFromDB.Count(item => item.VerificationStatus.ToLower() == "pending_onboarding").ToString();
+
                 foreach (var item in usersFromDB) {
-                    Users.Add(new User {
-                        Id = item.Id,
-                        Profile = item.Profile,
-                        FirstName = item.FirstName,
-                        LastName = item.LastName,
-                        Username = item.Username,
-                        Email = item.Email,
-                        Password = item.Password,
-                        CreatedAt = item.CreatedAt
-                    });
+                    Users.Add(item);
                 }
+
                 OnPropertyChanged(nameof(usersFromDB));
+                FilterTab();
             } catch (Exception ex) {
                 MessageBox.Show($"Error fetching users: {ex.Message}");
+            }
+        }
+
+        // Properties for tab styling (active/inactive state)
+        public bool isAllUsersActive => activeTab == "all";
+        public bool isVerifiedUsersActive => activeTab == "verified";
+        public bool isPendingUsersActive => activeTab == "pending_onboarding";
+
+        protected override void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null) {
+            base.OnPropertyChanged(propertyName);
+
+            // When SelectedTab changes, notify the tab state properties
+            if (propertyName == nameof(activeTab)) {
+                OnPropertyChanged(nameof(isAllUsersActive));
+                OnPropertyChanged(nameof(isVerifiedUsersActive));
+                OnPropertyChanged(nameof(isPendingUsersActive));
             }
         }
     }

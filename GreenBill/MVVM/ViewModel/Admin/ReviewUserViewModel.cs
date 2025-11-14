@@ -1,6 +1,7 @@
 ﻿using GreenBill.Core;
 using GreenBill.IServices;
 using GreenBill.Services;
+using Stripe.Checkout;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,17 +27,6 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             }
         }
 
-        public IUserService _userService;
-
-        public ICommand NavigateBack { get; set; }
-        public ICommand PreviewImageCommand { get; }
-        public ReviewUserViewModel(ITabNavigationService navigationService, IUserService userService) {
-            Navigation = navigationService;
-
-            NavigateBack = new RelayCommand(Navigation.NavigateToTab<UserAnalyticsViewModel>);
-            _userService = userService;
-            PreviewImageCommand = new RelayCommand(param => PreviewImage(param));
-        }
 
         private GreenBill.MVVM.Model.User _selectedUser;
         public GreenBill.MVVM.Model.User SelectedUser {
@@ -44,6 +34,47 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             set {
                 _selectedUser = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private string _password;
+        public string Passwords {
+            get => _password;
+            set {
+                _password = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private bool isPasswordHidden = true;
+        private string storedPassword;
+
+
+        public IUserService _userService;
+
+        public ICommand NavigateBack { get; set; }
+        public ICommand PreviewImageCommand { get; }
+        public ICommand ShowPasswordCommand { get; }
+        public ReviewUserViewModel(ITabNavigationService navigationService, IUserService userService) {
+            Navigation = navigationService;
+
+            NavigateBack = new RelayCommand(Navigation.NavigateToTab<UserAnalyticsViewModel>);
+            _userService = userService;
+            PreviewImageCommand = new RelayCommand(param => PreviewImage(param));
+            ShowPasswordCommand = new RelayCommand(_ => ShowPassword());
+        }
+
+        private void ShowPassword() {
+            int passwordLength = storedPassword.Length;
+            Passwords = "";
+            if(isPasswordHidden) {
+                Passwords = storedPassword;
+                isPasswordHidden = false;
+            } else if (!isPasswordHidden) {
+                for (int i = 1; i <= passwordLength; i++) {
+                    Passwords += "•";
+                }
+                isPasswordHidden = true;
             }
         }
 
@@ -76,10 +107,14 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             try {
                 if (parameter == null) return;
                 string id = parameter.ToString();
-
-                Debug.WriteLine("START TEST");
                 SelectedUser = await _userService.GetUserByIdAsync(id); 
                 if (SelectedUser == null) throw new ArgumentNullException();
+
+                int passwordLength = SelectedUser.Password.Length;
+                for (int i = 1; i <= passwordLength; i++) {
+                    Passwords += "•";
+                }
+                storedPassword = SelectedUser.Password;
             } catch (Exception ex) {
                 MessageBox.Show("Error loading user details: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }

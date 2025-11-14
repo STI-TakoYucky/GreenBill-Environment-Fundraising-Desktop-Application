@@ -7,6 +7,10 @@
     d:DesignHeight="900"
     d:DesignWidth="1400"
     Background="#f0f2f5"
+    SnapsToDevicePixels="True"
+    TextOptions.TextFormattingMode="Display"
+    TextOptions.TextRenderingMode="ClearType"
+    UseLayoutRounding="True"
     mc:Ignorable="d">
 
     <Grid>
@@ -21,7 +25,7 @@
                         Style="{StaticResource BackButtonStyle}" />
                 </StackPanel>
 
-                <!--  Campaign Card  -->
+                <!--  Campaign Card (modernized, preserves bindings & actions)  -->
                 <Border
                     Margin="0,0,0,20"
                     Padding="25"
@@ -30,270 +34,316 @@
                     BorderThickness="1"
                     CornerRadius="12"
                     Effect="{DynamicResource DropShadowEffect}">
-
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="340" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel Grid.Column="0" Orientation="Vertical">
+                        <!--  Left: Image + quick summary  -->
+                        <StackPanel
+                            Grid.Column="0"
+                            Margin="0,0,24,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top">
+                            <Border
+                                Width="280"
+                                Height="280"
+                                Background="#FFF"
+                                BorderBrush="#E6E9EB"
+                                BorderThickness="1"
+                                CornerRadius="8">
+                                <Button
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Command="{Binding PreviewImageCommand}"
+                                    CommandParameter="{Binding SelectedCampaign.Image}"
+                                    Cursor="Hand"
+                                    Focusable="False">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Grid>
+                                                <Image
+                                                    RenderOptions.BitmapScalingMode="HighQuality"
+                                                    SnapsToDevicePixels="True"
+                                                    Source="{Binding SelectedCampaign.Image, Converter={StaticResource ImageConverter}}"
+                                                    Stretch="UniformToFill"
+                                                    UseLayoutRounding="True" />
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </Border>
 
-                            <DockPanel VerticalAlignment="Top">
-                                <StackPanel Orientation="Horizontal">
-                                    <!--  Image  -->
-                                    <Border
-                                        Width="200"
-                                        Height="200"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        CornerRadius="8">
-                                        <Button
-                                            Background="Transparent"
-                                            BorderThickness="0"
-                                            Command="{Binding PreviewImageCommand}"
-                                            CommandParameter="{Binding SelectedCampaign.Image}"
-                                            Cursor="Hand"
-                                            Focusable="False">
-                                            <Button.Template>
-                                                <ControlTemplate TargetType="Button">
-                                                    <Grid>
-                                                        <!--  Image  -->
-                                                        <Image
-                                                            Height="350"
-                                                            Source="{Binding SelectedCampaign.Image, Converter={StaticResource ImageConverter}}"
-                                                            Stretch="UniformToFill" />
+                            <!--  Actions row  -->
+                            <StackPanel
+                                Grid.Row="0"
+                                Margin="0,30,0,12"
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+                                <Button Margin="0,0,12,0" Command="{Binding Approve_ReviewCampaign}">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                            <Setter Property="Content" Value="Approve" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Verified">
+                                                    <Setter Property="Content" Value="Review" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="in review">
+                                                    <Setter Property="Content" Value="Approve" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
 
-                                                        <!--  Dark overlay  -->
-                                                        <Rectangle
-                                                            x:Name="Overlay"
-                                                            Fill="Black"
-                                                            IsHitTestVisible="False"
-                                                            Opacity="0" />
-                                                    </Grid>
+                                <Button
+                                    Command="{Binding RejectCampaign}"
+                                    CommandParameter="{Binding SelectedCampaign.Id}"
+                                    Content="Reject"
+                                    Style="{StaticResource SecondaryButton}" />
+                            </StackPanel>
+                        </StackPanel>
 
-                                                    <!--  Hover trigger  -->
-                                                    <ControlTemplate.Triggers>
-                                                        <Trigger Property="IsMouseOver" Value="True">
-                                                            <Setter TargetName="Overlay" Property="Opacity" Value="0.2" />
-                                                        </Trigger>
-                                                    </ControlTemplate.Triggers>
-                                                </ControlTemplate>
-                                            </Button.Template>
-                                        </Button>
-                                    </Border>
-                                    <!--  Image  -->
-                                </StackPanel>
+                        <!--  Right: details and actions  -->
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
 
-                                <StackPanel
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Top"
-                                    Orientation="Horizontal">
-                                    <Button Margin="0,0,20,0" Command="{Binding Approve_ReviewCampaign}">
-                                        <Button.Style>
-                                            <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
-                                                <Setter Property="Content" Value="Approve" />
+                            <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                                <TextBlock
+                                    Margin="0,0,0,20"
+                                    FontSize="24"
+                                    FontWeight="Bold"
+                                    Foreground="#00695C"
+                                    Text="{Binding SelectedCampaign.Title}" />
 
+                                <Border
+                                    Width="100"
+                                    Margin="0,0,0,20"
+                                    Padding="6,2"
+                                    HorizontalAlignment="Left"
+                                    CornerRadius="10">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        FontSize="14"
+                                        Text="{Binding SelectedCampaign.Status}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
                                                 <Style.Triggers>
-                                                    <!--  When Status == Approved  -->
-                                                    <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Verified">
-                                                        <Setter Property="Content" Value="Review" />
-                                                    </DataTrigger>
-
                                                     <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="in review">
-                                                        <Setter Property="Content" Value="Approve" />
+                                                        <Setter Property="Foreground" Value="#856404" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Verified">
+                                                        <Setter Property="Foreground" Value="#1B5E20" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Rejected">
+                                                        <Setter Property="Foreground" Value="#721C24" />
                                                     </DataTrigger>
                                                 </Style.Triggers>
                                             </Style>
-                                        </Button.Style>
-                                    </Button>
+                                        </TextBlock.Style>
+                                    </TextBlock>
 
-                                    <Button
-                                        Command="{Binding RejectCampaign}"
-                                        CommandParameter="{Binding SelectedCampaign.Id}"
-                                        Content="Reject"
-                                        Style="{StaticResource SecondaryButton}" />
-                                </StackPanel>
-                            </DockPanel>
-
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                    <ColumnDefinition />
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <Grid.Resources>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Margin" Value="0,0,20,20" />
-                                    </Style>
-                                </Grid.Resources>
-                                <TextBlock Grid.Column="0" TextWrapping="Wrap">
-                                    <Run
-                                        FontSize="12"
-                                        Foreground="Gray"
-                                        Text="ID" />
-                                    <LineBreak />
-                                    <Run FontSize="14" Text="{Binding SelectedCampaign.IdString}" />
-                                </TextBlock>
-
-                                <TextBlock Grid.Column="1" TextWrapping="Wrap">
-                                    <Run
-                                        FontSize="12"
-                                        Foreground="Gray"
-                                        Text="Title" />
-                                    <LineBreak />
-                                    <Run FontSize="14" Text="{Binding SelectedCampaign.Title}" />
-                                </TextBlock>
-
-                                <TextBlock Grid.Column="2" TextWrapping="Wrap">
-                                    <Run
-                                        FontSize="12"
-                                        Foreground="Gray"
-                                        Text="UserID" />
-                                    <LineBreak />
-                                    <Run FontSize="14" Text="{Binding SelectedCampaign.UserId}" />
-                                </TextBlock>
-
-                                <TextBlock Grid.Column="3" TextWrapping="Wrap">
-                                    <Run
-                                        FontSize="12"
-                                        Foreground="Gray"
-                                        Text="Description" />
-                                    <LineBreak />
-                                    <Run FontSize="14" Text="{Binding SelectedCampaign.Description}" />
-                                </TextBlock>
-
-                                <TextBlock Grid.Column="4" TextWrapping="Wrap">
-                                    <Run
-                                        FontSize="12"
-                                        Foreground="Gray"
-                                        Text="Category" />
-                                    <LineBreak />
-                                    <Run FontSize="14" Text="{Binding SelectedCampaign.Category}" />
-                                </TextBlock>
-
-                                <TextBlock Grid.Row="1" TextWrapping="Wrap">
-                                    <Run
-                                        FontSize="12"
-                                        Foreground="Gray"
-                                        Text="Country" />
-                                    <LineBreak />
-                                    <Run FontSize="14" Text="{Binding SelectedCampaign.Country}" />
-                                </TextBlock>
-
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="in review">
+                                                    <Setter Property="Background" Value="#FFF3CD" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Verified">
+                                                    <Setter Property="Background" Value="#C8E6C9" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Rejected">
+                                                    <Setter Property="Background" Value="#F8D7DA" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
                                 <TextBlock
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    TextWrapping="Wrap">
-                                    <Run
-                                        FontSize="12"
-                                        Foreground="Gray"
-                                        Text="ZipCode" />
-                                    <LineBreak />
-                                    <Run FontSize="14" Text="{Binding SelectedCampaign.ZipCode}" />
-                                </TextBlock>
+                                    Margin="0,0,0,20"
+                                    FontSize="14"
+                                    Text="{Binding SelectedCampaign.Description}"
+                                    TextWrapping="Wrap" />
 
-                                <TextBlock
-                                    Grid.Row="1"
-                                    Grid.Column="2"
-                                    TextWrapping="Wrap">
-                                    <Run
-                                        FontSize="12"
-                                        Foreground="Gray"
-                                        Text="Donation Goal" />
-                                    <LineBreak />
-                                    <Run FontSize="14" Text="{Binding SelectedCampaign.DonationGoal}" />
-                                </TextBlock>
+                            </StackPanel>
 
-                                <TextBlock
-                                    Grid.Row="1"
-                                    Grid.Column="3"
-                                    TextWrapping="Wrap">
-                                    <Run
-                                        FontSize="12"
-                                        Foreground="Gray"
-                                        Text="Created At" />
-                                    <LineBreak />
-                                    <Run FontSize="14" Text="{Binding SelectedCampaign.CreatedAt}" />
-                                </TextBlock>
+                            <!--  Details: field cards  -->
+                            <UniformGrid Grid.Row="1" Columns="1">
+                                <!--  ID  -->
+                                <Border
+                                    Margin="0,0,12,12"
+                                    Padding="12"
+                                    Background="#FBFCFD"
+                                    BorderBrush="#E6E9EB"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <StackPanel>
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="#8A8F95"
+                                            Text="ID" />
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontWeight="SemiBold"
+                                            Foreground="#263238"
+                                            Text="{Binding SelectedCampaign.IdString}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
 
-                                <TextBlock
-                                    Grid.Row="1"
-                                    Grid.Column="4"
-                                    TextWrapping="Wrap">
-                                    <Run
-                                        FontSize="12"
-                                        Foreground="Gray"
-                                        Text="Status" />
-                                    <LineBreak />
+                                <!--  UserID  -->
+                                <Border
+                                    Margin="0,0,12,12"
+                                    Padding="12"
+                                    Background="#FBFCFD"
+                                    BorderBrush="#E6E9EB"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <StackPanel>
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="#8A8F95"
+                                            Text="UserID" />
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontWeight="SemiBold"
+                                            Foreground="#263238"
+                                            Text="{Binding SelectedCampaign.UserId}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
 
-                                    <InlineUIContainer>
-                                        <Border Padding="6,2" CornerRadius="10">
-                                            <TextBlock
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                FontSize="14"
-                                                Text="{Binding SelectedCampaign.Status}">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="TextBlock">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="in review">
-                                                                <Setter Property="Foreground" Value="#856404" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Verified">
-                                                                <Setter Property="Foreground" Value="#1B5E20" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Rejected">
-                                                                <Setter Property="Foreground" Value="#721C24" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </TextBlock.Style>
-                                            </TextBlock>
+                                <!--  Category  -->
+                                <Border
+                                    Margin="0,0,12,12"
+                                    Padding="12"
+                                    Background="#FBFCFD"
+                                    BorderBrush="#E6E9EB"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <StackPanel>
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="#8A8F95"
+                                            Text="Category" />
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontWeight="SemiBold"
+                                            Foreground="#263238"
+                                            Text="{Binding SelectedCampaign.Category}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
 
-                                            <Border.Style>
-                                                <Style TargetType="Border">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="in review">
-                                                            <Setter Property="Background" Value="#FFF3CD" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Verified">
-                                                            <Setter Property="Background" Value="#C8E6C9" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Rejected">
-                                                            <Setter Property="Background" Value="#F8D7DA" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Border.Style>
-                                        </Border>
-                                    </InlineUIContainer>
-                                </TextBlock>
+                                <!--  Country  -->
+                                <Border
+                                    Margin="0,0,12,12"
+                                    Padding="12"
+                                    Background="#FBFCFD"
+                                    BorderBrush="#E6E9EB"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <StackPanel>
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="#8A8F95"
+                                            Text="Country" />
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontWeight="SemiBold"
+                                            Foreground="#263238"
+                                            Text="{Binding SelectedCampaign.Country}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
 
-                            </Grid>
-                        </StackPanel>
+                                <!--  ZipCode  -->
+                                <Border
+                                    Margin="0,0,12,12"
+                                    Padding="12"
+                                    Background="#FBFCFD"
+                                    BorderBrush="#E6E9EB"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <StackPanel>
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="#8A8F95"
+                                            Text="ZipCode" />
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontWeight="SemiBold"
+                                            Foreground="#263238"
+                                            Text="{Binding SelectedCampaign.ZipCode}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
+
+                                <!--  Donation Goal  -->
+                                <Border
+                                    Margin="0,0,12,12"
+                                    Padding="12"
+                                    Background="#FBFCFD"
+                                    BorderBrush="#E6E9EB"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <StackPanel>
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="#8A8F95"
+                                            Text="Donation Goal" />
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontWeight="SemiBold"
+                                            Foreground="#263238"
+                                            Text="{Binding SelectedCampaign.DonationGoal}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
+
+                                <!--  Created At  -->
+                                <Border
+                                    Margin="0,0,12,12"
+                                    Padding="12"
+                                    Background="#FBFCFD"
+                                    BorderBrush="#E6E9EB"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <StackPanel>
+                                        <TextBlock
+                                            FontSize="12"
+                                            Foreground="#8A8F95"
+                                            Text="Created At" />
+                                        <TextBlock
+                                            FontSize="14"
+                                            FontWeight="SemiBold"
+                                            Foreground="#263238"
+                                            Text="{Binding SelectedCampaign.CreatedAt}"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                </Border>
+                            </UniformGrid>
+                        </Grid>
                     </Grid>
                 </Border>
 
-                <!--  Supporting Documents Section  -->
+                <!--  Supporting Documents Section (unchanged, preserved bindings & actions)  -->
                 <TextBlock
-                    Margin="0,0,0,15"
-                    FontSize="20"
+                    Margin="0,40,0,15"
+                    FontSize="24"
                     FontWeight="Bold"
+                    Foreground="#00695C"
                     Text="Supporting Documents" />
 
-                <ItemsControl ItemsSource="{Binding SupportingDocument}">
+                <ItemsControl Margin="0,0,0,50" ItemsSource="{Binding SupportingDocument}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel />
-                            <!--  Cards flow horizontally  -->
+                            <UniformGrid Columns="2" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 
@@ -301,7 +351,7 @@
                         <DataTemplate>
                             <Border
                                 Margin="0,0,15,15"
-                                Padding="15"
+                                Padding="25"
                                 Background="White"
                                 BorderBrush="#E0E0E0"
                                 BorderThickness="1"
@@ -309,68 +359,21 @@
 
                                 <StackPanel>
                                     <!--  Document info  -->
-                                    <DockPanel>
-                                        <StackPanel Orientation="Vertical">
-
-                                            <TextBlock
-                                                VerticalAlignment="Center"
-                                                FontSize="14"
-                                                FontWeight="Bold"
-                                                Text="{Binding FileName}" />
-
-                                            <TextBlock
-                                                FontSize="12"
-                                                Foreground="Gray"
-                                                Text="{Binding DocumentType}"
-                                                TextWrapping="Wrap" />
-                                        </StackPanel>
-
-                                        <!--  Buttons  -->
-                                        <StackPanel
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Center"
-                                            Orientation="Horizontal">
-                                            <Button
-                                                Width="100"
-                                                Height="30"
-                                                Margin="0,0,10,0"
-                                                Command="{Binding DataContext.Approve_ReviewSupportingDocument, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                CommandParameter="{Binding Id}">
-                                                <Button.Style>
-                                                    <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
-                                                        <Setter Property="Content" Value="Approve" />
-
-                                                        <Style.Triggers>
-                                                            <!--  When Status == Approved  -->
-                                                            <DataTrigger Binding="{Binding Status}" Value="Verified">
-                                                                <Setter Property="Content" Value="Review" />
-                                                            </DataTrigger>
-
-                                                            <DataTrigger Binding="{Binding Status}" Value="in review">
-                                                                <Setter Property="Content" Value="Approve" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </Button.Style>
-                                            </Button>
-                                            <Button
-                                                Width="100"
-                                                Height="30"
-                                                Command="{Binding DataContext.RejectDocument, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
-                                                CommandParameter="{Binding Id}"
-                                                Content="Reject"
-                                                Style="{DynamicResource SecondaryButton}" />
-                                        </StackPanel>
-                                    </DockPanel>
-
                                     <Border
                                         Margin="0,20,0,0"
                                         VerticalAlignment="Top"
                                         CornerRadius="8">
 
-                                        <StackPanel Orientation="Horizontal">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="200" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
                                             <Button
-                                                Width="250"
+                                                Grid.Column="0"
+                                                Width="200"
+                                                Height="200"
+                                                VerticalAlignment="Top"
                                                 Background="Transparent"
                                                 BorderThickness="0"
                                                 Command="{Binding DataContext.PreviewImageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
@@ -380,21 +383,18 @@
                                                 <Button.Template>
                                                     <ControlTemplate TargetType="Button">
                                                         <Grid>
-                                                            <!--  Image  -->
                                                             <Image
-                                                                Height="350"
+                                                                RenderOptions.BitmapScalingMode="HighQuality"
+                                                                SnapsToDevicePixels="True"
                                                                 Source="{Binding FileData, Converter={StaticResource ImageConverter}}"
-                                                                Stretch="UniformToFill" />
-
-                                                            <!--  Dark overlay  -->
+                                                                Stretch="UniformToFill"
+                                                                UseLayoutRounding="True" />
                                                             <Rectangle
                                                                 x:Name="Overlay"
                                                                 Fill="Black"
                                                                 IsHitTestVisible="False"
                                                                 Opacity="0" />
                                                         </Grid>
-
-                                                        <!--  Hover trigger  -->
                                                         <ControlTemplate.Triggers>
                                                             <Trigger Property="IsMouseOver" Value="True">
                                                                 <Setter TargetName="Overlay" Property="Opacity" Value="0.2" />
@@ -405,6 +405,7 @@
                                             </Button>
 
                                             <StackPanel
+                                                Grid.Column="1"
                                                 Width="Auto"
                                                 Margin="30,0,0,0"
                                                 Orientation="Vertical">
@@ -413,52 +414,28 @@
                                                         <Setter Property="Margin" Value="0,0,0,10" />
                                                     </Style>
                                                 </StackPanel.Resources>
-                                                <TextBlock TextWrapping="Wrap">
-                                                    <Run
-                                                        FontSize="12"
-                                                        Foreground="Gray"
-                                                        Text="ID" />
-                                                    <LineBreak />
-                                                    <Run FontSize="14" Text="{Binding Id}" />
-                                                </TextBlock>
+
+                                                <StackPanel Orientation="Vertical">
+
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        FontSize="18"
+                                                        FontWeight="Bold"
+                                                        Foreground="#00695C"
+                                                        Text="{Binding FileName}" />
+
+                                                    <TextBlock
+                                                        FontSize="16"
+                                                        Text="{Binding DocumentType}"
+                                                        TextWrapping="Wrap" />
+                                                </StackPanel>
 
                                                 <TextBlock TextWrapping="Wrap">
-                                                    <Run
-                                                        FontSize="12"
-                                                        Foreground="Gray"
-                                                        Text="Content Type" />
-                                                    <LineBreak />
-                                                    <Run FontSize="14" Text="{Binding ContentType}" />
-                                                </TextBlock>
-
-                                                <TextBlock TextWrapping="Wrap">
-                                                    <Run
-                                                        FontSize="12"
-                                                        Foreground="Gray"
-                                                        Text="File Size" />
-                                                    <LineBreak />
-                                                    <Run FontSize="14" Text="{Binding FileSize}" />
-                                                </TextBlock>
-
-                                                <TextBlock TextWrapping="Wrap">
-                                                    <Run
-                                                        FontSize="12"
-                                                        Foreground="Gray"
-                                                        Text="Upload Date" />
-                                                    <LineBreak />
-                                                    <Run FontSize="14" Text="{Binding UploadDate}" />
-                                                </TextBlock>
-
-                                                <TextBlock
-                                                    Grid.Row="1"
-                                                    Grid.Column="4"
-                                                    TextWrapping="Wrap">
                                                     <Run
                                                         FontSize="12"
                                                         Foreground="Gray"
                                                         Text="Status" />
                                                     <LineBreak />
-
                                                     <InlineUIContainer>
                                                         <Border Padding="6,2" CornerRadius="10">
                                                             <TextBlock
@@ -501,19 +478,89 @@
                                                         </Border>
                                                     </InlineUIContainer>
                                                 </TextBlock>
+
+                                                <TextBlock TextWrapping="Wrap">
+                                                    <Run
+                                                        FontSize="12"
+                                                        Foreground="Gray"
+                                                        Text="ID" />
+                                                    <LineBreak />
+                                                    <Run FontSize="14" Text="{Binding Id}" />
+                                                </TextBlock>
+
+                                                <TextBlock TextWrapping="Wrap">
+                                                    <Run
+                                                        FontSize="12"
+                                                        Foreground="Gray"
+                                                        Text="Content Type" />
+                                                    <LineBreak />
+                                                    <Run FontSize="14" Text="{Binding ContentType}" />
+                                                </TextBlock>
+
+                                                <TextBlock TextWrapping="Wrap">
+                                                    <Run
+                                                        FontSize="12"
+                                                        Foreground="Gray"
+                                                        Text="File Size" />
+                                                    <LineBreak />
+                                                    <Run FontSize="14" Text="{Binding FileSize}" />
+                                                </TextBlock>
+
+                                                <TextBlock TextWrapping="Wrap">
+                                                    <Run
+                                                        FontSize="12"
+                                                        Foreground="Gray"
+                                                        Text="Upload Date" />
+                                                    <LineBreak />
+                                                    <Run FontSize="14" Text="{Binding UploadDate}" />
+                                                </TextBlock>
+
+
                                             </StackPanel>
 
-                                        </StackPanel>
+                                        </Grid>
                                     </Border>
+                                    <DockPanel>
+                                        <!--  Buttons  -->
+                                        <StackPanel
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+                                            <Button
+                                                Width="100"
+                                                Height="30"
+                                                Margin="0,0,10,0"
+                                                Command="{Binding DataContext.Approve_ReviewSupportingDocument, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding Id}">
+                                                <Button.Style>
+                                                    <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                                        <Setter Property="Content" Value="Approve" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Status}" Value="Verified">
+                                                                <Setter Property="Content" Value="Review" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Status}" Value="in review">
+                                                                <Setter Property="Content" Value="Approve" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
 
+                                            <Button
+                                                Width="100"
+                                                Height="30"
+                                                Command="{Binding DataContext.RejectDocument, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                CommandParameter="{Binding Id}"
+                                                Content="Reject"
+                                                Style="{DynamicResource SecondaryButton}" />
+                                        </StackPanel>
+                                    </DockPanel>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-
-
-
 
             </StackPanel>
         </ScrollViewer>

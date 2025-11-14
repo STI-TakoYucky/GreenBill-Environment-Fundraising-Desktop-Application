@@ -75,6 +75,16 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             }
         }
 
+        private string _rejectedCampaignsCount;
+
+        public string RejectedCampaignsCount {
+            get => _rejectedCampaignsCount;
+            set {
+                _rejectedCampaignsCount = value;
+                OnPropertyChanged(nameof(RejectedCampaignsCount));
+            }
+        }
+
         private Campaign _selectedCampaign;
         public Campaign SelectedCampaign {
             get => _selectedCampaign;
@@ -146,8 +156,9 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
             try {
                 CampaignCount = campaignsFromDB.Count.ToString();
-                ApprovedCampaignsCount = campaignsFromDB.Count(c => c.Status == "Verified").ToString();
-                PendingCampaignsCount = campaignsFromDB.Count(c => c.Status == "in review").ToString();
+                ApprovedCampaignsCount = campaignsFromDB.Count(c => c.Status.ToLower() == "verified").ToString();
+                PendingCampaignsCount = campaignsFromDB.Count(c => c.Status.ToLower() == "in review").ToString();
+                RejectedCampaignsCount = campaignsFromDB.Count(c => c.Status.ToLower() == "rejected").ToString();
                 Campaigns.Clear();
 
                 foreach (var item in campaignsFromDB) {

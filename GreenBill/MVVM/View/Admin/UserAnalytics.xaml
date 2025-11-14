@@ -80,18 +80,11 @@
                     Margin="0,20,0,0"
                     FontSize="24"
                     FontWeight="SemiBold"
+                    Foreground="#00695C"
                     Text="Users" />
 
-                <Grid Margin="0,20,0,0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="25*" />
-                        <ColumnDefinition Width="25*" />
-                        <ColumnDefinition Width="25*" />
-                        <ColumnDefinition Width="25*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+                <UniformGrid Margin="0,20,0,0" Columns="3">
+
 
                     <!--  TOTAL USERS  -->
                     <Border
@@ -111,7 +104,7 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-                                Text="Total Users" />
+                                Text="All Users" />
                             <TextBlock
                                 Margin="0,0,0,5"
                                 FontSize="28"
@@ -150,13 +143,13 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-                                Text="Verified Users" />
+                                Text="Verified Stripe Users" />
                             <TextBlock
                                 Margin="0,0,0,5"
                                 FontSize="28"
                                 FontWeight="Bold"
                                 Foreground="#3498DB"
-                                Text="32" />
+                                Text="{Binding VerifiedUserCount}" />
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     Margin="0,0,5,0"
@@ -189,13 +182,13 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-                                Text="Unverified Users" />
+                                Text="Pending Verification Users" />
                             <TextBlock
                                 Margin="0,0,0,5"
                                 FontSize="28"
                                 FontWeight="Bold"
                                 Foreground="#9B59B6"
-                                Text="6" />
+                                Text="{Binding PendingUserCount}" />
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock
                                     Margin="0,0,5,0"
@@ -210,46 +203,7 @@
                         </StackPanel>
                     </Border>
 
-                    <!--  Pending Campaigns Card  -->
-                    <Border
-                        Grid.Column="3"
-                        Margin="0,0,15,0"
-                        Background="White"
-                        CornerRadius="12">
-                        <Border.Effect>
-                            <DropShadowEffect
-                                BlurRadius="8"
-                                Opacity="0.08"
-                                ShadowDepth="2"
-                                Color="#000000" />
-                        </Border.Effect>
-                        <StackPanel Margin="25,20">
-                            <TextBlock
-                                Margin="0,0,0,8"
-                                FontSize="14"
-                                Foreground="#666666"
-                                Text="Reported Users" />
-                            <TextBlock
-                                Margin="0,0,0,5"
-                                FontSize="28"
-                                FontWeight="Bold"
-                                Foreground="#E67E22"
-                                Text="2" />
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Margin="0,0,5,0"
-                                    FontSize="16"
-                                    Foreground="#00A86B"
-                                    Text="↗" />
-                                <TextBlock
-                                    FontSize="12"
-                                    Foreground="#00A86B"
-                                    Text="3.8% from last month" />
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-
-                </Grid>
+                </UniformGrid>
 
                 <!--  TABLE AND TABS  -->
                 <StackPanel Margin="0,40,0,40">
@@ -266,8 +220,8 @@
                             <!--  Tabs  -->
                             <StackPanel Orientation="Horizontal">
                                 <Button Content="All" Style="{StaticResource ActiveTabButtonStyle}" />
-                                <Button Content="Pending Verification" Style="{StaticResource TabButtonStyle}" />
-                                <Button Content="Reported" Style="{StaticResource TabButtonStyle}" />
+                                <Button Content="Pending" Style="{StaticResource TabButtonStyle}" />
+                                <Button Content="Verified" Style="{StaticResource TabButtonStyle}" />
                             </StackPanel>
                         </Grid>
                     </StackPanel>
@@ -356,39 +310,136 @@
                         <!--  Define the columns  -->
                         <DataGrid.Columns>
                             <DataGridTextColumn
-                                MinWidth="50"
-                                Binding="{Binding Id}"
-                                Header="ID" />
-                            <DataGridTextColumn
-                                MinWidth="150"
+                                Width="*"
                                 Binding="{Binding FirstName}"
                                 Header="First Name" />
                             <DataGridTextColumn
-                                MinWidth="150"
+                                Width="*"
                                 Binding="{Binding LastName}"
                                 Header="Last Name" />
                             <DataGridTextColumn
-                                MinWidth="150"
+                                Width="*"
                                 Binding="{Binding Username}"
                                 Header="Username" />
                             <DataGridTextColumn
-                                MinWidth="200"
+                                Width="*"
                                 Binding="{Binding Email}"
                                 Header="Email" />
                             <DataGridTextColumn
-                                MinWidth="150"
+                                Width="*"
                                 Binding="{Binding Password}"
                                 Header="Password" />
+                            <DataGridTemplateColumn
+                                Width="*"
+                                MinWidth="100"
+                                Header="Status">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="4"
+                                            TextWrapping="Wrap">
+
+                                            <InlineUIContainer>
+                                                <Border Padding="6,2" CornerRadius="10">
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="14"
+                                                        Text="{Binding VerificationStatus}">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding VerificationStatus}" Value="pending">
+                                                                        <Setter Property="Foreground" Value="#856404" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding VerificationStatus}" Value="Verified">
+                                                                        <Setter Property="Foreground" Value="#1B5E20" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding VerificationStatus}" Value="Rejected">
+                                                                        <Setter Property="Foreground" Value="#721C24" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding VerificationStatus}" Value="pending">
+                                                                    <Setter Property="Background" Value="#FFF3CD" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding VerificationStatus}" Value="Verified">
+                                                                    <Setter Property="Background" Value="#C8E6C9" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding VerificationStatus}" Value="Rejected">
+                                                                    <Setter Property="Background" Value="#F8D7DA" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                </Border>
+                                            </InlineUIContainer>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn
+                                Width="*"
+                                MinWidth="100"
+                                Header="Can Receive Funds">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Grid.Column="4"
+                                            TextWrapping="Wrap">
+
+                                            <InlineUIContainer>
+                                                <Border Padding="6,2" CornerRadius="10">
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="14"
+                                                        Text="{Binding CanReceiveFunds}">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Style.Triggers>
+
+                                                                    <DataTrigger Binding="{Binding CanReceiveFunds}" Value="True">
+                                                                        <Setter Property="Foreground" Value="#1B5E20" />
+                                                                    </DataTrigger>
+                                                                    <DataTrigger Binding="{Binding CanReceiveFunds}" Value="False">
+                                                                        <Setter Property="Foreground" Value="#721C24" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Style.Triggers>
+
+                                                                <DataTrigger Binding="{Binding CanReceiveFunds}" Value="True">
+                                                                    <Setter Property="Background" Value="#C8E6C9" />
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding CanReceiveFunds}" Value="False">
+                                                                    <Setter Property="Background" Value="#F8D7DA" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+                                                </Border>
+                                            </InlineUIContainer>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn
-                                MinWidth="150"
-                                Binding="{Binding}"
-                                Header="Verification Status" />
-                            <DataGridTextColumn
-                                MinWidth="150"
-                                Binding="{Binding}"
-                                Header="Can Receive Funds" />
-                            <DataGridTextColumn
-                                MinWidth="150"
+                                Width="*"
                                 Binding="{Binding CreatedAt}"
                                 Header="Created At" />
 

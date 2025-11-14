@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -26,6 +27,27 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                     _userCount = value;
                     OnPropertyChanged(nameof(UserCount)); // tells WPF to refresh bindings
                 }
+            }
+        }
+
+        //verified user count
+
+        private string _verifiedUserCount;
+        public string VerifiedUserCount {
+            get => _verifiedUserCount;
+            set {
+                _verifiedUserCount = value;
+                OnPropertyChanged(nameof(VerifiedUserCount));
+            }
+        }
+
+        //pending user count, this is for stripe
+        private string _pendingUserCount;
+        public string PendingUserCount {
+            get => _pendingUserCount;
+            set {
+                _pendingUserCount = value;
+                OnPropertyChanged(nameof(PendingUserCount));
             }
         }
 
@@ -56,6 +78,8 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
             try {
                 UserCount = usersFromDB.Count.ToString();
+                VerifiedUserCount = usersFromDB.Count(item => item.VerificationStatus.ToLower() == "verified").ToString();
+                PendingUserCount = usersFromDB.Count(item => item.VerificationStatus.ToLower() == "pending_onboarding").ToString();
                 foreach (var item in usersFromDB) {
                     Users.Add(new User {
                         Id = item.Id,

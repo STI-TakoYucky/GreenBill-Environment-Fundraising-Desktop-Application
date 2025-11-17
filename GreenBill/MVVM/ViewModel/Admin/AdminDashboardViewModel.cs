@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
@@ -122,21 +123,45 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             }
         }
 
+        private ComboBoxItem _selectedPeriod;
+        public ComboBoxItem SelectedPeriod {
+            get => _selectedPeriod;
+            set {
+                if (_selectedPeriod == value) return;
+                _selectedPeriod = value;
+                OnPropertyChanged(nameof(SelectedPeriod));
+                ApplyDateFilter(_selectedPeriod.Content.ToString());
+            }
+        }
+
+        private DateTime _date;
+        private DateTime Date {
+            get => _date;
+            set {
+                _date = value;
+                _ = LoadCampaignAsync();
+            }
+        }
+
+
         public ICommand NavigateToCampaignDetails { get; set; }
         public ICommand NavigateToCampaignAnalytics { get; set; }
+        public ICommand filterDateCommand { get; set; }
 
         public AdminDashboardViewModel(ICampaignService campaignService, ITabNavigationService navService) {
             
             _campaignService = campaignService;
             _navigationService = navService;
+            SelectedPeriod = new ComboBoxItem { Content = "All Time" };
 
             _userService = new UserService();
             _ = LoadUsersAsync();
 
             // start loading campaigns and counts
-            _ = LoadCampaignCountsAsync();
+            _ = LoadCampaignAsync();
             NavigateToCampaignDetails = new RelayCommand(campaign_id => { Navigation?.NavigateToTab<ReviewCampaignViewModel>(campaign_id.ToString()); });
             NavigateToCampaignAnalytics = new RelayCommand(o => Navigation.NavigateToTab<AdminCampaignAnalyticsViewModel>());
+            filterDateCommand = new RelayCommand(o => ApplyDateFilter(o?.ToString()));
         }
 
         private async Task LoadUsersAsync() {
@@ -166,7 +191,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             }
         }
 
-        private async Task LoadCampaignCountsAsync() {
+        private async Task LoadCampaignAsync() {
             try {
                 var campaignsFromDb = await _campaignService.GetAllCampaignsAsync();
 
@@ -184,11 +209,16 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
                 // populate the Campaigns collection (map minimal fields)
                 Campaigns.Clear();
+                string selected = SelectedPeriod.Content.ToString();
+
                 foreach (var c in campaignsFromDb) {
-                    if (c.Status == "in review") {
+                    if (!string.Equals(c.Status, "in review", StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    if (selected == "All Time" || c.CreatedAt >= Date)
                         Campaigns.Add(c);
-                    }
                 }
+
 
                 OnPropertyChanged(nameof(Campaigns));
             } catch (Exception ex) {
@@ -198,7 +228,73 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
         public void ApplyNavigationParameter(object parameter) {
             // we don't use parameter here, just refresh when navigated to
-            _ = LoadCampaignCountsAsync();
+            _ = LoadCampaignAsync();
         }
+
+        private void ApplyDateFilter(string period) {
+            DateTime currDate = DateTime.Now;
+            if (string.IsNullOrEmpty(period)) {
+                return;
+            }
+
+            switch (period) {
+                case "All Time":
+                    Date = DateTime.MinValue;
+                    break;
+
+                case "Last 7 days":
+                    Date = currDate.AddDays(-7);
+                    break;
+
+                case "Last 30 days":
+                    Date = currDate.AddDays(-30);
+                    break;
+
+                case "Last 3 months":
+                    Date = currDate.AddMonths(-3);
+                    break;
+
+                case "Last 6 months":
+                    Date = currDate.AddMonths(-6);
+                    break;
+
+                case "Last year":
+                    Date = currDate.AddYears(-1);
+                    break;
+            }
+
+            _ = LoadCampaignAsync();
+        }
+
+        private void ApplyDateFilter() {
+            var currDate = DateTime.UtcNow; // Use UTC for Mongo consistency
+
+            switch (SelectedPeriod.Content.ToString()) {
+                case "All Time":
+                    Date = DateTime.MinValue;
+                    break;
+
+                case "Last 7 days":
+                    Date = currDate.AddDays(-7);
+                    break;
+
+                case "Last 30 days":
+                    Date = currDate.AddDays(-30);
+                    break;
+
+                case "Last 3 months":
+                    Date = currDate.AddMonths(-3);
+                    break;
+
+                case "Last 6 months":
+                    Date = currDate.AddMonths(-6);
+                    break;
+
+                case "Last year":
+                    Date = currDate.AddYears(-1);
+                    break;
+            }
+        }
+
     }
 }

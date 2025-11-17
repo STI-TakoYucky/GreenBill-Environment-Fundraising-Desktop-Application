@@ -41,7 +41,9 @@
                         Margin="10,0,0,0"
                         VerticalContentAlignment="Center"
                         FontSize="14"
-                        SelectedIndex="2">
+                        SelectedIndex="0"
+                        SelectedItem="{Binding SelectedPeriod, Mode=TwoWay}">
+                        <ComboBoxItem Content="All Time" />
                         <ComboBoxItem Content="Last 7 days" />
                         <ComboBoxItem Content="Last 30 days" />
                         <ComboBoxItem Content="Last 3 months" />

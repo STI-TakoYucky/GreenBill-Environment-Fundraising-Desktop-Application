@@ -229,6 +229,8 @@
                     <DataGrid
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
+                        AlternatingRowBackground="#FBFBFC"
+                        AlternationCount="2"
                         AutoGenerateColumns="False"
                         BorderThickness="0"
                         CanUserAddRows="False"
@@ -239,19 +241,24 @@
                         GridLinesVisibility="None"
                         HeadersVisibility="Column"
                         ItemsSource="{Binding Users}"
+                        RowBackground="White"
                         RowHeight="50">
 
                         <DataGrid.Resources>
-                            <!--  Remove selection style  -->
+                            <!--  keep selection unobtrusive  -->
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
                             <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
                             <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
                             <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
+
+                            <!--  modern palette for rows  -->
+                            <SolidColorBrush x:Key="RowHoverBrush" Color="#F6F8F9" />
+                            <SolidColorBrush x:Key="RowDividerBrush" Color="#e1e7e9" />
+                            <SolidColorBrush x:Key="RowSelectedAccent" Color="#4CAF50" />
                         </DataGrid.Resources>
 
-
-                        <!--  Header Style  -->
+                        <!--  keep header gray shade (#e1e7e9)  -->
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="DataGridColumnHeader">
                                 <Setter Property="Background" Value="#e1e7e9" />
@@ -259,10 +266,9 @@
                                 <Setter Property="FontWeight" Value="SemiBold" />
                                 <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                                 <Setter Property="FontSize" Value="14" />
-                                <Setter Property="Padding" Value="10,20" />
+                                <Setter Property="Padding" Value="10,18" />
                                 <Setter Property="BorderThickness" Value="0" />
                                 <Setter Property="HorizontalContentAlignment" Value="Left" />
-                                <!--  Override default template to prevent implicit bold  -->
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="DataGridColumnHeader">
@@ -270,7 +276,7 @@
                                                 Background="{TemplateBinding Background}"
                                                 BorderBrush="{TemplateBinding BorderBrush}"
                                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                                CornerRadius="5">
+                                                CornerRadius="6">
                                                 <ContentPresenter
                                                     Margin="{TemplateBinding Padding}"
                                                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -283,22 +289,63 @@
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
 
-                        <!--  Row Style  -->
+                        <!--  subtle hover, alternating rows, left accent for selection  -->
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
+                                <Setter Property="SnapsToDevicePixels" Value="True" />
                                 <Setter Property="FontSize" Value="14" />
+                                <Setter Property="Margin" Value="0" />
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                                 <Setter Property="BorderThickness" Value="0,0,0,1" />
-                                <Setter Property="BorderBrush" Value="#e1e7e9" />
+                                <Setter Property="BorderBrush" Value="{StaticResource RowDividerBrush}" />
+                                <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=RowBackground}" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="DataGridRow">
+                                            <Border
+                                                x:Name="RowBorder"
+                                                Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}">
+                                                <Grid>
+                                                    <Rectangle
+                                                        x:Name="Accent"
+                                                        Width="4"
+                                                        HorizontalAlignment="Left"
+                                                        Fill="{StaticResource RowSelectedAccent}"
+                                                        Visibility="Collapsed" />
+                                                    <DataGridCellsPresenter Margin="8,0,0,0" />
+                                                </Grid>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="RowBorder" Property="Background" Value="{StaticResource RowHoverBrush}" />
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="Accent" Property="Visibility" Value="Visible" />
+                                                    <Setter TargetName="RowBorder" Property="Background" Value="White" />
+                                                </Trigger>
+                                                <Trigger Property="AlternationIndex" Value="1">
+                                                    <Setter TargetName="RowBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=AlternatingRowBackground}" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
                         </DataGrid.RowStyle>
 
+                        <!--  flat cell style  -->
                         <DataGrid.CellStyle>
                             <Style TargetType="DataGridCell">
-                                <Setter Property="Padding" Value="10,0" />
+                                <Setter Property="Padding" Value="12,0" />
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                                 <Setter Property="Template">
                                     <Setter.Value>
                                         <ControlTemplate TargetType="DataGridCell">
-                                            <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                                            <Border Background="{TemplateBinding Background}">
                                                 <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
                                             </Border>
                                         </ControlTemplate>
@@ -307,7 +354,7 @@
                             </Style>
                         </DataGrid.CellStyle>
 
-                        <!--  Define the columns  -->
+                        <!--  columns unchanged (badges and ellipses menu preserved)  -->
                         <DataGrid.Columns>
                             <DataGridTextColumn
                                 Width="*"
@@ -339,7 +386,6 @@
                                             Grid.Row="1"
                                             Grid.Column="4"
                                             TextWrapping="Wrap">
-
                                             <InlineUIContainer>
                                                 <Border Padding="6,2" CornerRadius="10">
                                                     <TextBlock
@@ -363,7 +409,6 @@
                                                             </Style>
                                                         </TextBlock.Style>
                                                     </TextBlock>
-
                                                     <Border.Style>
                                                         <Style TargetType="Border">
                                                             <Style.Triggers>
@@ -396,7 +441,6 @@
                                             Grid.Row="1"
                                             Grid.Column="4"
                                             TextWrapping="Wrap">
-
                                             <InlineUIContainer>
                                                 <Border Padding="6,2" CornerRadius="10">
                                                     <TextBlock
@@ -407,7 +451,6 @@
                                                         <TextBlock.Style>
                                                             <Style TargetType="TextBlock">
                                                                 <Style.Triggers>
-
                                                                     <DataTrigger Binding="{Binding CanReceiveFunds}" Value="True">
                                                                         <Setter Property="Foreground" Value="#1B5E20" />
                                                                     </DataTrigger>
@@ -418,11 +461,9 @@
                                                             </Style>
                                                         </TextBlock.Style>
                                                     </TextBlock>
-
                                                     <Border.Style>
                                                         <Style TargetType="Border">
                                                             <Style.Triggers>
-
                                                                 <DataTrigger Binding="{Binding CanReceiveFunds}" Value="True">
                                                                     <Setter Property="Background" Value="#C8E6C9" />
                                                                 </DataTrigger>
@@ -438,6 +479,7 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
+
                             <DataGridTextColumn
                                 Width="*"
                                 Binding="{Binding CreatedAt}"
@@ -446,7 +488,6 @@
                             <DataGridTemplateColumn Width="50">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-
                                         <Menu Background="Transparent" BorderBrush="Transparent">
                                             <MenuItem Style="{DynamicResource Services_MenuItem_With_Dropdown}">
                                                 <MenuItem.Header>
@@ -473,7 +514,6 @@
                                                     Header="Review" />
                                             </MenuItem>
                                         </Menu>
-
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

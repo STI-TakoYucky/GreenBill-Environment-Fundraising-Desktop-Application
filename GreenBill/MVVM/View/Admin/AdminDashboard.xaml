@@ -33,7 +33,7 @@
                         FontFamily="./Assets/Fonts/#Poppins"
                         FontSize="24"
                         FontWeight="Bold"
-                        Foreground="#2D2D2D"
+                        Foreground="#00695C"
                         Text="Dashboard" />
                     <ComboBox
                         Width="150"
@@ -196,7 +196,7 @@
                                 Margin="0,0,0,8"
                                 FontSize="14"
                                 Foreground="#666666"
-                                Text="Active Campaigns" />
+                                Text="Verified Campaigns" />
                             <TextBlock
                                 Margin="0,0,0,5"
                                 FontSize="28"
@@ -230,7 +230,7 @@
                         FontFamily="./Assets/Fonts/#Poppins"
                         FontSize="18"
                         FontWeight="Bold"
-                        Foreground="#2D2D2D"
+                        Foreground="#00695C"
                         Text="Analytics" />
 
                     <Grid Grid.Column="3">
@@ -292,7 +292,7 @@
                             FontFamily="./Assets/Fonts/#Poppins"
                             FontSize="18"
                             FontWeight="Bold"
-                            Foreground="#2D2D2D"
+                            Foreground="#00695C"
                             Text="Pending Campaigns" />
                         <Button
                             Background="Transparent"
@@ -321,6 +321,8 @@
                         <DataGrid
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
+                            AlternatingRowBackground="#FBFBFC"
+                            AlternationCount="2"
                             AutoGenerateColumns="False"
                             BorderThickness="0"
                             CanUserAddRows="False"
@@ -330,23 +332,29 @@
                             CanUserSortColumns="False"
                             GridLinesVisibility="None"
                             HeadersVisibility="Column"
+                            IsReadOnly="True"
                             ItemsSource="{Binding Campaigns}"
                             PreviewMouseWheel="MyDataGrid_PreviewMouseWheel"
+                            RowBackground="White"
                             RowHeight="50"
                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
                             ScrollViewer.VerticalScrollBarVisibility="Auto">
 
                             <DataGrid.Resources>
-                                <!--  Remove selection style  -->
+                                <!--  Keep selection transparent so row fill doesn't look heavy  -->
                                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
                                 <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
                                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
                                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
                                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
+
+                                <!--  Modern palettes used by row style  -->
+                                <SolidColorBrush x:Key="RowHoverBrush" Color="#F6F8F9" />
+                                <SolidColorBrush x:Key="RowDividerBrush" Color="#e1e7e9" />
+                                <SolidColorBrush x:Key="RowSelectedAccent" Color="#4CAF50" />
                             </DataGrid.Resources>
 
-
-                            <!--  Header Style  -->
+                            <!--  Header Style (preserve gray shade #e1e7e9)  -->
                             <DataGrid.ColumnHeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
                                     <Setter Property="Background" Value="#e1e7e9" />
@@ -354,18 +362,17 @@
                                     <Setter Property="FontWeight" Value="SemiBold" />
                                     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                                     <Setter Property="FontSize" Value="14" />
-                                    <Setter Property="Padding" Value="10,20" />
+                                    <Setter Property="Padding" Value="10,18" />
                                     <Setter Property="BorderThickness" Value="0" />
                                     <Setter Property="HorizontalContentAlignment" Value="Left" />
-                                    <!--  Override default template to prevent implicit bold  -->
+                                    <!--  Keep flat header but slightly more rounded corners for modern look  -->
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="DataGridColumnHeader">
                                                 <Border
                                                     Background="{TemplateBinding Background}"
                                                     BorderBrush="{TemplateBinding BorderBrush}"
-                                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                                    CornerRadius="5">
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
                                                     <ContentPresenter
                                                         Margin="{TemplateBinding Padding}"
                                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -378,22 +385,65 @@
                                 </Style>
                             </DataGrid.ColumnHeaderStyle>
 
-                            <!--  Row Style  -->
+                            <!--  Row Style: subtle hover, alternating rows, left accent for selection (no blurry shadow)  -->
                             <DataGrid.RowStyle>
                                 <Style TargetType="DataGridRow">
+                                    <Setter Property="SnapsToDevicePixels" Value="True" />
                                     <Setter Property="FontSize" Value="14" />
+                                    <Setter Property="Margin" Value="0" />
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                                     <Setter Property="BorderThickness" Value="0,0,0,1" />
-                                    <Setter Property="BorderBrush" Value="#e1e7e9" />
+                                    <Setter Property="BorderBrush" Value="{StaticResource RowDividerBrush}" />
+                                    <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=RowBackground}" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="DataGridRow">
+                                                <Border
+                                                    x:Name="RowBorder"
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                                    <Grid>
+                                                        <!--  left accent bar shown when selected  -->
+                                                        <Rectangle
+                                                            x:Name="Accent"
+                                                            Width="4"
+                                                            HorizontalAlignment="Left"
+                                                            Fill="{StaticResource RowSelectedAccent}"
+                                                            Visibility="Collapsed" />
+                                                        <DataGridCellsPresenter Margin="8,0,0,0" />
+                                                    </Grid>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="RowBorder" Property="Background" Value="{StaticResource RowHoverBrush}" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <!--  keep overall row fill subtle; show left accent instead of full fill  -->
+                                                        <Setter TargetName="Accent" Property="Visibility" Value="Visible" />
+                                                        <Setter TargetName="RowBorder" Property="Background" Value="White" />
+                                                    </Trigger>
+                                                    <Trigger Property="AlternationIndex" Value="1">
+                                                        <Setter TargetName="RowBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource AncestorType=DataGrid}, Path=AlternatingRowBackground}" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
                                 </Style>
                             </DataGrid.RowStyle>
 
+                            <!--  Cell Style: flat, no focus rectangle, consistent padding  -->
                             <DataGrid.CellStyle>
                                 <Style TargetType="DataGridCell">
-                                    <Setter Property="Padding" Value="10,0" />
+                                    <Setter Property="Padding" Value="12,0" />
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Setter Property="BorderThickness" Value="0" />
+                                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                                     <Setter Property="Template">
                                         <Setter.Value>
                                             <ControlTemplate TargetType="DataGridCell">
-                                                <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                                                <Border Background="{TemplateBinding Background}">
                                                     <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
                                                 </Border>
                                             </ControlTemplate>
@@ -402,53 +452,42 @@
                                 </Style>
                             </DataGrid.CellStyle>
 
-                            <!--  Define the columns  -->
+                            <!--  Define the columns (unchanged structure, badges and ellipses preserved)  -->
                             <DataGrid.Columns>
                                 <DataGridTextColumn
-                                    MinWidth="50"
-                                    Binding="{Binding Id}"
-                                    Header="ID" />
-                                <DataGridTextColumn
-                                    MinWidth="50"
-                                    Binding="{Binding UserId}"
-                                    Header="UserID" />
-                                <DataGridTextColumn
-                                    MinWidth="120"
-                                    Binding="{Binding Country}"
-                                    Header="Country" />
-                                <DataGridTextColumn
-                                    MinWidth="150"
-                                    Binding="{Binding ZipCode}"
-                                    Header="ZipCode" />
-                                <DataGridTextColumn
-                                    MinWidth="150"
-                                    Binding="{Binding Category}"
-                                    Header="Category" />
-                                <DataGridTextColumn
-                                    MinWidth="150"
-                                    Binding="{Binding DonationGoal}"
-                                    Header="Donation Goal" />
-                                <DataGridTextColumn
-                                    MinWidth="200"
-                                    Binding="{Binding DonationRaised}"
-                                    Header="Donation Raised" />
-                                <DataGridTextColumn
-                                    MinWidth="150"
-                                    Binding="{Binding Image}"
-                                    Header="Image" />
-                                <DataGridTextColumn
+                                    Width="*"
                                     MinWidth="100"
                                     Binding="{Binding Title}"
                                     Header="Title" />
                                 <DataGridTextColumn
-                                    MinWidth="100"
-                                    Binding="{Binding Description}"
-                                    Header="Description" />
+                                    Width="*"
+                                    MinWidth="150"
+                                    Binding="{Binding Category}"
+                                    Header="Category" />
                                 <DataGridTextColumn
+                                    Width="*"
+                                    MinWidth="120"
+                                    Binding="{Binding Country}"
+                                    Header="Country" />
+                                <DataGridTextColumn
+                                    Width="*"
+                                    MinWidth="150"
+                                    Binding="{Binding DonationGoal}"
+                                    Header="Donation Goal" />
+                                <DataGridTextColumn
+                                    Width="*"
+                                    MinWidth="200"
+                                    Binding="{Binding DonationRaised}"
+                                    Header="Donation Raised" />
+                                <DataGridTextColumn
+                                    Width="*"
                                     MinWidth="150"
                                     Binding="{Binding CreatedAt}"
                                     Header="Created At" />
-                                <DataGridTemplateColumn MinWidth="100" Header="Status">
+                                <DataGridTemplateColumn
+                                    Width="*"
+                                    MinWidth="100"
+                                    Header="Status">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock

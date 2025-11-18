@@ -78,7 +78,7 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
-                                <Button Grid.Row="0" Grid.Column="0" Content="$10" Margin="0,0,10,10"
+                                <Button Grid.Row="0" Grid.Column="0" Content="₱10" Margin="0,0,10,10"
                                         Command="{Binding SelectAmountCommand}" CommandParameter="10"
                                         FontWeight="SemiBold" Padding="0,15" FontSize="16">
                                     <Button.Style>
@@ -98,7 +98,7 @@
                                     </Button.Style>
                                 </Button>
 
-                                <Button Grid.Row="0" Grid.Column="1" Content="$25" Margin="5,0,5,10"
+                                <Button Grid.Row="0" Grid.Column="1" Content="₱25" Margin="5,0,5,10"
                                         Command="{Binding SelectAmountCommand}" CommandParameter="25"
                                         FontWeight="SemiBold" Padding="0,15" FontSize="16">
                                     <Button.Style>
@@ -118,7 +118,7 @@
                                     </Button.Style>
                                 </Button>
 
-                                <Button Grid.Row="0" Grid.Column="2" Content="$50" Margin="5,0,5,10"
+                                <Button Grid.Row="0" Grid.Column="2" Content="₱50" Margin="5,0,5,10"
                                         Command="{Binding SelectAmountCommand}" CommandParameter="50"
                                         FontWeight="SemiBold" Padding="0,15" FontSize="16">
                                     <Button.Style>
@@ -138,7 +138,7 @@
                                     </Button.Style>
                                 </Button>
 
-                                <Button Grid.Row="0" Grid.Column="3" Content="$100" Margin="10,0,0,10"
+                                <Button Grid.Row="0" Grid.Column="3" Content="₱100" Margin="10,0,0,10"
                                         Command="{Binding SelectAmountCommand}" CommandParameter="100"
                                         FontWeight="SemiBold" Padding="0,15" FontSize="16">
                                     <Button.Style>
@@ -158,7 +158,7 @@
                                     </Button.Style>
                                 </Button>
 
-                                <Button Grid.Row="1" Grid.Column="0" Content="$250" Margin="0,0,10,0"
+                                <Button Grid.Row="1" Grid.Column="0" Content="₱250" Margin="0,0,10,0"
                                         Command="{Binding SelectAmountCommand}" CommandParameter="250"
                                         FontWeight="SemiBold" Padding="0,15" FontSize="16">
                                     <Button.Style>
@@ -178,7 +178,7 @@
                                     </Button.Style>
                                 </Button>
 
-                                <Button Grid.Row="1" Grid.Column="1" Content="$500" Margin="5,0,5,0"
+                                <Button Grid.Row="1" Grid.Column="1" Content="₱500" Margin="5,0,5,0"
                                         Command="{Binding SelectAmountCommand}" CommandParameter="500"
                                         FontWeight="SemiBold" Padding="0,15" FontSize="16">
                                     <Button.Style>
@@ -198,7 +198,7 @@
                                     </Button.Style>
                                 </Button>
 
-                                <Button Grid.Row="1" Grid.Column="2" Content="$1000" Margin="5,0,5,0"
+                                <Button Grid.Row="1" Grid.Column="2" Content="₱1000" Margin="5,0,5,0"
                                         Command="{Binding SelectAmountCommand}" CommandParameter="1000"
                                         FontWeight="SemiBold" Padding="0,15" FontSize="16">
                                     <Button.Style>
@@ -224,7 +224,7 @@
                                         FontSize="16"/>
                             </Grid>
 
-                            <TextBlock Text="Custom Amount (USD)" FontSize="16" FontWeight="SemiBold" 
+                            <TextBlock Text="Custom Amount (PHP)" FontSize="16" FontWeight="SemiBold" 
                                  Foreground="#2E2E2E" Margin="0,10,0,10"/>
                             <TextBox Background="White" BorderBrush="#DDD" BorderThickness="2"
                                      Padding="15" FontSize="16" Margin="0,0,0,25"
@@ -289,7 +289,7 @@
                                 <Button.Effect>
                                     <DropShadowEffect BlurRadius="10" ShadowDepth="3" Opacity="0.3" Color="#2E7D32"/>
                                 </Button.Effect>
-                                <TextBlock Text="{Binding SelectedAmount, StringFormat='Complete Donation - ${0:F0}'}" HorizontalAlignment="Center"/>
+                                <TextBlock Text="{Binding SelectedAmount, StringFormat='Complete Donation - ₱{0:F0}'}" HorizontalAlignment="Center"/>
                             </Button>
                         </StackPanel>
                     </Border>
@@ -361,7 +361,7 @@
                                                     </StackPanel>
 
                                                     <TextBlock Grid.Column="2" 
-                                    Text="{Binding RealAmount}" 
+                                    Text="{Binding Amount}" 
                                     FontWeight="SemiBold" 
                                     FontSize="16"
                                     Foreground="#4CAF50"

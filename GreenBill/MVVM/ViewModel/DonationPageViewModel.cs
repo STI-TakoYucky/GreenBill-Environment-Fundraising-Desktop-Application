@@ -280,66 +280,21 @@ namespace GreenBill.MVVM.ViewModel
                     return;
                 }
 
-                string connectedAccountId = SelectedCampaign.User.StripeAccountId;
                 ObjectId campaignId = SelectedCampaign.Id;
 
 
-                long donationAmount = (long)(SelectedAmount * 100);
+                long donationAmount = (long)SelectedAmount;
                 long platformFee = (long)(donationAmount * 0.01); 
                 long organizerAmount = donationAmount - platformFee;
 
-                var sessionService = new Stripe.Checkout.SessionService();
-                var sessionOptions = new SessionCreateOptions
-                {
-                    PaymentMethodTypes = new List<string> { "card" },
-                    LineItems = new List<SessionLineItemOptions>
-                    {
-                        new SessionLineItemOptions
-                        {
-                            PriceData = new SessionLineItemPriceDataOptions
-                            {
-                                UnitAmount = donationAmount,
-                                Currency = "usd",
-                                ProductData = new SessionLineItemPriceDataProductDataOptions
-                                {
-                                    Name = $"Donation to {SelectedCampaign.Title ?? "Campaign"}",
-                                },
-                            },
-                            Quantity = 1,
-                        },
-                    },
-                    Mode = "payment",
-                    SuccessUrl = "https://indiaesevakendra.in/wp-content/uploads/2020/08/Paymentsuccessful21-768x427.png",
-                    CancelUrl = "https://docs.memberstack.com/hc/article_attachments/16017242490267",
-                    PaymentIntentData = new SessionPaymentIntentDataOptions
-                    {
-                        TransferData = new SessionPaymentIntentDataTransferDataOptions
-                        {
-                            Destination = connectedAccountId,
-                            Amount = organizerAmount
-                        },
-                        Metadata = new Dictionary<string, string>
-                        {
-                            { "campaign_id", campaignId.ToString() },
-                            { "donation_type", "campaign_donation" },
-                            { "platform_fee", platformFee.ToString() },
-                            { "donor_email", EmailAddress }
-                        }
-                    }
-                };
-
-                var session = await sessionService.CreateAsync(sessionOptions);
 
                 await SaveDonationToDatabase(new DonationRecord
                 {
-                    PaymentIntentId = session.PaymentIntentId,
-                    CheckoutSessionId = session.Id,
                     FirstName = FirstName,
                     LastName =  LastName,
                     IsAnonymous = IsAnonymous,
                     Email = EmailAddress,
                     CampaignId = campaignId,
-                    ConnectedAccountId = connectedAccountId,
                     Amount = donationAmount,
                     PlatformFee = platformFee,
                     OrganizerAmount = organizerAmount,
@@ -347,11 +302,7 @@ namespace GreenBill.MVVM.ViewModel
                     CreatedAt = DateTime.UtcNow
                 });
 
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = session.Url,
-                    UseShellExecute = true
-                });
+            
 
                 ShowMessage = true;
                 SuccessMessage = "Thank you for your donation!";
@@ -389,9 +340,9 @@ namespace GreenBill.MVVM.ViewModel
             id,
             new CampaignIncludeOptions { IncludeUser = true, IncludeDonationRecord = true }
          );
-            var total = $"${(SelectedCampaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0):N2} USD raised";
+            var total = $"₱{(SelectedCampaign.DonationRecord?.Sum(item => item.Amount) ?? 0):N2} PHP raised";
             TotalDonationRaised = total;
-            var percentage = ((SelectedCampaign.DonationRecord?.Sum(item => item.RealAmount) ?? 0) / SelectedCampaign.DonationGoal) * 100;
+            var percentage = ((SelectedCampaign.DonationRecord?.Sum(item => item.Amount) ?? 0) / SelectedCampaign.DonationGoal) * 100;
             Percentage = $"{percentage:N0}% of {SelectedCampaign.DonationGoal:N2} goal";
         }
 

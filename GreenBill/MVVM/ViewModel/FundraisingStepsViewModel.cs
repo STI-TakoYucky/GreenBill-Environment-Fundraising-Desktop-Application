@@ -400,46 +400,7 @@ namespace GreenBill.MVVM.ViewModel
             try
             {
                 IsLoading = true;
-                while (!_sessionService.CurrentUser.CanReceiveFunds)
-                {
-                    var result = MessageBox.Show(
-                        "Setup your Stripe Connect Account to receive the donations from this campaign",
-                        "Stripe Connect Setup Required",
-                        MessageBoxButton.OKCancel,
-                        MessageBoxImage.Information);
-
-                    if (result == MessageBoxResult.Cancel)
-                    {
-                        return;
-                    }
-                    else if (result == MessageBoxResult.OK)
-                    {
-                        try
-                        {
-                            await _stripeService.CreateConnectAccountAsync(_sessionService.CurrentUser);
-
-                            if (!_sessionService.CurrentUser.CanReceiveFunds)
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-                        catch (Exception stripeEx)
-                        {
-                            MessageBox.Show(
-                                $"Error setting up Stripe Connect account: {stripeEx.Message}",
-                                "Stripe Setup Error",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Error);
-
-                            continue;
-                        }
-                    }
-                }
-
+            
                 if (ValidateCampaignForSaving()) return;
 
                 CurrentCampaign.UserId = _sessionService.CurrentUser.Id;

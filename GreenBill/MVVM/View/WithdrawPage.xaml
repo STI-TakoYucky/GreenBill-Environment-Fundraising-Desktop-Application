@@ -86,8 +86,8 @@
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding BankName}" Margin="0,0,10,0" />
-                                            <TextBlock Text="{Binding Last4, StringFormat='(****{0})'}" Foreground="Gray" />
+                                            <TextBlock Text="GCASH" Margin="0,0,10,0" />
+                                            <TextBlock Text="09898899093" Foreground="Gray" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
@@ -156,7 +156,7 @@
                                         </Grid.RowDefinitions>
 
                                         <TextBlock Text="Withdrawal Record" FontSize="14" FontWeight="SemiBold" Foreground="#333333"/>
-                                        <TextBlock Grid.Row="1" Text="Metrobank - XX8502" FontSize="11" Foreground="#999999" Margin="0,4,0,0"/>
+                                        <TextBlock Grid.Row="1" Text="GCASH" FontSize="11" Foreground="#999999" Margin="0,4,0,0"/>
                                         <TextBlock Grid.Row="2" Text="{Binding CreatedAt}" FontSize="10" Foreground="#CCCCCC" Margin="0,6,0,0"/>
 
                                         <StackPanel Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Center">

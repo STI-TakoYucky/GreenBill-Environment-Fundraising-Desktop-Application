@@ -171,6 +171,7 @@ namespace GreenBill.MVVM.ViewModel
             BankAccounts = new ObservableCollection<dynamic>();
             _withdrawalRecordService = withdrawalRecordService;
             Withdraw = new RelayCommand(o => RequestWithdrawal());
+            BankAccounts = new ObservableCollection<dynamic> { "GCash"};
         }
 
         public async void RequestWithdrawal()
@@ -217,6 +218,8 @@ namespace GreenBill.MVVM.ViewModel
             // Get the withdrawable amount
             var donationsAmount = SelectedCampaign.DonationRecord.Sum(item => item.Amount);
             WithdrawableAmount = (long) donationsAmount- WithdrawedAmount;
+
+            SelectedBankAccount = BankAccounts[0];
 
             IsLoading = false;
         }

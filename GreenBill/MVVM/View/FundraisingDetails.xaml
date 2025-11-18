@@ -175,7 +175,7 @@
                                                     </StackPanel>
 
                                                     <TextBlock Grid.Column="2" 
-                                                               Text="{Binding RealAmount}" 
+                                                               Text="{Binding Amount}" 
                                                                FontWeight="SemiBold" 
                                                                FontSize="14"
                                                                Foreground="#4CAF50"

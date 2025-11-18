@@ -166,10 +166,10 @@ namespace GreenBill.Services
                 {
                     campaign.DonationRecord = await _donationRecordService.GetByCampaignIdAsync(campaign.Id);
                     campaign.DonationsCount = campaign.DonationRecord.Count.ToString() + " donations";
-                    var total = $"${(campaign.DonationRecord?.Sum(item => item.Amount) ?? 0):N2} USD raised";
+                    var total = $"₱{(campaign.DonationRecord?.Sum(item => item.Amount) ?? 0):N2} PHP raised";
                     campaign.TotalAmountRaised = total;
                     var percentage = ((campaign.DonationRecord?.Sum(item => item.Amount) ?? 0) / campaign.DonationGoal) * 100;
-                    campaign.Percentage = $"{percentage:N0}% Funded";
+                    campaign.Percentage = $"{percentage:N0}% of {campaign.DonationGoal} Funded";
                 }
                 catch (Exception ex)
                 {

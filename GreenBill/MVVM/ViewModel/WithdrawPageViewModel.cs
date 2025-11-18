@@ -2,6 +2,7 @@
 using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.Services;
+using LiveCharts;
 using MongoDB.Bson;
 using Stripe;
 using System;
@@ -50,6 +51,17 @@ namespace GreenBill.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+
+        private List<WithdrawalRecord> _withdrawalRecords;
+        public List<WithdrawalRecord> WithdrawalRocords
+        {
+            get => _withdrawalRecords;
+            set {
+                _withdrawalRecords = value;
+                OnPropertyChanged();
+            }
+        }
+        
 
         private IStripeService _stripeService;
         private IUserSessionService _userSessionService;
@@ -175,15 +187,11 @@ namespace GreenBill.MVVM.ViewModel
             IsLoading = true;
             User user = _userSessionService.CurrentUser;
            
-            Debug.WriteLine($"Amount: {Amount * 100}");
-            Debug.WriteLine($"Bank Number: {SelectedBankAccount}");
-            var payout = await _stripeService.PayoutFundsAsync(user.StripeAccountId, Amount * 100, SelectedBankAccount.Id);
-            Debug.WriteLine($"PAYOUT: {payout}");
-            if (payout)
-            {
-                await _withdrawalRecordService.Create(new WithdrawalRecord { CampaignId = SelectedCampaign.Id, Amount = this.Amount });
-            }
-                IsLoading = false;
+            await _withdrawalRecordService.Create(new WithdrawalRecord { CampaignId = SelectedCampaign.Id, Amount = this.Amount });
+            refreshPage();
+            IsLoading = false;
+
+            MessageBox.Show("Withdrawed Successfully.");
         }
 
         public async void ApplyNavigationParameter(object parameter)
@@ -198,37 +206,40 @@ namespace GreenBill.MVVM.ViewModel
                 IncludeDonationRecord = true
             });
 
-            var balanceService = new BalanceService();
-            var requestOptions = new RequestOptions { StripeAccount = user.StripeAccountId };
-            var balance = await balanceService.GetAsync(requestOptions);
+            WithdrawalRocords = SelectedCampaign.WithdrawalRecord;
 
+            Debug.WriteLine(WithdrawalRocords.Count);
 
             // Get the withdrawed amount
             var withdrawedAmount = SelectedCampaign.WithdrawalRecord.Sum(item => item.Amount);
             WithdrawedAmount = withdrawedAmount;
 
             // Get the withdrawable amount
-            var donationsAmount = SelectedCampaign.DonationRecord.Sum(item => item.Amount / 100);
-            WithdrawableAmount = balance.Available[0].Amount;
+            var donationsAmount = SelectedCampaign.DonationRecord.Sum(item => item.Amount);
+            WithdrawableAmount = (long) donationsAmount- WithdrawedAmount;
 
-            Pending = balance.Pending[0].Amount / 100;
-
-
-            var bankAccounts = await _stripeService.GetConnectedBankAccountsAsync(user.StripeAccountId);
-
-            // Bind bank accounts to the observable collection
-            BankAccounts.Clear();
-            foreach (var account in bankAccounts)
-            {
-                BankAccounts.Add(account);
-            }
-
-            // Select the first account by default
-            if (BankAccounts.Count > 0)
-            {
-                SelectedBankAccount = BankAccounts[0];
-            }
             IsLoading = false;
+        }
+
+        public async void refreshPage()
+        {
+            SelectedCampaign = await _campaignService.GetCampaignByIdAsync(CampaignId.ToString(), new CampaignIncludeOptions
+            {
+                IncludeWithdrawalRecord = true,
+                IncludeDonationRecord = true
+            });
+
+            WithdrawalRocords = SelectedCampaign.WithdrawalRecord;
+
+            Debug.WriteLine(WithdrawalRocords.Count);
+
+            // Get the withdrawed amount
+            var withdrawedAmount = SelectedCampaign.WithdrawalRecord.Sum(item => item.Amount);
+            WithdrawedAmount = withdrawedAmount;
+
+            // Get the withdrawable amount
+            var donationsAmount = SelectedCampaign.DonationRecord.Sum(item => item.Amount);
+            WithdrawableAmount = (long)donationsAmount - WithdrawedAmount;
         }
     }
 }

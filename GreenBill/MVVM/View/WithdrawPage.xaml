@@ -40,7 +40,6 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Available Balance Card -->
@@ -59,12 +58,6 @@
                     </StackPanel>
                 </Border>
 
-                <Border Grid.Column="2" Background="#00695C" CornerRadius="12" Padding="20" Margin="10,0,0,0">
-                    <StackPanel>
-                        <TextBlock Text="Pending Amount" FontSize="12" Foreground="#FFFFFF" Opacity="0.9" Margin="0,0,0,10"/>
-                        <TextBlock Text="{Binding Pending}" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF"/>
-                    </StackPanel>
-                </Border>
             </Grid>
 
             <!-- Withdraw Form Card -->
@@ -145,109 +138,42 @@
             <!-- History List -->
             <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,0,0,0">
                 <StackPanel>
-                    <!-- History Item 1 -->
-                    <Border Background="#FFFFFF" CornerRadius="12" Padding="20" Margin="0,0,0,12">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
 
-                            <TextBlock Text="Withdrawal Request" FontSize="14" FontWeight="SemiBold" Foreground="#333333"/>
-                            <TextBlock Grid.Row="1" Text="Metrobank - XX8502" FontSize="11" Foreground="#999999" Margin="0,4,0,0"/>
-                            <TextBlock Grid.Row="2" Text="October 15, 2025 • 2:30 PM" FontSize="10" Foreground="#CCCCCC" Margin="0,6,0,0"/>
+                    <ItemsControl x:Name="UpdatesItemsControl" ItemsSource="{Binding WithdrawalRocords}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
 
-                            <StackPanel Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Center">
-                                <TextBlock Text="₱ 10,500.00" FontSize="16" FontWeight="Bold" Foreground="#00A651" TextAlignment="Right"/>
-                                <Border Background="#A8E6A3" CornerRadius="4" Padding="6,4" Margin="0,6,0,0">
-                                    <TextBlock Text="Completed" FontSize="10" Foreground="#00695C" FontWeight="SemiBold"/>
+                                <Border Background="#FFFFFF" CornerRadius="12" Padding="20" Margin="0,0,0,12">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Text="Withdrawal Record" FontSize="14" FontWeight="SemiBold" Foreground="#333333"/>
+                                        <TextBlock Grid.Row="1" Text="Metrobank - XX8502" FontSize="11" Foreground="#999999" Margin="0,4,0,0"/>
+                                        <TextBlock Grid.Row="2" Text="{Binding CreatedAt}" FontSize="10" Foreground="#CCCCCC" Margin="0,6,0,0"/>
+
+                                        <StackPanel Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Amount}" FontSize="16" FontWeight="Bold" Foreground="#00A651" TextAlignment="Right"/>
+                                            <Border Background="#A8E6A3" CornerRadius="4" Padding="6,4" Margin="0,6,0,0">
+                                                <TextBlock Text="Completed" FontSize="10" Foreground="#00695C" FontWeight="SemiBold"/>
+                                            </Border>
+                                        </StackPanel>
+                                    </Grid>
                                 </Border>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
+                                
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
 
-                    <!-- History Item 2 -->
-                    <Border Background="#FFFFFF" CornerRadius="12" Padding="20" Margin="0,0,0,12">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
 
-                            <TextBlock Text="Withdrawal Request" FontSize="14" FontWeight="SemiBold" Foreground="#333333"/>
-                            <TextBlock Grid.Row="1" Text="BDO - XX7801" FontSize="11" Foreground="#999999" Margin="0,4,0,0"/>
-                            <TextBlock Grid.Row="2" Text="October 10, 2025 • 10:15 AM" FontSize="10" Foreground="#CCCCCC" Margin="0,6,0,0"/>
 
-                            <StackPanel Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Center">
-                                <TextBlock Text="₱ 8,000.00" FontSize="16" FontWeight="Bold" Foreground="#00A651" TextAlignment="Right"/>
-                                <Border Background="#A8E6A3" CornerRadius="4" Padding="6,4" Margin="0,6,0,0">
-                                    <TextBlock Text="Completed" FontSize="10" Foreground="#00695C" FontWeight="SemiBold"/>
-                                </Border>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-
-                    <!-- History Item 3 -->
-                    <Border Background="#FFFFFF" CornerRadius="12" Padding="20" Margin="0,0,0,12">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <TextBlock Text="Withdrawal Request" FontSize="14" FontWeight="SemiBold" Foreground="#333333"/>
-                            <TextBlock Grid.Row="1" Text="Metrobank - XX8502" FontSize="11" Foreground="#999999" Margin="0,4,0,0"/>
-                            <TextBlock Grid.Row="2" Text="September 28, 2025 • 4:45 PM" FontSize="10" Foreground="#CCCCCC" Margin="0,6,0,0"/>
-
-                            <StackPanel Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Center">
-                                <TextBlock Text="₱ 5,000.00" FontSize="16" FontWeight="Bold" Foreground="#F9A825" TextAlignment="Right"/>
-                                <Border Background="#FFE8CC" CornerRadius="4" Padding="6,4" Margin="0,6,0,0">
-                                    <TextBlock Text="Pending" FontSize="10" Foreground="#F9A825" FontWeight="SemiBold"/>
-                                </Border>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
-
-                    <!-- History Item 4 -->
-                    <Border Background="#FFFFFF" CornerRadius="12" Padding="20" Margin="0,0,0,12" >
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-
-                            <TextBlock Text="Withdrawal Request" FontSize="14" FontWeight="SemiBold" Foreground="#333333"/>
-                            <TextBlock Grid.Row="1" Text="BDO - XX7801" FontSize="11" Foreground="#999999" Margin="0,4,0,0"/>
-                            <TextBlock Grid.Row="2" Text="September 15, 2025 • 11:20 AM" FontSize="10" Foreground="#CCCCCC" Margin="0,6,0,0"/>
-
-                            <StackPanel Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Center">
-                                <TextBlock Text="₱ 12,000.00" FontSize="16" FontWeight="Bold" Foreground="#00A651" TextAlignment="Right"/>
-                                <Border Background="#A8E6A3" CornerRadius="4" Padding="6,4" Margin="0,6,0,0">
-                                    <TextBlock Text="Completed" FontSize="10" Foreground="#00695C" FontWeight="SemiBold"/>
-                                </Border>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
                 </StackPanel>
             </ScrollViewer>
         </StackPanel>

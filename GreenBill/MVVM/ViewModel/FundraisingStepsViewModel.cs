@@ -16,6 +16,7 @@ using GreenBill.Validators;
 using System.Diagnostics;
 using System.Collections;
 using GreenBill.IServices;
+using System.Text.RegularExpressions;
 
 namespace GreenBill.MVVM.ViewModel
 {
@@ -175,6 +176,7 @@ namespace GreenBill.MVVM.ViewModel
             {
                 if (CurrentCampaign != null)
                 {
+
                     CurrentCampaign.DonationGoal = value;
                     OnPropertyChanged();
 
@@ -259,13 +261,9 @@ namespace GreenBill.MVVM.ViewModel
         {
             Countries = new ObservableCollection<string>
             {
-                "United States",
-                "Canada",
-                "United Kingdom",
-                "Australia",
-                "Germany",
-                "France",
-                "Other"
+                "Luzon",
+                "Visayaz",
+                "Mindanao"
             };
 
             Categories = new ObservableCollection<string>

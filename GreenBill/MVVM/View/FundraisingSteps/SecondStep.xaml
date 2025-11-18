@@ -41,7 +41,7 @@
                        TextAlignment="Center"
                        Margin="0,0,0,20"/>
 
-            <TextBlock Text="It's completely expected to need funds beyond your starting goal. You can always change your goal as you go."
+            <TextBlock Text="It's completely expected to need funds beyond your starting goal."
                        FontSize="16"
                        Foreground="#666666"
                        TextAlignment="Center"
@@ -72,12 +72,13 @@
 
                     <!-- Dollar Sign -->
                     <TextBlock Grid.Column="0"
-                               Text="$"
+                               Text="₱"
                                FontSize="24"
                                FontWeight="Normal"
                                Foreground="#333333"
                                VerticalAlignment="Center"
-                               Margin="0,0,10,0"/>
+                               Margin="0,0,10,0"
+                              />
 
                     <!-- Amount TextBox -->
 
@@ -87,6 +88,8 @@
                             Background="Transparent"
                             VerticalContentAlignment="Center"
                             Padding="0"
+                              PreviewTextInput="NumberOnly"
+  PreviewKeyDown="BlockSpace"
                             Text="{Binding DonationGoal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              Foreground="#CCCCCC">
                         <TextBox.Style>
@@ -102,7 +105,7 @@
 
                     <!-- Currency -->
                     <TextBlock Grid.Column="2"
-                               Text="USD"
+                               Text="PHP"
                                FontSize="16"
                                FontWeight="Normal"
                                Foreground="#666666"
@@ -141,22 +144,13 @@
                                 Fill="#2E7D32" 
                                 VerticalAlignment="Top"
                                 Margin="0,8,10,0"/>
-                        <TextBlock Text="A US social security number"
+                        <TextBlock Text="A bank account or an e-wallet."
                                    FontSize="14"
                                    Foreground="#2E7D32"
                                    TextWrapping="Wrap"/>
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal">
-                        <Ellipse Width="6" Height="6" 
-                                Fill="#2E7D32" 
-                                VerticalAlignment="Top"
-                                Margin="0,8,10,0"/>
-                        <TextBlock Text="A bank account and mailing address in one of the 50 states"
-                                   FontSize="14"
-                                   Foreground="#2E7D32"
-                                   TextWrapping="Wrap"/>
-                    </StackPanel>
+                  
                 </StackPanel>
             </Border>
 

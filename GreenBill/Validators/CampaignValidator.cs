@@ -25,6 +25,10 @@ namespace GreenBill.Validators
                     errorList.Add("Description", "This Field is required");
 
             if (validateAll || list.Contains("DonationGoal"))
+                if (string.IsNullOrEmpty(campaign.DonationGoal.ToString()))
+                    errorList.Add("DonationGoal", "The donation goal is required.");
+
+            if (validateAll || list.Contains("DonationGoal"))
                 if (campaign.DonationGoal <= 0)
                     errorList.Add("DonationGoal", "The donation goal should be at least 100");
 

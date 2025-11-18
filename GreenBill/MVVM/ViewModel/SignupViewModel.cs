@@ -54,7 +54,7 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        private bool _isLoading = true;
+        private bool _isLoading = false;
         public bool IsLoading
         {
             get => _isLoading;

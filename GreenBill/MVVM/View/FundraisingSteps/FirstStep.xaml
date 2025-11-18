@@ -54,7 +54,7 @@
                        Foreground="#333333"
                        Margin="0,0,0,8"/>
 
-            <TextBlock Text="We use your location to determine your currency."
+            <TextBlock Text="We use your location to determine your to reach the best audiences."
                        FontSize="14"
                        Foreground="#666666"
                        Margin="0,0,0,15"/>
@@ -87,6 +87,8 @@
                 <StackPanel Grid.Column="1">
                     <TextBox 
                              Height="40"
+                                                    PreviewTextInput="NumberOnly"
+PreviewKeyDown="BlockSpace"
                              Text="{Binding ZipCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                              VerticalContentAlignment="Center"
                              Padding="10,0"

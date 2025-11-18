@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GreenBill.IServices;
 using System.Windows;
+using System.Diagnostics;
 
 namespace GreenBill.Services
 {
@@ -30,9 +31,19 @@ namespace GreenBill.Services
             _withdrawalRecordService = withdrawalRecordService;
         }
 
-        public async Task<List<Campaign>> GetAllCampaignsAsync(CampaignIncludeOptions options = null)
+        public async Task<List<Campaign>> GetAllCampaignsAsync(CampaignIncludeOptions options = null, string status = null)
         {
             var campaigns = await _collection.Find(_ => true).ToListAsync();
+
+            if (status != null)
+            {
+                campaigns = campaigns
+                    .Where(item => item.Status.Equals(status))
+                    .ToList();
+
+                Debug.WriteLine(status);
+            }
+
 
             // Load related data if requested
             if (options?.IncludeUser == true)

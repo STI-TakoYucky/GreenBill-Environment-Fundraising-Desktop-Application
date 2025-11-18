@@ -11,7 +11,7 @@ namespace GreenBill.IServices
 {
     public interface ICampaignService
     {
-        Task<List<Campaign>> GetAllCampaignsAsync(CampaignIncludeOptions options = null);
+        Task<List<Campaign>> GetAllCampaignsAsync(CampaignIncludeOptions options = null, string status = null);
         Task<List<Campaign>> GetAllCampaignsByIdAsync(ObjectId id, CampaignIncludeOptions options = null);
         Task<Campaign> GetCampaignByIdAsync(string id, CampaignIncludeOptions options = null);
         void Create(Campaign campaign);

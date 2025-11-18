@@ -281,42 +281,7 @@
                                         Command="{Binding CancelCommand}"/>
                             </StackPanel>
 
-                            <Border Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="3"
-                                   Background="#F8F9FA" CornerRadius="8" Padding="20"
-                                   BorderBrush="#E9ECEF" BorderThickness="1">
-                                <StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                                        <TextBlock Text="💳" FontSize="20" Margin="0,0,10,0"/>
-                                        <TextBlock Text="Payment Processing" FontSize="16" FontWeight="SemiBold" 
-                                                  Foreground="#333333" VerticalAlignment="Center"/>
-                                    </StackPanel>
-
-                                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,15" 
-                                              Foreground="#666666" FontSize="14">
-                                        <Run Text="Setup your Stripe account to receive donations and manage fundraising campaigns. This is required to create and manage fundraising campaigns on the platform."/>
-                                    </TextBlock>
-
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button Command="{Binding ConnectStripeAccountCommand}"
-                                                Visibility="{Binding CurrentUser.CanReceiveFunds, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
-                                               Style="{StaticResource StripeButton}"
-                                               Width="200" Margin="0,0,15,0">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Setup Account" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                        </Button>
-
-                                        <Button Visibility="{Binding CurrentUser.CanReceiveFunds, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                Style="{StaticResource StripeButton}"
-                                                Width="200" Margin="0,0,15,0"
-                                                Cursor="Arrow">
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="Completed" VerticalAlignment="Center"/>
-                                            </StackPanel>
-                                        </Button>
-                                    </StackPanel>
-                                </StackPanel>
-                            </Border>
+                          
                         </Grid>
                     </StackPanel>
                 </Grid>

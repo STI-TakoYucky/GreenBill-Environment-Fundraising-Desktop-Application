@@ -99,28 +99,7 @@
                         </Border>
                     </StackPanel>
 
-                    <!-- Processing Fee Info -->
-                    <Border Background="#A8E6A3" Opacity="0.3" CornerRadius="8" Padding="15" Margin="0,0,0,20">
-                        <StackPanel>
-                            <TextBlock Text="Processing Details" FontSize="12" FontWeight="SemiBold" Foreground="#00695C" Margin="0,0,0,8"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="Processing Fee" FontSize="11" Foreground="#666666"/>
-                                <TextBlock Grid.Column="1" Text="₱ 25.00" FontSize="11" Foreground="#00695C" FontWeight="SemiBold"/>
-                            </Grid>
-                            <Grid Margin="0,8,0,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="You'll Receive" FontSize="11" Foreground="#666666"/>
-                                <TextBlock Grid.Column="1" Text="{Binding AmountAfterFee, StringFormat='₱ {0:N2}'}" FontSize="11" Foreground="#00A651" FontWeight="SemiBold"/>
-                            </Grid>
-                        </StackPanel>
-                    </Border>
+
 
                     <!-- Withdraw Button -->
                     <Button Cursor="Hand" Command="{Binding Withdraw}" Background="#00A651" Foreground="#FFFFFF" FontSize="14" FontWeight="SemiBold" Padding="15" Margin="0,0,0,10">
@@ -159,7 +138,7 @@
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
 
-                                        <TextBlock Text="Withdrawal Record" FontSize="14" FontWeight="SemiBold" Foreground="#333333"/>
+                                        <TextBlock Text="{Binding AccountNumber}" FontSize="14" FontWeight="SemiBold" Foreground="#333333"/>
                                         <TextBlock Grid.Row="1" Text="{Binding BankAccount}" FontSize="11" Foreground="#999999" Margin="0,4,0,0"/>
                                         <TextBlock Grid.Row="2" Text="{Binding CreatedAt, StringFormat='MMM dd, yyyy hh:mm tt'}" FontSize="10" Foreground="#CCCCCC" Margin="0,6,0,0"/>
 

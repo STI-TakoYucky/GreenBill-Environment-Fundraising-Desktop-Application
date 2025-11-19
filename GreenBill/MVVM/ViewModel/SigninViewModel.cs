@@ -200,6 +200,7 @@ namespace GreenBill.MVVM.ViewModel
                     mainVM.ShowNavigation = true;
                     mainVM.IsUserLoggedIn = true;
                     mainVM.Profile = user.Profile;
+                    mainVM.IsAdmin = user.Role == "admin";
                 }
 
                 Dictionary<string, object> props = new Dictionary<string, object>();

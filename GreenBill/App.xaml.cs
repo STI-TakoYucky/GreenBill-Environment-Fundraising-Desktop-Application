@@ -43,7 +43,7 @@ namespace GreenBill
 
    
 
-            services.AddSingleton<MainWindowViewModel>();
+            services.AddTransient<MainWindowViewModel>();
             services.AddTransient<SigninViewModel>();
             services.AddTransient<HomePageViewModel>();
             services.AddTransient<SignupViewModel>();

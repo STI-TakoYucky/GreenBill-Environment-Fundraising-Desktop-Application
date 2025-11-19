@@ -48,6 +48,17 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
+        private bool is_admin = false;
+        public bool IsAdmin
+        {
+            get => is_admin;
+            set
+            {
+                is_admin = value;
+                OnPropertyChanged();
+            }
+        }
+
         public User _currentUser;
         public User CurrentUser
         {
@@ -118,6 +129,22 @@ namespace GreenBill.MVVM.ViewModel
             GoToProfile = new RelayCommand(o => Navigation.NavigateTo<MyProfileViewModel>());
             Logout = new RelayCommand(o => _sessionService.ClearSession());
 
+            User currentUser = _sessionService.CurrentUser;
+            if(currentUser != null)
+            {
+                IsAdmin = currentUser.Role.ToLower() == "admin";
+                Debug.WriteLine(currentUser.Role);
+              
+            }
+            else
+            {
+                Debug.WriteLine("No user");
+            }
+
+            Debug.WriteLine(IsAdmin);
+
+
+
 
             defaultLogin();
 
@@ -141,6 +168,7 @@ namespace GreenBill.MVVM.ViewModel
            ShowNavigation = true;
            IsUserLoggedIn = true;
             Profile = user.Profile;
+            IsAdmin = true;
 
 
         }

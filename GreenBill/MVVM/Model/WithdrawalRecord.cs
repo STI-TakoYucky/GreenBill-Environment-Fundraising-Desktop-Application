@@ -10,6 +10,8 @@ namespace GreenBill.MVVM.Model
         public string Status { get; set; } = "successful";
         public long Amount { get; set; }
         public long ProcessingFee { get; set; } = 0;
+        public string BankAccount { get; set; }
+        public string AccountNumber { get; set; }
         public string Remarks { get; set; } = "None";
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 

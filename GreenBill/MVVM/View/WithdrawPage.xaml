@@ -32,7 +32,7 @@
                     Style="{StaticResource BackButtonStyle}"
                     HorizontalAlignment="Left"
                     Command="{Binding BackCommand}"/>
-            
+
             <TextBlock Text="Withdraw Funds" FontSize="28" FontWeight="Bold" Foreground="#00695C" Margin="0,0,0,30"/>
 
             <!-- Balance Cards -->
@@ -46,7 +46,7 @@
                 <Border Grid.Column="0" Background="#00A651" CornerRadius="12" Padding="20" Margin="0,0,10,0">
                     <StackPanel>
                         <TextBlock Text="Available to Withdraw" FontSize="12" Foreground="#FFFFFF" Opacity="0.9" Margin="0,0,0,10"/>
-                        <TextBlock Text="{Binding WithdrawableAmount}" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF"/>
+                        <TextBlock Text="{Binding WithdrawableAmount, StringFormat='₱ {0:N2}'}" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF"/>
                     </StackPanel>
                 </Border>
 
@@ -54,7 +54,7 @@
                 <Border Grid.Column="1" Background="#00695C" CornerRadius="12" Padding="20" Margin="10,0,0,0">
                     <StackPanel>
                         <TextBlock Text="Already Withdrawn" FontSize="12" Foreground="#FFFFFF" Opacity="0.9" Margin="0,0,0,10"/>
-                        <TextBlock Text="{Binding WithdrawedAmount}" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF"/>
+                        <TextBlock Text="{Binding WithdrawedAmount, StringFormat='₱ {0:N2}'}" FontSize="24" FontWeight="Bold" Foreground="#FFFFFF"/>
                     </StackPanel>
                 </Border>
 
@@ -73,25 +73,29 @@
                         </Border>
                     </StackPanel>
 
-                    <!-- Bank Account Selection -->
+                    <!-- Bank Account Type Selection -->
                     <StackPanel Margin="0,0,0,20">
-                        <TextBlock Text="Destination Bank Account" FontSize="12" Foreground="#666666" Margin="0,0,0,8"/>
+                        <TextBlock Text="Bank Account Type" FontSize="12" Foreground="#666666" Margin="0,0,0,8"/>
                         <Border Background="#F9F9F9" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="8" Padding="0">
                             <ComboBox 
-    Height="40"
-    ItemsSource="{Binding BankAccounts}"
-    SelectedItem="{Binding SelectedBankAccount, Mode=TwoWay}"
-    Style="{StaticResource ComboBox}"
-    ItemContainerStyle="{StaticResource ComboBoxItem}">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="GCASH" Margin="0,0,10,0" />
-                                            <TextBlock Text="09898899093" Foreground="Gray" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
+                                Height="40"
+                                ItemsSource="{Binding BankAccounts}"
+                                SelectedItem="{Binding SelectedBankAccount, Mode=TwoWay}"
+                                Style="{StaticResource ComboBox}"
+                                ItemContainerStyle="{StaticResource ComboBoxItem}">
                             </ComboBox>
+                        </Border>
+                    </StackPanel>
+
+                    <!-- Account Number Input -->
+                    <StackPanel Margin="0,0,0,20">
+                        <TextBlock Text="Account Number" FontSize="12" Foreground="#666666" Margin="0,0,0,8"/>
+                        <Border Background="#F9F9F9" BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="8" Padding="12">
+                            <TextBox Text="{Binding AccountNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                     FontSize="14" 
+                                     Foreground="#333333" 
+                                     Background="Transparent" 
+                                     BorderThickness="0"/>
                         </Border>
                     </StackPanel>
 
@@ -113,7 +117,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="You'll Receive" FontSize="11" Foreground="#666666"/>
-                                <TextBlock Grid.Column="1" Text="₱ 0.00" FontSize="11" Foreground="#00A651" FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="1" Text="{Binding AmountAfterFee, StringFormat='₱ {0:N2}'}" FontSize="11" Foreground="#00A651" FontWeight="SemiBold"/>
                             </Grid>
                         </StackPanel>
                     </Border>
@@ -124,7 +128,7 @@
                     </Button>
 
                     <!-- Cancel Button -->
-                    <Button Background="#E8E8E8" Foreground="#666666" FontSize="14" FontWeight="SemiBold" Padding="15">
+                    <Button Background="#E8E8E8" Foreground="#666666" FontSize="14" FontWeight="SemiBold" Padding="15" Command="{Binding BackCommand}">
                         Cancel
                     </Button>
                 </StackPanel>
@@ -156,18 +160,18 @@
                                         </Grid.RowDefinitions>
 
                                         <TextBlock Text="Withdrawal Record" FontSize="14" FontWeight="SemiBold" Foreground="#333333"/>
-                                        <TextBlock Grid.Row="1" Text="GCASH" FontSize="11" Foreground="#999999" Margin="0,4,0,0"/>
-                                        <TextBlock Grid.Row="2" Text="{Binding CreatedAt}" FontSize="10" Foreground="#CCCCCC" Margin="0,6,0,0"/>
+                                        <TextBlock Grid.Row="1" Text="{Binding BankAccount}" FontSize="11" Foreground="#999999" Margin="0,4,0,0"/>
+                                        <TextBlock Grid.Row="2" Text="{Binding CreatedAt, StringFormat='MMM dd, yyyy hh:mm tt'}" FontSize="10" Foreground="#CCCCCC" Margin="0,6,0,0"/>
 
                                         <StackPanel Grid.Column="1" Grid.RowSpan="3" VerticalAlignment="Center">
-                                            <TextBlock Text="{Binding Amount}" FontSize="16" FontWeight="Bold" Foreground="#00A651" TextAlignment="Right"/>
+                                            <TextBlock Text="{Binding Amount, StringFormat='₱ {0:N2}'}" FontSize="16" FontWeight="Bold" Foreground="#00A651" TextAlignment="Right"/>
                                             <Border Background="#A8E6A3" CornerRadius="4" Padding="6,4" Margin="0,6,0,0">
                                                 <TextBlock Text="Completed" FontSize="10" Foreground="#00695C" FontWeight="SemiBold"/>
                                             </Border>
                                         </StackPanel>
                                     </Grid>
                                 </Border>
-                                
+
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

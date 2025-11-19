@@ -56,12 +56,13 @@ namespace GreenBill.MVVM.ViewModel
         public List<WithdrawalRecord> WithdrawalRocords
         {
             get => _withdrawalRecords;
-            set {
+            set
+            {
                 _withdrawalRecords = value;
                 OnPropertyChanged();
             }
         }
-        
+
 
         private IStripeService _stripeService;
         private IUserSessionService _userSessionService;
@@ -91,8 +92,8 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        private ObservableCollection<dynamic> _bankAccounts;
-        public ObservableCollection<dynamic> BankAccounts
+        private ObservableCollection<string> _bankAccounts;
+        public ObservableCollection<string> BankAccounts
         {
             get => _bankAccounts;
             set
@@ -102,13 +103,24 @@ namespace GreenBill.MVVM.ViewModel
             }
         }
 
-        private dynamic _selectedBankAccount;
-        public dynamic SelectedBankAccount
+        private string _selectedBankAccount;
+        public string SelectedBankAccount
         {
             get => _selectedBankAccount;
             set
             {
                 _selectedBankAccount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _accountNumber;
+        public string AccountNumber
+        {
+            get => _accountNumber;
+            set
+            {
+                _accountNumber = value;
                 OnPropertyChanged();
             }
         }
@@ -123,6 +135,7 @@ namespace GreenBill.MVVM.ViewModel
             {
                 _withdrawableAmount = value;
                 OnPropertyChanged();
+                UpdateAmountAfterFee();
             }
         }
 
@@ -156,6 +169,18 @@ namespace GreenBill.MVVM.ViewModel
             {
                 _amount = value;
                 OnPropertyChanged();
+                UpdateAmountAfterFee();
+            }
+        }
+
+        private decimal _amountAfterFee;
+        public decimal AmountAfterFee
+        {
+            get => _amountAfterFee;
+            set
+            {
+                _amountAfterFee = value;
+                OnPropertyChanged();
             }
         }
 
@@ -168,31 +193,73 @@ namespace GreenBill.MVVM.ViewModel
             _campaignService = campaignService;
             _userSessionService = userSessionService;
             _stripeService = stripeService;
-            BankAccounts = new ObservableCollection<dynamic>();
             _withdrawalRecordService = withdrawalRecordService;
             Withdraw = new RelayCommand(o => RequestWithdrawal());
-            BankAccounts = new ObservableCollection<dynamic> { "GCash"};
+
+            // Initialize bank account types
+            BankAccounts = new ObservableCollection<string>
+            {
+                "GCash",
+                "Maya",
+                "BDO",
+                "BPI",
+                "Metrobank",
+                "UnionBank",
+                "Security Bank",
+                "Landbank",
+                "PNB"
+            };
+        }
+
+        private void UpdateAmountAfterFee()
+        {
+            const decimal processingFee = 25.00m;
+            AmountAfterFee = Amount > processingFee ? Amount - processingFee : 0;
         }
 
         public async void RequestWithdrawal()
         {
-            if(WithdrawableAmount == 0)
+            if (WithdrawableAmount == 0)
             {
                 MessageBox.Show("There is nothing to withdraw");
+                return;
             }
-            if(Amount > WithdrawableAmount)
+            if (Amount > WithdrawableAmount)
             {
                 MessageBox.Show("Amount to be withdrawn should be less than or equal to withdrawable amount");
                 return;
             }
+            if (Amount <= 0)
+            {
+                MessageBox.Show("Please enter a valid amount");
+                return;
+            }
+            if (string.IsNullOrEmpty(SelectedBankAccount))
+            {
+                MessageBox.Show("Please select a bank account type");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(AccountNumber))
+            {
+                MessageBox.Show("Please enter your account number");
+                return;
+            }
+
             IsLoading = true;
             User user = _userSessionService.CurrentUser;
-           
-            await _withdrawalRecordService.Create(new WithdrawalRecord { CampaignId = SelectedCampaign.Id, Amount = this.Amount });
+
+            await _withdrawalRecordService.Create(new WithdrawalRecord
+            {
+                CampaignId = SelectedCampaign.Id,
+                Amount = this.Amount,
+                BankAccount = SelectedBankAccount,
+                AccountNumber = AccountNumber
+            });
+
             refreshPage();
             IsLoading = false;
 
-            MessageBox.Show("Withdrawed Successfully.");
+            MessageBox.Show("Withdrawal request submitted successfully.");
         }
 
         public async void ApplyNavigationParameter(object parameter)
@@ -217,9 +284,9 @@ namespace GreenBill.MVVM.ViewModel
 
             // Get the withdrawable amount
             var donationsAmount = SelectedCampaign.DonationRecord.Sum(item => item.Amount);
-            WithdrawableAmount = (long) donationsAmount- WithdrawedAmount;
+            WithdrawableAmount = (long)donationsAmount - WithdrawedAmount;
 
-            SelectedBankAccount = BankAccounts[0];
+            SelectedBankAccount = BankAccounts.FirstOrDefault();
 
             IsLoading = false;
         }
@@ -243,6 +310,10 @@ namespace GreenBill.MVVM.ViewModel
             // Get the withdrawable amount
             var donationsAmount = SelectedCampaign.DonationRecord.Sum(item => item.Amount);
             WithdrawableAmount = (long)donationsAmount - WithdrawedAmount;
+
+            // Reset fields after withdrawal
+            Amount = 0;
+            AccountNumber = string.Empty;
         }
     }
 }

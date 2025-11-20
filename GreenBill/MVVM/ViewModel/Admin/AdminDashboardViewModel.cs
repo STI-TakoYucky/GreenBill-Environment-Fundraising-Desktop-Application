@@ -24,28 +24,24 @@ namespace GreenBill.MVVM.ViewModel.Admin {
     public class AdminDashboardViewModel : Core.ViewModel, INavigationAware, INotifyPropertyChanged, INavigatableService {
 
         public SeriesCollection CartesianSeries { get; set; }
-        public SeriesCollection PieSeries { get; set; } = new SeriesCollection
-        {
-            new PieSeries
-            {
-                Title = "Campaigns",
-                Values = new ChartValues<int> { 40 },
-                DataLabels = true,
-                Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom("#3498DB")) // blue
-            },
-            new PieSeries
-            {
-                Title = "Users",
-                Values = new ChartValues<int> { 60 },
-                DataLabels = true,
-                Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF4500")) // orange
-            }
-        };
+        public SeriesCollection PieSeries { get; set; } = new SeriesCollection();
         public ObservableCollection<MVVM.Model.User> Users { get; set; } = new ObservableCollection<MVVM.Model.User>();
         public ObservableCollection<MVVM.Model.Campaign> Campaigns { get; set; } = new ObservableCollection<MVVM.Model.Campaign>();
         public bool ShowNavigation => true;
 
         //GETTERS AND SETTERS START HERE
+
+        private string _selectedTab = "Campaigns";
+
+        public string SelectedTab {
+            get => _selectedTab;
+            set {
+                _selectedTab = value;
+                OnPropertyChanged();
+                BuildLineChart(LoadUsersAsync(), LoadCampaignAsync());
+                BuildPieChart();
+            }
+        }
 
         private readonly IUserService _userService;
         private ITabNavigationService _navigationService;
@@ -124,6 +120,8 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         //COMMANDS
         public ICommand NavigateToCampaignDetails { get; set; }
         public ICommand NavigateToCampaignAnalytics { get; set; }
+        public ICommand SelectCampaignsTab { get; set; }
+        public ICommand SelectUsersTab { get; set; }
         public Func<double, string> DateFormatter { get; set; }
         //COMMANDS
 
@@ -136,6 +134,8 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             //initialize commands
             NavigateToCampaignDetails = new RelayCommand(campaign_id => { Navigation?.NavigateToTab<ReviewCampaignViewModel>(campaign_id.ToString()); });
             NavigateToCampaignAnalytics = new RelayCommand(o => Navigation.NavigateToTab<AdminCampaignAnalyticsViewModel>());
+            SelectCampaignsTab = new RelayCommand(_ => SelectedTab = "Campaigns");
+            SelectUsersTab = new RelayCommand(_ => SelectedTab = "Users");
         }
 
         private async Task<List<User>> LoadUsersAsync() {
@@ -167,8 +167,9 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
         private async Task<List<Campaign>> LoadCampaignAsync() {
             try {
+                Campaigns.Clear(); //reset the campaigns collection
                 var campaignsFromDb = await _campaignService.GetAllCampaignsAsync();
-                    campaignsFromDb = campaignsFromDb?.OrderByDescending(c => c.CreatedAt).ToList();
+                campaignsFromDb = campaignsFromDb?.OrderByDescending(c => c.CreatedAt).ToList();
 
                 if (campaignsFromDb == null) {
                     TotalCampaigns = "0";
@@ -183,7 +184,6 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 ActiveCampaigns = campaignsFromDb.Count(c => string.Equals(c.Status, "Verified", StringComparison.OrdinalIgnoreCase)).ToString();
 
                 // populate the Campaigns collection (map minimal fields)
-                Campaigns.Clear(); //reset the campaigns collection
                 string selected = SelectedPeriod.Content.ToString();
 
                 DateTime startDate = selected == "All Time"
@@ -207,10 +207,10 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 return null;
             }
         }
-        public List<DateTime> ChartDates { get; set; } = new List<DateTime>();
 
         private async void BuildLineChart(Task<List<User>> usersAsync, Task<List<Campaign>> campaignsAsync) {
-            var users = await usersAsync;
+        List<DateTime> ChartDates = new List<DateTime>();
+        var users = await usersAsync;
             var campaigns = await campaignsAsync;
 
             var campaignValues = new ChartValues<int>();
@@ -245,34 +245,37 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 userValues.Add(userCountPerDay);
             }
 
-            DateFormatter = value =>
-            {
+            DateFormatter = value => {
                 int index = (int)value;
                 if (index < 0 || index >= ChartDates.Count) return "";
                 return ChartDates[index].ToString("MMM dd yyyy");
             };
             OnPropertyChanged(nameof(DateFormatter));
-            CartesianSeries = new SeriesCollection
+
+           if (SelectedTab == "Campaigns") {
+                CartesianSeries = new SeriesCollection
+                       {
+                    new LineSeries
                     {
-                new LineSeries
-                {
-                    Title = "Campaign Submissions",
-                    Values = campaignValues,
-                    PointGeometry = DefaultGeometries.Circle,
-                    StrokeThickness = 2,
-                    LineSmoothness= 0,
-                    DataLabels = false,
-                    Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#00A86B")),
-                    Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2000A86B")),
-                    LabelPoint = chartPoint =>
-                        $"{ChartDates[(int)chartPoint.Key]:MMM dd, yyyy} → {chartPoint.Y}"
-                },
-                new LineSeries
-                {
+                        Title = "Campaign Submissions",
+                        Values = campaignValues,
+                        PointGeometry = DefaultGeometries.Circle,
+                        StrokeThickness = 2,
+                        LineSmoothness= 0,
+                        DataLabels = false,
+                        Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#00A86B")),
+                        Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2000A86B")),
+                        LabelPoint = chartPoint =>
+                            $"{ChartDates[(int)chartPoint.Key]:MMM dd, yyyy} → {chartPoint.Y}"
+                    }
+                };
+            } else if(SelectedTab == "Users") {
+                CartesianSeries = new SeriesCollection {
+                new LineSeries {
                     Title = "Users",
                     Values = userValues,
                     PointGeometry = DefaultGeometries.Circle,
-                    LineSmoothness= 0,
+                    LineSmoothness = 0,
                     StrokeThickness = 2,
                     Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#3498DB")),
                     Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom("#203498DB")),
@@ -280,13 +283,76 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                     LabelPoint = chartPoint =>
                         $"{ChartDates[(int)chartPoint.Key]:MMM dd, yyyy} → {chartPoint.Y}"
                 }
+                };
+            }
+
+                OnPropertyChanged(nameof(CartesianSeries));
+        }
+
+        private readonly List<string> _palette = new List<string>()
+            {
+                "#00695C", // Deep teal (your base)
+                "#FF6F3C", // Bright complimentary orange
+                "#00A896", // Vibrant turquoise
+                "#FFD166", // Warm golden highlight
+                "#EF476F", // Strong contrasting magenta-red
+                "#073B4C"  // Deep dark cyan for depth
             };
 
-            OnPropertyChanged(nameof(CartesianSeries));
+        private async void BuildPieChart() {
+            PieSeries.Clear();
+
+            int colorIndex = 0;
+
+            // --- LOAD DATA BASED ON TAB ---
+            if (SelectedTab == "Campaigns") {
+                var campaigns = await _campaignService.GetAllCampaignsAsync();
+
+                var grouped = campaigns
+                    .GroupBy(c => c.Category)
+                    .Select(g => new {
+                        Title = g.Key,
+                        Count = g.Count()
+                    });
+
+                foreach (var item in grouped) {
+                    string hex = _palette[colorIndex % _palette.Count];
+                    colorIndex++;
+
+                    PieSeries.Add(new PieSeries {
+                        Title = item.Title,
+                        Values = new ChartValues<int> { item.Count },
+                        DataLabels = true,
+                        Fill = (SolidColorBrush)new BrushConverter().ConvertFrom(hex)
+                    });
+                }
+            } else if (SelectedTab == "Users") {
+                var users = await _userService.GetAllUsersAsync();
+
+                var grouped = users
+                    .GroupBy(u => u.VerificationStatus)
+                    .Select(g => new {
+                        Title = g.Key,
+                        Count = g.Count()
+                    });
+
+                foreach (var item in grouped) {
+                    string hex = _palette[colorIndex % _palette.Count];
+                    colorIndex++;
+
+                    PieSeries.Add(new PieSeries {
+                        Title = item.Title,
+                        Values = new ChartValues<int> { item.Count },
+                        DataLabels = true,
+                        Fill = (SolidColorBrush)new BrushConverter().ConvertFrom(hex)
+                    });
+                }
+            }
         }
 
-        private async void BuildPieChart() { 
-        }
+
+
+
 
         private void ApplyDateFilter(string period) {
             DateTime currDate = DateTime.Now;
@@ -328,7 +394,23 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             // start loading campaigns and counts, and users
             BuildLineChart(LoadUsersAsync(), LoadCampaignAsync());
             _selectedPeriod = new ComboBoxItem { Content = "All Time" };
+            BuildPieChart();
         }
 
+        // Properties for tab styling (active/inactive state)
+        public bool isCampaignsTabActive => SelectedTab == "Campaigns";
+        public bool isUsersTabActive => SelectedTab == "Users";
+
+        // Override OnPropertyChanged to trigger UI updates for tab states
+        protected override void OnPropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null) {
+            base.OnPropertyChanged(propertyName);
+
+            // When SelectedTab changes, notify the tab state properties
+            if (propertyName == nameof(SelectedTab)) {
+                OnPropertyChanged(nameof(isCampaignsTabActive));
+                OnPropertyChanged(nameof(isUsersTabActive));
+            }
+
+        }
     }
 }

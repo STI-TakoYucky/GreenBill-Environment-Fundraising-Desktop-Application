@@ -254,17 +254,26 @@
                                     ShadowDepth="2"
                                     Color="#000000" />
                             </Border.Effect>
-                            <lvc:CartesianChart Height="300" AnimationsSpeed="0:0:0.5">
-                                <lvc:CartesianChart.Series>
-                                    <lvc:LineSeries
-                                        Title="New Users"
-                                        Fill="Transparent"
-                                        PointGeometrySize="8"
-                                        Stroke="#00A86B"
-                                        StrokeThickness="3"
-                                        Values="15,25,30,22,35,42,38,45,52,48,55,60" />
-                                </lvc:CartesianChart.Series>
+                            <lvc:CartesianChart
+                                Height="300"
+                                AnimationsSpeed="0:0:0.5"
+                                Series="{Binding CartesianSeries}">
+
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis LabelFormatter="{Binding DateFormatter}" />
+                                </lvc:CartesianChart.AxisX>
+
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis MinValue="0">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1" />
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+
                             </lvc:CartesianChart>
+
+
                         </Border>
 
                         <Border

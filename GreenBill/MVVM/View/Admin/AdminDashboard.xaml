@@ -36,13 +36,10 @@
                         Foreground="#00695C"
                         Text="Dashboard" />
                     <ComboBox
-                        Width="150"
-                        Height="35"
                         Margin="10,0,0,0"
-                        VerticalContentAlignment="Center"
-                        FontSize="14"
                         SelectedIndex="0"
-                        SelectedItem="{Binding SelectedPeriod, Mode=TwoWay}">
+                        SelectedItem="{Binding SelectedPeriod, Mode=TwoWay}"
+                        Style="{DynamicResource ComboBox}">
                         <ComboBoxItem Content="All Time" />
                         <ComboBoxItem Content="Last 7 days" />
                         <ComboBoxItem Content="Last 30 days" />
@@ -227,7 +224,7 @@
 
 
                     <TextBlock
-                        Margin="0,0,15,0"
+                        Margin="0,0,15,15"
                         VerticalAlignment="Center"
                         FontFamily="./Assets/Fonts/#Poppins"
                         FontSize="18"
@@ -257,8 +254,11 @@
                             <lvc:CartesianChart
                                 Height="300"
                                 AnimationsSpeed="0:0:0.5"
+                                LegendLocation="Bottom"
                                 Series="{Binding CartesianSeries}">
-
+                                <lvc:CartesianChart.ChartLegend>
+                                    <lvc:DefaultLegend Margin="30,30,30,0" />
+                                </lvc:CartesianChart.ChartLegend>
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis LabelFormatter="{Binding DateFormatter}" />
                                 </lvc:CartesianChart.AxisX>
@@ -289,7 +289,7 @@
                                     ShadowDepth="2"
                                     Color="#000000" />
                             </Border.Effect>
-                            <lvc:PieChart Grid.Column="1" Series="{Binding Series}" />
+                            <lvc:PieChart Grid.Column="1" Series="{Binding PieSeries}" />
                         </Border>
                     </Grid>
                 </StackPanel>
@@ -298,7 +298,7 @@
                 <StackPanel Margin="0,40,0,0">
                     <DockPanel LastChildFill="False">
                         <TextBlock
-                            Margin="0,0,20,10"
+                            Margin="0,0,20,15"
                             DockPanel.Dock="Left"
                             FontFamily="./Assets/Fonts/#Poppins"
                             FontSize="18"

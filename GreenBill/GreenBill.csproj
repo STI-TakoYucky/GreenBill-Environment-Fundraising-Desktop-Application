@@ -329,6 +329,7 @@
       <DependentUpon>SuccessToast.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BytesToMBConverter.cs" />
+    <Compile Include="Converters\EmptyCollectionToVisibleConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\ProgressToWidthConverter.cs" />
     <Compile Include="Converters\ProgressWidthConverter.cs" />
@@ -709,6 +710,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Resource Include="Assets\Images\emptyTable.png" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

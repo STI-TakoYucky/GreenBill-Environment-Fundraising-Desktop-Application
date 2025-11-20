@@ -25,15 +25,5 @@ namespace GreenBill.MVVM.View
         {
             InitializeComponent();
         }
-
-        private void Card_Click(object sender, MouseButtonEventArgs e)
-        {
-            MainContent.Visibility = Visibility.Collapsed;
-
-            var fundraisingPage = new FundraisingDetails();
-            MainFrame.Navigate(fundraisingPage);
-
-            MainFrame.Visibility = Visibility.Visible;
-        }
     }
 }

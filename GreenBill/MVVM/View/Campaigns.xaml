@@ -67,18 +67,7 @@
                     Orientation="Horizontal" 
                     Margin="100,0,100,20" 
                     HorizontalAlignment="Left">
-            <Button Name="TrendingButton" 
-                    Content="Trending" 
-                    Style="{StaticResource ActiveFilterButtonStyle}"
-                    Click="FilterButton_Click"/>
-            <Button Name="NearYouButton" 
-                    Content="Near you" 
-                    Style="{StaticResource FilterButtonStyle}"
-                    Click="FilterButton_Click"/>
-            <Button Name="NonprofitsButton" 
-                    Content="Nonprofits" 
-                    Style="{StaticResource FilterButtonStyle}"
-                    Click="FilterButton_Click"/>
+         
         </StackPanel>
 
         <ScrollViewer Grid.Row="3" 

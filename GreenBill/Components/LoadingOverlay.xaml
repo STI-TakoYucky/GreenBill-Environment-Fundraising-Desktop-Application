@@ -25,7 +25,7 @@
 
             <StackPanel HorizontalAlignment="Center" 
                         VerticalAlignment="Center">
-                <!-- Loading Spinner -->
+
                 <Grid Width="60" Height="60" Margin="0,0,0,20">
                     <Ellipse Width="60" Height="60" 
                             Stroke="#E0E0E0" 

@@ -65,9 +65,7 @@ namespace GreenBill.MVVM.View
         private void ResetFilterButtons()
         {
             var inactiveStyle = (Style)FindResource("FilterButtonStyle");
-            TrendingButton.Style = inactiveStyle;
-            NearYouButton.Style = inactiveStyle;
-            NonprofitsButton.Style = inactiveStyle;
+     
         }
 
         private void SetActiveFilterButton(Button button)

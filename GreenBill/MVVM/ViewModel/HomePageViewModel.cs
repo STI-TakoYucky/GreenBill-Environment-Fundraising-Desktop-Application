@@ -14,8 +14,6 @@ namespace GreenBill.MVVM.ViewModel
 {
     public class HomePageViewModel : Core.ViewModel, INavigationAware, INavigatableService
     {
-
-        // Projects Funded
         private int _projectsFunded;
         public int ProjectsFunded
         {
@@ -26,7 +24,7 @@ namespace GreenBill.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        // Raised
+
         private decimal _raised;
         public decimal Raised
         {
@@ -37,7 +35,7 @@ namespace GreenBill.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        // Donors
+
         private int _donors;
         public int Donors
         {
@@ -48,7 +46,7 @@ namespace GreenBill.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
-        // Campaigns
+
         private int _campaignCount;
         public int CampaignCount
         {
@@ -165,9 +163,9 @@ namespace GreenBill.MVVM.ViewModel
             try
             {
                 var campaigns = await _campaignService.GetAllCampaignsAsync(new CampaignIncludeOptions { IncludeDonationRecord = true}, "Verified");
-
+                
                 Campaigns.Clear();
-                foreach (var campaign in campaigns)
+                foreach (var campaign in campaigns.Take(6))
                 {
                     Campaigns.Add(campaign);
                 }

@@ -159,7 +159,7 @@
                                                        HorizontalAlignment="Left"
                                                        Width="200"/>
                                             </Border>
-                                            
+
                                             <TextBlock Text="{Binding DaySpan}"
                                                       FontSize="12"
                                                       Foreground="#666666"
@@ -321,7 +321,6 @@
         <components:SuccessToast Grid.RowSpan="3"
                       IsVisible="{Binding ShowMessage, Converter={StaticResource BooleanToVisibilityConverter}}"
                       Title="Account Created!"
-                      CloseCommand="{Binding CloseToast}"
                       Message="{Binding SuccessMessage}"/>
     </Grid>
 </UserControl>

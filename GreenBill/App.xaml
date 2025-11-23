@@ -70,6 +70,14 @@
                 <adminView:AdminWindow />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type adminViewModel:CreateAdminAccViewModel}">
+                <adminView:CreateAdminAcc />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type adminViewModel:AdminAccPreviewViewModel}">
+                <adminView:AdminAccPreview />
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type adminViewModel:ReviewUserViewModel}">
                 <adminView:ReviewUser />
             </DataTemplate>

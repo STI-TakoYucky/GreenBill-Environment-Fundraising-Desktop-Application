@@ -354,9 +354,11 @@
     <Compile Include="MVVM\Model\SupportingDocument.cs" />
     <Compile Include="MVVM\Model\User.cs" />
     <Compile Include="MVVM\Model\WithdrawalRecord.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\AdminAccPreviewViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminCampaignAnalyticsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminDashboardViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminWindowViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\CreateAdminAccViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\ReviewCampaignViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\ReviewUserViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\SettingsViewModel.cs" />
@@ -376,6 +378,9 @@
     <Compile Include="MVVM\ViewModel\SupportingDocumentsPageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\UserCampaignsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\WithdrawPageViewModel.cs" />
+    <Compile Include="MVVM\View\Admin\AdminAccPreview.xaml.cs">
+      <DependentUpon>AdminAccPreview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Admin\AdminCampaignAnalytics.xaml.cs">
       <DependentUpon>AdminCampaignAnalytics.xaml</DependentUpon>
     </Compile>
@@ -384,6 +389,9 @@
     </Compile>
     <Compile Include="MVVM\View\Admin\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\CreateAdminAcc.xaml.cs">
+      <DependentUpon>CreateAdminAcc.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Admin\ReviewCampaign.xaml.cs">
       <DependentUpon>ReviewCampaign.xaml</DependentUpon>
@@ -490,6 +498,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\Admin\AdminAccPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Admin\AdminCampaignAnalytics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -499,6 +511,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MVVM\View\Admin\AdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\CreateAdminAcc.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

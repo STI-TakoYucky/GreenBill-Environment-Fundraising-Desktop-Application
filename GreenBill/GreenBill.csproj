@@ -359,6 +359,7 @@
     <Compile Include="MVVM\ViewModel\Admin\AdminDashboardViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminWindowViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\CreateAdminAccViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\ReviewAdminViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\ReviewCampaignViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\ReviewUserViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\SettingsViewModel.cs" />
@@ -392,6 +393,9 @@
     </Compile>
     <Compile Include="MVVM\View\Admin\CreateAdminAcc.xaml.cs">
       <DependentUpon>CreateAdminAcc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\ReviewAdminAcc.xaml.cs">
+      <DependentUpon>ReviewAdminAcc.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Admin\ReviewCampaign.xaml.cs">
       <DependentUpon>ReviewCampaign.xaml</DependentUpon>
@@ -515,6 +519,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Admin\CreateAdminAcc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\ReviewAdminAcc.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

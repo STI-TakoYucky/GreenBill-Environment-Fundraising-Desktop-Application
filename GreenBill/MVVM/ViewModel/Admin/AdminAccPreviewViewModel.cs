@@ -27,12 +27,14 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         public ObservableCollection<User> Users { get; set; } = new ObservableCollection<User>();
         
         public ICommand CreateAdminCommand { get; set; }
+        public ICommand NavigateToReviewAdmin { get; set; }
 
         public AdminAccPreviewViewModel(IUserService userService, ITabNavigationService tabNavigationService) {
             _userService = userService;
             Navigation = tabNavigationService;
             _ = LoadUsersAsync();
             CreateAdminCommand = new RelayCommand(_ => { Navigation?.NavigateToTab<CreateAdminAccViewModel>();});
+            NavigateToReviewAdmin = new RelayCommand(admin_id => { Navigation?.NavigateToTab<ReviewAdminViewModel>(admin_id);});
         }
 
         private async Task LoadUsersAsync() {

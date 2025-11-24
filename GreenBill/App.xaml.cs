@@ -62,6 +62,7 @@ namespace GreenBill
             services.AddTransient<AdminAccPreviewViewModel>();
             services.AddTransient<SupportingDocumentsPageViewModel>();
             services.AddTransient<DonationPageViewModel>();
+            services.AddTransient<ReviewAdminViewModel>();
             
 
             services.AddSingleton<ReviewCampaignViewModel>();

@@ -10,196 +10,202 @@
     Background="#f4f4f4"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <Style x:Key="ModernTextBox" TargetType="TextBox">
-            <Setter Property="Height" Value="45" />
-            <Setter Property="Padding" Value="15,10" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Background" Value="White" />
-            <Setter Property="BorderBrush" Value="#E0E0E0" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Foreground" Value="#333333" />
-            <Setter Property="CaretBrush" Value="#4CAF50" />
-            <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Style.Triggers>
-                <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="#4CAF50" />
-                    <Setter Property="BorderThickness" Value="2" />
-                    <Setter Property="Background" Value="#FAFAFA" />
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="#D0D0D0" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Styles/DropdownButton.xaml" />
+                <ResourceDictionary Source="/Styles/Buttons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="ModernTextBox" TargetType="TextBox">
+                <Setter Property="Height" Value="45" />
+                <Setter Property="Padding" Value="15,10" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Background" Value="White" />
+                <Setter Property="BorderBrush" Value="#E0E0E0" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Foreground" Value="#333333" />
+                <Setter Property="CaretBrush" Value="#4CAF50" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Style.Triggers>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter Property="BorderBrush" Value="#4CAF50" />
+                        <Setter Property="BorderThickness" Value="2" />
+                        <Setter Property="Background" Value="#FAFAFA" />
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderBrush" Value="#D0D0D0" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
-        <Style x:Key="ModernPasswordBox" TargetType="PasswordBox">
-            <Setter Property="Height" Value="45" />
-            <Setter Property="Padding" Value="15,10" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Background" Value="White" />
-            <Setter Property="BorderBrush" Value="#E0E0E0" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Foreground" Value="#333333" />
-            <Setter Property="CaretBrush" Value="#4CAF50" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="PasswordBox">
-                        <Border
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="8">
-                            <ScrollViewer
-                                x:Name="PART_ContentHost"
-                                Margin="{TemplateBinding Padding}"
-                                VerticalAlignment="Center" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="#4CAF50" />
-                                <Setter Property="BorderThickness" Value="2" />
-                                <Setter Property="Background" Value="#FAFAFA" />
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="#D0D0D0" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <Style x:Key="ModernComboBox" TargetType="ComboBox">
-            <Setter Property="Background" Value="White" />
-            <Setter Property="BorderBrush" Value="#E3E7EA" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Padding" Value="8,6" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Margin" Value="0,6,0,6" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <Grid>
+            <Style x:Key="ModernPasswordBox" TargetType="PasswordBox">
+                <Setter Property="Height" Value="45" />
+                <Setter Property="Padding" Value="15,10" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Background" Value="White" />
+                <Setter Property="BorderBrush" Value="#E0E0E0" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Foreground" Value="#333333" />
+                <Setter Property="CaretBrush" Value="#4CAF50" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="PasswordBox">
                             <Border
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="8">
-                                <DockPanel Margin="8,0">
-                                    <ContentPresenter VerticalAlignment="Center" Content="{TemplateBinding SelectionBoxItem}" />
-                                    <ToggleButton
-                                        Width="30"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        DockPanel.Dock="Right"
-                                        IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
-                                        <Path
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Data="M 0 0 L 8 0 L 4 5 Z"
-                                            Fill="#666"
-                                            Stretch="Uniform" />
-                                    </ToggleButton>
-                                </DockPanel>
+                                <ScrollViewer
+                                    x:Name="PART_ContentHost"
+                                    Margin="{TemplateBinding Padding}"
+                                    VerticalAlignment="Center" />
                             </Border>
-                            <Popup
-                                AllowsTransparency="True"
-                                IsOpen="{TemplateBinding IsDropDownOpen}"
-                                Placement="Bottom"
-                                PopupAnimation="Fade">
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter Property="BorderBrush" Value="#4CAF50" />
+                                    <Setter Property="BorderThickness" Value="2" />
+                                    <Setter Property="Background" Value="#FAFAFA" />
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="#D0D0D0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ModernComboBox" TargetType="ComboBox">
+                <Setter Property="Background" Value="White" />
+                <Setter Property="BorderBrush" Value="#E3E7EA" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Padding" Value="8,6" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Margin" Value="0,6,0,6" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ComboBox">
+                            <Grid>
                                 <Border
-                                    Padding="6"
-                                    Background="White"
-                                    BorderBrush="#E3E7EA"
-                                    BorderThickness="1"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
                                     CornerRadius="8">
-                                    <ScrollViewer MaxHeight="200">
-                                        <ItemsPresenter />
-                                    </ScrollViewer>
+                                    <DockPanel Margin="8,0">
+                                        <ContentPresenter VerticalAlignment="Center" Content="{TemplateBinding SelectionBoxItem}" />
+                                        <ToggleButton
+                                            Width="30"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            DockPanel.Dock="Right"
+                                            IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                            <Path
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Data="M 0 0 L 8 0 L 4 5 Z"
+                                                Fill="#666"
+                                                Stretch="Uniform" />
+                                        </ToggleButton>
+                                    </DockPanel>
                                 </Border>
-                            </Popup>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+                                <Popup
+                                    AllowsTransparency="True"
+                                    IsOpen="{TemplateBinding IsDropDownOpen}"
+                                    Placement="Bottom"
+                                    PopupAnimation="Fade">
+                                    <Border
+                                        Padding="6"
+                                        Background="White"
+                                        BorderBrush="#E3E7EA"
+                                        BorderThickness="1"
+                                        CornerRadius="8">
+                                        <ScrollViewer MaxHeight="200">
+                                            <ItemsPresenter />
+                                        </ScrollViewer>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
-        <Style x:Key="ModernButton" TargetType="Button">
-            <Setter Property="Height" Value="45" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="Cursor" Value="Hand" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="8">
-                            <ContentPresenter
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Content="{TemplateBinding Content}" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Opacity" Value="0.9" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Opacity" Value="0.8" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+            <Style x:Key="ModernButton" TargetType="Button">
+                <Setter Property="Height" Value="45" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                                <ContentPresenter
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Content}" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.9" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Opacity" Value="0.8" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
-        <Style
-            x:Key="PrimaryButton"
-            BasedOn="{StaticResource ModernButton}"
-            TargetType="Button">
-            <Setter Property="Background" Value="#4CAF50" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Padding" Value="12,8" />
-            <Setter Property="Margin" Value="8,0,0,0" />
-        </Style>
+            <Style
+                x:Key="PrimaryButton"
+                BasedOn="{StaticResource ModernButton}"
+                TargetType="Button">
+                <Setter Property="Background" Value="#4CAF50" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="12,8" />
+                <Setter Property="Margin" Value="8,0,0,0" />
+            </Style>
 
-        <Style
-            x:Key="SecondaryButton"
-            BasedOn="{StaticResource ModernButton}"
-            TargetType="Button">
-            <Setter Property="Background" Value="White" />
-            <Setter Property="Foreground" Value="#4CAF50" />
-            <Setter Property="BorderBrush" Value="#4CAF50" />
-            <Setter Property="BorderThickness" Value="2" />
-            <Setter Property="Padding" Value="12,8" />
-        </Style>
+            <Style
+                x:Key="SecondaryButton"
+                BasedOn="{StaticResource ModernButton}"
+                TargetType="Button">
+                <Setter Property="Background" Value="White" />
+                <Setter Property="Foreground" Value="#4CAF50" />
+                <Setter Property="BorderBrush" Value="#4CAF50" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="Padding" Value="12,8" />
+            </Style>
 
-        <Style x:Key="BadgeStyle" TargetType="Border">
-            <Setter Property="CornerRadius" Value="15" />
-            <Setter Property="Padding" Value="12,6" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="Margin" Value="5,0" />
-        </Style>
+            <Style x:Key="BadgeStyle" TargetType="Border">
+                <Setter Property="CornerRadius" Value="15" />
+                <Setter Property="Padding" Value="12,6" />
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Margin" Value="5,0" />
+            </Style>
 
-        <Style x:Key="CardStyle" TargetType="Border">
-            <Setter Property="Background" Value="White" />
-            <Setter Property="CornerRadius" Value="12" />
-            <Setter Property="Padding" Value="30" />
-            <Setter Property="Margin" Value="10" />
-            <Setter Property="Effect">
-                <Setter.Value>
-                    <DropShadowEffect
-                        BlurRadius="10"
-                        Direction="270"
-                        Opacity="0.1"
-                        ShadowDepth="2"
-                        Color="Black" />
-                </Setter.Value>
-            </Setter>
-        </Style>
+            <Style x:Key="CardStyle" TargetType="Border">
+                <Setter Property="Background" Value="White" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="Padding" Value="30" />
+                <Setter Property="Margin" Value="10" />
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect
+                            BlurRadius="10"
+                            Direction="270"
+                            Opacity="0.1"
+                            ShadowDepth="2"
+                            Color="Black" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <ScrollViewer Padding="30,0,30,0" VerticalScrollBarVisibility="Auto">
@@ -232,8 +238,8 @@
 
                     <Grid
                         Grid.Row="0"
-                        Margin="0,0,0,15"
-                        HorizontalAlignment="Right">
+                        Margin="-5,0,0,15"
+                        HorizontalAlignment="Left">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
@@ -425,7 +431,7 @@
                                                 </MenuItem.Header>
 
                                                 <MenuItem
-                                                    Command="{Binding DataContext.NavigateToReviewUser, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                    Command="{Binding DataContext.NavigateToReviewAdmin, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                                     CommandParameter="{Binding Id}"
                                                     Cursor="Hand"
                                                     Header="Review" />

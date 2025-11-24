@@ -82,6 +82,10 @@
                 <adminView:ReviewUser />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type adminViewModel:ReviewAdminViewModel}">
+                <adminView:ReviewAdminAcc />
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type adminViewModel:AdminDashboardViewModel}">
                 <adminView:AdminDashboard />
             </DataTemplate>

@@ -172,48 +172,6 @@
 
                             <!--  Details: field cards  -->
                             <UniformGrid Grid.Row="1" Columns="1">
-                                <!--  ID  -->
-                                <Border
-                                    Margin="0,0,12,12"
-                                    Padding="12"
-                                    Background="#FBFCFD"
-                                    BorderBrush="#E6E9EB"
-                                    BorderThickness="1"
-                                    CornerRadius="8">
-                                    <StackPanel>
-                                        <TextBlock
-                                            FontSize="12"
-                                            Foreground="#8A8F95"
-                                            Text="ID" />
-                                        <TextBlock
-                                            FontSize="14"
-                                            FontWeight="SemiBold"
-                                            Foreground="#263238"
-                                            Text="{Binding SelectedCampaign.IdString}"
-                                            TextWrapping="Wrap" />
-                                    </StackPanel>
-                                </Border>
-                                <!--  UserID  -->
-                                <Border
-                                    Margin="0,0,12,12"
-                                    Padding="12"
-                                    Background="#FBFCFD"
-                                    BorderBrush="#E6E9EB"
-                                    BorderThickness="1"
-                                    CornerRadius="8">
-                                    <StackPanel>
-                                        <TextBlock
-                                            FontSize="12"
-                                            Foreground="#8A8F95"
-                                            Text="UserID" />
-                                        <TextBlock
-                                            FontSize="14"
-                                            FontWeight="SemiBold"
-                                            Foreground="#263238"
-                                            Text="{Binding SelectedCampaign.UserId}"
-                                            TextWrapping="Wrap" />
-                                    </StackPanel>
-                                </Border>
                                 <!--  Category  -->
                                 <Border
                                     Margin="0,0,12,12"
@@ -519,27 +477,7 @@
                                                         TextWrapping="Wrap" />
                                                 </StackPanel>
                                             </Border>
-                                            <!--  ID  -->
-                                            <Border
-                                                Margin="0,0,12,12"
-                                                Padding="12"
-                                                Background="#FBFCFD"
-                                                BorderBrush="#E6E9EB"
-                                                BorderThickness="1"
-                                                CornerRadius="8">
-                                                <StackPanel>
-                                                    <TextBlock
-                                                        FontSize="12"
-                                                        Foreground="#8A8F95"
-                                                        Text="ID" />
-                                                    <TextBlock
-                                                        FontSize="14"
-                                                        FontWeight="SemiBold"
-                                                        Foreground="#263238"
-                                                        Text="{Binding Id}"
-                                                        TextWrapping="Wrap" />
-                                                </StackPanel>
-                                            </Border>
+
                                         </UniformGrid>
                                         <!--  Buttons below details  -->
                                         <StackPanel

@@ -24,6 +24,15 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             }
         }
 
+        private string _adminCount;
+        public string AdminCount {
+            get => _adminCount;
+            set {
+                _adminCount = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<User> Users { get; set; } = new ObservableCollection<User>();
         
         public ICommand CreateAdminCommand { get; set; }
@@ -40,6 +49,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         private async Task LoadUsersAsync() {
             try {
                 var usersFromDB = await _userService.GetAllUsersAsync();
+                AdminCount = usersFromDB?.Count(u => u.Role == "admin").ToString() ?? "0";
                 if (usersFromDB == null) return;
                 foreach (var user in usersFromDB) {
                     if (user.Role == "admin") {

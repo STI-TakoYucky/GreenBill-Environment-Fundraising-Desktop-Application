@@ -2,6 +2,9 @@
 using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.Services;
+using LiveCharts;
+using LiveCharts.Wpf;
+using LiveChartsCore;
 using Stripe;
 using System;
 using System.Collections.Generic;
@@ -11,13 +14,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace GreenBill.MVVM.ViewModel.Admin {
     internal class AdminCampaignAnalyticsViewModel : Core.ViewModel, INavigatableService {
         private readonly ICampaignService _campaignService;
         private readonly IUserService _userService;
         private string _selectedTab = "All";
-
+        public SeriesCollection CartesianSeries { get; set; }
         public string SelectedTab {
             get => _selectedTab;
             set {
@@ -102,6 +106,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         public RelayCommand SelectVerifiedCampaigns { get; set; }
         public RelayCommand SelectPendingCampaigns { get; set; }
         public RelayCommand SelectRejectedCampaigns { get; set; }
+        public Func<double, string> DateFormatter { get; set; }
 
         public AdminCampaignAnalyticsViewModel(ICampaignService campaignService, IUserService userService, ITabNavigationService navService) {
             _campaignService = campaignService;
@@ -150,6 +155,66 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             }
         }
 
+        private void BuildLineChart(List<Campaign> campaignsAsync) {
+            List<DateTime> ChartDates = new List<DateTime>();
+            var campaigns = campaignsAsync;
+
+            var campaignValues = new ChartValues<int>();
+            var userValues = new ChartValues<int>();
+            ChartDates.Clear();
+
+            if (campaigns == null || campaigns.Count == 0)
+                return;
+
+            DateTime campaignCreatedDate = campaigns.OrderBy(c => c.CreatedAt).FirstOrDefault()?.CreatedAt.Date ?? DateTime.Now.Date;
+
+            DateTime startDate = campaignCreatedDate;
+            DateTime endDate = DateTime.Now.Date;
+
+            // Build a list of all dates to plot
+            var allDates = Enumerable.Range(0, (endDate - startDate).Days + 1)
+                                     .Select(offset => startDate.AddDays(offset))
+                                     .ToList();
+
+            foreach (var day in allDates) {
+                int campaignCountPerDay = campaigns.Count(c => c.CreatedAt.Date == day);
+
+                // Only skip days where both counts are zero, except start/end
+                if ((campaignCountPerDay == 0) && day != startDate && day != endDate)
+                    continue;
+
+                ChartDates.Add(day);
+                campaignValues.Add(campaignCountPerDay);
+            }
+
+            DateFormatter = value => {
+                int index = (int)value;
+                if (index < 0 || index >= ChartDates.Count) return "";
+                return ChartDates[index].ToString("MMM dd yyyy");
+            };
+            OnPropertyChanged(nameof(DateFormatter));
+
+                CartesianSeries = new SeriesCollection
+                       {
+                    new LineSeries
+                    {
+                        Title = "Campaign Submissions",
+                        Values = campaignValues,
+                        PointGeometry = DefaultGeometries.Circle,
+                        StrokeThickness = 2,
+                        LineSmoothness= 0,
+                        DataLabels = false,
+                        Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#00A86B")),
+                        Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom("#2000A86B")),
+                        LabelPoint = chartPoint =>
+                            $"{ChartDates[(int)chartPoint.Key]:MMM dd, yyyy} → {chartPoint.Y}"
+                    }
+                };
+            
+
+            OnPropertyChanged(nameof(CartesianSeries));
+        }
+
         private async Task LoadCampaignsAsync() {
             campaignsFromDB = await _campaignService.GetAllCampaignsAsync();
             if (campaignsFromDB == null) return;
@@ -167,6 +232,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
                 OnPropertyChanged(nameof(Campaigns));
                 FilterCampaignsByTab();
+                BuildLineChart(campaignsFromDB);
             } catch (Exception ex) {
                 MessageBox.Show($"Error fetching campaigns: {ex.Message}");
             }

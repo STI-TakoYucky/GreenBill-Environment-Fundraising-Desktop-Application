@@ -65,8 +65,8 @@ namespace GreenBill
             services.AddTransient<ReviewAdminViewModel>();
             
 
-            services.AddSingleton<ReviewCampaignViewModel>();
-            services.AddSingleton<ReviewUserViewModel>();   
+            services.AddTransient<ReviewCampaignViewModel>();
+            services.AddTransient<ReviewUserViewModel>();   
             services.AddTransient<CampaignUpdatesViewModel>();
             services.AddTransient<MyProfileViewModel>();
             services.AddTransient<WithdrawPageViewModel>();

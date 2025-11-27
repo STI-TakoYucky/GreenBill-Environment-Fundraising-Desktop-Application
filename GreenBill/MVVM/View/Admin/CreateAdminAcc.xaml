@@ -245,222 +245,228 @@
                     </StackPanel>
 
                     <!--  RIGHT FORM SECTION  -->
-                    <StackPanel Grid.Column="1">
-                        <TextBlock
-                            Margin="0,0,0,30"
-                            FontSize="18"
-                            FontWeight="SemiBold"
-                            Foreground="#333"
-                            Text="Administrator Information" />
+                    <ScrollViewer
+                        Grid.Column="1"
+                        VerticalAlignment="Stretch"
+                        VerticalScrollBarVisibility="Hidden">
+                        <StackPanel Grid.Column="1">
+                            <TextBlock
+                                Margin="0,0,0,30"
+                                FontSize="18"
+                                FontWeight="SemiBold"
+                                Foreground="#333"
+                                Text="Administrator Information" />
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="20" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="20" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="20" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="20" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="20" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="100" />
-                            </Grid.RowDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="100" />
+                                </Grid.RowDefinitions>
 
-                            <!--  FIRST NAME  -->
-                            <StackPanel Grid.Row="0" Grid.Column="0">
-                                <TextBlock
-                                    Margin="0,0,0,8"
-                                    FontWeight="Medium"
-                                    Foreground="#555"
-                                    Text="First Name" />
-                                <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock
-                                    Name="FirstNameValidation"
-                                    FontSize="14"
-                                    Foreground="Red"
-                                    Text="{Binding FirstNameError, Mode=TwoWay}" />
-                            </StackPanel>
+                                <!--  FIRST NAME  -->
+                                <StackPanel Grid.Row="0" Grid.Column="0">
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="Medium"
+                                        Foreground="#555"
+                                        Text="First Name" />
+                                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock
+                                        Name="FirstNameValidation"
+                                        FontSize="14"
+                                        Foreground="Red"
+                                        Text="{Binding FirstNameError, Mode=TwoWay}" />
+                                </StackPanel>
 
-                            <!--  LAST NAME  -->
-                            <StackPanel Grid.Row="0" Grid.Column="2">
-                                <TextBlock
-                                    Margin="0,0,0,8"
-                                    FontWeight="Medium"
-                                    Foreground="#555"
-                                    Text="Last Name" />
-                                <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock
-                                    Name="LastNameValidation"
-                                    FontSize="14"
-                                    Foreground="Red"
-                                    Text="{Binding LastNameError, Mode=TwoWay}" />
-                            </StackPanel>
+                                <!--  LAST NAME  -->
+                                <StackPanel Grid.Row="0" Grid.Column="2">
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="Medium"
+                                        Foreground="#555"
+                                        Text="Last Name" />
+                                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock
+                                        Name="LastNameValidation"
+                                        FontSize="14"
+                                        Foreground="Red"
+                                        Text="{Binding LastNameError, Mode=TwoWay}" />
+                                </StackPanel>
 
-                            <!--  USERNAME  -->
-                            <StackPanel
-                                Grid.Row="2"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="3">
-                                <TextBlock
-                                    Margin="0,0,0,8"
-                                    FontWeight="Medium"
-                                    Foreground="#555"
-                                    Text="Username" />
-                                <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock
-                                    Name="UsernameValidation"
-                                    FontSize="14"
-                                    Foreground="Red"
-                                    Text="{Binding UsernameError, Mode=TwoWay}" />
-                            </StackPanel>
+                                <!--  USERNAME  -->
+                                <StackPanel
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3">
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="Medium"
+                                        Foreground="#555"
+                                        Text="Username" />
+                                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock
+                                        Name="UsernameValidation"
+                                        FontSize="14"
+                                        Foreground="Red"
+                                        Text="{Binding UsernameError, Mode=TwoWay}" />
+                                </StackPanel>
 
-                            <!--  EMAIL  -->
-                            <StackPanel
-                                Grid.Row="4"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="3">
-                                <TextBlock
-                                    Margin="0,0,0,8"
-                                    FontWeight="Medium"
-                                    Foreground="#555"
-                                    Text="Email" />
-                                <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                <TextBlock
-                                    Name="EmailValidation"
-                                    FontSize="14"
-                                    Foreground="Red"
-                                    Text="{Binding EmailError, Mode=TwoWay}" />
-                            </StackPanel>
+                                <!--  EMAIL  -->
+                                <StackPanel
+                                    Grid.Row="4"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3">
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="Medium"
+                                        Foreground="#555"
+                                        Text="Email" />
+                                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock
+                                        Name="EmailValidation"
+                                        FontSize="14"
+                                        Foreground="Red"
+                                        Text="{Binding EmailError, Mode=TwoWay}" />
+                                </StackPanel>
 
 
 
-                            <StackPanel Grid.Row="6" Grid.ColumnSpan="3">
-                                <TextBlock
-                                    Margin="0,0,0,8"
-                                    FontWeight="Medium"
-                                    Foreground="#555"
-                                    Text="Password" />
-                                <Grid>
-                                    <PasswordBox
-                                        Name="PasswordBox"
-                                        Height="50"
-                                        Padding="16,12"
-                                        helpers:PasswordBoxHelper.BindPassword="True"
-                                        helpers:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        Background="White"
-                                        BorderBrush="#E0E0E0"
-                                        BorderThickness="1"
-                                        FontSize="16"
-                                        Foreground="#2C2C2C"
-                                        PasswordChanged="PasswordBox_PasswordChanged" />
+                                <StackPanel Grid.Row="6" Grid.ColumnSpan="3">
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="Medium"
+                                        Foreground="#555"
+                                        Text="Password" />
+                                    <Grid>
+                                        <PasswordBox
+                                            Name="PasswordBox"
+                                            Height="50"
+                                            Padding="16,12"
+                                            helpers:PasswordBoxHelper.BindPassword="True"
+                                            helpers:PasswordBoxHelper.BoundPassword="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Background="White"
+                                            BorderBrush="#E0E0E0"
+                                            BorderThickness="1"
+                                            FontSize="16"
+                                            Foreground="#2C2C2C"
+                                            PasswordChanged="PasswordBox_PasswordChanged" />
 
-                                    <TextBox
-                                        Name="PasswordTextBox"
-                                        Height="50"
-                                        Padding="16,12"
-                                        Background="White"
-                                        BorderBrush="#E0E0E0"
-                                        BorderThickness="1"
-                                        FontSize="16"
-                                        Foreground="#2C2C2C"
-                                        Text=""
-                                        TextChanged="PasswordTextBox_TextChanged"
-                                        Visibility="Collapsed" />
+                                        <TextBox
+                                            Name="PasswordTextBox"
+                                            Height="50"
+                                            Padding="16,12"
+                                            Background="White"
+                                            BorderBrush="#E0E0E0"
+                                            BorderThickness="1"
+                                            FontSize="16"
+                                            Foreground="#2C2C2C"
+                                            Text=""
+                                            TextChanged="PasswordTextBox_TextChanged"
+                                            Visibility="Collapsed" />
+
+                                        <TextBlock
+                                            Name="PasswordPlaceholder"
+                                            Margin="18,0,50,0"
+                                            VerticalAlignment="Center"
+                                            Foreground="#999"
+                                            IsHitTestVisible="False"
+                                            Text="Password" />
+
+                                        <Button
+                                            Name="ShowPasswordButton"
+                                            Width="24"
+                                            Height="24"
+                                            Margin="0,0,16,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Center"
+                                            Background="Transparent"
+                                            BorderThickness="0"
+                                            Click="ShowPasswordButton_Click"
+                                            Cursor="Hand">
+                                            <Path
+                                                Name="EyeIcon"
+                                                Width="16"
+                                                Height="16"
+                                                Data="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"
+                                                Fill="#999"
+                                                Stretch="Uniform" />
+                                        </Button>
+                                    </Grid>
+                                    <TextBlock
+                                        Name="PasswordValidation"
+                                        FontSize="14"
+                                        Foreground="Red"
+                                        Text="{Binding PasswordError, Mode=TwoWay}" />
+                                </StackPanel>
+
+
+
+                                <!--  ROLE  -->
+                                <StackPanel
+                                    Grid.Row="8"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3">
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="Medium"
+                                        Foreground="#555"
+                                        Text="Role" />
+                                    <ComboBox
+                                        SelectedIndex="0"
+                                        SelectedItem="{Binding Role, Mode=TwoWay}"
+                                        Style="{StaticResource ComboBox}">
+                                        <sys:String>Administrator</sys:String>
+                                    </ComboBox>
 
                                     <TextBlock
-                                        Name="PasswordPlaceholder"
-                                        Margin="18,0,50,0"
-                                        VerticalAlignment="Center"
-                                        Foreground="#999"
-                                        IsHitTestVisible="False"
-                                        Text="Password" />
+                                        Name="RoleValidation"
+                                        FontSize="14"
+                                        Foreground="Red"
+                                        Text="{Binding RoleError, Mode=TwoWay}" />
+                                </StackPanel>
+
+                                <!--  BUTTONS  -->
+                                <StackPanel
+                                    Grid.Row="9"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    Margin="-8"
+                                    Orientation="Horizontal">
 
                                     <Button
-                                        Name="ShowPasswordButton"
-                                        Width="24"
-                                        Height="24"
-                                        Margin="0,0,16,0"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Center"
-                                        Background="Transparent"
-                                        BorderThickness="0"
-                                        Click="ShowPasswordButton_Click"
-                                        Cursor="Hand">
-                                        <Path
-                                            Name="EyeIcon"
-                                            Width="16"
-                                            Height="16"
-                                            Data="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"
-                                            Fill="#999"
-                                            Stretch="Uniform" />
-                                    </Button>
-                                </Grid>
-                                <TextBlock
-                                    Name="PasswordValidation"
-                                    FontSize="14"
-                                    Foreground="Red"
-                                    Text="{Binding PasswordError, Mode=TwoWay}" />
-                            </StackPanel>
+                                        Width="150"
+                                        Command="{Binding CreateAdminCommand}"
+                                        Content="Create Admin"
+                                        Style="{StaticResource PrimaryButton}"
+                                        Tag="{Binding IsLoading}" />
 
+                                    <Button
+                                        Width="100"
+                                        Margin="15,0,0,0"
+                                        Command="{Binding CancelCommand}"
+                                        Content="Cancel"
+                                        Style="{StaticResource SecondaryButton}" />
 
+                                </StackPanel>
+                            </Grid>
 
-                            <!--  ROLE  -->
-                            <StackPanel
-                                Grid.Row="8"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="3">
-                                <TextBlock
-                                    Margin="0,0,0,8"
-                                    FontWeight="Medium"
-                                    Foreground="#555"
-                                    Text="Role" />
-                                <ComboBox
-                                    SelectedIndex="0"
-                                    SelectedItem="{Binding Role, Mode=TwoWay}"
-                                    Style="{StaticResource ComboBox}">
-                                    <sys:String>Administrator</sys:String>
-                                </ComboBox>
+                        </StackPanel>
+                    </ScrollViewer>
 
-                                <TextBlock
-                                    Name="RoleValidation"
-                                    FontSize="14"
-                                    Foreground="Red"
-                                    Text="{Binding RoleError, Mode=TwoWay}" />
-                            </StackPanel>
-
-                            <!--  BUTTONS  -->
-                            <StackPanel
-                                Grid.Row="9"
-                                Grid.Column="0"
-                                Grid.ColumnSpan="3"
-                                Margin="-8"
-                                Orientation="Horizontal">
-
-                                <Button
-                                    Width="150"
-                                    Command="{Binding CreateAdminCommand}"
-                                    Content="Create Admin"
-                                    Style="{StaticResource PrimaryButton}"
-                                    Tag="{Binding IsLoading}" />
-
-                                <Button
-                                    Width="100"
-                                    Margin="15,0,0,0"
-                                    Command="{Binding CancelCommand}"
-                                    Content="Cancel"
-                                    Style="{StaticResource SecondaryButton}" />
-
-                            </StackPanel>
-
-                        </Grid>
-                    </StackPanel>
 
                 </Grid>
 

@@ -315,6 +315,7 @@
                         CanUserSortColumns="False"
                         GridLinesVisibility="None"
                         HeadersVisibility="Column"
+                        IsReadOnly="True"
                         ItemsSource="{Binding Users}"
                         RowBackground="White"
                         RowHeight="50">

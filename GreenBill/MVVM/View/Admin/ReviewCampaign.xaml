@@ -2,6 +2,7 @@
     x:Class="GreenBill.MVVM.View.Admin.ReviewCampaign"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:GreenBill.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,6 +14,14 @@
     TextOptions.TextRenderingMode="ClearType"
     UseLayoutRounding="True"
     mc:Ignorable="d">
+
+
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <conv:EmptyCollectionToVisibilityConverter x:Key="EmptyToVis" />
+        </ResourceDictionary>
+    </UserControl.Resources>
 
     <Grid>
         <ScrollViewer Padding="20" VerticalScrollBarVisibility="Auto">
@@ -310,9 +319,9 @@
                                             <lvc:DefaultLegend Margin="30,30,30,0" />
                                         </lvc:CartesianChart.ChartLegend>
                                         <lvc:CartesianChart.AxisX>
+
                                             <lvc:Axis LabelFormatter="{Binding DateFormatter}" />
                                         </lvc:CartesianChart.AxisX>
-
 
                                     </lvc:CartesianChart>
                                 </Border>
@@ -353,7 +362,7 @@
                     Foreground="#00695C"
                     Text="Supporting Documents" />
 
-                <ItemsControl Margin="0,0,0,450" ItemsSource="{Binding SupportingDocument}">
+                <ItemsControl Margin="0,0,0,150" ItemsSource="{Binding SupportingDocument}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Columns="2" />
@@ -581,7 +590,33 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-
+                <StackPanel Margin="0,0,0,150" HorizontalAlignment="Center">
+                    <Image
+                        Width="250"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Source="/Assets/Images/emptyTable.png">
+                        <Image.Visibility>
+                            <MultiBinding Converter="{StaticResource EmptyToVis}">
+                                <Binding Path="DocCount" />
+                                <Binding Path="SupportingDocument" />
+                            </MultiBinding>
+                        </Image.Visibility>
+                    </Image>
+                    <TextBlock
+                        Margin="0,20,0,0"
+                        FontSize="25"
+                        FontWeight="Bold"
+                        Foreground="#00695C"
+                        Text="No Supporting Documents">
+                        <TextBlock.Visibility>
+                            <MultiBinding Converter="{StaticResource EmptyToVis}">
+                                <Binding Path="DocCount" />
+                                <Binding Path="SupportingDocument" />
+                            </MultiBinding>
+                        </TextBlock.Visibility>
+                    </TextBlock>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>

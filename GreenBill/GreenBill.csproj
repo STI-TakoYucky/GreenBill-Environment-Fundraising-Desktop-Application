@@ -329,7 +329,7 @@
       <DependentUpon>SuccessToast.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BytesToMBConverter.cs" />
-    <Compile Include="Converters\EmptyCollectionToVisibleConverter.cs" />
+    <Compile Include="Converters\FileTypeToPreviewConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\ProgressToWidthConverter.cs" />
     <Compile Include="Converters\ProgressWidthConverter.cs" />

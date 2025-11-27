@@ -66,7 +66,6 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 OnPropertyChanged();
             }
         }
-        public ICommand NavigateBack { get; set; }
         public ITabNavigationService Navigation {
             get => _navigationService;
             set {
@@ -74,6 +73,17 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 OnPropertyChanged();
             }
         }
+
+        private string docCount;
+        public string DocCount {
+            get => docCount;
+            set {
+                docCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ICommand NavigateBack { get; set; }
 
         public Func<double, string> DateFormatter { get; set; }
         //Constructor
@@ -316,6 +326,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                     new CampaignIncludeOptions { IncludeUser = true }
                  );
                 var docs = await _supportingDocumentService.GetByCampaignIdAsync(id);
+                DocCount = docs.Count.ToString();
 
                 if (SupportingDocument != null) {
                     SupportingDocument.Clear();

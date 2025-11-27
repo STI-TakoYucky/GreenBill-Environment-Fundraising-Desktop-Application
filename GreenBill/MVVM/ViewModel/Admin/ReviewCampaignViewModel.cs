@@ -32,7 +32,19 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         public ICommand Approve_ReviewCampaign { get; set; }
         public ICommand Approve_ReviewSupportingDocument { get; set; }
         public ICommand RejectCampaign { get; set; }
-        public ICommand PreviewImageCommand { get; }
+
+        private ICommand _previewImageCommand;
+
+
+        public ICommand PreviewImageCommand {
+            get => _previewImageCommand;
+            set {
+                _previewImageCommand = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public ICommand RejectDocument { get; set; }
 
         private ObjectId _campaignId;
@@ -96,8 +108,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             Approve_ReviewSupportingDocument = new RelayCommand(o => Approve_ReviewSupportingDocumentAsync(o));
             RejectCampaign = new RelayCommand(o => RejectCampaignAsync(o));
             RejectDocument = new RelayCommand(o => RejectDocumentAsync(o));
-            PreviewImageCommand = new RelayCommand(param => PreviewImage(param));
-
+            _previewImageCommand = new RelayCommand(param => PreviewFile(param));
             NavigateBack = new RelayCommand(o => Navigation.NavigateToTab<AdminCampaignAnalyticsViewModel>());
 
 
@@ -164,6 +175,50 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             OnPropertyChanged(nameof(CartesianSeries));
         }
 
+        private void PreviewFile(object parameter) {
+            if (parameter is SupportingDocument doc) {
+                byte[] fileData = doc.FileData;
+                string extension = doc.ContentType; // or extract from FileName if you prefer
+
+                if (fileData == null || string.IsNullOrEmpty(extension))
+                    return;
+
+                extension = extension.ToLower();
+
+                if (extension.Contains("image")) // jpeg/png
+                    PreviewImage(fileData);
+                else if (extension.Contains("pdf"))
+                    PreviewPdf(fileData);
+                else
+                    PreviewDocument(fileData, Path.GetExtension(doc.FileName));
+            }
+        }
+
+
+
+        private void PreviewPdf(byte[] fileData) {
+            string temp = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".pdf");
+            File.WriteAllBytes(temp, fileData);
+
+            var win = new Window {
+                Title = "PDF Preview",
+                Width = 800,
+                Height = 600,
+                Content = new WebBrowser { Source = new Uri(temp) }
+            };
+
+            win.ShowDialog();
+        }
+
+        private void PreviewDocument(byte[] fileData, string ext) {
+            string temp = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ext);
+            File.WriteAllBytes(temp, fileData);
+
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo {
+                FileName = temp,
+                UseShellExecute = true
+            });
+        }
 
 
         public void PreviewImage(object parameter) {

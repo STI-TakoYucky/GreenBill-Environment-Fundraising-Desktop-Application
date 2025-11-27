@@ -20,6 +20,10 @@
 
         <ResourceDictionary>
             <conv:EmptyCollectionToVisibilityConverter x:Key="EmptyToVis" />
+            <!--<conv:ImageConverter x:Key="ByteArrayToImageConverter" />-->
+            <conv:MultiFileParameterConverter x:Key="MultiFileParameterConverter" />
+
+            <conv:FileTypeToPreviewConverter x:Key="FileTypeToPreviewConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -66,8 +70,8 @@
                                 <Button
                                     Background="Transparent"
                                     BorderThickness="0"
-                                    Command="{Binding PreviewImageCommand}"
-                                    CommandParameter="{Binding SelectedCampaign.Image}"
+                                    Command="{Binding DataContext.PreviewImageCommand}"
+                                    CommandParameter="{Binding}"
                                     Cursor="Hand"
                                     Focusable="False">
                                     <Button.Template>
@@ -392,22 +396,25 @@
                                             Background="Transparent"
                                             BorderThickness="0"
                                             Command="{Binding DataContext.PreviewImageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                            CommandParameter="{Binding FileData}"
+                                            CommandParameter="{Binding}"
                                             Cursor="Hand"
                                             Focusable="False">
+
+
                                             <Button.Template>
                                                 <ControlTemplate TargetType="Button">
                                                     <Grid>
-                                                        <Image
-                                                            RenderOptions.BitmapScalingMode="HighQuality"
-                                                            SnapsToDevicePixels="True"
-                                                            Source="{Binding FileData, Converter={StaticResource ImageConverter}}"
-                                                            Stretch="UniformToFill"
-                                                            UseLayoutRounding="True" />
+                                                        <Image Stretch="UniformToFill">
+                                                            <Image.Source>
+                                                                <MultiBinding Converter="{StaticResource FileTypeToPreviewConverter}">
+                                                                    <Binding Path="FileData" />
+                                                                    <Binding Path="FileExtension" />
+                                                                </MultiBinding>
+                                                            </Image.Source>
+                                                        </Image>
                                                         <Rectangle
                                                             x:Name="Overlay"
                                                             Fill="Black"
-                                                            IsHitTestVisible="False"
                                                             Opacity="0" />
                                                     </Grid>
                                                     <ControlTemplate.Triggers>
@@ -418,6 +425,8 @@
                                                 </ControlTemplate>
                                             </Button.Template>
                                         </Button>
+
+
                                         <!--  Status badge below image  -->
                                         <Border
                                             MinWidth="100"

@@ -3,6 +3,9 @@ using GreenBill.IServices;
 using GreenBill.MVVM.Model;
 using GreenBill.MVVM.View.CampaignDetailsTabs;
 using GreenBill.Services;
+using LiveCharts;
+using LiveCharts.Wpf;
+using LiveChartsCore;
 using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
@@ -23,11 +26,25 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
         private ICampaignService _campaignService;
         private ISupportingDocumentService _supportingDocumentService;
+        private IDonationRecordService _donationRecordService;
 
+        public SeriesCollection CartesianSeries { get; set; }
         public ICommand Approve_ReviewCampaign { get; set; }
         public ICommand Approve_ReviewSupportingDocument { get; set; }
         public ICommand RejectCampaign { get; set; }
-        public ICommand PreviewImageCommand { get; }
+
+        private ICommand _previewImageCommand;
+
+
+        public ICommand PreviewImageCommand {
+            get => _previewImageCommand;
+            set {
+                _previewImageCommand = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public ICommand RejectDocument { get; set; }
 
         private ObjectId _campaignId;
@@ -61,7 +78,6 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 OnPropertyChanged();
             }
         }
-        public ICommand NavigateBack { get; set; }
         public ITabNavigationService Navigation {
             get => _navigationService;
             set {
@@ -70,22 +86,140 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             }
         }
 
+        private string docCount;
+        public string DocCount {
+            get => docCount;
+            set {
+                docCount = value;
+                OnPropertyChanged();
+            }
+        }
 
+        public ICommand NavigateBack { get; set; }
+
+        public Func<double, string> DateFormatter { get; set; }
         //Constructor
-        public ReviewCampaignViewModel(ICampaignService campaignService, ISupportingDocumentService supportingDocumentService, ITabNavigationService navService) {
+        public ReviewCampaignViewModel(ICampaignService campaignService, ISupportingDocumentService supportingDocumentService, ITabNavigationService navService, IDonationRecordService donationRecordService) {
             _campaignService = campaignService;
             _supportingDocumentService = supportingDocumentService;
             Navigation = navService;
+            _donationRecordService = donationRecordService;
             Approve_ReviewCampaign = new RelayCommand(o => Approve_ReviewCampaignAsync());
             Approve_ReviewSupportingDocument = new RelayCommand(o => Approve_ReviewSupportingDocumentAsync(o));
             RejectCampaign = new RelayCommand(o => RejectCampaignAsync(o));
             RejectDocument = new RelayCommand(o => RejectDocumentAsync(o));
-            PreviewImageCommand = new RelayCommand(param => PreviewImage(param));
-
+            _previewImageCommand = new RelayCommand(param => PreviewFile(param));
             NavigateBack = new RelayCommand(o => Navigation.NavigateToTab<AdminCampaignAnalyticsViewModel>());
 
 
         }
+
+        public async void GetDonationRecords(ObjectId campaignID) {
+            var donations = await _donationRecordService.GetByCampaignIdAsync(campaignID);
+            BuildLineChart(donations);
+        }
+
+        private void BuildLineChart(List<DonationRecord> donationRecords) {
+            List<DateTime> ChartDates = new List<DateTime>();
+            var donations = donationRecords;
+
+            var donationValues = new ChartValues<long>();
+            ChartDates.Clear();
+
+            if (donations == null || donations.Count == 0)
+                return;
+
+            DateTime donationCreatedDate =
+                donations.OrderBy(c => c.CreatedAt).FirstOrDefault()?.CreatedAt.Date
+                ?? DateTime.Now.Date;
+
+            DateTime startDate = donationCreatedDate;
+            DateTime endDate = DateTime.Now.Date;
+
+            var allDates = Enumerable.Range(0, (endDate - startDate).Days + 1)
+                                     .Select(offset => startDate.AddDays(offset))
+                                     .ToList();
+
+            foreach (var day in allDates) {
+
+                long donationAmountPerDay = donations
+                    .Where(c => c.CreatedAt.Date == day)
+                    .Sum(c => c.Amount);
+
+                if (donationAmountPerDay == 0)
+                    continue;
+
+                ChartDates.Add(day);
+                donationValues.Add(donationAmountPerDay);
+            }
+
+            DateFormatter = value => {
+                int index = (int)value;
+                if (index < 0 || index >= ChartDates.Count) return "";
+                return ChartDates[index].ToString("MMM dd yyyy");
+            };
+            OnPropertyChanged(nameof(DateFormatter));
+
+            CartesianSeries = new SeriesCollection {
+        new ColumnSeries {   // <-- BAR CHART IS ColumnSeries in LiveCharts
+            Title = "Campaign Donations",
+            Values = donationValues,
+            DataLabels = false,
+            Stroke = (SolidColorBrush)(new BrushConverter().ConvertFrom("#00A86B")),
+            Fill = (SolidColorBrush)(new BrushConverter().ConvertFrom("#00A86B")),
+            LabelPoint = chartPoint =>
+                $"{ChartDates[(int)chartPoint.Key]:MMM dd, yyyy} → ₱{chartPoint.Y:N0}"
+        }
+    };
+
+            OnPropertyChanged(nameof(CartesianSeries));
+        }
+
+        private void PreviewFile(object parameter) {
+            if (parameter is SupportingDocument doc) {
+                byte[] fileData = doc.FileData;
+                string extension = doc.ContentType; // or extract from FileName if you prefer
+
+                if (fileData == null || string.IsNullOrEmpty(extension))
+                    return;
+
+                extension = extension.ToLower();
+
+                if (extension.Contains("image")) // jpeg/png
+                    PreviewImage(fileData);
+                else if (extension.Contains("pdf"))
+                    PreviewPdf(fileData);
+                else
+                    PreviewDocument(fileData, Path.GetExtension(doc.FileName));
+            }
+        }
+
+
+
+        private void PreviewPdf(byte[] fileData) {
+            string temp = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".pdf");
+            File.WriteAllBytes(temp, fileData);
+
+            var win = new Window {
+                Title = "PDF Preview",
+                Width = 800,
+                Height = 600,
+                Content = new WebBrowser { Source = new Uri(temp) }
+            };
+
+            win.ShowDialog();
+        }
+
+        private void PreviewDocument(byte[] fileData, string ext) {
+            string temp = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ext);
+            File.WriteAllBytes(temp, fileData);
+
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo {
+                FileName = temp,
+                UseShellExecute = true
+            });
+        }
+
 
         public void PreviewImage(object parameter) {
             if (parameter is byte[] imageBytes) {
@@ -247,6 +381,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                     new CampaignIncludeOptions { IncludeUser = true }
                  );
                 var docs = await _supportingDocumentService.GetByCampaignIdAsync(id);
+                DocCount = docs.Count.ToString();
 
                 if (SupportingDocument != null) {
                     SupportingDocument.Clear();
@@ -261,6 +396,8 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 Campaigns.Add(new MVVM.Model.Campaign {
                     Id = SelectedCampaign.Id,
                 });
+
+                GetDonationRecords(SelectedCampaign.Id);
             } catch (Exception ex) {
                 Console.WriteLine(ex.ToString());
             }

@@ -6,6 +6,7 @@
     xmlns:conv="clr-namespace:GreenBill.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:GreenBill.MVVM.View.Admin"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="900"
     d:DesignWidth="1400"
@@ -82,7 +83,7 @@
 
     <Grid>
         <ScrollViewer Padding="30,0,30,0" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
+            <StackPanel Height="1500">
                 <TextBlock
                     Margin="0,20,0,0"
                     FontSize="24"
@@ -260,7 +261,45 @@
                 </Grid>
 
                 <StackPanel Margin="0,40,0,40">
-                    <StackPanel Margin="0,0,0,20">
+
+                    <Border
+                        Grid.Column="0"
+                        Margin="0,0,20,0"
+                        Padding="20"
+                        Background="White"
+                        CornerRadius="12">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="8"
+                                Opacity="0.08"
+                                ShadowDepth="2"
+                                Color="#000000" />
+                        </Border.Effect>
+                        <lvc:CartesianChart
+                            Height="300"
+                            AnimationsSpeed="0:0:0.5"
+                            LegendLocation="Bottom"
+                            Series="{Binding CartesianSeries}">
+                            <lvc:CartesianChart.ChartLegend>
+                                <lvc:DefaultLegend Margin="30,30,30,0" />
+                            </lvc:CartesianChart.ChartLegend>
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis LabelFormatter="{Binding DateFormatter}" />
+                            </lvc:CartesianChart.AxisX>
+
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis MinValue="0">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="1" />
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+
+                        </lvc:CartesianChart>
+
+
+                    </Border>
+                    <StackPanel Margin="0,40,0,20">
                         <Grid>
                             <!--  Bottom line under all tabs  -->
                             <Border

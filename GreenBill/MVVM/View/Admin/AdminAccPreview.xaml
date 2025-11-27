@@ -219,6 +219,55 @@
 
                 <Grid Margin="0,20,0,0">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+
+                    <Border
+                        Grid.Column="0"
+                        Margin="0,0,15,0"
+                        Background="White"
+                        CornerRadius="12">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="8"
+                                Opacity="0.08"
+                                ShadowDepth="2"
+                                Color="#000000" />
+                        </Border.Effect>
+                        <StackPanel Margin="25,20">
+                            <TextBlock
+                                Margin="0,0,0,8"
+                                FontSize="14"
+                                Foreground="#666666"
+                                Text="All Admins" />
+                            <TextBlock
+                                Margin="0,0,0,5"
+                                FontSize="28"
+                                FontWeight="Bold"
+                                Foreground="#00A86B"
+                                Text="{Binding AdminCount}" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Margin="0,0,5,0"
+                                    FontSize="16"
+                                    Foreground="#00A86B"
+                                    Text="↗" />
+                                <TextBlock
+                                    FontSize="12"
+                                    Foreground="#00A86B"
+                                    Text="12.5% from last month" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+
+                <Grid Margin="0,20,0,0">
+                    <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="25*" />
                         <ColumnDefinition Width="25*" />
                         <ColumnDefinition Width="25*" />
@@ -266,6 +315,7 @@
                         CanUserSortColumns="False"
                         GridLinesVisibility="None"
                         HeadersVisibility="Column"
+                        IsReadOnly="True"
                         ItemsSource="{Binding Users}"
                         RowBackground="White"
                         RowHeight="50">

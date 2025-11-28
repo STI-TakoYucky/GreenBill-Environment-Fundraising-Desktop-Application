@@ -1,48 +1,69 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
 namespace GreenBill.Converters {
     public class FileTypeToPreviewConverter : IMultiValueConverter {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
-            byte[] data = values[0] as byte[];
-            string ext = values[1] as string;
-
-            if (data == null)
-                return null;
-
-            // try load image
             try {
-                using (MemoryStream ms = new MemoryStream(data)) {
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmap.StreamSource = ms;
-                    bitmap.EndInit();
-                    bitmap.Freeze();
-                    return bitmap;
-                }
-            } catch { }
+                if (values == null || values.Length < 2)
+                    return GetDefaultIcon();
 
-            // fallback icons
-            string iconPath = "/Assets/Images/fileIcon.png";
+                byte[] fileData = values[0] as byte[];
+                string extension = values[1] as string;
 
-            ext = ext != null ? ext.ToLower() : "";
+                if (fileData == null || string.IsNullOrEmpty(extension))
+                    return GetDefaultIcon();
 
-            if (ext.EndsWith(".pdf"))
-                iconPath = "/Assets/Images/pdfIcon.png";
-            else if (ext.EndsWith(".doc") || ext.EndsWith(".docx"))
-                iconPath = "/Assets/Images/wordIcon.png";
-            else if (ext.EndsWith(".xls") || ext.EndsWith(".xlsx"))
-                iconPath = "/Assets/Images/excelIcon.png";
+                extension = extension.ToLower();
 
-            return new BitmapImage(new Uri(iconPath, UriKind.Relative));
+                // IMAGE TYPES
+                string[] imageTypes = { ".png", ".jpg", ".jpeg", ".bmp", ".gif" };
+                if (imageTypes.Contains(extension))
+                    return LoadImage(fileData) ?? GetDefaultIcon();
+
+                // PDF → default image
+                if (extension == ".pdf")
+                    return GetDefaultIcon();
+
+                // OTHER → fallback
+                return GetDefaultIcon();
+            } catch {
+                return GetDefaultIcon();
+            }
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) {
             throw new NotImplementedException();
+        }
+
+        private BitmapImage LoadImage(byte[] data) {
+            if (data == null || data.Length == 0) return null;
+
+            try {
+                using (var ms = new MemoryStream(data)) {
+                    BitmapImage img = new BitmapImage();
+                    img.BeginInit();
+                    img.CacheOption = BitmapCacheOption.OnLoad;
+                    img.StreamSource = ms;
+                    img.EndInit();
+                    img.Freeze();
+                    return img;
+                }
+            } catch {
+                return null;
+            }
+        }
+
+        private BitmapImage GetDefaultIcon() {
+            try {
+                return new BitmapImage(new Uri("pack://application:,,,/GreenBill;component/Assets/Images/file.png"));
+            } catch {
+                return null;
+            }
         }
     }
 }

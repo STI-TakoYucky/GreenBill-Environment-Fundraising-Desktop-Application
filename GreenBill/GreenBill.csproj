@@ -737,6 +737,7 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Resource Include="Assets\Images\emptyTable.png" />
+    <Resource Include="Assets\Images\file.png" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

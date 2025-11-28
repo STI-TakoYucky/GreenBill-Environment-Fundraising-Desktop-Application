@@ -7,6 +7,7 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using LiveChartsCore;
 using MongoDB.Bson;
+using MongoDB.Libmongocrypt;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -191,6 +192,8 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                     PreviewPdf(fileData);
                 else
                     PreviewDocument(fileData, Path.GetExtension(doc.FileName));
+            } else if (parameter is byte[] image) {
+                PreviewImage(image);
             }
         }
 

@@ -24,7 +24,29 @@
             <conv:EmptyCollectionToVisibilityConverter x:Key="EmptyToVis" />
             <conv:MultiFileParameterConverter x:Key="MultiFileParameterConverter" />
             <conv:FileTypeToPreviewConverter x:Key="FileTypeToPreviewConverter" />
+            <Style x:Key="ModernTextBox" TargetType="TextBox">
+                <Setter Property="Height" Value="45" />
+                <Setter Property="Padding" Value="15,10" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Background" Value="White" />
+                <Setter Property="BorderBrush" Value="#E0E0E0" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Foreground" Value="#333333" />
+                <Setter Property="CaretBrush" Value="#4CAF50" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Style.Triggers>
+                    <Trigger Property="IsFocused" Value="True">
+                        <Setter Property="BorderBrush" Value="#4CAF50" />
+                        <Setter Property="BorderThickness" Value="2" />
+                        <Setter Property="Background" Value="#FAFAFA" />
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderBrush" Value="#D0D0D0" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
         </ResourceDictionary>
+
     </UserControl.Resources>
 
     <Grid>
@@ -390,7 +412,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border
-                                Margin="20,0,20,0"
+                                Margin="20,0,0,20"
                                 Padding="25"
                                 Background="White"
                                 BorderBrush="#E0E0E0"
@@ -509,7 +531,7 @@
                                                         FontWeight="SemiBold"
                                                         Foreground="#263238"
                                                         Text="{Binding FileName}"
-                                                        TextWrapping="Wrap" />
+                                                        TextTrimming="CharacterEllipsis" />
                                                 </StackPanel>
                                             </Border>
                                             <!--  Content Type  -->
@@ -530,7 +552,7 @@
                                                         FontWeight="SemiBold"
                                                         Foreground="#263238"
                                                         Text="{Binding ContentType}"
-                                                        TextWrapping="Wrap" />
+                                                        TextTrimming="CharacterEllipsis" />
                                                 </StackPanel>
                                             </Border>
                                             <!--  File Size  -->
@@ -575,6 +597,20 @@
                                                         TextWrapping="Wrap" />
                                                 </StackPanel>
                                             </Border>
+
+                                            <!--  Comments  -->
+                                            <StackPanel>
+                                                <TextBlock
+                                                    Margin="0,10,0,0"
+                                                    FontSize="12"
+                                                    Foreground="#8A8F95"
+                                                    Text="Comments" />
+                                                <TextBox
+                                                    Margin="0,10,0,10"
+                                                    Style="{StaticResource ModernTextBox}"
+                                                    Text="{Binding ReviewComments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                            </StackPanel>
+
 
                                         </UniformGrid>
                                         <!--  Buttons below details  -->

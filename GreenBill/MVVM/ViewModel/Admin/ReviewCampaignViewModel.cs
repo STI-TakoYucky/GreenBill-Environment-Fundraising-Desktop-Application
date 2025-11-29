@@ -355,6 +355,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
             _supportingDocumentService.ApproveSupportingDocument(_id);
             selectedDoc.Status = "Verified";
+            _supportingDocumentService.UpdateComments(_id, selectedDoc.ReviewComments);
         }
 
         public void RejectDocumentAsync(object parameter) {
@@ -372,6 +373,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
             _supportingDocumentService.RejectDocument(_id);
             selectedDoc.Status = "Rejected";
+            _supportingDocumentService.UpdateComments(_id, selectedDoc.ReviewComments);
         }
 
         //fetch the campaign from the database based on the parameter from the table in the campaigns tab 

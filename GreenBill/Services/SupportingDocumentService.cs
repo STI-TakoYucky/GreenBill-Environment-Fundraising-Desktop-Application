@@ -223,5 +223,15 @@ namespace GreenBill.Services
             }
         }
 
+        public async void UpdateComments(ObjectId id, string comment) {
+            var filter = Builders<SupportingDocument>.Filter.Eq("_id", id);
+            var update = Builders<SupportingDocument>.Update.Set(document => document.ReviewComments, comment);
+            var result = _collection.UpdateOne(filter, update);
+
+            if (result == null) {
+                MessageBox.Show("Failed to add comments");
+            }
+        }
+
     }
 }

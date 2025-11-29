@@ -459,7 +459,13 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="DataGridCell">
                                             <Border Background="{TemplateBinding Background}">
-                                                <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="24"
+                                                    TextTrimming="CharacterEllipsis">
+                                                    <ContentPresenter />
+                                                </TextBlock>
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -491,14 +497,10 @@
                                 Header="Donation Goal" />
                             <DataGridTextColumn
                                 Width="*"
-                                MinWidth="200"
+                                MinWidth="100"
                                 Binding="{Binding DonationRaised}"
                                 Header="Donation Raised" />
-                            <DataGridTextColumn
-                                Width="*"
-                                MinWidth="150"
-                                Binding="{Binding CreatedAt}"
-                                Header="Created At" />
+
                             <DataGridTemplateColumn
                                 Width="*"
                                 MinWidth="100"
@@ -513,10 +515,12 @@
                                             <InlineUIContainer>
                                                 <Border Padding="6,2" CornerRadius="10">
                                                     <TextBlock
+                                                        MinWidth="70"
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
                                                         FontSize="14"
-                                                        Text="{Binding Status}">
+                                                        Text="{Binding Status}"
+                                                        TextAlignment="Center">
                                                         <TextBlock.Style>
                                                             <Style TargetType="TextBlock">
                                                                 <Style.Triggers>
@@ -555,6 +559,12 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
+
+                            <DataGridTextColumn
+                                Width="*"
+                                MinWidth="90"
+                                Binding="{Binding CreatedAt}"
+                                Header="Created At" />
 
                             <DataGridTemplateColumn Width="50">
                                 <DataGridTemplateColumn.CellTemplate>

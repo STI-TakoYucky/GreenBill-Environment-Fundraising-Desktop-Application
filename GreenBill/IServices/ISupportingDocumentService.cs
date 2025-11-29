@@ -21,5 +21,6 @@ namespace GreenBill.IServices
         void ApproveSupportingDocument(object campaignId);
         void StageReviewSupportingDocument(object campaignId);
         void RejectDocument(ObjectId campaignId);
+        void UpdateComments(ObjectId id, string comment);
     }
 }

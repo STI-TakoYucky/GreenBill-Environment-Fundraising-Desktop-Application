@@ -21,13 +21,9 @@ namespace GreenBill.Converters {
                 extension = extension.ToLower();
 
                 // IMAGE TYPES
-                string[] imageTypes = { ".png", ".jpg", ".jpeg", ".bmp", ".gif" };
-                if (imageTypes.Contains(extension))
+                string[] imageMimeTypes = { "image/png", "image/jpg", "image/jpeg", "image/bmp", "image/gif" };
+                if (imageMimeTypes.Contains(extension)) // extension here is actually MIME type
                     return LoadImage(fileData) ?? GetDefaultIcon();
-
-                // PDF → default image
-                if (extension == ".pdf")
-                    return GetDefaultIcon();
 
                 // OTHER → fallback
                 return GetDefaultIcon();

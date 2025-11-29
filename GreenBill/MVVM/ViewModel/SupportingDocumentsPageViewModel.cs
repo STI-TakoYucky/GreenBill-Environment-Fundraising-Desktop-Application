@@ -1,20 +1,23 @@
 ﻿using GreenBill.Core;
 using GreenBill.IServices;
-using GreenBill.Services;
 using GreenBill.MVVM.Model;
+using GreenBill.Services;
+using Microsoft.Win32;
+using MongoDB.Bson;
+using MongoDB.Bson.IO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using System.IO;
-using Microsoft.Win32;
 using System.Windows;
-using System.Collections.ObjectModel;
-using MongoDB.Bson;
-using System.Diagnostics;
-using MongoDB.Bson.IO;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace GreenBill.MVVM.ViewModel
 {
@@ -185,6 +188,7 @@ namespace GreenBill.MVVM.ViewModel
         public ICommand UploadDocumentCommand { get; set; }
         public ICommand DeleteDocumentCommand { get; set; }
         public ICommand RefreshDocumentsCommand { get; set; }
+        public ICommand PreviewFileCommand { get; set; }
 
         public SupportingDocumentsPageViewModel(INavigationService navigation)
         {
@@ -203,6 +207,7 @@ namespace GreenBill.MVVM.ViewModel
             UploadDocumentCommand = new RelayCommand(async o => await UploadDocumentAsync(), o => CanUpload && !IsUploading);
             DeleteDocumentCommand = new RelayCommand(async o => await DeleteDocumentAsync(o as SupportingDocument));
             RefreshDocumentsCommand = new RelayCommand(async o => await LoadDocumentsAsync());
+            PreviewFileCommand = new RelayCommand(param => PreviewFile(param));
         }
 
         private void InitializeDocumentTypes()
@@ -429,8 +434,81 @@ namespace GreenBill.MVVM.ViewModel
             if (parameter == null) return;
             CampaignId = (ObjectId)parameter;
             Debug.WriteLine($"Campaign Id: {CampaignId.ToString()}");
-
+            
             await LoadDocumentsAsync();
+        }
+
+        private void PreviewFile(object parameter) {
+            if (parameter is SupportingDocument doc) {
+                byte[] fileData = doc.FileData;
+                string extension = doc.ContentType; // or extract from FileName if you prefer
+
+                if (fileData == null || string.IsNullOrEmpty(extension))
+                    return;
+
+                extension = extension.ToLower();
+
+                if (extension.Contains("image")) // jpeg/png
+                    PreviewImage(fileData);
+                else if (extension.Contains("pdf"))
+                    PreviewPdf(fileData);
+                else
+                    PreviewDocument(fileData, Path.GetExtension(doc.FileName));
+            } else if (parameter is byte[] image) {
+                PreviewImage(image);
+            }
+        }
+
+
+
+        private void PreviewPdf(byte[] fileData) {
+            string temp = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ".pdf");
+            File.WriteAllBytes(temp, fileData);
+
+            var win = new Window {
+                Title = "PDF Preview",
+                Width = 800,
+                Height = 600,
+                Content = new WebBrowser { Source = new Uri(temp) }
+            };
+
+            win.ShowDialog();
+        }
+
+        private void PreviewDocument(byte[] fileData, string ext) {
+            string temp = Path.Combine(Path.GetTempPath(), Guid.NewGuid() + ext);
+            File.WriteAllBytes(temp, fileData);
+
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo {
+                FileName = temp,
+                UseShellExecute = true
+            });
+        }
+
+
+        public void PreviewImage(object parameter) {
+            if (parameter is byte[] imageBytes) {
+                // Convert byte array to ImageSource
+                var image = new BitmapImage();
+                using (var stream = new MemoryStream(imageBytes)) {
+                    image.BeginInit();
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.StreamSource = stream;
+                    image.EndInit();
+                    image.Freeze(); // optional, makes it cross-thread safe
+                }
+
+                var window = new Window {
+                    Title = DocumentName ?? "Preview",
+                    Width = 800,
+                    Height = 600,
+                    Content = new Image {
+                        Source = image,
+                        Stretch = Stretch.Uniform
+                    }
+                };
+                window.ShowDialog();
+            }
         }
     }
 }

@@ -405,9 +405,6 @@
     <Compile Include="MVVM\View\Admin\ReviewUser.xaml.cs">
       <DependentUpon>ReviewUser.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MVVM\View\Admin\Sample.xaml.cs">
-      <DependentUpon>Sample.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MVVM\View\Admin\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -533,10 +530,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Admin\ReviewUser.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MVVM\View\Admin\Sample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

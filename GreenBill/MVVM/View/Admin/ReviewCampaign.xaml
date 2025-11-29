@@ -425,7 +425,7 @@
                                                             <Image.Source>
                                                                 <MultiBinding Converter="{StaticResource FileTypeToPreviewConverter}">
                                                                     <Binding Path="FileData" />
-                                                                    <Binding Path="FileExtension" />
+                                                                    <Binding Path="ContentType" />
                                                                 </MultiBinding>
                                                             </Image.Source>
                                                         </Image>
@@ -586,7 +586,7 @@
                                                 Width="100"
                                                 Height="30"
                                                 Margin="0,0,10,0"
-                                                Command="{Binding DataContext.Approve_ReviewSupportingDocument, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                Command="{Binding DataContext.Approve_ReviewSupportingDocument, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding Id}">
                                                 <Button.Style>
                                                     <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
@@ -605,7 +605,7 @@
                                             <Button
                                                 Width="100"
                                                 Height="30"
-                                                Command="{Binding DataContext.RejectDocument, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                Command="{Binding DataContext.RejectDocument, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding Id}"
                                                 Content="Reject"
                                                 Style="{DynamicResource SecondaryButton}" />
@@ -623,10 +623,7 @@
                         VerticalAlignment="Center"
                         Source="/Assets/Images/emptyTable.png">
                         <Image.Visibility>
-                            <MultiBinding Converter="{StaticResource EmptyToVis}">
-                                <Binding Path="DocCount" />
-                                <Binding Path="SupportingDocument" />
-                            </MultiBinding>
+                            <Binding Converter="{StaticResource EmptyToVis}" Path="DocCount" />
                         </Image.Visibility>
                     </Image>
                     <TextBlock
@@ -636,10 +633,7 @@
                         Foreground="#00695C"
                         Text="No Supporting Documents">
                         <TextBlock.Visibility>
-                            <MultiBinding Converter="{StaticResource EmptyToVis}">
-                                <Binding Path="DocCount" />
-                                <Binding Path="SupportingDocument" />
-                            </MultiBinding>
+                            <Binding Converter="{StaticResource EmptyToVis}" Path="DocCount" />
                         </TextBlock.Visibility>
                     </TextBlock>
                 </StackPanel>

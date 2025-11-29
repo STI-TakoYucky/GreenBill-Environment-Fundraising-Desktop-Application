@@ -384,7 +384,7 @@
                             Margin="0,0,20,15"
                             DockPanel.Dock="Left"
                             FontFamily="./Assets/Fonts/#Poppins"
-                            FontSize="18"
+                            FontSize="24"
                             FontWeight="Bold"
                             Foreground="#00695C"
                             Text="Pending Campaigns" />
@@ -672,17 +672,14 @@
                             </DataGrid.Columns>
                         </DataGrid>
                     </Border>
-                    <StackPanel HorizontalAlignment="Center">
+                    <StackPanel Margin="0,100,0,0" HorizontalAlignment="Center">
                         <Image
                             Width="250"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Source="/Assets/Images/emptyTable.png">
                             <Image.Visibility>
-                                <MultiBinding Converter="{StaticResource EmptyToVis}">
-                                    <Binding Path="Campaigns.Count" />
-                                    <Binding Path="Campaigns" />
-                                </MultiBinding>
+                                <Binding Converter="{StaticResource EmptyToVis}" Path="PendingCampaigns" />
                             </Image.Visibility>
                         </Image>
                         <TextBlock
@@ -692,10 +689,7 @@
                             Foreground="#00695C"
                             Text="No Campaigns As Of Now">
                             <TextBlock.Visibility>
-                                <MultiBinding Converter="{StaticResource EmptyToVis}">
-                                    <Binding Path="Campaigns.Count" />
-                                    <Binding Path="Campaigns" />
-                                </MultiBinding>
+                                <Binding Converter="{StaticResource EmptyToVis}" Path="PendingCampaigns" />
                             </TextBlock.Visibility>
                         </TextBlock>
                     </StackPanel>

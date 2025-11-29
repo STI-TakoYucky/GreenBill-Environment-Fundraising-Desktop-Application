@@ -2,10 +2,12 @@
     x:Class="GreenBill.MVVM.View.Admin.ReviewCampaign"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:admin="clr-namespace:GreenBill.MVVM.ViewModel.Admin"
     xmlns:conv="clr-namespace:GreenBill.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DataContext="{d:DesignInstance Type=admin:ReviewCampaignViewModel}"
     d:DesignHeight="900"
     d:DesignWidth="1400"
     Background="#f0f2f5"
@@ -20,19 +22,17 @@
 
         <ResourceDictionary>
             <conv:EmptyCollectionToVisibilityConverter x:Key="EmptyToVis" />
-            <!--<conv:ImageConverter x:Key="ByteArrayToImageConverter" />-->
             <conv:MultiFileParameterConverter x:Key="MultiFileParameterConverter" />
-
             <conv:FileTypeToPreviewConverter x:Key="FileTypeToPreviewConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
-        <ScrollViewer Padding="20" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
 
                 <!--  Header  -->
-                <StackPanel Margin="0,0,0,20" HorizontalAlignment="Left">
+                <StackPanel Margin="30,30,30,0" HorizontalAlignment="Left">
                     <Button
                         Command="{Binding NavigateBack}"
                         Content="Back"
@@ -41,7 +41,7 @@
 
                 <!--  Campaign Card  -->
                 <Border
-                    Margin="0,0,0,20"
+                    Margin="30"
                     Padding="25"
                     Background="White"
                     BorderBrush="#E0E0E0"
@@ -60,6 +60,7 @@
                             Margin="0,0,24,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Top">
+
                             <Border
                                 Width="280"
                                 Height="280"
@@ -68,12 +69,16 @@
                                 BorderThickness="1"
                                 CornerRadius="8">
                                 <Button
+                                    Width="280"
+                                    Height="280"
                                     Background="Transparent"
                                     BorderThickness="0"
-                                    Command="{Binding DataContext.PreviewImageCommand}"
-                                    CommandParameter="{Binding}"
+                                    Command="{Binding DataContext.PreviewImageCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding SelectedCampaign.Image}"
                                     Cursor="Hand"
                                     Focusable="False">
+
+
                                     <Button.Template>
                                         <ControlTemplate TargetType="Button">
                                             <Grid>
@@ -83,7 +88,16 @@
                                                     Source="{Binding SelectedCampaign.Image, Converter={StaticResource ImageConverter}}"
                                                     Stretch="UniformToFill"
                                                     UseLayoutRounding="True" />
+                                                <Rectangle
+                                                    x:Name="Overlay"
+                                                    Fill="Black"
+                                                    Opacity="0" />
                                             </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Overlay" Property="Opacity" Value="0.2" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
                                         </ControlTemplate>
                                     </Button.Template>
                                 </Button>
@@ -360,13 +374,13 @@
 
                 <!--  Supporting Documents Section (badge below image, details as cards, buttons below details)  -->
                 <TextBlock
-                    Margin="0,40,0,15"
+                    Margin="40"
                     FontSize="24"
                     FontWeight="Bold"
                     Foreground="#00695C"
                     Text="Supporting Documents" />
 
-                <ItemsControl Margin="0,0,0,150" ItemsSource="{Binding SupportingDocument}">
+                <ItemsControl Margin="20,0,20,100" ItemsSource="{Binding SupportingDocument}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <UniformGrid Columns="2" />
@@ -376,7 +390,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border
-                                Margin="0,0,15,15"
+                                Margin="20,0,20,0"
                                 Padding="25"
                                 Background="White"
                                 BorderBrush="#E0E0E0"
@@ -404,11 +418,14 @@
                                             <Button.Template>
                                                 <ControlTemplate TargetType="Button">
                                                     <Grid>
-                                                        <Image Stretch="UniformToFill">
+                                                        <Image
+                                                            Width="200"
+                                                            Height="200"
+                                                            Stretch="UniformToFill">
                                                             <Image.Source>
                                                                 <MultiBinding Converter="{StaticResource FileTypeToPreviewConverter}">
                                                                     <Binding Path="FileData" />
-                                                                    <Binding Path="FileExtension" />
+                                                                    <Binding Path="ContentType" />
                                                                 </MultiBinding>
                                                             </Image.Source>
                                                         </Image>
@@ -569,7 +586,7 @@
                                                 Width="100"
                                                 Height="30"
                                                 Margin="0,0,10,0"
-                                                Command="{Binding DataContext.Approve_ReviewSupportingDocument, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                Command="{Binding DataContext.Approve_ReviewSupportingDocument, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding Id}">
                                                 <Button.Style>
                                                     <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
@@ -588,7 +605,7 @@
                                             <Button
                                                 Width="100"
                                                 Height="30"
-                                                Command="{Binding DataContext.RejectDocument, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                                Command="{Binding DataContext.RejectDocument, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding Id}"
                                                 Content="Reject"
                                                 Style="{DynamicResource SecondaryButton}" />
@@ -606,10 +623,7 @@
                         VerticalAlignment="Center"
                         Source="/Assets/Images/emptyTable.png">
                         <Image.Visibility>
-                            <MultiBinding Converter="{StaticResource EmptyToVis}">
-                                <Binding Path="DocCount" />
-                                <Binding Path="SupportingDocument" />
-                            </MultiBinding>
+                            <Binding Converter="{StaticResource EmptyToVis}" Path="DocCount" />
                         </Image.Visibility>
                     </Image>
                     <TextBlock
@@ -619,10 +633,7 @@
                         Foreground="#00695C"
                         Text="No Supporting Documents">
                         <TextBlock.Visibility>
-                            <MultiBinding Converter="{StaticResource EmptyToVis}">
-                                <Binding Path="DocCount" />
-                                <Binding Path="SupportingDocument" />
-                            </MultiBinding>
+                            <Binding Converter="{StaticResource EmptyToVis}" Path="DocCount" />
                         </TextBlock.Visibility>
                     </TextBlock>
                 </StackPanel>

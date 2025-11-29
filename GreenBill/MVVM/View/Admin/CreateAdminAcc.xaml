@@ -454,13 +454,6 @@
                                         Style="{StaticResource PrimaryButton}"
                                         Tag="{Binding IsLoading}" />
 
-                                    <Button
-                                        Width="100"
-                                        Margin="15,0,0,0"
-                                        Command="{Binding CancelCommand}"
-                                        Content="Cancel"
-                                        Style="{StaticResource SecondaryButton}" />
-
                                 </StackPanel>
                             </Grid>
 

@@ -7,9 +7,11 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using LiveChartsCore;
 using MongoDB.Bson;
+using MongoDB.Libmongocrypt;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -191,6 +193,8 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                     PreviewPdf(fileData);
                 else
                     PreviewDocument(fileData, Path.GetExtension(doc.FileName));
+            } else if (parameter is byte[] image) {
+                PreviewImage(image);
             }
         }
 
@@ -380,6 +384,8 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                     id,
                     new CampaignIncludeOptions { IncludeUser = true }
                  );
+                if (SelectedCampaign == null) return;
+
                 var docs = await _supportingDocumentService.GetByCampaignIdAsync(id);
                 DocCount = docs.Count.ToString();
 
@@ -389,10 +395,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 foreach (var doc in docs) {
                     SupportingDocument.Add(doc);
                 }
-
-                if (SelectedCampaign == null) return;
-                Console.WriteLine(SelectedCampaign.Id);
-
+               
                 Campaigns.Add(new MVVM.Model.Campaign {
                     Id = SelectedCampaign.Id,
                 });

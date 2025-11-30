@@ -148,7 +148,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                                      .ToList();
 
             foreach (var day in allDates) {
-                int userCountPerDay = users.Count(u => u.CreatedAt.Date == day);
+                int userCountPerDay = users.Count(u => u.CreatedAt.Date == day && u.Role == "user");
 
                 // Only skip days where counts are zero, except start/end
                 if ((userCountPerDay == 0) && day != startDate && day != endDate)

@@ -62,6 +62,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 }
             }
         }
+
         private readonly ICampaignService _campaignService;
 
         private string _totalCampaigns;
@@ -143,19 +144,19 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 Users.Clear();
                 var usersFromDB = await _userService.GetAllUsersAsync();
                 if (usersFromDB == null) return null;
-                UserCount = usersFromDB.Count.ToString();
+                UserCount = usersFromDB.Count(u => u.Role == "user").ToString();
                 string selected = SelectedPeriod.Content.ToString();// selected period
 
                 DateTime startDate = selected == "All Time"
                   ? usersFromDB.OrderBy(c => c.CreatedAt).First().CreatedAt.Date // get the earliest date from the users
                   : ComboBoxDate.Date;  // filtered starting date from the combo box
 
-                foreach (var item in usersFromDB) {
-                    //if selected all time, just populate. //startDate is the earliest date based on the users
-                    if (selected == "All Time" || (item.CreatedAt >= startDate && item.CreatedAt <= DateTime.Now)) {
+                    foreach (var item in usersFromDB) {
+                        //if selected all time, just populate. //startDate is the earliest date based on the users
+                        if (selected == "All Time" || (item.CreatedAt >= startDate && item.CreatedAt <= DateTime.Now)) {
                         Users.Add(item);
+                        }
                     }
-                }
 
                 OnPropertyChanged(nameof(usersFromDB));
                 return usersFromDB;
@@ -232,9 +233,20 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                                      .Select(offset => startDate.AddDays(offset))
                                      .ToList();
 
+            int totalUserCountBasedOnDate = 0;
+            int totalCampaignCountBasedOnDate = 0;
+            int totalVerifiedCampaignsBasedOnDate = 0;
+            int totalPendingCampaignsBasedOnDate = 0;
+
             foreach (var day in allDates) {
-                int userCountPerDay = users.Count(u => u.CreatedAt.Date == day);
+                int userCountPerDay = users.Count(u => u.CreatedAt.Date == day && u.Role == "user");
+                totalUserCountBasedOnDate += userCountPerDay;
                 int campaignCountPerDay = campaigns.Count(c => c.CreatedAt.Date == day);
+                int verifiedCampaignCountPerDay = campaigns.Count(c => c.CreatedAt.Date == day && c.Status == "Verified");
+                int pendingCampaignCountPerDay = campaigns.Count(c => c.CreatedAt.Date == day && c.Status == "in review");
+                totalCampaignCountBasedOnDate += campaignCountPerDay;
+                totalVerifiedCampaignsBasedOnDate += verifiedCampaignCountPerDay;
+                totalPendingCampaignsBasedOnDate += pendingCampaignCountPerDay;
 
                 // Only skip days where both counts are zero, except start/end
                 if ((userCountPerDay == 0 && campaignCountPerDay == 0) && day != startDate && day != endDate)
@@ -244,6 +256,11 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 campaignValues.Add(campaignCountPerDay);
                 userValues.Add(userCountPerDay);
             }
+
+            UserCount = totalUserCountBasedOnDate.ToString();
+            TotalCampaigns = totalCampaignCountBasedOnDate.ToString();
+            PendingCampaigns = totalPendingCampaignsBasedOnDate.ToString();
+            ActiveCampaigns = totalVerifiedCampaignsBasedOnDate.ToString();
 
             DateFormatter = value => {
                 int index = (int)value;
@@ -349,10 +366,6 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 }
             }
         }
-
-
-
-
 
         private void ApplyDateFilter(string period) {
             DateTime currDate = DateTime.Now;

@@ -86,7 +86,6 @@
                 RadiusY="20" />
                         </Image.Clip>
                     </Image>
-                    <!--  Dropdown Menu  -->
                     <Button.ContextMenu>
                         <ContextMenu x:Name="ProfileMenu">
                             <MenuItem Command="{Binding GoToAdminDashboard}" Visibility="{Binding IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" Header="Admin Dashboard" />

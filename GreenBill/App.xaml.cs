@@ -126,7 +126,6 @@ namespace GreenBill
             Current.Properties["CurrentUserId"] = user.Id;
             Current.Properties["CurrentUserEmail"] = user.Email;
 
-            System.Diagnostics.Debug.WriteLine($"User logged in: {user.Email}");
         }
 
         private void OnUserLoggedOut(object sender, EventArgs e)
@@ -143,8 +142,6 @@ namespace GreenBill
                 mainVM.ShowNavigation = false;
                 mainVM.IsUserLoggedIn = false;
             }
-
-            System.Diagnostics.Debug.WriteLine("User logged out");
         }
 
         private void CheckSavedSession()

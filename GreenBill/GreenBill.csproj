@@ -329,7 +329,10 @@
       <DependentUpon>SuccessToast.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\BytesToMBConverter.cs" />
+    <Compile Include="Converters\EmptyCollectionToVisibleConverter.cs" />
+    <Compile Include="Converters\FileTypeToPreviewConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\MultiFileParameterConverter.cs" />
     <Compile Include="Converters\ProgressToWidthConverter.cs" />
     <Compile Include="Converters\ProgressWidthConverter.cs" />
     <Compile Include="Converters\StatusToColorConverter.cs" />
@@ -353,9 +356,12 @@
     <Compile Include="MVVM\Model\SupportingDocument.cs" />
     <Compile Include="MVVM\Model\User.cs" />
     <Compile Include="MVVM\Model\WithdrawalRecord.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\AdminAccPreviewViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminCampaignAnalyticsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminDashboardViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\AdminWindowViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\CreateAdminAccViewModel.cs" />
+    <Compile Include="MVVM\ViewModel\Admin\ReviewAdminViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\ReviewCampaignViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\ReviewUserViewModel.cs" />
     <Compile Include="MVVM\ViewModel\Admin\SettingsViewModel.cs" />
@@ -375,6 +381,9 @@
     <Compile Include="MVVM\ViewModel\SupportingDocumentsPageViewModel.cs" />
     <Compile Include="MVVM\ViewModel\UserCampaignsViewModel.cs" />
     <Compile Include="MVVM\ViewModel\WithdrawPageViewModel.cs" />
+    <Compile Include="MVVM\View\Admin\AdminAccPreview.xaml.cs">
+      <DependentUpon>AdminAccPreview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Admin\AdminCampaignAnalytics.xaml.cs">
       <DependentUpon>AdminCampaignAnalytics.xaml</DependentUpon>
     </Compile>
@@ -384,14 +393,17 @@
     <Compile Include="MVVM\View\Admin\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MVVM\View\Admin\CreateAdminAcc.xaml.cs">
+      <DependentUpon>CreateAdminAcc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MVVM\View\Admin\ReviewAdminAcc.xaml.cs">
+      <DependentUpon>ReviewAdminAcc.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MVVM\View\Admin\ReviewCampaign.xaml.cs">
       <DependentUpon>ReviewCampaign.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Admin\ReviewUser.xaml.cs">
       <DependentUpon>ReviewUser.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MVVM\View\Admin\Sample.xaml.cs">
-      <DependentUpon>Sample.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVVM\View\Admin\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -489,6 +501,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\Admin\AdminAccPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Admin\AdminCampaignAnalytics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -501,15 +517,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MVVM\View\Admin\CreateAdminAcc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\Admin\ReviewAdminAcc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MVVM\View\Admin\ReviewCampaign.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MVVM\View\Admin\ReviewUser.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MVVM\View\Admin\Sample.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -709,6 +729,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Resource Include="Assets\Images\emptyTable.png" />
+    <Resource Include="Assets\Images\file.png" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

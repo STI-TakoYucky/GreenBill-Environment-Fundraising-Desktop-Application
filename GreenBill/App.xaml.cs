@@ -54,16 +54,19 @@ namespace GreenBill
             services.AddSingleton<CampaignDetailsViewModel>();
             services.AddSingleton<AdminDashboardViewModel>();
             services.AddSingleton<AdminWindowViewModel>();
-            services.AddSingleton<CampaignsViewModel>();
-            services.AddSingleton<UserAnalyticsViewModel>();
+            services.AddTransient<CampaignsViewModel>();
+            services.AddTransient<UserAnalyticsViewModel>();
             services.AddSingleton<AdminCampaignAnalyticsViewModel>();
             services.AddSingleton<SettingsViewModel>();
+            services.AddTransient<CreateAdminAccViewModel>();
+            services.AddTransient<AdminAccPreviewViewModel>();
             services.AddTransient<SupportingDocumentsPageViewModel>();
             services.AddTransient<DonationPageViewModel>();
+            services.AddTransient<ReviewAdminViewModel>();
             
 
-            services.AddSingleton<ReviewCampaignViewModel>();
-            services.AddSingleton<ReviewUserViewModel>();   
+            services.AddTransient<ReviewCampaignViewModel>();
+            services.AddTransient<ReviewUserViewModel>();   
             services.AddTransient<CampaignUpdatesViewModel>();
             services.AddTransient<MyProfileViewModel>();
             services.AddTransient<WithdrawPageViewModel>();

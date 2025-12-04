@@ -49,5 +49,10 @@ namespace GreenBill.Services
 
             return result.ModifiedCount > 0;
         }
+
+        public async Task<bool> DeleteUserAsync(ObjectId id) {
+            var result = await Collection.DeleteOneAsync(u => u.Id == id);
+            return result.DeletedCount > 0;
+        }
     }
 }

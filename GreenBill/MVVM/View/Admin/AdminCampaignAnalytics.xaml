@@ -6,6 +6,7 @@
     xmlns:conv="clr-namespace:GreenBill.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:GreenBill.MVVM.View.Admin"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="900"
     d:DesignWidth="1400"
@@ -82,7 +83,7 @@
 
     <Grid>
         <ScrollViewer Padding="30,0,30,0" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
+            <StackPanel Height="1500">
                 <TextBlock
                     Margin="0,20,0,0"
                     FontSize="24"
@@ -260,7 +261,45 @@
                 </Grid>
 
                 <StackPanel Margin="0,40,0,40">
-                    <StackPanel Margin="0,0,0,20">
+
+                    <Border
+                        Grid.Column="0"
+                        Margin="0,0,20,0"
+                        Padding="20"
+                        Background="White"
+                        CornerRadius="12">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="8"
+                                Opacity="0.08"
+                                ShadowDepth="2"
+                                Color="#000000" />
+                        </Border.Effect>
+                        <lvc:CartesianChart
+                            Height="300"
+                            AnimationsSpeed="0:0:0.5"
+                            LegendLocation="Bottom"
+                            Series="{Binding CartesianSeries}">
+                            <lvc:CartesianChart.ChartLegend>
+                                <lvc:DefaultLegend Margin="30,30,30,0" />
+                            </lvc:CartesianChart.ChartLegend>
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis LabelFormatter="{Binding DateFormatter}" />
+                            </lvc:CartesianChart.AxisX>
+
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis MinValue="0">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="1" />
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+
+                        </lvc:CartesianChart>
+
+
+                    </Border>
+                    <StackPanel Margin="0,40,0,20">
                         <Grid>
                             <!--  Bottom line under all tabs  -->
                             <Border
@@ -420,7 +459,13 @@
                                     <Setter.Value>
                                         <ControlTemplate TargetType="DataGridCell">
                                             <Border Background="{TemplateBinding Background}">
-                                                <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                                <TextBlock
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="24"
+                                                    TextTrimming="CharacterEllipsis">
+                                                    <ContentPresenter />
+                                                </TextBlock>
                                             </Border>
                                         </ControlTemplate>
                                     </Setter.Value>
@@ -452,14 +497,10 @@
                                 Header="Donation Goal" />
                             <DataGridTextColumn
                                 Width="*"
-                                MinWidth="200"
+                                MinWidth="100"
                                 Binding="{Binding DonationRaised}"
                                 Header="Donation Raised" />
-                            <DataGridTextColumn
-                                Width="*"
-                                MinWidth="150"
-                                Binding="{Binding CreatedAt}"
-                                Header="Created At" />
+
                             <DataGridTemplateColumn
                                 Width="*"
                                 MinWidth="100"
@@ -474,10 +515,12 @@
                                             <InlineUIContainer>
                                                 <Border Padding="6,2" CornerRadius="10">
                                                     <TextBlock
+                                                        MinWidth="70"
                                                         HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
                                                         FontSize="14"
-                                                        Text="{Binding Status}">
+                                                        Text="{Binding Status}"
+                                                        TextAlignment="Center">
                                                         <TextBlock.Style>
                                                             <Style TargetType="TextBlock">
                                                                 <Style.Triggers>
@@ -516,6 +559,12 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
+
+                            <DataGridTextColumn
+                                Width="*"
+                                MinWidth="90"
+                                Binding="{Binding CreatedAt}"
+                                Header="Created At" />
 
                             <DataGridTemplateColumn Width="50">
                                 <DataGridTemplateColumn.CellTemplate>

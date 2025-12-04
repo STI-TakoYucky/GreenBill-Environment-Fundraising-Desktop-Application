@@ -16,5 +16,6 @@ namespace GreenBill.IServices
         Task Create(User user); 
         IMongoCollection<User> Collection { get; }
         Task<bool> UpdateUserAsync(ObjectId id, User updatedUser);
+        Task<bool> DeleteUserAsync(ObjectId id);
     }
 }

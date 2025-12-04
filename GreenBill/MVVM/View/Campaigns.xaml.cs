@@ -84,13 +84,10 @@ namespace GreenBill.MVVM.View
             switch (filterType.ToLower())
             {
                 case "trending":
-                    // Additional UI-specific logic if needed
                     break;
                 case "nearyou":
-                    // Additional UI-specific logic if needed
                     break;
                 case "nonprofits":
-                    // Additional UI-specific logic if needed
                     break;
                 default:
                     break;

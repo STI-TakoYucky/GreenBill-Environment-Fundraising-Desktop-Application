@@ -245,6 +245,9 @@ namespace GreenBill.MVVM.ViewModel
                 return;
             }
 
+            var result = MessageBox.Show("Are you sure that all information you entered is correct?", "confirmation", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.No) return;
+   
             IsLoading = true;
             User user = _userSessionService.CurrentUser;
 

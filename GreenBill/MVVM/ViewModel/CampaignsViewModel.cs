@@ -104,7 +104,7 @@ namespace GreenBill.MVVM.ViewModel
                 var campaigns = await _campaignService.GetAllCampaignsAsync(new CampaignIncludeOptions { IncludeDonationRecord = true}, "Verified");
                 _allCampaigns.Clear();
                 Campaigns.Clear();
-
+                
                 foreach (var campaign in campaigns)
                 {
                     _allCampaigns.Add(campaign);

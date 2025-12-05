@@ -90,7 +90,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             get => User?.Email;
             set {
                 if (User != null) {
-                    User.Email = value;
+                    User.Email = value.ToLower();
                     OnPropertyChanged();
                 }
             }

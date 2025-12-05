@@ -493,12 +493,12 @@
                             <DataGridTextColumn
                                 Width="*"
                                 MinWidth="150"
-                                Binding="{Binding DonationGoal}"
+                                Binding="{Binding DonationGoal, StringFormat=₱{0:N2}}"
                                 Header="Donation Goal" />
                             <DataGridTextColumn
                                 Width="*"
                                 MinWidth="100"
-                                Binding="{Binding DonationRaised}"
+                                Binding="{Binding TotalAmountRaised}"
                                 Header="Donation Raised" />
 
                             <DataGridTemplateColumn

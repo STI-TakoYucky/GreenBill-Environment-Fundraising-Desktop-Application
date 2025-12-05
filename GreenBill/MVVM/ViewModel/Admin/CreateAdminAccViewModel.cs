@@ -74,7 +74,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             get => NewUser?.Email;
             set {
                 if (NewUser != null) {
-                    NewUser.Email = value;
+                    NewUser.Email = value.ToLower();
                     OnPropertyChanged();
                 }
             }
@@ -260,6 +260,8 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                     }
 
                     if (NewUser.Profile == null) NewUser.Profile = GetDefaultProfilePicture();
+
+                  
 
                     await _userService.Create(NewUser);
                     ShowSuccessMessage = true;

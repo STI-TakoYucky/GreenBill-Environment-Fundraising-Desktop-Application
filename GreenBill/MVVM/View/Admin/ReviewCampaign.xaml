@@ -24,6 +24,7 @@
             <conv:EmptyCollectionToVisibilityConverter x:Key="EmptyToVis" />
             <conv:MultiFileParameterConverter x:Key="MultiFileParameterConverter" />
             <conv:FileTypeToPreviewConverter x:Key="FileTypeToPreviewConverter" />
+            <conv:BytesToMBConverter x:Key="BytesToMBConverter" />
             <Style x:Key="ModernTextBox" TargetType="TextBox">
                 <Setter Property="Height" Value="45" />
                 <Setter Property="Padding" Value="15,10" />
@@ -304,8 +305,12 @@
                                             FontSize="14"
                                             FontWeight="SemiBold"
                                             Foreground="#263238"
-                                            Text="{Binding SelectedCampaign.DonationGoal}"
-                                            TextWrapping="Wrap" />
+                                            TextWrapping="Wrap">
+                                            <TextBlock.Text>
+                                                <Binding Path="SelectedCampaign.DonationGoal" StringFormat="₱{0}" />
+                                            </TextBlock.Text>
+                                        </TextBlock>
+
                                     </StackPanel>
                                 </Border>
                                 <!--  Created At  -->
@@ -367,8 +372,7 @@
                                 </Border>
                             </StackPanel>
 
-                            <UniformGrid Grid.Row="3" Columns="1">
-                                <!--  Created At  -->
+                            <!--<UniformGrid Grid.Row="3" Columns="1">
                                 <Border
                                     Margin="0,0,12,12"
                                     Padding="12"
@@ -389,7 +393,7 @@
                                             TextWrapping="Wrap" />
                                     </StackPanel>
                                 </Border>
-                            </UniformGrid>
+                            </UniformGrid>-->
                         </Grid>
                     </Grid>
                 </Border>
@@ -572,8 +576,13 @@
                                                         FontSize="14"
                                                         FontWeight="SemiBold"
                                                         Foreground="#263238"
-                                                        Text="{Binding FileSize}"
-                                                        TextWrapping="Wrap" />
+                                                        TextWrapping="Wrap">
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}{0:F1} MB">
+                                                                <Binding Converter="{StaticResource BytesToMBConverter}" Path="FileSize" />
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
                                                 </StackPanel>
                                             </Border>
                                             <!--  Upload Date  -->

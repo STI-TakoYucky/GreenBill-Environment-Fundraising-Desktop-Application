@@ -176,6 +176,7 @@ namespace GreenBill.MVVM.ViewModel
                     }
 
                     NewUser.Profile = GetDefaultProfilePicture();
+                    NewUser.Email = NewUser.Email.ToLower();
 
                     await _userService.Create(NewUser);
                     ShowSuccessMessage = true;

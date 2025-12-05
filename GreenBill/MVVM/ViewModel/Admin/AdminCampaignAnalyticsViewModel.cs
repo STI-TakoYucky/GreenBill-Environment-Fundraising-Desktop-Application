@@ -216,7 +216,7 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         }
 
         private async Task LoadCampaignsAsync() {
-            campaignsFromDB = await _campaignService.GetAllCampaignsAsync();
+            campaignsFromDB = await _campaignService.GetAllCampaignsAsync(new CampaignIncludeOptions { IncludeDonationRecord = true });
             if (campaignsFromDB == null) return;
 
             try {

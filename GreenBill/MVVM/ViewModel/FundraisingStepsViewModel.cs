@@ -397,6 +397,9 @@ namespace GreenBill.MVVM.ViewModel
 
         public async void SaveCampaignAsync()
         {
+            var result = MessageBox.Show("Are you sure that all data you entered is correct?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.No) return;
+
             try
             {
                 IsLoading = true;

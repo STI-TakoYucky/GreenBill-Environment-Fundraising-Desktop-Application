@@ -433,7 +433,7 @@
                             <DataGridTemplateColumn
                                 Width="*"
                                 MinWidth="100"
-                                Header="Status">
+                                Header="Stripe Verification Status">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock

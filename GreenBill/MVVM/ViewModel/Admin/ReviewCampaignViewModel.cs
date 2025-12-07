@@ -31,9 +31,12 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         private IDonationRecordService _donationRecordService;
 
         public SeriesCollection CartesianSeries { get; set; }
-        public ICommand Approve_ReviewCampaign { get; set; }
-        public ICommand Approve_ReviewSupportingDocument { get; set; }
+        public ICommand ApproveCampaignAsyncCommand { get; set; }
+        public ICommand ReviewCampaignAsyncCommand { get; set; }
         public ICommand RejectCampaign { get; set; }
+        public ICommand ApproveSupportingDocumentCommand { get; set; }
+        public ICommand ReviewSupportingDocumentCommand { get; set; }
+        public ICommand RejectDocument { get; set; }
 
         private ICommand _previewImageCommand;
 
@@ -47,7 +50,6 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         }
 
 
-        public ICommand RejectDocument { get; set; }
 
         private ObjectId _campaignId;
         public ObservableCollection<GreenBill.MVVM.Model.Campaign> Campaigns { get; set; } = new ObservableCollection<GreenBill.MVVM.Model.Campaign>();
@@ -105,14 +107,16 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             _campaignService = campaignService;
             _supportingDocumentService = supportingDocumentService;
             Navigation = navService;
+            CartesianSeries = new SeriesCollection();
             _donationRecordService = donationRecordService;
-            Approve_ReviewCampaign = new RelayCommand(o => Approve_ReviewCampaignAsync());
-            Approve_ReviewSupportingDocument = new RelayCommand(o => Approve_ReviewSupportingDocumentAsync(o));
+            ApproveCampaignAsyncCommand = new RelayCommand(o => ApproveCampaignAsync());
+            ReviewCampaignAsyncCommand = new RelayCommand(o => ReviewCampaignAsync());
+            ApproveSupportingDocumentCommand = new RelayCommand(o => ApproveSupportingDocumentAsync(o));
             RejectCampaign = new RelayCommand(o => RejectCampaignAsync(o));
             RejectDocument = new RelayCommand(o => RejectDocumentAsync(o));
             _previewImageCommand = new RelayCommand(param => PreviewFile(param));
             NavigateBack = new RelayCommand(o => Navigation.NavigateToTab<AdminCampaignAnalyticsViewModel>());
-
+            ReviewSupportingDocumentCommand = new RelayCommand(o => ReviewSupportingDocumentAsync(o));
 
         }
 
@@ -250,44 +254,75 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             }
         }
 
-        public void Approve_ReviewCampaignAsync() {
+        //public void Approve_ReviewCampaignAsync() {
 
-            if (SelectedCampaign.Status == "Verified") {
-                MessageBoxResult docReviewMsg = MessageBox.Show(
-                   "This campaign will be back to the reviewing stage. Do you want to continue?",
-                   "Review Campaign",
-                   MessageBoxButton.YesNo,
-                   MessageBoxImage.Question
-               );
+        //    if (SelectedCampaign.Status == "Verified") {
+        //        MessageBoxResult docReviewMsg = MessageBox.Show(
+        //           "This campaign will be back to the reviewing stage. Do you want to continue?",
+        //           "Review Campaign",
+        //           MessageBoxButton.YesNo,
+        //           MessageBoxImage.Question
+        //       );
 
-                if (docReviewMsg == MessageBoxResult.No) {
-                    return;
-                }
+        //        if (docReviewMsg == MessageBoxResult.No) {
+        //            return;
+        //        }
 
-                _campaignService.StageReviewCampaign(CampaignId);
-                SelectedCampaign.Status = "in review";
-                return;
-            }
+        //        _campaignService.StageReviewCampaign(CampaignId);
+        //        SelectedCampaign.Status = "in review";
+        //        return;
+        //    }
 
-            //check if there are documents that needs verification
-            int docCount = 0;
-            foreach (var item in SupportingDocument) {
-                if (item.Status == "in review") {
-                    docCount++;
-                }
-            }
+        //    //check if there are documents that needs verification
+        //    int docCount = 0;
+        //    foreach (var item in SupportingDocument) {
+        //        if (item.Status == "in review") {
+        //            docCount++;
+        //        }
+        //    }
+
+        //    if (docCount > 0) {
+        //        MessageBoxResult docReviewMsg = MessageBox.Show(
+        //           docCount + " document/s needs to be reviewed. Are you sure you want to verify now?",
+        //           "Review Pending",
+        //           MessageBoxButton.YesNo,
+        //           MessageBoxImage.Question
+        //       );
+
+        //        if (docReviewMsg == MessageBoxResult.No) {
+        //            return;
+        //        }
+        //    } else {
+        //        MessageBoxResult msg = MessageBox.Show(
+        //            "Verify this campaign now?",
+        //            "Verify Campaign",
+        //            MessageBoxButton.YesNo,
+        //            MessageBoxImage.Question
+        //        );
+
+        //        if (msg == MessageBoxResult.No) {
+        //            return;
+        //        }
+        //    }
+
+        //    _campaignService.ApproveCampaign(CampaignId);
+        //    SelectedCampaign.Status = "Verified";
+        //}
+
+        public void ApproveCampaignAsync() {
+            // Check if there are documents requiring review
+            int docCount = SupportingDocument.Count(d => d.Status == "in review" || d.Status == "Pending");
 
             if (docCount > 0) {
                 MessageBoxResult docReviewMsg = MessageBox.Show(
-                   docCount + " document/s needs to be reviewed. Are you sure you want to verify now?",
-                   "Review Pending",
-                   MessageBoxButton.YesNo,
-                   MessageBoxImage.Question
-               );
+                    $"{docCount} document/s need to be reviewed. Are you sure you want to verify now?",
+                    "Review Pending",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question
+                );
 
-                if (docReviewMsg == MessageBoxResult.No) {
+                if (docReviewMsg == MessageBoxResult.No)
                     return;
-                }
             } else {
                 MessageBoxResult msg = MessageBox.Show(
                     "Verify this campaign now?",
@@ -296,14 +331,14 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                     MessageBoxImage.Question
                 );
 
-                if (msg == MessageBoxResult.No) {
+                if (msg == MessageBoxResult.No)
                     return;
-                }
             }
 
             _campaignService.ApproveCampaign(CampaignId);
             SelectedCampaign.Status = "Verified";
         }
+
 
         public void RejectCampaignAsync(object parameter) {
             MessageBoxResult msg = MessageBox.Show(
@@ -320,43 +355,105 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             SelectedCampaign.Status = "Rejected";
         }
 
-        public void Approve_ReviewSupportingDocumentAsync(object parameter) {
+        public void ReviewCampaignAsync() {
+            MessageBoxResult docReviewMsg = MessageBox.Show(
+                "This campaign will go back to the reviewing stage. Do you want to continue?",
+                "Review Campaign",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
 
-            SupportingDocument selectedDoc = SupportingDocument.FirstOrDefault(c => c.Id == (string)parameter);
-            ObjectId _id = ObjectId.Parse(parameter.ToString());
-
-            if (selectedDoc.Status == "Verified") {
-                MessageBoxResult docReviewMsg = MessageBox.Show(
-                   "This document will be back to the reviewing stage. Do you want to continue?",
-                   "Review Document",
-                   MessageBoxButton.YesNo,
-                   MessageBoxImage.Question
-               );
-
-                if (docReviewMsg == MessageBoxResult.No) {
-                    return;
-                }
-
-                _supportingDocumentService.StageReviewSupportingDocument(_id);
-                selectedDoc.Status = "in review";
+            if (docReviewMsg == MessageBoxResult.No)
                 return;
-            }
+
+            _campaignService.StageReviewCampaign(CampaignId);
+            SelectedCampaign.Status = "in review";
+        }
+
+        //public void Approve_ReviewSupportingDocumentAsync(object parameter) {
+
+        //    SupportingDocument selectedDoc = SupportingDocument.FirstOrDefault(c => c.Id == (string)parameter);
+        //    ObjectId _id = ObjectId.Parse(parameter.ToString());
+
+        //    if (selectedDoc.Status == "Verified") {
+        //        MessageBoxResult docReviewMsg = MessageBox.Show(
+        //           "This document will be back to the reviewing stage. Do you want to continue?",
+        //           "Review Document",
+        //           MessageBoxButton.YesNo,
+        //           MessageBoxImage.Question
+        //       );
+
+        //        if (docReviewMsg == MessageBoxResult.No) {
+        //            return;
+        //        }
+
+        //        _supportingDocumentService.StageReviewSupportingDocument(_id);
+        //        selectedDoc.Status = "in review";
+        //        return;
+        //    }
+
+        //    MessageBoxResult msg = MessageBox.Show(
+        //            "Verify this document now?",
+        //            "Verify Document",
+        //            MessageBoxButton.YesNo,
+        //            MessageBoxImage.Question
+        //        );
+
+        //    if (msg == MessageBoxResult.No) {
+        //        return;
+        //    }
+
+        //    _supportingDocumentService.ApproveSupportingDocument(_id);
+        //    selectedDoc.Status = "Verified";
+        //    _supportingDocumentService.UpdateComments(_id, selectedDoc.ReviewComments);
+        //}
+
+        public void ApproveSupportingDocumentAsync(object parameter) {
+            var selectedDoc = SupportingDocument.FirstOrDefault(c => c.Id == (string)parameter);
+            if (selectedDoc == null)
+                return;
+
+            ObjectId id = ObjectId.Parse(parameter.ToString());
 
             MessageBoxResult msg = MessageBox.Show(
-                    "Verify this document now?",
-                    "Verify Document",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question
-                );
+                "Verify this document now?",
+                "Verify Document",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
 
-            if (msg == MessageBoxResult.No) {
+            if (msg == MessageBoxResult.No)
                 return;
-            }
 
-            _supportingDocumentService.ApproveSupportingDocument(_id);
+            _supportingDocumentService.ApproveSupportingDocument(id);
+
             selectedDoc.Status = "Verified";
-            _supportingDocumentService.UpdateComments(_id, selectedDoc.ReviewComments);
+
+            // Save comments after approval
+            _supportingDocumentService.UpdateComments(id, selectedDoc.ReviewComments);
         }
+
+        public void ReviewSupportingDocumentAsync(object parameter) {
+            var selectedDoc = SupportingDocument.FirstOrDefault(c => c.Id == (string)parameter);
+            if (selectedDoc == null)
+                return;
+
+            ObjectId id = ObjectId.Parse(parameter.ToString());
+
+            MessageBoxResult result = MessageBox.Show(
+                "This document will be back to the reviewing stage. Do you want to continue?",
+                "Review Document",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+
+            if (result == MessageBoxResult.No)
+                return;
+
+            _supportingDocumentService.StageReviewSupportingDocument(id);
+            selectedDoc.Status = "Pending";
+        }
+
 
         public void RejectDocumentAsync(object parameter) {
             SupportingDocument selectedDoc = SupportingDocument.FirstOrDefault(c => c.Id == (string)parameter);

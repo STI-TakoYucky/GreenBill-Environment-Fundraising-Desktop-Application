@@ -130,29 +130,68 @@
                             <StackPanel
                                 Grid.Row="0"
                                 Margin="0,30,0,12"
-                                HorizontalAlignment="Right"
+                                HorizontalAlignment="Left"
                                 Orientation="Horizontal">
-                                <Button Margin="0,0,12,0" Command="{Binding Approve_ReviewCampaign}">
+
+                                <!--  APPROVE BUTTON — only visible during 'in review'  -->
+                                <Button
+                                    Margin="0,0,12,0"
+                                    Command="{Binding ApproveCampaignAsyncCommand}"
+                                    CommandParameter="{Binding SelectedCampaign.Id}"
+                                    Content="Approve">
                                     <Button.Style>
                                         <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
-                                            <Setter Property="Content" Value="Approve" />
+                                            <Setter Property="Visibility" Value="Collapsed" />
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Verified">
-                                                    <Setter Property="Content" Value="Review" />
-                                                </DataTrigger>
                                                 <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="in review">
-                                                    <Setter Property="Content" Value="Approve" />
+                                                    <Setter Property="Visibility" Value="Visible" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
                                 </Button>
 
+                                <!--  REVIEW BUTTON — visible only when Verified/Rejected  -->
+                                <Button
+                                    Margin="0,0,12,0"
+                                    Command="{Binding ReviewCampaignAsyncCommand}"
+                                    CommandParameter="{Binding SelectedCampaign.Id}"
+                                    Content="Review">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Verified">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Rejected">
+                                                    <Setter Property="Visibility" Value="Visible" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+
+                                <!--  REJECT BUTTON — hidden when Verified or Rejected  -->
                                 <Button
                                     Command="{Binding RejectCampaign}"
                                     CommandParameter="{Binding SelectedCampaign.Id}"
-                                    Content="Reject"
-                                    Style="{StaticResource SecondaryButton}" />
+                                    Content="Reject">
+                                    <Button.Style>
+                                        <Style BasedOn="{StaticResource SecondaryButton}" TargetType="Button">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Verified">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding SelectedCampaign.Status}" Value="Rejected">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+
                             </StackPanel>
                         </StackPanel>
 
@@ -337,6 +376,16 @@
                             </UniformGrid>
 
                             <StackPanel Grid.Row="2" Margin="0,20,0,20">
+                                <StackPanel.Style>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CartesianSeries.Count}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </StackPanel.Style>
                                 <TextBlock
                                     Margin="0,0,0,20"
                                     FontSize="24"
@@ -485,7 +534,7 @@
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Status}" Value="in review">
+                                                            <DataTrigger Binding="{Binding Status}" Value="Pending">
                                                                 <Setter Property="Foreground" Value="#856404" />
                                                             </DataTrigger>
                                                             <DataTrigger Binding="{Binding Status}" Value="Verified">
@@ -614,10 +663,18 @@
                                                     FontSize="12"
                                                     Foreground="#8A8F95"
                                                     Text="Comments" />
-                                                <TextBox
-                                                    Margin="0,10,0,10"
-                                                    Style="{StaticResource ModernTextBox}"
-                                                    Text="{Binding ReviewComments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                <TextBox Margin="0,10,0,10" Text="{Binding ReviewComments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                    <TextBox.Style>
+                                                        <Style BasedOn="{StaticResource ModernTextBox}" TargetType="TextBox">
+                                                            <Setter Property="IsEnabled" Value="False" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Status}" Value="Pending">
+                                                                    <Setter Property="IsEnabled" Value="True" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBox.Style>
+                                                </TextBox>
                                             </StackPanel>
 
 
@@ -627,21 +684,48 @@
                                             Margin="0,10,0,0"
                                             HorizontalAlignment="Right"
                                             Orientation="Horizontal">
+
+
                                             <Button
                                                 Width="100"
                                                 Height="30"
                                                 Margin="0,0,10,0"
-                                                Command="{Binding DataContext.Approve_ReviewSupportingDocument, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                CommandParameter="{Binding Id}">
+                                                Command="{Binding DataContext.ApproveSupportingDocumentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding Id}"
+                                                Content="Approve">
                                                 <Button.Style>
                                                     <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
-                                                        <Setter Property="Content" Value="Approve" />
+                                                        <Setter Property="Visibility" Value="Collapsed" />
                                                         <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding Status}" Value="Verified">
-                                                                <Setter Property="Content" Value="Review" />
+                                                            <DataTrigger Binding="{Binding Status}" Value="Pending">
+                                                                <Setter Property="Visibility" Value="Visible" />
                                                             </DataTrigger>
-                                                            <DataTrigger Binding="{Binding Status}" Value="in review">
-                                                                <Setter Property="Content" Value="Approve" />
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+
+
+
+
+
+
+                                            <!--  REJECT BUTTON  -->
+                                            <Button
+                                                Width="100"
+                                                Height="30"
+                                                Command="{Binding DataContext.RejectDocument, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding Id}"
+                                                Content="Reject">
+                                                <Button.Style>
+                                                    <Style BasedOn="{StaticResource SecondaryButton}" TargetType="Button">
+                                                        <Setter Property="Visibility" Value="Visible" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Status}" Value="Rejected">
+                                                                <Setter Property="Visibility" Value="Hidden" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Status}" Value="Verified">
+                                                                <Setter Property="Visibility" Value="Hidden" />
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
@@ -650,10 +734,24 @@
                                             <Button
                                                 Width="100"
                                                 Height="30"
-                                                Command="{Binding DataContext.RejectDocument, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                Margin="0,0,10,0"
+                                                Command="{Binding DataContext.ReviewSupportingDocumentCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                 CommandParameter="{Binding Id}"
-                                                Content="Reject"
-                                                Style="{DynamicResource SecondaryButton}" />
+                                                Content="Review">
+                                                <Button.Style>
+                                                    <Style BasedOn="{StaticResource PrimaryButton}" TargetType="Button">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding Status}" Value="Verified">
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding Status}" Value="Rejected">
+                                                                <Setter Property="Visibility" Value="Visible" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
                                         </StackPanel>
                                     </StackPanel>
                                 </Grid>
@@ -661,7 +759,7 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <StackPanel Margin="0,0,0,150" HorizontalAlignment="Center">
+                <StackPanel Margin="0,0,0,100" HorizontalAlignment="Center">
                     <Image
                         Width="250"
                         HorizontalAlignment="Center"

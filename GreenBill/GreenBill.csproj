@@ -333,6 +333,7 @@
     <Compile Include="Converters\FileTypeToPreviewConverter.cs" />
     <Compile Include="Converters\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\MultiFileParameterConverter.cs" />
+    <Compile Include="Converters\NullProfileImageToDefaultConverter.cs" />
     <Compile Include="Converters\ProgressToWidthConverter.cs" />
     <Compile Include="Converters\ProgressWidthConverter.cs" />
     <Compile Include="Converters\StatusToColorConverter.cs" />
@@ -731,6 +732,7 @@
     <Content Include=".gitignore" />
     <Resource Include="Assets\Images\emptyTable.png" />
     <Resource Include="Assets\Images\file.png" />
+    <Resource Include="Assets\Images\blankProfile.jpg" />
     <Content Include="mongocrypt.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

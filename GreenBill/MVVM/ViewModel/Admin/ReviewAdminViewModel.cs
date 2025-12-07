@@ -35,8 +35,13 @@ namespace GreenBill.MVVM.ViewModel.Admin {
                 OnPropertyChanged(nameof(Username));
                 OnPropertyChanged(nameof(Email));
                 OnPropertyChanged(nameof(Password));
+
+                // Notify ProfileImage changed whenever User changes
+                LoadProfileImage();
+                OnPropertyChanged(nameof(ProfileImage));
             }
         }
+
 
         private ITabNavigationService Navigation {
             get => _tabNavigationService;
@@ -251,13 +256,10 @@ namespace GreenBill.MVVM.ViewModel.Admin {
             if (User?.Profile != null && User.Profile.Length > 0) {
                 ProfileImage = ByteArrayToImage(User.Profile);
             } else {
-                // Load default image if no profile picture exists
-                try {
-                    ProfileImage = new BitmapImage(new Uri("pack://application:,,,/Assets/Images/defaultProfile.jpg"));
-                } catch {
-                    // If default image doesn't exist, create a blank image
-                    ProfileImage = null;
-                }
+                // Default fallback image from resources
+                ProfileImage = new BitmapImage(
+                    new Uri("pack://application:,,,/GreenBill;component/Assets/Images/blankProfile.jpg", UriKind.Absolute)
+                );
             }
         }
 

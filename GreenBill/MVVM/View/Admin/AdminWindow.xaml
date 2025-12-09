@@ -101,6 +101,18 @@
                     Cursor="Hand"
                     FontSize="16"
                     FontWeight="SemiBold">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Role}" Value="admin">
+                                    <Setter Property="Visibility" Value="Hidden" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Role}" Value="superadmin">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                     <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                         <Viewbox Width="20" Height="20">
 

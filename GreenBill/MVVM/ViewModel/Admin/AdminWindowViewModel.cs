@@ -1,12 +1,21 @@
 using GreenBill.Core;
 using GreenBill.Services;
 using System;
+using System.Windows;
 using System.Windows.Input;
 
 namespace GreenBill.MVVM.ViewModel.Admin {
     public class AdminWindowViewModel : Core.ViewModel {
         private bool _showNavigation = true;
         private bool _isUserLoggedIn;
+        private string role;
+        public string Role { 
+            get => role;
+            set {
+                role = value;
+                OnPropertyChanged();
+            }
+        }
 
         public bool IsUserLoggedIn {
             get => _isUserLoggedIn;
@@ -17,6 +26,14 @@ namespace GreenBill.MVVM.ViewModel.Admin {
         }
 
         private ITabNavigationService _navigationService;
+        private IUserSessionService userSessionService;
+        public IUserSessionService UserSessionService {
+            get => userSessionService;
+            set {
+                userSessionService = value;
+                OnPropertyChanged();
+            }
+        }
 
         public bool ShowNavigation {
             get => _showNavigation;
@@ -44,19 +61,16 @@ namespace GreenBill.MVVM.ViewModel.Admin {
 
         public AdminWindowViewModel() { }
 
-        public AdminWindowViewModel(ITabNavigationService navService) {
+        public AdminWindowViewModel(ITabNavigationService navService, IUserSessionService userSessionService) {
             Navigation = navService;
+            UserSessionService = userSessionService;
+            Role = userSessionService.CurrentUser.Role;
             Navigation.NavigateToTab<AdminDashboardViewModel>();
-
             NavigateToDashboard = new RelayCommand(o => Navigation.NavigateToTab<AdminDashboardViewModel>());
             NavigateToUserAnalytics = new RelayCommand(o => Navigation.NavigateToTab<UserAnalyticsViewModel>());
             NavigateToSettings = new RelayCommand(o => Navigation.NavigateToTab<SettingsViewModel>());
-            //NavigateToCampaignDetails = new RelayCommand(campaign_id =>
-            //    Navigation.NavigateToTab<ReviewCampaignViewModel>(campaign_id.ToString())
-            //);
             NavigateToAdminCampaignAnalytics = new RelayCommand(o => Navigation.NavigateToTab<AdminCampaignAnalyticsViewModel>());
             NavigateToAdminAccPreview = new RelayCommand(o => Navigation.NavigateToTab<AdminAccPreviewViewModel>());
-
         }
     }
 }

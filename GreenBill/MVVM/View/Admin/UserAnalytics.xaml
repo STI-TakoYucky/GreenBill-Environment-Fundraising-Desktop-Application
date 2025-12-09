@@ -119,17 +119,6 @@
                                 FontWeight="Bold"
                                 Foreground="#00A86B"
                                 Text="{Binding UserCount}" />
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Margin="0,0,5,0"
-                                    FontSize="16"
-                                    Foreground="#00A86B"
-                                    Text="↗" />
-                                <TextBlock
-                                    FontSize="12"
-                                    Foreground="#00A86B"
-                                    Text="12.5% from last month" />
-                            </StackPanel>
                         </StackPanel>
                     </Border>
 
@@ -158,17 +147,6 @@
                                 FontWeight="Bold"
                                 Foreground="#3498DB"
                                 Text="{Binding VerifiedUserCount}" />
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Margin="0,0,5,0"
-                                    FontSize="16"
-                                    Foreground="#00A86B"
-                                    Text="↗" />
-                                <TextBlock
-                                    FontSize="12"
-                                    Foreground="#00A86B"
-                                    Text="8.2% from last month" />
-                            </StackPanel>
                         </StackPanel>
                     </Border>
 
@@ -197,17 +175,6 @@
                                 FontWeight="Bold"
                                 Foreground="#9B59B6"
                                 Text="{Binding PendingUserCount}" />
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Margin="0,0,5,0"
-                                    FontSize="16"
-                                    Foreground="#666666"
-                                    Text="→" />
-                                <TextBlock
-                                    FontSize="12"
-                                    Foreground="#666666"
-                                    Text="No change" />
-                            </StackPanel>
                         </StackPanel>
                     </Border>
 

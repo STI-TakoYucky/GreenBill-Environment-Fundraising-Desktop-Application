@@ -250,17 +250,6 @@
                                 FontWeight="Bold"
                                 Foreground="#00A86B"
                                 Text="{Binding AdminCount}" />
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    Margin="0,0,5,0"
-                                    FontSize="16"
-                                    Foreground="#00A86B"
-                                    Text="↗" />
-                                <TextBlock
-                                    FontSize="12"
-                                    Foreground="#00A86B"
-                                    Text="12.5% from last month" />
-                            </StackPanel>
                         </StackPanel>
                     </Border>
 

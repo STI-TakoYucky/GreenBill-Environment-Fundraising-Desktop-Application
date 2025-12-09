@@ -132,7 +132,7 @@ namespace GreenBill.MVVM.ViewModel
             User currentUser = _sessionService.CurrentUser;
             if(currentUser != null)
             {
-                IsAdmin = currentUser.Role.ToLower() == "admin";
+                IsAdmin = currentUser.Role.ToLower() == "admin" || currentUser.Role.ToLower() == "superadmin";
                 Debug.WriteLine(currentUser.Role);
               
             }

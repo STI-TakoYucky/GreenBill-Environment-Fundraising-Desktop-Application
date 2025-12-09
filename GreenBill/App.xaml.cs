@@ -36,7 +36,7 @@ namespace GreenBill
                 DataContext = provider.GetRequiredService<MainWindowViewModel>()
             });
 
-            services.AddSingleton<AdminWindow>(provider => new AdminWindow
+            services.AddTransient<AdminWindow>(provider => new AdminWindow
             {
                 DataContext = provider.GetRequiredService<AdminWindowViewModel>()
             });
@@ -53,7 +53,7 @@ namespace GreenBill
             services.AddSingleton<CampaignAnalyticsViewModel>();
             services.AddSingleton<CampaignDetailsViewModel>();
             services.AddSingleton<AdminDashboardViewModel>();
-            services.AddSingleton<AdminWindowViewModel>();
+            services.AddTransient<AdminWindowViewModel>();
             services.AddTransient<CampaignsViewModel>();
             services.AddTransient<UserAnalyticsViewModel>();
             services.AddSingleton<AdminCampaignAnalyticsViewModel>();
